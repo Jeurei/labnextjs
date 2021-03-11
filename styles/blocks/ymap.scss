@@ -1,0 +1,167 @@
+@keyframes sheduleShowing {
+  100% {
+    max-height: 94px;
+    margin-bottom: 13px;
+    opacity: 1;
+  }
+}
+
+.ymaps-2-1-78-balloon__close + .ymaps-2-1-78-balloon__content {
+  overflow: hidden;
+  max-height: 301px;
+  padding-left: 0;
+  margin-right: 0 !important;
+}
+
+.ymaps-2-1-78-balloon__content > * {
+  height: auto !important;
+}
+
+.baloon {
+  min-width: 370px;
+  color: $color-text;
+}
+
+.baloon__top,
+.baloon__middle {
+  border-bottom: 1px dashed $color-text;
+}
+
+.baloon__top-container {
+  padding-bottom: 10.5px;
+  padding-left: 32px;
+}
+
+.baloon__middle-container,
+.baloon__bottom-container {
+  padding-top: 10.5px;
+  padding-bottom: 10.5px;
+  padding-left: 32px;
+}
+
+.baloon__title {
+  position: relative;
+  margin-bottom: 7px;
+  color: $color-text;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.baloon__title-icon {
+  position: absolute;
+  top: 3px;
+  left: -20px;
+}
+
+.baloon__top-text {
+  padding-right: 30%;
+  margin-top: 0;
+  color: rgba($color: $color-text, $alpha: 0.3);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.baloon__tel {
+  position: relative;
+  margin: 0;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.baloon__tel-icon {
+  position: absolute;
+  top: 4px;
+  left: -20px;
+}
+
+.baloon__shedule-time {
+  position: relative;
+
+  &:after {
+    @include pseudo('', 9px, 9px);
+    position: absolute;
+    top: 0;
+    right: -22px;
+    border: 1px solid $color-text;
+    border-top: transparent;
+    border-left: transparent;
+    transform: rotate(45deg);
+  }
+}
+
+.baloon__shedule-working-time {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover .baloon__shedule-time {
+    color: $blue;
+
+    &::after {
+      border-color: $blue;
+    }
+  }
+}
+
+.baloon__shedule-working-time-icon {
+  position: absolute;
+  top: 5px;
+  left: -20px;
+}
+
+.baloon__shedule-state {
+  margin: 0;
+  color: rgba($color: $color-text, $alpha: 0.3);
+}
+
+.shedule {
+  display: flex;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  opacity: 0;
+  transition: all;
+
+  &--shown {
+    animation: sheduleShowing 0.5s forwards ease-in-out;
+  }
+}
+
+.shedule__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.shedule__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  background-color: $color-text;
+  border-radius: 3px;
+  color: $white;
+}
+
+.baloon__bottom-icon {
+  position: absolute;
+  top: 3px;
+  left: -20px;
+}
+
+.baloon__bottom-text {
+  position: relative;
+  margin: 0;
+  font-weight: 600;
+}
+
+.baloon__bottom-text-light {
+  padding-right: 30%;
+  color: rgba($color: $color-text, $alpha: 0.3);
+}

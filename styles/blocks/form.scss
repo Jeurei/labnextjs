@@ -1,0 +1,223 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  padding-right: 2px;
+  padding-left: 2px;
+}
+
+.form__input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  border: none;
+  margin-bottom: -4px;
+
+  &:first-of-type {
+    padding-left: 0;
+  }
+
+  &:last-of-type {
+    padding-right: 0;
+  }
+}
+
+.form__input-group--checkbox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.form__input-chekbox-title {
+  display: none;
+}
+
+.form__input-checkbox-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.form__input-container {
+  position: relative;
+}
+
+.form__input {
+  width: 100%;
+  padding-top: 11px;
+  padding-bottom: 13px;
+  padding-left: 9px;
+  border: 1px solid $border-color;
+  margin-bottom: 12px;
+  background-color: transparent;
+  color: $color-text;
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.form__input--textarea {
+  height: 100%;
+  padding-bottom: 0;
+  margin-bottom: 29px;
+  resize: none;
+}
+
+.form__label--checkbox {
+  margin-right: 12px;
+  cursor: pointer;
+
+  .form__input-checkbox-span {
+    position: relative;
+    display: block;
+    width: 59px;
+    height: 27px;
+    background-color: $color-text;
+    border-radius: 999px;
+
+    &:before {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 21px;
+      height: 21px;
+      background-color: #fff;
+      border-radius: 100%;
+      content: '';
+      @include default-transition();
+    }
+  }
+
+  .form__input {
+    position: absolute;
+    opacity: 0;
+
+    &:checked {
+      + .form__input-checkbox-span {
+        background-color: $green;
+
+        &:before {
+          left: calc(100% - 25px);
+        }
+      }
+    }
+  }
+}
+
+.form__agreement-hint {
+  padding-right: 1px;
+  font-size: 10px;
+  line-height: 13px;
+}
+
+.form__button {
+  width: 100%;
+  padding-top: 14px;
+  padding-bottom: 18px;
+  border: none;
+}
+
+@media (min-width: $tablet-width) {
+  .form {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .form__input--textarea {
+    padding-top: 21px;
+    padding-bottom: 18px;
+  }
+
+  .form__input-group--checkbox {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form__input {
+    padding-top: 17px;
+    padding-left: 16px;
+    margin-bottom: 27px;
+    word-spacing: 4px;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .form__input-group--checkbox {
+    margin-top: -5px;
+    margin-right: 0;
+  }
+
+  .form__input-chekbox-title {
+    position: relative;
+    display: flex;
+    margin: 0;
+    margin-bottom: 41px;
+    font-size: $title-h2-fs;
+    font-weight: 500;
+    line-height: $title-h2-lh;
+
+    &:after {
+      @include titleAfter();
+      position: absolute;
+      top: 0;
+      top: 30px;
+      left: 0;
+      left: 6px;
+      width: 96px;
+      height: 12px;
+      content: '///////////';
+      font-size: 15px;
+      letter-spacing: 4.1px;
+    }
+  }
+
+  .form__input {
+    margin-bottom: 0;
+    font-size: $body-fs;
+    line-height: $body-lh;
+  }
+
+  .form__input--textarea {
+    padding-top: 20px;
+    padding-bottom: 12px;
+  }
+
+  .form {
+    flex-direction: row;
+    margin-bottom: 30px;
+    margin-left: -6px;
+  }
+
+  .form__input-group {
+    width: 370px;
+    justify-content: space-between;
+    margin-right: 25px;
+  }
+
+  .form__agreement-hint {
+    font-size: $body-fs;
+    letter-spacing: 0.2px;
+    line-height: $body-lh;
+  }
+
+  .form__label--checkbox {
+    padding-top: 0;
+  }
+
+  .form__input-checkbox-container {
+    margin-bottom: 31px;
+  }
+
+  .form__button {
+    width: 210px;
+    padding-left: 13px;
+    letter-spacing: 1.1px;
+  }
+}

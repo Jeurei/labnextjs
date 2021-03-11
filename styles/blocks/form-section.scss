@@ -1,0 +1,38 @@
+.form-section {
+  padding-top: 17px;
+  padding-bottom: 44px;
+  background-color: #f7f7f7;
+
+  .section__title {
+    position: relative;
+    padding-left: 8px;
+    margin-bottom: 44px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 30px;
+
+    &:after {
+      @include titleAfter();
+      top: 30px;
+      left: 15px;
+    }
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .form-section {
+    padding-top: 41px;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .form-section {
+    .section__inner {
+      padding-left: 25px;
+    }
+
+    .section__title {
+      display: none;
+    }
+  }
+}

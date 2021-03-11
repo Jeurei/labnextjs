@@ -1,0 +1,137 @@
+.shares-control__controls-slider {
+  margin-bottom: 10px;
+}
+
+.share__top {
+  min-height: 154px;
+  flex-grow: 1;
+  padding-top: 17px;
+  padding-left: 15px;
+  background-image: url('../../public/img/banner-main@2x.png');
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.share__bottom {
+  position: relative;
+  background-color: $icons-color;
+  color: $white;
+  font-size: 7px;
+}
+
+.share__bottom-text {
+  padding-top: 4px;
+  padding-left: 15px;
+  margin: 0;
+}
+
+.share {
+  position: relative;
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  background-position: center;
+  background-position: -60px 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &--limited {
+    &::after {
+      @include pseudo('ОСТАЛОСЬ 4 ДНЯ', 75px, 20px);
+      position: absolute;
+      top: 13px;
+      right: 0;
+      padding-top: 6px;
+      background-color: $blue;
+      color: $white;
+      font-size: 6px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    &::before {
+      @include pseudo('', 27px, 27px);
+      position: absolute;
+      top: 13px;
+      right: 60px;
+      background-color: $blue;
+      border-bottom-left-radius: 50%;
+      border-top-left-radius: 50%;
+    }
+  }
+}
+
+.share__title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.share__text {
+  font-size: $alt-fs;
+  line-height: $alt-lh;
+}
+
+.share__icon {
+  position: absolute;
+  top: 2px;
+  right: 13px;
+  color: $white;
+}
+
+.share:hover {
+  .share__icon {
+    animation: moveArrow 0.5s alternate infinite ease-in-out;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .share {
+    &::after,
+    ::before {
+      height: 24px;
+    }
+
+    &::after {
+      top: 16px;
+      right: 0;
+      width: 92px;
+      padding-top: 9px;
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      font-size: 8px;
+      white-space: nowrap;
+    }
+
+    &::before {
+      top: 16px;
+      right: 72px;
+      width: 33px;
+      height: 33px;
+    }
+  }
+
+  .share__top {
+    padding-bottom: 84px;
+  }
+
+  .share__title {
+    padding-left: 6px;
+    margin-bottom: 15px;
+    font-size: $title-h3-fs;
+    line-height: $title-h3-lh;
+  }
+
+  .share__text {
+    padding-left: 5px;
+    font-size: $alt-fs;
+    line-height: $alt-lh;
+  }
+
+  .share__bottom-text {
+    padding-left: 20px;
+    font-size: 9px;
+  }
+}

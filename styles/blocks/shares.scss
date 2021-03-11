@@ -1,0 +1,156 @@
+.shares {
+  overflow: hidden;
+  padding-top: 30px;
+  padding-bottom: 21px;
+  background-color: #f7f7f7;
+}
+
+.shares__title {
+  position: relative;
+  padding-left: 8px;
+  margin-bottom: 9px;
+  font-weight: 500;
+
+  &:after {
+    left: 10px;
+    color: rgba($blue, 0.6);
+  }
+}
+
+.shares__controls-slider {
+  display: none;
+}
+
+.shares__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shares__list {
+  display: flex;
+  min-width: 301px;
+  max-width: 301px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 0;
+  margin: 0;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  list-style: none;
+  overflow-x: hidden;
+}
+
+.shares__list-item {
+  min-width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+  margin-right: 50px;
+}
+
+.shares__mobile-slider {
+  display: flex;
+  width: 301px;
+  height: 5px;
+  align-self: center;
+}
+
+.shares__mobile-slider-bar {
+  height: 100%;
+  flex-grow: 1;
+  margin-left: 5px;
+  background-color: $inactive-color;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &--active {
+    background-image: linear-gradient(
+      to left,
+      RGBA(250, 0, 235, 1),
+      RGBA(154, 102, 245, 1),
+      RGBA(43, 215, 255, 1)
+    );
+  }
+
+  &--active:nth-child(even) {
+    background-image: linear-gradient(
+      to right,
+      RGBA(250, 0, 235, 1),
+      RGBA(154, 102, 245, 1),
+      RGBA(43, 215, 255, 1)
+    );
+  }
+}
+
+@media (min-width: 620px) {
+  .shares__list {
+    min-width: 100%;
+    margin: 0;
+    margin-bottom: 5px;
+  }
+
+  .shares__container {
+    padding-left: 0;
+  }
+
+  .shares__mobile-slider {
+    width: 100%;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .shares {
+    padding-bottom: 59px;
+  }
+
+  .shares__container {
+    align-items: flex-end;
+  }
+
+  .shares__title {
+    padding-left: 3px;
+    margin-bottom: 11px;
+
+    @include titleh2($color-text);
+
+    &:after {
+      left: 10px;
+    }
+  }
+
+  .shares__controls-slider {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 3px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .shares__control:last-child {
+    margin-left: 6px;
+  }
+
+  .shares__control-button-icon {
+    color: $white;
+  }
+
+  .shares__list-item {
+    min-width: 370px;
+    max-width: 370px;
+    margin-right: 30px;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  .shares__mobile-slider {
+    display: none;
+  }
+
+  .shares__list {
+    padding-left: 3px;
+  }
+}

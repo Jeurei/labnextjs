@@ -1,0 +1,31 @@
+.links__list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  padding-top: 33px;
+  margin-bottom: 7px;
+  list-style: none;
+}
+
+@media (min-width: $tablet-width) {
+  .links {
+    background-color: $blue;
+  }
+
+  .links__list {
+    flex-direction: row;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .links {
+    .section__inner {
+      width: 1263px;
+    }
+  }
+
+  .links__list {
+    margin: 0;
+  }
+}

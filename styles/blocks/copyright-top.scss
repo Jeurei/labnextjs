@@ -1,0 +1,38 @@
+.copyright-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.copyright-top__text {
+  margin-bottom: 13px;
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+.copyright-top__logo {
+  width: 191px;
+  margin-bottom: 8px;
+}
+
+.copyright-top__small {
+  padding-left: 2px;
+  letter-spacing: 0.2px;
+}
+
+@media (min-width: $desktop-width) {
+  .copyright-top {
+    padding-top: 22px;
+    margin-left: -4px;
+  }
+
+  .copyright-top__text {
+    margin-bottom: 41px;
+  }
+
+  .copyright-top__logo {
+    margin-bottom: 28px;
+  }
+}

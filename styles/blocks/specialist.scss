@@ -1,0 +1,424 @@
+.specialist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 10px;
+}
+
+.specialist__img-container {
+  position: relative;
+  width: 244px;
+  min-height: 100%;
+  margin-right: 30px;
+}
+
+.specialist__img {
+  height: 100%;
+}
+
+.specialist__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 33px;
+  font-size: $alt-fs;
+  line-height: 45px;
+}
+
+.specialist__work-info {
+  margin-bottom: 26px;
+}
+
+.specialist__info-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  list-style: none;
+}
+
+.specialist__info-item--link {
+  display: block;
+  border-bottom: 1px dashed $blue;
+  color: $blue;
+  line-height: 21px;
+
+  &:hover {
+    border-color: $color-text;
+  }
+}
+
+.specialist__name {
+  margin: 0;
+  margin-bottom: -6px;
+  font-size: $title-h4-fs;
+  font-weight: 500;
+  line-height: $title-h4-lh;
+}
+
+.specialist__link {
+  border-bottom: 1px dashed $blue;
+  color: $blue;
+}
+
+.specialist__button {
+  min-width: 247px;
+  padding-top: 15px;
+  padding-right: 41px;
+  padding-bottom: 17px;
+  padding-left: 37px;
+  border: none;
+  margin-bottom: 10px;
+  appearance: none;
+}
+
+.specialist__tel {
+  margin-top: 0;
+  line-height: 27px;
+}
+
+.specialist__work-time {
+  width: 100%;
+  padding-top: 34px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.specialist__adress {
+  width: 100%;
+  border: 1px solid $blue;
+  margin-bottom: 5px;
+  border-radius: 5px;
+
+  .select__menu {
+    z-index: 100;
+  }
+
+  .select__control {
+    border: none;
+  }
+}
+
+.specialist__shedule-table {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .swiper-container {
+    padding-bottom: 0;
+  }
+
+  .swiper-slide {
+    width: 70.7px;
+  }
+}
+
+.specialist__shedule-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0;
+  list-style: none;
+}
+
+.specialist__shedule-list-item {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 13px;
+  border-bottom: 5px solid $color-text;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+
+  &--today {
+    border-color: $green;
+    cursor: default;
+  }
+}
+
+.specialist__shedule-week-day {
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.specialist__shedule-date {
+  margin: 0;
+}
+
+.specialist__shedule-mounth {
+  position: relative;
+  display: flex;
+  min-height: 70px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px dashed rgba($color-text, 0.4);
+  margin-bottom: 30px;
+
+  .swiper-container {
+    width: 100%;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.specialist__shedule-mounth-button {
+  position: absolute;
+  top: 30px;
+  width: 38px;
+  height: 32px;
+  border: none;
+  appearance: none;
+  background-color: transparent;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 7px;
+    display: block;
+    width: 22px;
+    height: 1px;
+
+    background-color: $color-text;
+    content: '';
+
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(0, 15px) rotate(-45deg);
+  }
+
+  &--before {
+    left: -30px;
+    transform: rotate(180deg);
+  }
+
+  &--next {
+    right: -30px;
+  }
+}
+
+.specialist__current-mounth {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.specialist__shedule-table-button {
+  position: absolute;
+  top: -7px;
+  width: 38px;
+  height: 32px;
+  border: none;
+  appearance: none;
+  background-color: transparent;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 7px;
+    display: block;
+    width: 22px;
+    height: 1px;
+
+    background-color: $color-text;
+    content: '';
+
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(0, 15px) rotate(-45deg);
+  }
+
+  &--before {
+    left: -30px;
+    transform: rotate(180deg);
+  }
+
+  &--next {
+    right: -30px;
+  }
+}
+
+.specialist__chosen-day-info,
+.specialist__closest-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  word-spacing: 3px;
+}
+
+.specialist__chosen-day-info {
+  margin-bottom: 13px;
+}
+
+.specialist__closest-day-link {
+  padding-left: 7px;
+  border-bottom: 1px dashed $blue;
+  color: $blue;
+}
+
+.specialist__price {
+  font-size: 20px;
+}
+
+.specialist__shedule-table-time-list {
+  display: flex;
+  width: 260px;
+  flex-wrap: wrap;
+  align-self: center;
+  padding: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.specialist__shedule-table-time {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  padding-top: 11px;
+  padding-bottom: 14px;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.specialist__shedule-table-time-list-item {
+  width: 70.7px;
+  margin-right: 17px;
+  margin-bottom: 5px;
+
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  color: $color-text;
+
+  &:hover {
+    background-color: $green;
+  }
+
+  &--selected {
+    background-color: $green;
+    .specialist__shedule-table-time {
+      color: $white;
+    }
+  }
+
+  &:nth-of-type(3n) {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .specialist {
+    min-height: 374px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    padding-right: 31.5px;
+  }
+
+  .specialist__img-container {
+    margin-right: auto;
+  }
+
+  .specialist__info {
+    align-items: center;
+    padding-top: 33px;
+    margin-right: auto;
+  }
+
+  .specialist__work-info {
+    margin-bottom: 26px;
+  }
+
+  .specialist__info-list {
+    align-items: flex-start;
+  }
+
+  .specialist__link {
+    border-bottom: 1px dashed $blue;
+    color: $white;
+  }
+
+  .specialist__work-time {
+    width: 574px;
+  }
+
+  .specialist__shedule {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .specialist__shedule-table-time-list {
+    width: 100%;
+    align-self: flex-start;
+  }
+
+  .specialist__shedule-table-time-list-item {
+    margin-right: 21px;
+    &:nth-of-type(3n) {
+      margin-right: 25px;
+    }
+
+    &:nth-of-type(8n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .specialist {
+    padding-bottom: 0;
+  }
+
+  .specialist__info {
+    align-items: flex-start;
+  }
+
+  .specialist__img-container {
+    margin-right: 30px;
+  }
+
+  .specialist__work-time {
+    width: 424px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .specialist__price {
+    font-size: 26px;
+  }
+
+  .specialist__shedule-table-time-list-item {
+    margin-right: 14px;
+    &:nth-of-type(3n) {
+      margin-right: 13px;
+    }
+
+    &:nth-of-type(8n) {
+      margin-right: 13px;
+    }
+  }
+}

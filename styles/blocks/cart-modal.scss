@@ -1,0 +1,170 @@
+.cart-modal {
+  position: absolute;
+  z-index: 1000;
+  top: 24px;
+  top: 100%;
+  right: 0;
+  display: flex;
+  min-width: 450px;
+  flex-direction: column;
+  padding-top: 13px;
+
+  background-color: #fff;
+  box-shadow: 1px 1px 22px 0 RGBA(74, 74, 74, 0.2);
+  cursor: default;
+}
+
+.cart-modal__top {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding-left: 29px;
+}
+
+.cart-modal__middle {
+  position: relative;
+  overflow: hidden;
+  max-height: 400px;
+}
+
+.cart-modal__title {
+  @include titleh5($color-text);
+  font-weight: 400;
+}
+
+.cart-modal__close-button {
+  top: 24px;
+}
+
+.cart-modal__group {
+  padding-left: 29px;
+
+  border-bottom: 1px dashed $color-text;
+
+  &:first-of-type {
+    border-top: 1px dashed $color-text;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.cart-modal__group-title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+}
+
+.cart-modal__list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  padding-left: 28px;
+  counter-reset: counter;
+  list-style: none;
+
+  .cart-modal__list-item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+    &:after {
+      position: absolute;
+      top: 9px;
+      left: -28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $blue;
+      border-radius: 50%;
+      color: $white;
+      counter-increment: counter;
+      @include pseudo(counter(counter), 20px, 20px);
+    }
+  }
+}
+
+.cart-modal__text {
+  padding-right: 5px;
+  margin-right: auto;
+}
+
+.cart-modal__price {
+  padding-right: 78px;
+  font-size: $title-h3-fs;
+  font-weight: 500;
+  line-height: $title-h3-lh;
+  white-space: nowrap;
+}
+
+.cart-modal__remove-item-button {
+  top: 0;
+
+  &::after,
+  &::before {
+    opacity: 0.2;
+  }
+
+  &:hover {
+    &::after,
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.cart-modal__bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+  padding-right: 17px;
+  padding-bottom: 15px;
+  padding-left: 28px;
+  background-image: linear-gradient(to left, #ff00eb, #9a66f5, #2bd7ff);
+  color: $white;
+}
+
+.cart-modal__inner--offer {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.cart-modal__offer-price-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.cart-modal__offer-price-text {
+  font-size: 13px;
+  line-height: 17px;
+}
+
+.cart-modal__offer-price {
+  font-size: 26px;
+  line-height: 35px;
+}
+
+.cart-modal__offer-button {
+  min-width: 210px;
+  max-height: 48px;
+  border: none;
+  appearance: none;
+}
+
+.cart-modal__scroll-track-vertical {
+  right: 0;
+  height: 100%;
+  background-color: $color-text;
+  border-radius: 5px;
+}
+
+.cart-modal__scroll-thumb-vertical {
+  height: 142px;
+  background-color: $blue;
+  border-radius: 5px;
+}

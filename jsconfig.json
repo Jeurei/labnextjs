@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": ".",
+    "paths": {
+      "Redux/*": ["redux/*"],
+      "utils/*": ["utils/*"],
+      "public/*": ["public/*"],
+      "components/*": ["components/*"],
+      "constants/*": ["constants/*"],
+      "common/*": ["components/common/*"],
+      "reducers/*": ["reducers/*"],
+      "store/*": ["store/*"],
+      "containers/*": ["containers/*"],
+      "icons/*": ["icons/*"]
+    }
+  }
+}

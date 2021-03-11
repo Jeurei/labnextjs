@@ -1,0 +1,171 @@
+.actual-offer__container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+  padding-right: 18px;
+  padding-left: 17px;
+}
+
+.actual-offer__link {
+  position: relative;
+  display: block;
+  min-width: 47px;
+  max-width: 47px;
+  min-height: 100%;
+  background-color: $blue;
+  background-position: 10px 2px;
+  background-repeat: no-repeat;
+
+  &--covid {
+    background-image: url('../../public/img/covid.svg');
+    background-position: 8px 50%;
+    background-size: 30px 30px;
+  }
+}
+
+.actual-offer__title {
+  margin-top: 10px;
+  margin-bottom: 14px;
+  color: $color-text;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.actual-offer__text {
+  padding-right: 26px;
+  padding-bottom: 4.5px;
+  color: $color-text;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.actual-offer__list-item-top {
+  margin-bottom: auto;
+}
+
+.actual-offer__list-item-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 10px;
+  border-top: 1px dashed $border-color;
+  margin-bottom: 10px;
+}
+
+.actual-offer__price {
+  padding-top: 2px;
+  margin-right: 14px;
+  margin-left: -2px;
+  color: $color-text;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.actual-offer__price-text {
+  padding-right: 30px;
+  margin: 0;
+  margin-top: -1px;
+  color: $color-text;
+
+  font-size: 10px;
+  line-height: 12px;
+}
+
+@media (min-width: $tablet-width) {
+  .actual-offer {
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 100%;
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+
+  .actual-offer__container {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: stretch;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 16px;
+    justify-self: flex-start;
+  }
+
+  .actual-offer__title {
+    padding-bottom: 10px;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+  }
+
+  .actual-offer__text {
+    font-size: 12px;
+  }
+
+  .actual-offer__list-item-bottom {
+    align-items: center;
+    align-self: flex-start;
+    margin-top: -3px;
+  }
+
+  .actual-offers__icon {
+    left: 35%;
+    background-color: transparent;
+    transition: transform;
+  }
+
+  .actual-offer__price {
+    margin-right: 26px;
+    font-size: 26px;
+    letter-spacing: 0.9px;
+  }
+
+  .actual-offer__price-text {
+    width: 50%;
+  }
+
+  .actual-offer__link {
+    box-shadow: none;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .actual-offer {
+    min-width: 375px;
+    max-width: 375px;
+    margin-right: 22px;
+  }
+
+  .actual-offer__title {
+    margin-bottom: 0;
+  }
+
+  .actual-offer__text {
+    padding-right: 20%;
+    letter-spacing: -0.1px;
+  }
+
+  .actual-offer__link {
+    min-width: 61px;
+    max-width: 61px;
+
+    &--covid {
+      background-position: 10px 50%;
+      background-size: 40px 40px;
+    }
+  }
+
+  .actual-offer__container {
+    flex-grow: 0;
+  }
+
+  .actual-offer__price {
+    padding-left: 4px;
+    margin-right: 9px;
+    word-spacing: 4px;
+  }
+}

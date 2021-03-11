@@ -1,0 +1,43 @@
+.social__link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  color: $white;
+}
+
+.social {
+  margin-right: 20.5px;
+
+  &:first-child {
+    padding-left: 18px;
+  }
+
+  &--odn:hover {
+    .social__link {
+      color: $social-odn-color;
+    }
+  }
+
+  &--vk:hover {
+    .social__link {
+      color: $social-vk-color;
+    }
+  }
+
+  &--fb:hover {
+    .social__link {
+      color: $social-fb-color;
+    }
+  }
+
+  &--inst:hover {
+    .social__link {
+      color: $social-inst-color;
+    }
+  }
+}
+
+.social__icon {
+  stroke-width: 0;
+}

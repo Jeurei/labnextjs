@@ -1,0 +1,41 @@
+.controls-slider-container {
+  display: flex;
+  align-self: flex-end;
+}
+
+.swiper-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.swiper-container {
+  padding-bottom: 40px;
+}
+
+.swiper-slide {
+  position: relative;
+  display: flex;
+  height: auto;
+  min-height: 100%;
+}
+
+.swiper-pagination {
+  display: flex;
+  flex-direction: row;
+  justify-items: start;
+}
+
+.swiper-pagination-bullet {
+  height: 5px;
+  flex-grow: 1;
+  border-radius: 4px;
+
+  &-active {
+    background-image: linear-gradient(
+      -135deg,
+      #ff00eb 0,
+      #9a66f5 50%,
+      #2bd7ff 100%
+    );
+  }
+}

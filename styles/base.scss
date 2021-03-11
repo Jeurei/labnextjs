@@ -1,0 +1,98 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 320px;
+  padding: 0;
+  margin: 0;
+  background-color: $bg-color;
+  font-family: $main-font;
+  font-size: $body-fs;
+  line-height: $body-lh;
+  overflow-x: hidden;
+  -ms-scroll-limit-x-max: 0;
+  @include font($color-text);
+}
+
+a {
+  color: $color-text;
+  outline-color: $color-text;
+  text-decoration: none;
+
+  &:hover,
+  :active {
+    color: $color-text;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $color-text;
+  }
+}
+
+svg {
+  width: auto;
+  height: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+  outline-color: $color-text;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $color-text;
+  }
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $color-text;
+  }
+
+  &[type='time']::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  &[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+}
+
+#root {
+  overflow-x: hidden;
+}
+
+@media (min-width: $tablet-width) {
+  body {
+    min-width: $tablet-width;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  body {
+    min-width: $desktop-width;
+  }
+}

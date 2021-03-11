@@ -1,0 +1,122 @@
+.header {
+  position: fixed;
+  z-index: 10000;
+  width: 100%;
+  padding-top: 0;
+  background: white;
+}
+
+.header__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.header-top__mobile-list-link-cart-value {
+  position: absolute;
+  top: -8px;
+  left: 7px;
+  display: flex;
+  width: 12px;
+  height: 12px;
+  align-items: center;
+  justify-content: center;
+  background-color: $blue;
+  border-radius: 50%;
+  color: $white;
+  font-size: 10px;
+}
+
+.header__bottom-container {
+  position: relative;
+  padding-top: 4px;
+  padding-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.header__fixed-container {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.header__expand-button {
+  position: absolute;
+  z-index: 500;
+  bottom: -25px;
+  left: 45%;
+  display: flex;
+  width: 40px;
+  height: 25px;
+  border: 1px solid RGBA(112, 112, 112, 0.3);
+  appearance: none;
+  background-color: #fff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.header__expand-button-icon {
+  position: absolute;
+  top: -2px;
+  left: 7px;
+  color: $color-text;
+}
+
+.header__top-container {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@media (min-width: $tablet-width) {
+  .header {
+    max-width: 100vw;
+  }
+
+  .header__expand-button {
+    left: 50%;
+  }
+
+  .header__bottom-container {
+    padding-top: 9px;
+  }
+
+  .header__inner {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .header__nav {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .header__top-container {
+    padding-bottom: 5px;
+  }
+
+  .header__bottom {
+    justify-content: flex-end;
+  }
+
+  .header__bottom-container {
+    display: flex;
+    min-height: 64px;
+    padding: 0;
+
+    .header__inner {
+      display: flex;
+      width: 100%;
+      min-height: 100%;
+    }
+  }
+}

@@ -1,0 +1,124 @@
+.header-bottom__right {
+  display: none;
+}
+
+.header-bottom__left {
+  display: none;
+}
+
+.header-bottom {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.header-bottom__mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: auto;
+}
+
+.header-bottom__mobile-top-img {
+  width: 222px;
+  height: 33px;
+  margin-right: auto;
+}
+
+.header-bottom__burger-button-container {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  appearance: none;
+  background-color: transparent;
+}
+
+.header-bottom__mobile-burger-button-container {
+  display: inline-block;
+  border: none;
+  appearance: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.header-bottom__mobile-burger-bar {
+  width: 20px;
+  height: 3px;
+  margin: 6px 0;
+  margin-bottom: 0;
+  background-color: #333;
+  border-radius: 30%;
+  transition: 0.4s;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.header-bottom__mobile-burger-button-container--active {
+  .header-bottom__mobile-burger-bar--1 {
+    -webkit-transform: rotate(-45deg) translate(-5px, 5px);
+    transform: rotate(-45deg) translate(-5px, 5px);
+  }
+
+  .header-bottom__mobile-burger-bar--2 {
+    opacity: 0;
+  }
+
+  .header-bottom__mobile-burger-bar--3 {
+    -webkit-transform: rotate(45deg) translate(-6px, -6px);
+    transform: rotate(45deg) translate(-6px, -6px);
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .header-bottom__mobile {
+    display: none;
+  }
+
+  .header-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-right: 12px;
+    padding-left: 10px;
+  }
+
+  .header-bottom__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .header-bottom__left {
+    display: block;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .header-bottom {
+    min-height: 100%;
+    align-items: stretch;
+  }
+
+  .header-bottom__mobile-top-img {
+    margin-right: 20px;
+  }
+
+  .header-bottom__mobile-burger-button-container {
+    display: none;
+  }
+
+  .header-bottom__left {
+    display: flex;
+    align-items: center;
+    padding-left: 35px;
+  }
+}

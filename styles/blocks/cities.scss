@@ -1,0 +1,93 @@
+.cities {
+  position: relative;
+  height: 100%;
+  border: none;
+  margin-right: auto;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: inherit;
+
+  &::after {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 5px;
+    height: 5px;
+    border: 1px solid $color-text;
+    border-top: 0;
+    border-left: 0;
+    background-color: transparent;
+    content: '';
+    transform: rotate(45deg);
+  }
+
+  &:hover {
+    & + .header-top__left-icon {
+      color: $blue;
+    }
+  }
+}
+
+.cities__modal {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  width: 372px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 40px;
+  padding-right: 57px;
+  padding-bottom: 40px;
+  padding-left: 39px;
+  background-color: #fff;
+  box-shadow: $box-shadow;
+}
+
+.cities__list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  list-style: none;
+}
+
+.cities__list-item {
+  width: 50%;
+}
+
+.cities__title {
+  margin-bottom: 0;
+  font-size: $title-h4-fs;
+  font-weight: 500;
+  line-height: $title-h4-lh;
+}
+
+.cities__button {
+  padding: 0;
+  border: none;
+  appearance: none;
+  background-color: transparent;
+  font-size: 12px;
+  line-height: 22px;
+}
+
+@media (min-width: $tablet-width) {
+  .cities::after {
+    top: 5px;
+    right: -9px;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .cities {
+    &:after {
+      top: 3px;
+      right: -19px;
+      width: 9px;
+      height: 9px;
+    }
+    .select__content {
+      top: 29px;
+    }
+  }
+}

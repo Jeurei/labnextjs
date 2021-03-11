@@ -1,0 +1,41 @@
+@keyframes shine {
+  0% {
+    left: -45%;
+    opacity: 1;
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes moveArrow {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.3);
+  }
+}
+
+@keyframes moveMenuArrow {
+  0% {
+    transform: translateX(0) scale(0.6) rotate(-45deg);
+  }
+
+  100% {
+    transform: translateX(5px) scale(0.6) rotate(-45deg);
+  }
+}

@@ -1,0 +1,73 @@
+@mixin titleh2($color) {
+  color: $color;
+  font-size: $title-h2-fs;
+  font-weight: 500;
+  line-height: $title-h2-lh;
+}
+
+@mixin titleh3($color) {
+  color: $color;
+  font-size: $title-h3-fs;
+  line-height: $title-h3-lh;
+}
+
+@mixin titleh5($color) {
+  color: $color;
+  font-size: $title-h4-fs;
+  line-height: $title-h4-lh;
+}
+
+@mixin font($color, $default: true) {
+  color: $color;
+  font-style: normal;
+  font-weight: normal;
+
+  @if $default {
+    font-size: $body-fs;
+    line-height: $body-lh;
+  } @else {
+    font-size: $alt-fs;
+    line-height: $alt-lh;
+  }
+}
+
+@mixin pseudo($content, $width, $height) {
+  display: flex;
+  width: $width;
+  height: $height;
+  content: $content;
+}
+
+@mixin titleAfter() {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 28px);
+  display: block;
+  width: 130px;
+  height: 14px;
+  content: '///////////';
+  font-size: 22px;
+  letter-spacing: 4.5px;
+  opacity: 0.3;
+  transform: skew(-16deg, 0deg);
+}
+
+@mixin default-transition(
+  $values: all,
+  $speed: 300ms,
+  $transition: cubic-bezier(0.2, 0.79, 0.44, 1)
+) {
+  //cubic-bezier(0.23, 1, 0.32, 1)) {
+  $string: 0;
+
+  @each $value in $values {
+    $i: index($values, $value);
+
+    @if ($i == 1) {
+      $string: $value + ' ' + $speed + ' ' + $transition;
+    } @else {
+      $string: $string + ', ' + $value + ' ' + $speed + ' ' + $transition;
+    }
+  }
+  transition: $string;
+}

@@ -1,0 +1,129 @@
+.nav__list {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0;
+  padding-top: 3px;
+  list-style: none;
+}
+
+.nav__link {
+  position: relative;
+  display: block;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding-left: px;
+  padding-left: 10px;
+  padding-left: 10px;
+  border-right: 1px solid $icons-color;
+  border-bottom: 1px dashed $white;
+  color: $white;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+}
+
+.nav__submenu-button-container {
+  position: absolute;
+  top: 11.5px;
+  right: 16px;
+  display: flex;
+  width: 31px;
+  height: 31px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  appearance: none;
+  background-color: RGBA(74, 74, 74, 0.12);
+  border-radius: 5px;
+}
+
+.nav__submenu-button {
+  width: 9px;
+  height: 9px;
+  border: 2px solid $white;
+  border-top: 0;
+  border-left: 0;
+  transform: scale(0.6) rotate(-45deg);
+}
+
+.nav__overlay--submenu {
+  pointer-events: none;
+}
+
+.nav__submenu-button-container--back {
+  top: -7.5px;
+  right: 100%;
+  left: 10px;
+  transform: rotate(180deg);
+}
+
+.nav__submenu-controll-container {
+  position: relative;
+  padding-left: 50px;
+}
+
+.nav__item {
+  position: relative;
+  height: 50px;
+
+  &:hover {
+    background-color: RGBA(247, 247, 247, 0.6);
+    .nav__submenu-button {
+      animation: moveMenuArrow 0.5s alternate infinite ease-in-out;
+    }
+
+    .nav__submenu-button-container--back {
+      animation: none;
+    }
+  }
+}
+
+.nav__button {
+  align-self: flex-start;
+  padding: 13px 28px 13px 28px;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+}
+
+.nav_-submenu-title {
+  color: $white;
+}
+
+.nav__menu-container {
+  // overflow: hidden !important;
+  padding-top: 30px;
+  background-image: $liner-gradient;
+  .cross-button {
+    right: 0;
+
+    &::after,
+    &::before {
+      background-color: $white;
+    }
+
+    &:hover {
+      &::after,
+      &::before {
+        background-color: #fc5a8d;
+      }
+    }
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .nav__button {
+    padding: 15px 28px 17px 28px;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .nav__button {
+    align-self: center;
+    padding: 15px 28px 17px 28px;
+    margin-bottom: 0;
+  }
+}

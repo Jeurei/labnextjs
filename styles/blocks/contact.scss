@@ -1,0 +1,158 @@
+.contact__icon {
+  position: absolute;
+  top: 13px;
+  left: -30px;
+  color: $white;
+}
+
+.contact__text-small {
+  margin-bottom: 2px;
+  color: $blue;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.contact__text {
+  margin-top: 0;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.contact {
+  position: relative;
+  margin-bottom: 28px;
+
+  &::before {
+    @include pseudo('', 29px, 28px);
+    position: absolute;
+    top: 8px;
+    left: -40px;
+    background-color: $icons-color;
+    border-radius: 50%;
+  }
+
+  &::after {
+    position: absolute;
+    top: 17px;
+    left: -30px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  &--email {
+    &:after {
+      top: 20px;
+      @include pseudo('', 8.3px, 6.3px);
+      background-image: url('../../public/img/mail.svg');
+    }
+
+    .contact__text {
+      letter-spacing: -0.5px;
+    }
+  }
+
+  &--tel::after {
+    @include pseudo('', 9.3px, 10px);
+    background-image: url('../../public/img/tel-icon.svg');
+  }
+
+  &--adress {
+    &::before {
+      top: 10px;
+    }
+    &::after {
+      top: 20px;
+      left: -28px;
+      @include pseudo('', 6.2px, 8.8px);
+      background-image: url('../../public/img/map-mark-icon.svg');
+    }
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .contact {
+    &::after {
+      left: -30px;
+    }
+
+    &--email {
+      &:after {
+        @include pseudo('', 8.3px, 6.3px);
+        top: 19px;
+        background-image: url('../../public/img/mail.svg');
+      }
+    }
+
+    &--tel::after {
+      @include pseudo('', 9.3px, 10px);
+      top: 17px;
+      background-image: url('../../public/img/tel-icon.svg');
+    }
+
+    &--adress {
+      &::after {
+        top: 20px;
+        left: -29px;
+        @include pseudo('', 6.2px, 8.8px);
+        background-image: url('../../public/img/map-mark-icon.svg');
+      }
+    }
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .contact {
+    padding-top: 6px;
+
+    &:first-child {
+      margin-right: 24px;
+    }
+
+    &::before {
+      top: 14px;
+      left: -52px;
+      width: 44px;
+      height: 44px;
+    }
+
+    &--tel {
+      .contact__text {
+        padding-left: 3px;
+        letter-spacing: 0.6px;
+      }
+
+      &::after {
+        top: 28px;
+        left: -36px;
+        width: 15px;
+        height: 16px;
+      }
+    }
+    &--email {
+      .contact__text {
+        letter-spacing: 0.6px;
+      }
+
+      &::after {
+        top: 31px;
+        left: -36px;
+        width: 13px;
+        height: 10px;
+      }
+    }
+
+    &--adress {
+      .contact__text {
+        letter-spacing: 0.6px;
+      }
+
+      &::after {
+        top: 28px;
+        left: -35px;
+        width: 10px;
+        height: 14px;
+      }
+    }
+  }
+}

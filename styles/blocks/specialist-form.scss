@@ -1,0 +1,199 @@
+.specialist__form-overlay {
+  position: fixed;
+  z-index: 20000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.specialist-form {
+  position: fixed;
+  z-index: 25000;
+  top: 40px;
+  left: 35%;
+  width: 570px;
+  background-color: $white;
+
+  .cross-button {
+    top: 24px;
+  }
+}
+
+.specialist-form__steps {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 27px;
+  padding-right: 78px;
+  padding-bottom: 26px;
+  padding-left: 43px;
+  margin: 0;
+  background: linear-gradient(264deg, #768bf8, #c23df1);
+  color: $white;
+  font-size: 13px;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.specialist-form__steps-close {
+  &::before,
+  &::after {
+    background-color: $white;
+  }
+}
+
+.specialist-form__step {
+  position: relative;
+
+  &::after {
+    @include pseudo('', 33px, 2px);
+    position: absolute;
+    top: 6px;
+    right: -78px;
+    background-color: #fff;
+    transform: skew(0deg, 130deg);
+  }
+
+  &:last-child::after {
+    display: none;
+  }
+}
+
+.specialist-form__form-steps-container {
+  padding: 28px 30px 19px 30px;
+
+  .form__input-group {
+    width: 100%;
+    padding-left: 0;
+    margin-right: 0;
+    margin-bottom: 29px;
+  }
+
+  .form__input-checkbox-container {
+    margin-bottom: 0;
+  }
+}
+
+.form-step__select-title {
+  margin-bottom: 13px;
+  font-size: $body-fs;
+  font-weight: 400;
+}
+
+.form__step-select {
+  width: 100%;
+  border: 1px solid $blue;
+  border-radius: 3px;
+
+  .select__title {
+    &::after,
+    &::before {
+      background-color: $blue;
+    }
+  }
+
+  .select__content {
+    top: 39px;
+  }
+}
+
+.specialist-form__specialist-info-container {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 32px;
+  border-bottom: 1px dashed $color-text;
+}
+
+.specialist-form__specialist-info-img-container {
+  margin-right: 31px;
+}
+
+.specialist-form__bottom {
+  display: flex;
+  align-items: center;
+  padding-top: 25px;
+  padding-right: 31px;
+  padding-bottom: 25px;
+  padding-left: 33px;
+  background-color: $color-text;
+}
+
+.specialist-form__steps-counter {
+  margin-right: auto;
+  color: $white;
+  font-size: $alt-fs;
+}
+
+.specialist-form__controls {
+  display: flex;
+}
+
+.specialist-form__control-button {
+  padding: 15px 39px 17px 37px;
+  border: none;
+  appearance: none;
+
+  &:first-child {
+    margin-right: 13px;
+  }
+
+  &:disabled {
+    background-color: rgba($green, 0.4);
+    color: rgba($white, 0.4);
+    cursor: default;
+  }
+}
+
+.specialist-form__form-info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 29px;
+  padding-bottom: 24px;
+  background-color: rgba($blue, 0.1);
+  font-size: 14px;
+}
+
+.specialist-form__specialist-info-name {
+  font-weight: 400;
+}
+
+.specialist-form__form-info-text {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.form-step__title {
+  margin-bottom: 18px;
+  font-size: $alt-fs;
+  font-weight: 400;
+}
+
+.form-step__conclusion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 29px;
+  padding-right: 37px;
+  padding-bottom: 24px;
+  padding-left: 30px;
+  background-color: rgba($blue, 0.1);
+  font-size: 14px;
+}
+
+.form-step__conclusion-info-container {
+  margin-right: auto;
+}
+
+.form-step__conclusion-price {
+  font-size: 26px;
+}
+
+.form-step__conclusion-info-text {
+  margin: 0;
+}

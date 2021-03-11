@@ -1,0 +1,82 @@
+.select {
+  position: relative;
+  width: 230px;
+  height: 40px;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  * {
+    cursor: pointer !important;
+  }
+}
+
+.select__single-value,
+.select__placeholder,
+.select__indicator {
+  color: $color-text;
+}
+
+.select__control {
+  height: 100%;
+  background-color: $white !important;
+  border-radius: 0;
+
+  &:hover,
+  &:focus {
+    background-color: $blue !important;
+    color: $white;
+
+    .select__single-value {
+      color: $white;
+    }
+
+    .select__placeholder {
+      color: $white;
+    }
+
+    .select__indicator {
+      color: $white;
+    }
+  }
+
+  &--is-focused {
+    box-shadow: none;
+
+    .select__input {
+      color: $color-text;
+    }
+
+    &:hover {
+      .select__input {
+        color: $white;
+      }
+    }
+  }
+}
+
+.select__indicator-separator {
+  display: none;
+}
+
+.select__menu {
+  margin-top: 0 !important;
+  border-radius: 0 !important;
+}
+
+.select__menu-list {
+  padding: 0 !important;
+  margin-top: 0;
+}
+
+.select__option {
+  padding: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 12px;
+
+  &--is-focused {
+    background-color: $blue !important;
+    color: $white !important;
+  }
+}
