@@ -24,6 +24,7 @@ const App = ({ Component, pageProps }) => {
       green: '#65bc29',
       white: '#fff',
       blue: '#4faaed',
+      red: '#fc5a8d',
       hoverColor: '#f7f7f7',
       inactiveColor: '#dedede',
       linearGradient: 'linear-gradient(257deg, #5BA6FB, #DF20EE);',

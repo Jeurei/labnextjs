@@ -10,7 +10,7 @@ const NavItem = ({ data }) => {
       <Link href={data.path} aria-label="Ссылка на страницу услуг">
         <a className="nav__link">{data.name}</a>
       </Link>
-      {data.children && !!data.children.length && (
+      {data.children && data.children.length !== 0 && (
         <SubMenu subMenuTitle={data.name} data={data.children} />
       )}
     </li>

@@ -15,6 +15,7 @@ import { ReactComponent as CartIcon } from 'icons/cart-icon.svg';
 
 import SearchButton from 'common/searchButton';
 import { breakpointsMap } from 'constants/styles';
+import { usePageContext } from 'components/MainLayout';
 import Menu from './menu';
 import { useHeaderContext } from './header';
 
@@ -29,6 +30,7 @@ const HeaderMobileBottom = ({
 }) => {
   const MOBILE_MAX_WIDTH = 720;
   const [isMobile, setMobile] = useState(false);
+  const onClickFormHandler = usePageContext();
   const router = useRouter();
   const {
     cities: { onCitiesClickHandler },
@@ -462,6 +464,10 @@ const HeaderMobileBottom = ({
               css={css`
                 margin-left: 30px;
               `}
+              onClick={(evt) => {
+                evt.preventDefault();
+                onClickFormHandler();
+              }}
             >
               Записаться к врачу
             </a>

@@ -4,10 +4,12 @@ import { css, keyframes } from '@emotion/react';
 import PropTypes from 'prop-types';
 import SectionInner from 'containers/section-inner';
 import { ENTER_KEY_CODE } from 'constants/keys';
+import CrossButton from 'components/common/crossButton';
 import { searchShowing } from '../utils/animation';
 import SearchModalContainerTop from './search-modal-top';
 
 const SearchModal = ({ isDeleting, animationDuration, deleteElement }) => {
+  const MIN_TABLET_WIDTH = 720;
   const modalRef = useRef();
   const deletingKeyFrames = keyframes`
       0% {
@@ -40,7 +42,27 @@ const SearchModal = ({ isDeleting, animationDuration, deleteElement }) => {
       ref={modalRef}
     >
       <SectionInner>
-        <div className="search-modal__container">
+        <div
+          className="search-modal__container"
+          css={css`
+            .cross-button {
+              top: -5px;
+              right: 25.5px;
+              &:before,
+              &:after {
+                background-color: #fff;
+              }
+            }
+          `}
+        >
+          {window.innerWidth < MIN_TABLET_WIDTH && (
+            <CrossButton
+              buttonClass="search__modal-close"
+              label="Закрыть поиск"
+              action={deleteElement}
+            />
+          )}
+
           <SearchModalContainerTop />
         </div>
       </SectionInner>

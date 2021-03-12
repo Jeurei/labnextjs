@@ -88,7 +88,7 @@
 
   .complexes__title {
     @include titleh2($color-text);
-    margin-bottom: 55px;
+    margin-bottom: 0;
     letter-spacing: -0.2px;
   }
 }

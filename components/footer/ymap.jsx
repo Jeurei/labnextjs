@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
 import React, { useEffect, useRef } from 'react';
 import { Map, Placemark } from 'react-yandex-maps';
+import PropTypes from 'prop-types';
 
-const Ymap = () => {
+const Ymap = ({ center, objRef }) => {
   const mapData = {
-    center: [58.04935, 56.086989],
+    center,
     zoom: 17,
     control: {
       ZoomControl: {
@@ -42,6 +43,7 @@ const Ymap = () => {
           width: 100%;
           height: 100%;
         `}
+        instanceRef={objRef}
         defaultState={mapData}
         options={{ suppressMapOpenBlock: true }}
       >
@@ -124,6 +126,14 @@ const Ymap = () => {
       </Map>
     </div>
   );
+};
+
+Ymap.propTypes = {
+  center: PropTypes.arrayOf(PropTypes.number).isRequired,
+  objRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
 };
 
 export default Ymap;

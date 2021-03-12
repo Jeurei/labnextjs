@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Drawer from "react-motion-drawer";
-import { css, keyframes } from "@emotion/react";
-import SubmenuButton from "./submenu-button";
-import SubMenuBack from "./submenu-back";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import Drawer from 'react-motion-drawer';
+import { css, keyframes } from '@emotion/react';
+import SubmenuButton from './submenu-button';
+import SubMenuBack from './submenu-back';
 
 const SubMenu = ({ data, zIndex, subMenuTitle }) => {
   const ANIMATION_DURATION = 0.5;
@@ -108,7 +108,7 @@ SubMenu.propTypes = {
         PropTypes.bool,
         PropTypes.arrayOf(PropTypes.object),
       ]),
-    }).isRequired
+    }).isRequired,
   ).isRequired,
   zIndex: PropTypes.number,
   subMenuTitle: PropTypes.string.isRequired,

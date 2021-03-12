@@ -3,6 +3,7 @@ import { css, useTheme } from '@emotion/react';
 import { ReactComponent as TelIcon } from 'icons/tel-icon.svg';
 import { ReactComponent as MailIcon } from 'icons/mail.svg';
 import { ReactComponent as MarkIcon } from 'icons/map-mark-icon.svg';
+import { breakpointsMap } from 'constants/styles';
 
 const Contacts = () => {
   const theme = useTheme();
@@ -30,11 +31,16 @@ const Contacts = () => {
               fill="currentColor"
               css={css`
                 position: absolute;
-                top: 28px;
-                left: -36px;
+                top: 14px;
+                left: -32px;
                 width: 15px;
                 height: 16px;
                 color: ${theme.colors.white};
+
+                ${breakpointsMap.DESKTOP} {
+                  top: 28px;
+                  left: -36px;
+                }
               `}
             />
           </li>
@@ -57,11 +63,16 @@ const Contacts = () => {
               fill="currentColor"
               css={css`
                 position: absolute;
-                top: 31px;
-                left: -36px;
+                top: 17px;
+                left: -32px;
                 width: 13px;
                 height: 10px;
                 color: ${theme.colors.white};
+
+                ${breakpointsMap.DESKTOP} {
+                  top: 31px;
+                  left: -36px;
+                }
               `}
             />
           </li>
@@ -72,11 +83,16 @@ const Contacts = () => {
               fill="currentColor"
               css={css`
                 position: absolute;
-                top: 29px;
-                left: -35px;
+                top: 17px;
+                left: -30px;
                 width: 10px;
                 height: 14px;
                 color: ${theme.colors.white};
+
+                ${breakpointsMap.DESKTOP} {
+                  top: 29px;
+                  left: -35px;
+                }
               `}
             />
           </li>

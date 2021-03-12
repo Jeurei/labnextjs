@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import SwiperCore, { Pagination, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { css, keyframes } from '@emotion/react';
 
 global.Element = typeof Element === 'undefined' ? function () {} : Element;
 
@@ -9,15 +10,26 @@ const Slider = ({ data, component, swiperRef, sliderObject }) => {
   SwiperCore.use([Pagination, A11y]);
 
   return (
-    <Swiper ref={swiperRef} {...sliderObject} pagination={{ clickable: true }}>
-      {data.map((el) => (
-        <SwiperSlide>
-          {cloneElement(component, {
-            data: el,
-          })}
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div
+      css={css`
+        position: relative;
+        width: 100%;
+      `}
+    >
+      <Swiper
+        ref={swiperRef}
+        {...sliderObject}
+        pagination={{ clickable: true }}
+      >
+        {data.map((el) => (
+          <SwiperSlide>
+            {cloneElement(component, {
+              data: el,
+            })}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 

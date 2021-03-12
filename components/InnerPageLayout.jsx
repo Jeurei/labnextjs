@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
-import Head from 'next/head';
-import MainContainer from 'containers/main-container';
 import FixedCircle from 'common/fixedCircle';
 import SectionInner from 'containers/section-inner';
 import Discounts from 'common/discounts';
 import Section from 'containers/section';
-import Header from 'components/header/header';
-import Footer from 'components/footer/footer';
+import MainLayout from './MainLayout';
 
 const InnerPageLayout = ({
   children,
@@ -15,11 +12,7 @@ const InnerPageLayout = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <Header />
-      <MainContainer>
+      <MainLayout title={title}>
         <FixedCircle />
         <Section>
           <SectionInner>
@@ -27,8 +20,7 @@ const InnerPageLayout = ({
             <Discounts isColumn={isColumn} />
           </SectionInner>
         </Section>
-      </MainContainer>
-      <Footer />
+      </MainLayout>
     </>
   );
 };

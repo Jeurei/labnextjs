@@ -13,7 +13,7 @@
   position: relative;
   padding-left: 5px;
   margin: 0;
-  margin-bottom: 45px;
+  margin-bottom: 10px;
   font-size: 22px;
   font-weight: 500;
 
@@ -95,10 +95,6 @@
   }
 }
 
-.actual-offers__control {
-  display: none;
-}
-
 @media (min-width: $tablet-width) {
   .actual-offers__list {
     display: flex;
@@ -157,7 +153,7 @@
   .actual-offers__title {
     @include titleh2($color-text);
     position: relative;
-    margin-bottom: 26px;
+    margin-bottom: -3px;
     letter-spacing: 0.4px;
 
     &::after {

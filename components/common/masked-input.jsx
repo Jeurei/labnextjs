@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputMask from 'react-input-mask';
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
+import { ReactComponent as CorrectIcon } from 'icons/check-circle-solid.svg';
+import { ReactComponent as InCorrectIcon } from 'icons/times-solid.svg';
 import FormInvalidInput from './form-invalid-input';
 
 const inputMasksMap = {
@@ -23,6 +25,7 @@ const MaskedFormInput = ({
 }) => {
   const [inputState, setInputState] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const theme = useTheme();
   const onLoseFocusHandler = () => {
     action({ [name]: inputState });
     setIsFocused(false);
@@ -45,19 +48,47 @@ const MaskedFormInput = ({
         onFocus={() => setIsFocused(true)}
         onChange={(evt) => setInputState(evt.currentTarget.value)}
         onBlur={() => onLoseFocusHandler()}
-        css={
-          !formValidation &&
+        css={css`
+          border-color: ${!formValidation &&
           !isFocused &&
-          css`
-            border-color: red;
-          `
-        }
+          `${theme.colors.red}`};
+          border-color: ${formValidation &&
+          !isFocused &&
+          inputState.length !== 0 &&
+          `${theme.colors.green}`};
+        `}
       />
       <p className="visually-hidden" id={descriptionId}>
         {description}
       </p>
+      {formValidation && !isFocused && inputState.length !== 0 && (
+        <CorrectIcon
+          fill="currentColor"
+          width="23"
+          height="23"
+          css={css`
+            position: absolute;
+            top: 14px;
+            right: 7px;
+            color: ${theme.colors.green};
+          `}
+        />
+      )}
       {!formValidation && !isFocused && (
-        <FormInvalidInput text={errorMessage} />
+        <>
+          <InCorrectIcon
+            fill="currentColor"
+            width="23"
+            height="23"
+            css={css`
+              position: absolute;
+              top: 14px;
+              right: 7px;
+              color: ${theme.colors.red};
+            `}
+          />
+          <FormInvalidInput text={errorMessage} />
+        </>
       )}
     </div>
   );
