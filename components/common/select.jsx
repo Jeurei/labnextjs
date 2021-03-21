@@ -9,6 +9,7 @@ const SelectComponent = ({
   placeholder,
   action,
   cssStr,
+  defaultValue,
 }) => {
   return (
     <Select
@@ -18,6 +19,7 @@ const SelectComponent = ({
       classNamePrefix="select"
       onChange={(value) => action(value)}
       noOptionsMessage={() => 'Не найдено'}
+      defaultValue={defaultValue.value && defaultValue.label && defaultValue}
       css={css`
         ${cssStr}
       `}
@@ -27,6 +29,7 @@ const SelectComponent = ({
 
 SelectComponent.defaultProps = {
   cssStr: ``,
+  defaultValue: {},
 };
 
 SelectComponent.propTypes = {
@@ -35,6 +38,7 @@ SelectComponent.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   action: PropTypes.func.isRequired,
   cssStr: PropTypes.string,
+  defaultValue: PropTypes.objectOf(PropTypes.string),
 };
 
 export default SelectComponent;

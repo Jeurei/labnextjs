@@ -1,9 +1,14 @@
 import { css } from '@emotion/react';
 import React, { useEffect, useRef } from 'react';
-import { Map, Placemark } from 'react-yandex-maps';
+import {
+  Map,
+  Placemark,
+  FullscreenControl,
+  TypeSelector,
+} from 'react-yandex-maps';
 import PropTypes from 'prop-types';
 
-const Ymap = ({ center, objRef }) => {
+const Ymap = ({ center, objRef, fs = false, lays = false }) => {
   const mapData = {
     center,
     zoom: 17,
@@ -47,12 +52,14 @@ const Ymap = ({ center, objRef }) => {
         defaultState={mapData}
         options={{ suppressMapOpenBlock: true }}
       >
+        {fs && <FullscreenControl />}
+        {lays && <TypeSelector options={{ size: 'small' }} />}
         <Placemark
           geometry={mapData.center}
           modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
           options={{
             iconLayout: 'default#image',
-            iconImageHref: 'img/greenPlaceMarkIcon.svg',
+            iconImageHref: '/img/greenPlaceMarkIcon.svg',
             iconImageSize: [40, 40],
             imageClipRect: [20, 20],
           }}
@@ -128,12 +135,19 @@ const Ymap = ({ center, objRef }) => {
   );
 };
 
+Ymap.defaultProps = {
+  fs: false,
+  lays: false,
+};
+
 Ymap.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number).isRequired,
   objRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
+  fs: PropTypes.bool,
+  lays: PropTypes.bool,
 };
 
 export default Ymap;

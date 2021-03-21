@@ -18,7 +18,7 @@ export const useHeaderContext = () => {
   return useContext(headerContext);
 };
 
-const Header = ({ cities, setCity, cart }) => {
+const Header = ({ cities, setCity, cart, routes }) => {
   const HEADER_MIN_HEIGHT = 126;
   const animationDuration = 0.7;
   const headerAnimationDuration = 0.2;
@@ -29,6 +29,8 @@ const Header = ({ cities, setCity, cart }) => {
   const [isDeleting, setDeleting] = useState(false);
   const [cartModal, setCartModal] = useState(false);
   const [citiesModalState, setCitiesModalState] = useState(false);
+  const [navArray, setNavArray] = useState(Object.values(routes));
+  const [slideMenuArr, setSlideMenuArr] = useState([]);
   const [isMobile, setMobile] = useState(false);
   const delta = 0;
 
@@ -118,6 +120,12 @@ const Header = ({ cities, setCity, cart }) => {
       onClickHandler: () => setCartModal(!cartModal),
       onCloseClickHandler: () => setCartModal(false),
     },
+    nav: {
+      navArr: navArray,
+      setNavArr: setNavArray,
+      slideArr: slideMenuArr,
+      setSlideArr: setSlideMenuArr,
+    },
   };
 
   return (
@@ -174,13 +182,16 @@ Header.propTypes = {
   }).isRequired,
   setCity: PropTypes.func.isRequired,
   cart: PropTypes.objectOf(PropTypes.object).isRequired,
+  routes: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { cart } = state;
-  const { cities } = state;
+  const { cart, cities } = state;
+  const {
+    routes: { routes },
+  } = state;
 
-  return { cities, cart };
+  return { cities, cart, routes };
 };
 
 const mapDispatchToProps = (dispatch) => ({

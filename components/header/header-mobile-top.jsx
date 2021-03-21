@@ -3,11 +3,15 @@ import { css, keyframes } from '@emotion/react';
 import { ReactComponent as Logo } from 'icons/logo.svg';
 import { breakpointsMap } from 'constants/styles';
 import Link from 'next/link';
+import { usePageContext } from 'components/MainLayout';
 import Menu from './menu';
 import HeaderTopLeft from './header-top-left';
 import HeaderTopRight from './header-top-right';
+import HeaderNav from './header-nav';
 
 const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
+  const onClickFormHandler = usePageContext();
+
   const showingAnimation = keyframes`
   0% {
     opacity: 0;
@@ -118,6 +122,7 @@ const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
               padding-bottom: 6px;
 
               ${breakpointsMap.TABLET} {
+                position: relative;
                 display: flex;
                 padding-right: 10px;
                 padding-left: 10px;
@@ -146,11 +151,16 @@ const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
                 />
               </a>
             </Link>
+            <HeaderNav isTop />
             <div className="header-bottom__right">
               <a
                 href="some"
                 className="nav__button button"
                 aria-label="Ссылка на страницу для записи к врачу, или попап если скрипт работает"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  onClickFormHandler(true);
+                }}
               >
                 Записаться к врачу
               </a>

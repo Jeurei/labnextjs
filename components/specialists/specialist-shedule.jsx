@@ -9,17 +9,19 @@ const getTodayDay = (currentDate) => {
   return Number(getDate(currentDate)) - 1;
 };
 
-const SpecialistShedule = ({ time }) => {
+const SpecialistShedule = ({ time, specialist, adress }) => {
   const currentDate = new Date();
   const [currentYear, setCurrentYear] = useState(getYear(currentDate));
   const [currentMounth, setCurrentMounth] = useState(getMonth(currentDate));
   const [selectedMounth, setSelectedMounth] = useState(getMonth(currentDate));
+  const [selectedTime, setSelectedTime] = useState(null);
   const swiperMounthRef = useRef(null);
   const [currentDay, setCurrentDay] = useState(getTodayDay(currentDate));
   const arrayOfMounthes = new Array(12).fill().map((el, id) => {
     const mounthName = getMounthName(id);
     return { [id]: mounthName.charAt(0).toUpperCase() + mounthName.slice(1) };
   });
+
   const arrayOfMoutnhtesUntilNewYear = arrayOfMounthes.slice(
     currentMounth,
     currentMounth + 3,
@@ -75,13 +77,25 @@ const SpecialistShedule = ({ time }) => {
         nextMounth={nextMounthClickHandler}
         swiperMounthRef={swiperMounthRef}
         availableMounthes={arrayOfAvailableMounthes}
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
+        selectedYear={currentYear}
+        specialist={specialist}
+        adress={adress}
       />
     </div>
   );
 };
 
+SpecialistShedule.defaultProps = {
+  specialist: null,
+  adress: null,
+};
+
 SpecialistShedule.propTypes = {
   time: PropTypes.objectOf(PropTypes.object).isRequired,
+  specialist: PropTypes.objectOf(PropTypes.object),
+  adress: PropTypes.objectOf(PropTypes.object),
 };
 
 export default SpecialistShedule;

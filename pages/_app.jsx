@@ -1,5 +1,12 @@
 /* eslint-disable react/prop-types */
 // import "../styles/style.scss";
+import {
+  getDiscounts,
+  getCart,
+  getRoutes,
+  getCities,
+  getRoutesInBurger,
+} from 'Redux/actions/actions';
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
 import ScrollToTop from 'containers/scroll-to-top';
@@ -50,7 +57,11 @@ const App = ({ Component, pageProps }) => {
     <>
       <ThemeProvider theme={theme}>
         <ScrollToTop />
-        <YMaps>
+        <YMaps
+          query={{
+            apikey: 'dfd9fe91-82da-412d-a4dd-eafd43340cfa',
+          }}
+        >
           <Component {...pageProps} />
         </YMaps>
       </ThemeProvider>
@@ -59,21 +70,3 @@ const App = ({ Component, pageProps }) => {
 };
 
 export default wrapper.withRedux(App);
-
-// import Document, { Html, Head, Main, NextScript } from 'next/document';
-
-// export default class MyDocument extends Document {
-//   render() {
-//     return (
-//       <Html>
-//         <Head>
-//           <title>Лабдиагностика</title>
-//         </Head>
-//         <body>
-//           <Main />
-//           <NextScript />
-//         </body>
-//       </Html>
-//     );
-//   }
-// }

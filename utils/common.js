@@ -15,3 +15,12 @@ export const numberWithSpaces = (x) => {
 };
 
 export const isEmpty = (obj) => obj && Object.keys(obj).length === 0;
+
+export const allTrue = (obj) => {
+  let result = true;
+  Object.values(obj).forEach((el) => {
+    if (!el) result = false;
+  });
+
+  return result;
+};

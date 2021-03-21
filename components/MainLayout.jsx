@@ -15,8 +15,8 @@ export const usePageContext = () => {
 const MainLayout = ({ children, title = 'Лабдиагностика' }) => {
   const [formState, setFormState] = useState(false);
 
-  const onClickFormHandler = () => {
-    setFormState(!formState);
+  const onClickFormHandler = (bool) => {
+    setFormState(bool);
   };
 
   const onCloseClickHandler = () => {

@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import routesConstants from 'constants/routes';
-import components from 'constants/components';
 import { ReactComponent as Logo } from 'icons/logo.svg';
 import { ReactComponent as SmallLogo } from 'icons/small-logo.svg';
 import { ReactComponent as MarkMapIcon } from 'icons/map-mark-icon.svg';
@@ -18,6 +17,7 @@ import { breakpointsMap } from 'constants/styles';
 import { usePageContext } from 'components/MainLayout';
 import Menu from './menu';
 import { useHeaderContext } from './header';
+import HeaderNav from './header-nav';
 
 // import Burger from 'common/burger';
 
@@ -299,171 +299,12 @@ const HeaderMobileBottom = ({
               </a>
             </Link>
           </div>
-          <ul
-            css={css`
-              display: none;
-              height: 100%;
-              flex-direction: row;
-              padding: 0;
-              padding-right: 30px;
-              margin: 0;
-              list-style: none;
-
-              ${breakpointsMap.DESKTOP} {
-                display: flex;
-              }
-            `}
-          >
-            <ul
-              css={css`
-                padding: 0;
-                list-style: none;
-              `}
-            >
-              <li
-                css={css`
-                  position: relative;
-                  display: flex;
-                  min-height: 100%;
-
-                  &:after,
-                  &:before {
-                    position: absolute;
-                    top: 50%;
-                    right: -18px;
-                    display: block;
-                    width: 10px;
-                    height: 1px;
-                    background-color: ${theme.colors.colorText.hex};
-                    content: '';
-                  }
-
-                  &:after {
-                    transform: rotate(45deg);
-                  }
-                  &:before {
-                    right: -25px;
-                    transform: rotate(-45deg);
-                  }
-
-                  ${breakpointsMap.DESKTOP} {
-                    &:hover {
-                      ul {
-                        display: flex;
-                      }
-                    }
-                  }
-                `}
-              >
-                <Link
-                  href="/"
-                  css={css`
-                    display: flex;
-                    min-height: 100%;
-                    align-items: center;
-                  `}
-                >
-                  <a
-                    css={css`
-                      display: flex;
-                      min-height: 100%;
-                      align-items: center;
-                    `}
-                  >
-                    Корпоративным клиентам
-                    <ul
-                      css={css`
-                        position: absolute;
-                        z-index: 1000;
-                        top: 100%;
-                        left: calc(100% - 1170px);
-                        display: none;
-                        min-width: 1170px;
-                        padding: 0;
-                        background-color: ${theme.colors.white};
-                        box-shadow: ${theme.colors.boxShadow};
-                        list-style: none;
-
-                        &:hover {
-                          display: none;
-                        }
-                      `}
-                    >
-                      <li
-                        css={css`
-                          display: flex;
-                          width: 50%;
-                          min-height: 297px;
-                          flex-direction: column;
-                          align-items: center;
-                          justify-content: center;
-                          background-image: url('img/corpo-nav-bg.png');
-                          background-repeat: no-repeat;
-                          background-size: cover;
-                          color: ${theme.colors.white};
-                          list-style: none;
-
-                          @media (min-resolution: 1.5dppx),
-                            (min-resolution: 144dpi) {
-                            background-color: url(img/corpo-nav-bg@2x.png);
-                          }
-                        `}
-                      >
-                        <h3
-                          css={css`
-                            margin-right: 0;
-                            margin-bottom: 0;
-                            font-size: 33px;
-                            font-weight: 500;
-                          `}
-                        >
-                          Корпоративным клиентам
-                        </h3>
-                        <p
-                          css={css`
-                            font-size: 16px;
-                            text-align: center;
-                          `}
-                        >
-                          Какой то текст чтобы корпоративный
-                          <br />
-                          клиент узнал себя
-                        </p>
-                      </li>
-                      <li
-                        css={css`
-                          width: 50%;
-                          padding: 0;
-                        `}
-                      >
-                        <div>
-                          <ul
-                            css={css`
-                              display: flex;
-                              padding: 0;
-                              padding: 46px 36px;
-                              font-size: 16px;
-                              list-style: none;
-                            `}
-                          >
-                            <li>Варианты сотрудничества</li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </ul>
+          <HeaderNav isTop={false} />
           <div className="header-bottom__right">
             <a
               href="some"
               className="nav__button button"
               aria-label="Ссылка на страницу для записи к врачу, или попап если скрипт работает"
-              css={css`
-                margin-left: 30px;
-              `}
               onClick={(evt) => {
                 evt.preventDefault();
                 onClickFormHandler();

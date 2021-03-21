@@ -13,7 +13,8 @@
       "reducers/*": ["reducers/*"],
       "store/*": ["store/*"],
       "containers/*": ["containers/*"],
-      "icons/*": ["icons/*"]
+      "icons/*": ["icons/*"],
+      "fetch": ["fetch"]
     }
   }
 }

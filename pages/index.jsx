@@ -10,6 +10,8 @@ import {
   getComplexes,
   getArticles,
   getHints,
+  getRoutesInBurger,
+  getUserForm,
 } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
 import { isEmpty } from 'utils/common';
@@ -25,6 +27,7 @@ const Index = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store }) => {
+    store.dispatch(getUserForm());
     await store.dispatch(getCart());
     await store.dispatch(getRoutes());
     await store.dispatch(getCities());
@@ -35,6 +38,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.dispatch(getComplexes());
     await store.dispatch(getArticles());
     await store.dispatch(getHints());
+    await store.dispatch(getRoutesInBurger());
   },
 );
 

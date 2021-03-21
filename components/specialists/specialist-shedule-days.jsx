@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { format, getDate, getYear } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUserFormState } from 'Redux/actions/actions';
+import { css, useTheme } from '@emotion/react';
+import { usePageContext } from 'components/MainLayout';
 import SpecialistDayInfo from './specialist-day-info';
 
 const SpecialistSheduleDays = ({
@@ -13,6 +18,11 @@ const SpecialistSheduleDays = ({
   swiperMounthRef,
   currentMounth,
   availableMounthes,
+  userForm,
+  setFormState,
+  selectedYear,
+  specialist,
+  adress,
 }) => {
   const QUANTITY_OF_SLIDES = 6;
   const currentDate = new Date();
@@ -20,6 +30,9 @@ const SpecialistSheduleDays = ({
   const [chosenEmpty, setChosenEmpty] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
+  const theme = useTheme();
+  console.log(adress);
+  const onTimeClickOpenPopup = usePageContext();
 
   const getFormatedDate = (date, pattern) => {
     return format(date, pattern, { locale: ru });
@@ -28,6 +41,47 @@ const SpecialistSheduleDays = ({
   const onDaySlideClickHandler = (index) => {
     setChosenEmpty(Object.values(arr[index][1]).length === 0);
     setSelectedDay(index);
+  };
+
+  const onTimeClickHandler = (id) => {
+    if (specialist) {
+      setFormState({
+        ...userForm,
+        specialist,
+        fields: {
+          ...userForm.fields,
+          firstField: {
+            ...userForm.fields.firstField,
+            city: adress.value.split(',')[0] || null,
+            center: adress.value || null,
+            spec: specialist.job,
+            doctorsName: specialist.name,
+          },
+          secondField: {
+            ...userForm.secondField,
+            year: selectedYear,
+            mounth: selectedMounth,
+            day: Number(arr[selectedDay][0]) + 2,
+            time: id + 1,
+          },
+        },
+      });
+    } else
+      setFormState({
+        ...userForm,
+        fields: {
+          ...userForm.fields,
+          secondField: {
+            ...userForm.secondField,
+            year: selectedYear,
+            mounth: selectedMounth,
+            day: Number(arr[selectedDay][0]) + 2,
+            time: id + 1,
+          },
+        },
+      });
+
+    onTimeClickOpenPopup(true);
   };
 
   const getDaySlide = (obj, id) => {
@@ -75,13 +129,26 @@ const SpecialistSheduleDays = ({
     );
   };
 
-  const createTimeElement = (data) => {
+  const createTimeElement = (data, action, id) => {
     return (
       <li className="specialist__shedule-table-time-list-item" id={data}>
         <a
           href="/"
           className="specialist__shedule-table-time"
           aria-label={`Записать на ${data}`}
+          css={css`
+            ${((id + 1 === userForm.fields.secondField.time &&
+              specialist &&
+              userForm.specialist &&
+              JSON.stringify(specialist) ===
+                JSON.stringify(userForm.specialist)) ||
+              (!specialist && id + 1 === userForm.fields.secondField.time)) &&
+            `background-color: ${theme.colors.green}; color:#fff;`}
+          `}
+          onClick={(evt) => {
+            evt.preventDefault();
+            action(id);
+          }}
         >
           {data}
         </a>
@@ -181,7 +248,9 @@ const SpecialistSheduleDays = ({
         {!chosenEmpty &&
           Object.values(arr[selectedDay][1])
             .slice(0, 9)
-            .map((el) => createTimeElement(el))}
+            .map((el, index) =>
+              createTimeElement(el, onTimeClickHandler, index),
+            )}
         {Object.values(arr[selectedDay][1]).length > 10 && createEmptyElement()}
       </ul>
       {chosenEmpty && (
@@ -197,6 +266,11 @@ const SpecialistSheduleDays = ({
   );
 };
 
+SpecialistSheduleDays.defaultProps = {
+  specialist: null,
+  adress: null,
+};
+
 SpecialistSheduleDays.propTypes = {
   arr: PropTypes.arrayOf(PropTypes.array).isRequired,
   selectedMounth: PropTypes.number.isRequired,
@@ -208,6 +282,24 @@ SpecialistSheduleDays.propTypes = {
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
   availableMounthes: PropTypes.arrayOf(PropTypes.array).isRequired,
+  userForm: PropTypes.objectOf(PropTypes.object).isRequired,
+  setFormState: PropTypes.func.isRequired,
+  selectedYear: PropTypes.number.isRequired,
+  specialist: PropTypes.objectOf(PropTypes.object),
+  adress: PropTypes.objectOf(PropTypes.object),
 };
 
-export default SpecialistSheduleDays;
+const mapDispatchToProps = (dispatch) => ({
+  setFormState: bindActionCreators(setUserFormState, dispatch),
+});
+
+const mapStateToProps = (state) => {
+  const { userForm } = state;
+
+  return { userForm };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SpecialistSheduleDays);

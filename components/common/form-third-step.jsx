@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { errorMessagesMap } from 'constants/form';
+import { css, useTheme } from '@emotion/react';
 import FormIosCheckbox from './form-ios-checkbox';
 import FormFieldset from '../footer/form-fieldset';
 import FormInput from './form-input';
 import MaskedFormInput from './masked-input';
 import Select from './select';
 
-const FormThirdStep = ({ action }) => {
+const FormThirdStep = ({ action, userForm }) => {
+  const theme = useTheme();
   const [inputsField, setInputsField] = useState({
     clientName: '',
     clientEmail: '',
     clientTel: '',
+    type: '',
     isAgreed: '',
   });
 
@@ -71,6 +74,10 @@ const FormThirdStep = ({ action }) => {
     }
   };
 
+  const onLastSelectHandler = (obj) => {
+    onChangeInputValueHandler({ type: obj.value });
+  };
+
   const agreementCheckHandler = (bool) => {
     onChangeInputValueHandler({ isAgreed: bool });
     changeValidation({ isAgreed: bool });
@@ -91,7 +98,25 @@ const FormThirdStep = ({ action }) => {
   }, [formValidation]);
 
   return (
-    <div className="specialist-form__form-step form-step">
+    <div
+      className="specialist-form__form-step form-step"
+      css={css`
+        .form__input-container {
+          svg {
+            top: 19px;
+          }
+        }
+        .form__input {
+          height: 60px;
+          border-color: ${theme.colors.blue};
+          margin-bottom: 23px;
+        }
+
+        .form__invalid-input {
+          bottom: -4px;
+        }
+      `}
+    >
       <h3 className="form-step__title">Заполните личные данные</h3>
       <FormFieldset>
         <FormInput
@@ -133,7 +158,16 @@ const FormThirdStep = ({ action }) => {
           formValidation={formValidation.isEmailValid}
           errorMessage={errorMessagesMap.EMAIL}
         />
-        <Select selectClass="form__step-select" />
+        <Select
+          selectClass="form__step-select"
+          placeholder="Выберите вариант оплаты"
+          cssStr="height:60px"
+          action={onLastSelectHandler}
+          data={[
+            { value: 'online', label: 'Оплата онлайн' },
+            { value: 'offline', label: 'Оплата в центре' },
+          ]}
+        />
       </FormFieldset>
       <div className="form__input-checkbox-container">
         <FormIosCheckbox
@@ -154,6 +188,7 @@ const FormThirdStep = ({ action }) => {
 
 FormThirdStep.propTypes = {
   action: PropTypes.func.isRequired,
+  userForm: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default FormThirdStep;

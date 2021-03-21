@@ -1,13 +1,114 @@
 import { ReactComponent as MapMark } from 'icons/map-mark-icon.svg';
 import { ReactComponent as Star } from 'icons/star.svg';
-import styled from '@emotion/styled';
 import { css, useTheme } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { breakpointsMap } from 'constants/styles';
 import Ymap from 'components/footer/ymap';
 import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
+import { Panorama, YMaps } from 'react-yandex-maps';
+import * as Tabs from 'components/common/styled/tabs';
 import Specialist from './specialist';
+
+const waysToGet = (theme, cb, state) => {
+  return (
+    <div
+      css={css`
+        display: flex;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-bottom: 14px;
+      `}
+    >
+      <div
+        css={css`
+          position: relative;
+          width: 50%;
+          padding-left: 31px;
+          &:before {
+            position: absolute;
+            top: -7px;
+            left: 0;
+            display: block;
+            width: 28px;
+            height: 28px;
+            background-image: ${theme.colors.linearGradient};
+            border-radius: 50%;
+            content: '';
+          }
+
+          &:after {
+            position: absolute;
+            top: 0px;
+            left: 9px;
+            display: block;
+            width: 9px;
+            height: 15.5px;
+            content: url('/img/walker.svg');
+          }
+        `}
+      >
+        <a
+          href="/"
+          css={css`
+            border-bottom: 1px solid ${theme.colors.blue};
+            ${state === 0 && 'font-weight:500;'}
+          `}
+          onClick={(evt) => {
+            evt.preventDefault();
+            cb(0);
+          }}
+        >
+          Пешком
+        </a>
+      </div>
+      <div
+        css={css`
+          position: relative;
+          width: 50%;
+          padding-left: 31px;
+
+          &:before {
+            position: absolute;
+            top: -7px;
+            left: 0;
+            display: block;
+            width: 28px;
+            height: 28px;
+            background-image: ${theme.colors.linearGradient};
+            border-radius: 50%;
+            content: '';
+          }
+
+          &:after {
+            position: absolute;
+            top: -2px;
+            left: 5px;
+            display: block;
+            width: 9px;
+            height: 15.5px;
+            content: url('/img/car.svg');
+          }
+        `}
+      >
+        <a
+          href="/"
+          css={css`
+            border-bottom: 1px solid ${theme.colors.blue};
+            ${state === 1 && 'font-weight:500;'}
+          `}
+          onClick={(evt) => {
+            evt.preventDefault();
+            cb(1);
+          }}
+        >
+          На машине
+        </a>
+      </div>
+    </div>
+  );
+};
 
 const adressesList = (currSpecialist, theme) => (
   <ul
@@ -65,79 +166,23 @@ const adressesList = (currSpecialist, theme) => (
 );
 
 const FullSpecialistInfo = ({ specialists }) => {
+  const mockData = ['test', 'test-1'];
   const theme = useTheme();
   const { id } = useRouter().query;
+  const [wayToGet, setWayToGet] = useState(0);
+  const [mapCenter, setMapCenter] = useState([57.982143, 56.191459]);
+  const [isPanoram, setMapPanoram] = useState(false);
+  const mapObjRef = useRef();
 
   const currSpecialist = specialists.find((el) => el.id === id);
 
-  const Tab = styled.li`
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  const onPanoramClick = () => {
+    setMapPanoram(true);
+  };
 
-    &:hover {
-      background-image: linear-gradient(254deg, #57aafb, #c837f0);
-    }
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    ${breakpointsMap.TABLET} {
-      width: 245px;
-      flex-grow: 1;
-      border-bottom: none;
-
-      ${breakpointsMap.DESKTOP} {
-        width: 245px;
-
-        &:nth-of-type(2n) {
-          border-right: 1px solid rgba(${theme.colors.colorText.rgb}, 0.2);
-          border-left: 1px solid rgba(${theme.colors.colorText.rgb}, 0.2);
-        }
-      }
-    }
-  `;
-
-  const TabLink = styled('a')`
-    display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    padding-top: 21px;
-    padding-bottom: 22px;
-    font-size: ${theme.fontSizes.altFs};
-    line-height: ${theme.fontSizes.altLh};
-
-    &:hover {
-      color: ${theme.colors.altColorText};
-    }
-  `;
-
-  const TabsContainer = styled.div`
-    padding-top: 0;
-  `;
-
-  const TabList = styled.ul`
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin-top: 0;
-    box-shadow: ${theme.colors.boxShadow};
-    list-style: none;
-
-    ${breakpointsMap.TABLET} {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    ${breakpointsMap.DESKTOP} {
-      flex-wrap: nowrap;
-    }
-  `;
+  const onMapClick = () => {
+    setMapPanoram(false);
+  };
 
   return (
     <>
@@ -172,22 +217,24 @@ const FullSpecialistInfo = ({ specialists }) => {
         `}
       >
         <Specialist data={currSpecialist} />
-        <TabsContainer>
-          <TabList>
-            <Tab>
-              <TabLink>Стоимость услуг </TabLink>
-            </Tab>
-            <Tab>
-              <TabLink>Гинеколог</TabLink>
-            </Tab>
-            <Tab>
-              <TabLink>УЗИ</TabLink>
-            </Tab>
-            <Tab>
-              <TabLink>г.Пермь ул. Малая Филевская д. 35, оф. 305</TabLink>
-            </Tab>
-          </TabList>
-        </TabsContainer>
+        <Tabs.TabsContainer>
+          <Tabs.TabList>
+            <Tabs.Tab>
+              <Tabs.TabLink>Стоимость услуг </Tabs.TabLink>
+            </Tabs.Tab>
+            <Tabs.Tab>
+              <Tabs.TabLink>Гинеколог</Tabs.TabLink>
+            </Tabs.Tab>
+            <Tabs.Tab>
+              <Tabs.TabLink>УЗИ</Tabs.TabLink>
+            </Tabs.Tab>
+            <Tabs.Tab>
+              <Tabs.TabLink>
+                г.Пермь ул. Малая Филевская д. 35, оф. 305
+              </Tabs.TabLink>
+            </Tabs.Tab>
+          </Tabs.TabList>
+        </Tabs.TabsContainer>
         <div
           css={css`
             display: flex;
@@ -638,8 +685,18 @@ const FullSpecialistInfo = ({ specialists }) => {
                 height: 384px;
                 margin-bottom: 38px;
               `}
+              id="map"
             >
-              <Ymap />
+              {isPanoram ? (
+                <Panorama
+                  width="100%"
+                  height="100%"
+                  defaultPoint={mapCenter}
+                  options={{ direction: [235, 0] }}
+                />
+              ) : (
+                <Ymap center={mapCenter} objRef={mapObjRef} fs lays />
+              )}
             </div>
             <div
               css={css`
@@ -658,9 +715,11 @@ const FullSpecialistInfo = ({ specialists }) => {
                   justify-content: center;
                   padding: 12px 0 14px 0;
                   margin-right: 15px;
+                  background-color: ${isPanoram && theme.colors.inactiveColor};
                   font-weight: 400;
                   text-transform: none;
                 `}
+                onClick={() => onMapClick()}
               >
                 Показать на карте
               </button>
@@ -673,95 +732,24 @@ const FullSpecialistInfo = ({ specialists }) => {
                   justify-content: center;
                   padding: 12px 0 14px 0;
                   margin-right: auto;
+                  background-color: ${!isPanoram && theme.colors.inactiveColor};
                   font-weight: 400;
                   text-transform: none;
                 `}
+                onClick={() => onPanoramClick()}
+                aria-label="Включить панорманое отображение"
               >
                 Панорама
               </button>
             </div>
             <div
               css={css`
-                display: flex;
-                padding-right: 20px;
-                padding-left: 20px;
-                margin-bottom: 14px;
+                padding: 0 20px 10px 20px;
               `}
             >
-              <div
-                css={css`
-                  position: relative;
-                  width: 50%;
-                  padding-left: 31px;
-                  &:before {
-                    position: absolute;
-                    top: -7px;
-                    left: 0;
-                    display: block;
-                    width: 28px;
-                    height: 28px;
-                    background-image: ${theme.colors.linearGradient};
-                    border-radius: 50%;
-                    content: '';
-                  }
-
-                  &:after {
-                    position: absolute;
-                    top: 0px;
-                    left: 9px;
-                    display: block;
-                    width: 9px;
-                    height: 15.5px;
-                    content: url('img/walker.svg');
-                  }
-                `}
-              >
-                <span
-                  css={css`
-                    border-bottom: 1px solid ${theme.colors.blue};
-                  `}
-                >
-                  Пешком
-                </span>
-              </div>
-              <div
-                css={css`
-                  position: relative;
-                  width: 50%;
-                  padding-left: 31px;
-
-                  &:before {
-                    position: absolute;
-                    top: -7px;
-                    left: 0;
-                    display: block;
-                    width: 28px;
-                    height: 28px;
-                    background-image: ${theme.colors.linearGradient};
-                    border-radius: 50%;
-                    content: '';
-                  }
-
-                  &:after {
-                    position: absolute;
-                    top: -2px;
-                    left: 5px;
-                    display: block;
-                    width: 9px;
-                    height: 15.5px;
-                    content: url('img/car.svg');
-                  }
-                `}
-              >
-                <span
-                  css={css`
-                    border-bottom: 1px solid ${theme.colors.blue};
-                  `}
-                >
-                  На машине
-                </span>
-              </div>
+              <p>{mockData[wayToGet]}</p>
             </div>
+            {waysToGet(theme, setWayToGet, wayToGet)}
             <p
               css={css`
                 position: relative;

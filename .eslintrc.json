@@ -42,6 +42,7 @@
     "import/resolver": {
       "alias": {
         "map": [
+          ["fetch", "./fetch.js"],
           ["Redux", "./redux"],
           ["public", "./public"],
           ["utils", "./utils"],

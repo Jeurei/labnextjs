@@ -11,10 +11,10 @@ const reducer = (state = cartInitialState, action) => {
         ...[
           ...Object.values(state).slice(
             0,
-            Object.values(state).findIndex((el) => el.id === action.playload),
+            Object.values(state).findIndex((el) => el.id === action.payload),
           ),
           ...Object.values(state).slice(
-            Object.values(state).findIndex((el) => el.id === action.playload) +
+            Object.values(state).findIndex((el) => el.id === action.payload) +
               1,
           ),
         ],

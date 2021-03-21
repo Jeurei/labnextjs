@@ -7,7 +7,7 @@ const reducer = (state = {}, action) => {
     case SET_CURRENT_CITY:
       return {
         ...state,
-        currentCity: action.playload,
+        currentCity: action.payload,
       };
     default:
       return state;

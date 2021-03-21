@@ -34,6 +34,7 @@ export const GET_SHARES = 'GET_SHARES';
 export const GET_FEATURES = 'GET_FEATURES';
 
 // specialists
+export const SET_SPECIALISTS = 'SET_SPECIALISTS';
 export const GET_SPECIALISTS = 'GET_SPECIALISTS';
 export const GET_SPECIALIST_FILTER = 'GET_SPECIALIST_FILTER';
 
@@ -42,5 +43,10 @@ export const GET_DISCOUTNS = 'GET_DISCOUNTS';
 
 // routes
 export const GET_ROUTES = 'GET_ROUTES';
+export const GET_ROUTES_IN_BURGER = 'GET_ROUTES_IN_BURGER';
 // all
 export const GET_ALL = 'GET_ALL';
+
+// form
+export const GET_USER_FORM_STATE = 'GET_USER_FORM_STATE';
+export const SET_USER_FORM_STATE = 'SET_FORM_STATE';

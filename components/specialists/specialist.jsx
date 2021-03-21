@@ -15,6 +15,7 @@ const specialistInfo = (action, data) => {
     2: 'Взрослые',
     3: 'Дети 0-18 лет, взрослые',
   };
+
   return (
     <div className="specialist__info">
       <h3 className="specialist__name">
@@ -121,7 +122,11 @@ const Specialist = ({ data }) => {
         />
       </div>
       {specialistInfo(setSpecialistPopup, data)}
-      <SpecialistWorkTime adresses={data.adresses} time={data.time} />
+      <SpecialistWorkTime
+        adresses={data.adresses}
+        time={data.time}
+        specialist={data}
+      />
       {specialistPopup && <Form closeHandler={closeHandler} data={data} />}
     </div>
   );

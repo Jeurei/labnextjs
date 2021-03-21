@@ -20,6 +20,7 @@ const reducer = (state, action) => {
       ...action.payload, // apply delta from hydration
     };
 
+    nextState.userForm = state.userForm;
     if (!isEmpty(state.cart)) nextState.cart = state.cart;
     if (!isEmpty(state.cities)) nextState.cities = state.cities;
     if (!isEmpty(state.routes)) nextState.routes = state.routes;

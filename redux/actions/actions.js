@@ -3,7 +3,7 @@ import * as Actions from '../actionTypes';
 
 const HOME_URL = 'http://localhost:3005';
 
-const serverRoutesMap = {
+export const serverRoutesMap = {
   CART: `${HOME_URL}/cart`,
   CITIES: `${HOME_URL}/cities`,
   MAPCITIES: `${HOME_URL}/mapCities`,
@@ -20,6 +20,7 @@ const serverRoutesMap = {
   SPECIALISTSFILTER: `${HOME_URL}/specialistsFilter`,
   DISCOUNTS: `${HOME_URL}/discounts`,
   ROUTES: `${HOME_URL}/routes`,
+  ROUTESINBURDGER: `${HOME_URL}/routesInBurger`,
 };
 
 export const getRoutes = () => (dispatch) =>
@@ -29,6 +30,15 @@ export const getRoutes = () => (dispatch) =>
     headers: [],
   }).then((response) =>
     dispatch({ type: Actions.GET_ROUTES, payload: response.data }),
+  );
+
+export const getRoutesInBurger = () => (dispatch) =>
+  axios({
+    method: 'GET',
+    url: serverRoutesMap.ROUTESINBURDGER,
+    headers: [],
+  }).then((response) =>
+    dispatch({ type: Actions.GET_ROUTES_IN_BURGER, payload: response.data }),
   );
 
 export const getSpecialists = () => (dispatch) =>
@@ -139,12 +149,25 @@ export const getHints = () => (dispatch) =>
     dispatch({ type: Actions.GET_SEARCH_HINTS, payload: response.data }),
   );
 
-export const setCurrentCity = (playload) => ({
-  type: Actions.SET_CURRENT_CITY,
-  playload,
+export const getUserForm = () => (dispatch) =>
+  dispatch({ type: Actions.GET_USER_FORM_STATE });
+
+export const setUserFormState = (payload) => ({
+  type: Actions.SET_USER_FORM_STATE,
+  payload,
 });
 
-export const removeItemFromCart = (playload) => ({
+export const setSpecialists = (payload) => ({
+  type: Actions.SET_SPECIALISTS,
+  payload,
+});
+
+export const setCurrentCity = (payload) => ({
+  type: Actions.SET_CURRENT_CITY,
+  payload,
+});
+
+export const removeItemFromCart = (payload) => ({
   type: Actions.REMOVE_ITEM_FROM_CART,
-  playload,
+  payload,
 });

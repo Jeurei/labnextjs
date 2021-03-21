@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+global.Element = typeof Element === 'undefined' ? function () {} : Element;
+
 const SpecialistSheduleMounth = ({
   arr,
   nextMounth,
