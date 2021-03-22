@@ -9,12 +9,12 @@ const BreadCrumb = ({ data, isActive }) => {
         isActive ? 'breadcrumb--active' : ''
       }`}
     >
-      <Link className="breadcrumb__link" href={`${data.path}`}>
-        {(data.path === '/' && (
-          <a>
+      <Link href={`${data.route}`}>
+        {(data.route === '/' && (
+          <a className="breadcrumb__link">
             <Picture src="img/breadCrumbLogo" alt="На главную" />
           </a>
-        )) || <a>{data.name}</a>}
+        )) || <a className="breadcrumb__link">{data.name}</a>}
       </Link>
     </li>
   );
@@ -26,7 +26,7 @@ BreadCrumb.defaultProps = {
 
 BreadCrumb.propTypes = {
   data: PropTypes.shape({
-    path: PropTypes.string,
+    route: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
   isActive: PropTypes.bool,

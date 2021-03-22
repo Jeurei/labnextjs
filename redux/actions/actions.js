@@ -23,6 +23,10 @@ export const serverRoutesMap = {
   ROUTESINBURDGER: `${HOME_URL}/routesInBurger`,
 };
 
+export const getData = (url) => {
+  return axios(url).then((res) => res.data);
+};
+
 export const getRoutes = () => (dispatch) =>
   axios({
     method: 'GET',
@@ -48,6 +52,15 @@ export const getSpecialists = () => (dispatch) =>
     headers: [],
   }).then((response) =>
     dispatch({ type: Actions.GET_SPECIALISTS, payload: response.data }),
+  );
+
+export const setSpecialist = (id) => (dispatch) =>
+  axios({
+    method: 'GET',
+    url: `${serverRoutesMap.SPECIALISTS}\\${id}`,
+    headers: [],
+  }).then((response) =>
+    dispatch({ type: Actions.SET_SPECIALIST, payload: response.data }),
   );
 
 export const getDiscounts = () => (dispatch) =>
@@ -162,8 +175,18 @@ export const setSpecialists = (payload) => ({
   payload,
 });
 
+export const setRoutes = (payload) => ({
+  type: Actions.SET_ROUTES,
+  payload,
+});
+
 export const setCurrentCity = (payload) => ({
   type: Actions.SET_CURRENT_CITY,
+  payload,
+});
+
+export const setItemToCart = (payload) => ({
+  type: Actions.SET_ITEM_TO_CART,
   payload,
 });
 

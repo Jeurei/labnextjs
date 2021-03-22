@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "mock": "json-server -w db.json -p 3005 -d 450"
+    "mock": "json-server -w db.json -p 3005 -d 250 --id id"
   },
   "dependencies": {
     "@babel/preset-env": "^7.13.9",
@@ -21,6 +21,7 @@
     "lorem-ipsum": "2.0.3",
     "next": "10.0.7",
     "next-redux-wrapper": "6.0.2",
+    "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
     "react-custom-scrollbars": "4.2.1",

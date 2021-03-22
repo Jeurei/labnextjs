@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import React, { useState } from 'react';
 import FormIosCheckbox from 'components/common/form-ios-checkbox';
 import { breakpointsMap } from 'constants/styles';
-import PositionsCatalog from './positions-catalog';
+import PositionsCatalog from '../positions-catalog';
 
 const Centers = () => {
   const [isAdults, setAdults] = useState(true);

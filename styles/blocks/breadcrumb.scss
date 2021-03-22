@@ -1,5 +1,6 @@
 .breadcrumb__link {
   color: rgba($color-text, 0.75);
+  font-size: 13px;
 }
 
 .breadcrumb {
@@ -24,6 +25,7 @@
   &--active {
     .breadcrumb__link {
       color: rgba($green, 0.75);
+      font-weight: 500;
     }
   }
 }

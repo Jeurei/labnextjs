@@ -1,11 +1,14 @@
-import { useTheme } from '@emotion/react';
+import { useTheme, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { breakpointsMap } from 'constants/styles';
-import Routes from '../../routes';
+import { connect } from 'react-redux';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
-const ServicesTabs = () => {
+const ServicesTabs = ({ routes }) => {
   const theme = useTheme();
-
+  const router = useRouter();
   const createTab = (rout) => {
     const Tab = styled.li`
       display: flex;
@@ -13,10 +16,6 @@ const ServicesTabs = () => {
       flex-direction: row;
       align-items: center;
       justify-content: center;
-
-      &:hover {
-        background-image: linear-gradient(254deg, #57aafb, #c837f0);
-      }
 
       &:last-child {
         border-bottom: none;
@@ -38,7 +37,7 @@ const ServicesTabs = () => {
       }
     `;
 
-    const TabLink = styled('a')`
+    const TabLink = styled('button')`
       display: flex;
       width: 100%;
       height: 100%;
@@ -46,17 +45,39 @@ const ServicesTabs = () => {
       justify-content: center;
       padding-top: 21px;
       padding-bottom: 22px;
+      border: none;
+      appearance: none;
+      background-color: #fff;
       font-size: ${theme.fontSizes.altFs};
       line-height: ${theme.fontSizes.altLh};
 
       &:hover {
+        background-image: linear-gradient(254deg, #57aafb, #c837f0);
         color: ${theme.colors.altColorText};
       }
     `;
 
+    const currentLink = router.pathname.split('/')[
+      router.pathname.split('/').length - 1
+    ];
+
+    const SERVICES_PATH = '/services';
+
     return (
       <Tab>
-        <TabLink>{rout.name}</TabLink>
+        <TabLink
+          onClick={() => {
+            if (`/${currentLink}` !== rout.link)
+              router.push(`${SERVICES_PATH}${rout.link}`);
+          }}
+          css={css`
+            ${`/${currentLink}` === rout.link &&
+            `background-image: linear-gradient(254deg, #57aafb, #c837f0);
+            color: ${theme.colors.altColorText};`}
+          `}
+        >
+          {rout.text}
+        </TabLink>
       </Tab>
     );
   };
@@ -84,9 +105,23 @@ const ServicesTabs = () => {
 
   return (
     <TabsContainer>
-      <TabList>{Routes.map((el) => createTab(el))}</TabList>
+      <TabList>{routes.children.map((el) => createTab(el))}</TabList>
     </TabsContainer>
   );
 };
 
-export default ServicesTabs;
+ServicesTabs.propTypes = {
+  routes: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const {
+    routes: {
+      routes: { services },
+    },
+  } = state;
+
+  return { routes: services };
+};
+
+export default connect(mapStateToProps, null)(ServicesTabs);

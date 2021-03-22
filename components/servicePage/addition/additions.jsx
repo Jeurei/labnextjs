@@ -1,4 +1,4 @@
-import PositionsCatalog from './positions-catalog';
+import PositionsCatalog from '../positions-catalog';
 
 const Additions = () => {
   return <PositionsCatalog />;

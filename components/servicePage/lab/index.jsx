@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { ReactComponent as SearchIcon } from 'icons/search-icon.svg';
-import { ReactComponent as CartIcon } from 'icons/cart-icon.svg';
 import { css, useTheme, keyframes } from '@emotion/react';
 import CrossButton from 'common/crossButton';
 import { breakpointsMap } from 'constants/styles';
 import Select from 'common/select';
+import BuyButton from 'components/common/buyButton';
 
 const spanHint = (text, delta = 0) => {
   const theme = useTheme();
@@ -22,7 +22,7 @@ const spanHint = (text, delta = 0) => {
       css={css`
         position: absolute;
         top: -2px;
-        right: 0;
+        right: -6px;
         display: flex;
         width: 18px;
         height: 18px;
@@ -551,6 +551,7 @@ const Lab = () => {
                 <span
                   css={css`
                     position: relative;
+                    padding-right: 15px;
                     font-size: 12px;
                     word-spacing: 5px;
                   `}
@@ -560,41 +561,14 @@ const Lab = () => {
                 </span>
               </td>
               <td>
-                <button
-                  className="buy__button"
-                  type="button"
-                  css={css`
-                    position: absolute;
-                    right: 0;
-                    bottom: 20px;
-                    display: flex;
-                    width: 60px;
-                    height: 60px;
-                    align-items: center;
-                    justify-content: center;
-                    border: none;
-                    appearance: none;
-                    background-color: transparent;
-                    background-image: linear-gradient(
-                      -135deg,
-                      rgba(255, 0, 235, 0.2) 0%,
-                      rgba(154, 102, 245, 0.2) 50%,
-                      rgba(43, 215, 255, 0.2) 100%
-                    );
-                    border-radius: 50%;
-
-                    ${breakpointsMap.TABLET} {
-                      right: 16px;
-                      bottom: 29px;
-                    }
-
-                    ${breakpointsMap.DESKTOP} {
-                      bottom: 27px;
-                    }
-                  `}
-                >
-                  <CartIcon fill="#9A66F5" width="23.74px" height="21px" />
-                </button>
+                <BuyButton
+                  data={{
+                    type: 'analyse',
+                    price: 6989,
+                    descr:
+                      'Amet deserunt ex. Eiusmod tempor voluptate pariatur.',
+                  }}
+                />
               </td>
             </tr>
             {/* <tr

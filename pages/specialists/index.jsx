@@ -31,8 +31,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   },
 );
 
-Index.propTypes = {
-  serverPost: PropTypes.bool.isRequired,
-};
-
 export default Index;

@@ -1,4 +1,8 @@
-import { GET_SPECIALISTS, SET_SPECIALISTS } from '../actionTypes';
+import {
+  GET_SPECIALISTS,
+  SET_SPECIALIST,
+  SET_SPECIALISTS,
+} from '../actionTypes';
 
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -6,6 +10,8 @@ const reducer = (state = [], action) => {
       return [...state, ...action.payload];
     case SET_SPECIALISTS:
       return [...state, ...action.payload];
+    case SET_SPECIALIST:
+      return [...state, action.payload];
     default:
       return state;
   }

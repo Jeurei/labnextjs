@@ -4,18 +4,21 @@ import SectionInner from 'containers/section-inner';
 import Discounts from 'common/discounts';
 import Section from 'containers/section';
 import MainLayout from './MainLayout';
+import BreadCrumbs from './common/breadCrumbs';
 
 const InnerPageLayout = ({
   children,
   title = 'Лабдиагностика',
   isColumn = false,
+  isLoading = false,
 }) => {
   return (
     <>
-      <MainLayout title={title}>
+      <MainLayout title={title} isLoading={isLoading}>
         <FixedCircle />
         <Section>
           <SectionInner>
+            <BreadCrumbs />
             {children}
             <Discounts isColumn={isColumn} />
           </SectionInner>
@@ -28,6 +31,7 @@ const InnerPageLayout = ({
 InnerPageLayout.defaultProps = {
   title: 'Лабдиагностика',
   isColumn: false,
+  isLoading: false,
 };
 
 InnerPageLayout.propTypes = {
@@ -37,6 +41,7 @@ InnerPageLayout.propTypes = {
   ]).isRequired,
   title: PropTypes.string,
   isColumn: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
 
 export default InnerPageLayout;

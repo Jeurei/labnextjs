@@ -6,6 +6,8 @@ import Select from 'common/select';
 import Picture from 'common/picture';
 import { breakpointsMap } from 'constants/styles';
 import Link from 'next/link';
+import Image from 'next/image';
+import BuyButton from 'components/common/buyButton';
 
 const Complexes = () => {
   const theme = useTheme();
@@ -195,14 +197,25 @@ const Complexes = () => {
             }
           `}
         >
-          <Picture
-            src="img/service-complex"
-            imgClass="complex__img"
-            containerClass="complex__img-container"
-            alt="Изображение описывающющее анализ"
-            width="126"
-            height="245"
-          />
+          <div
+            className="complex__img-container"
+            css={css`
+              position: relative;
+              width: 126px;
+              height: 245px;
+            `}
+          >
+            <Image
+              src="/img/service-complex.png"
+              className="complex__img"
+              containerClass="complex__img-container"
+              alt="Изображение описывающющее анализ"
+              layout="fill"
+              css={css`
+                object-fit: cover;
+              `}
+            />
+          </div>
           <div
             css={css`
               display: flex;
@@ -303,32 +316,13 @@ const Complexes = () => {
                 />
               </a>
             </div>
-            <button
-              className="buy__button"
-              type="button"
-              css={css`
-                position: absolute;
-                right: 14px;
-                bottom: 18px;
-                display: flex;
-                width: 60px;
-                height: 60px;
-                align-items: center;
-                justify-content: center;
-                border: none;
-                appearance: none;
-                background-color: transparent;
-                background-image: linear-gradient(
-                  -135deg,
-                  rgba(255, 0, 235, 0.2) 0%,
-                  rgba(154, 102, 245, 0.2) 50%,
-                  rgba(43, 215, 255, 0.2) 100%
-                );
-                border-radius: 50%;
-              `}
-            >
-              <CartIcon fill="#9A66F5" width="23.74px" height="21px" />{' '}
-            </button>
+            <BuyButton
+              data={{
+                type: 'analyse',
+                price: 6989,
+                descr: 'Amet deserunt ex. Eiusmod tempor voluptate pariatur.',
+              }}
+            />
           </div>
         </div>
       </div>

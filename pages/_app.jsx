@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 // import "../styles/style.scss";
+import React from 'react';
+import Router from 'next/router';
+import nProgress from 'nprogress';
 import {
   getDiscounts,
   getCart,
@@ -12,8 +15,12 @@ import { YMaps } from 'react-yandex-maps';
 import ScrollToTop from 'containers/scroll-to-top';
 import { wrapper } from '../redux/index';
 import '../styles/style.scss';
+import 'nprogress/nprogress.css';
 
 const App = ({ Component, pageProps }) => {
+  const [loading, setLoading] = React.useState(false);
+  nProgress.configure({ showSpinner: false });
+
   const theme = {
     colors: {
       colorText: {
@@ -53,6 +60,37 @@ const App = ({ Component, pageProps }) => {
     },
   };
 
+  React.useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+
+    const end = () => {
+      setLoading(false);
+    };
+
+    Router.events.on('routeChangeStart', () => {
+      start();
+      nProgress.start();
+    });
+
+    Router.events.on('routeChangeComplete', () => {
+      end();
+      nProgress.done();
+    });
+
+    Router.events.on('routeChangeError', () => {
+      end();
+      nProgress.done();
+    });
+
+    return () => {
+      Router.events.off('routeChangeStart', start);
+      Router.events.off('routeChangeComplete', end);
+      Router.events.off('routeChangeError', end);
+    };
+  }, []);
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -62,7 +100,7 @@ const App = ({ Component, pageProps }) => {
             apikey: 'dfd9fe91-82da-412d-a4dd-eafd43340cfa',
           }}
         >
-          <Component {...pageProps} />
+          {loading ? <h1>Loading...</h1> : <Component {...pageProps} />}
         </YMaps>
       </ThemeProvider>
     </>

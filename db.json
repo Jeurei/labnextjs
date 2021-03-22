@@ -21,7 +21,26 @@
         "path":"/services",
         "name":"Услуги",
         "children":[
-
+        {
+            "text":"Услуги лаборатории",
+            "link":"/lab"
+        },
+        {
+            "text":"Комплескные анализы",
+            "link":"/complex"
+        },
+        {
+            "text":"Медецинские центры",
+            "link":"/centers"
+        },
+        {
+            "text":"Онлайн консультация",
+            "link":"/online"
+        },
+        {
+          "text":"Дополнительно",
+          "link":"/additions"
+        }
         ]
      },
      "centers":{
@@ -1080,7 +1099,7 @@
   ],
   "specialists":[
      {
-        "id":"StqjF_WMsBpf4VRrBYmKB",
+        "id":"0",
         "name":"cupidatat do est",
         "job":[
            "Окулист"
@@ -4070,7 +4089,7 @@
         }
      },
      {
-        "id":"StqjF_WMsBpf4VRrBYmKB",
+        "id":"1",
         "name":"laboris labore ea",
         "job":[
            "Проктолог"
@@ -6992,7 +7011,7 @@
         }
      },
      {
-        "id":"StqjF_WMsBpf4VRrBYmKB",
+        "id":"2",
         "name":"ad et elit",
         "job":[
            "Терапевт"
@@ -10014,7 +10033,7 @@
         }
      },
      {
-        "id":"StqjF_WMsBpf4VRrBYmKB",
+        "id":"3",
         "name":"nisi aliquip excepteur",
         "job":[
            "Хирург",
@@ -13077,7 +13096,7 @@
         }
      },
      {
-        "id":"StqjF_WMsBpf4VRrBYmKB",
+        "id":"4",
         "name":"aliqua eiusmod excepteur",
         "job":[
            "Хирург"
@@ -16054,7 +16073,7 @@
         }
      },
      {
-        "id":"StqjF_WMsBpf4VRrBYmKB",
+        "id":"5",
         "name":"aliqua id in",
         "job":[
            "Гинеколог",

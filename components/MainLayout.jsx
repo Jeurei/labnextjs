@@ -5,6 +5,7 @@ import MainContainer from 'containers/main-container';
 import Header from './header/header';
 import Footer from './footer/footer';
 import Form from './common/form';
+import Load from './common/load';
 
 const pageContext = React.createContext();
 
@@ -12,7 +13,11 @@ export const usePageContext = () => {
   return useContext(pageContext);
 };
 
-const MainLayout = ({ children, title = 'Лабдиагностика' }) => {
+const MainLayout = ({
+  children,
+  title = 'Лабдиагностика',
+  isLoading = false,
+}) => {
   const [formState, setFormState] = useState(false);
 
   const onClickFormHandler = (bool) => {
@@ -24,7 +29,7 @@ const MainLayout = ({ children, title = 'Лабдиагностика' }) => {
   };
 
   return (
-    <>
+    <Load state={isLoading}>
       <Head>
         <title>{title}</title>
       </Head>
@@ -34,12 +39,13 @@ const MainLayout = ({ children, title = 'Лабдиагностика' }) => {
         {formState && <Form closeHandler={onCloseClickHandler} />}
         <Footer />
       </pageContext.Provider>
-    </>
+    </Load>
   );
 };
 
 MainLayout.defaultProps = {
   title: 'Лабдиагностика',
+  isLoading: false,
 };
 
 MainLayout.propTypes = {
@@ -48,6 +54,7 @@ MainLayout.propTypes = {
     PropTypes.node,
   ]).isRequired,
   title: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
 export default MainLayout;

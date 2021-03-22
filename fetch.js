@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const HOME_URL = 'http://localhost:3005';
 
 const serverRoutesMap = {
@@ -17,6 +19,10 @@ const serverRoutesMap = {
   SPECIALISTSFILTER: `${HOME_URL}/specialistsFilter`,
   DISCOUNTS: `${HOME_URL}/discounts`,
   ROUTES: `${HOME_URL}/routes`,
+};
+
+export const getData = (url) => {
+  return axios(url).then((res) => res.data);
 };
 
 export default serverRoutesMap;

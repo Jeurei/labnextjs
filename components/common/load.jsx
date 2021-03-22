@@ -13,7 +13,7 @@ const Load = ({ state = false, children }) => {
         width: 100%;
         flex-direction: column;
 
-        span {
+        & > span {
           align-self: center;
         }
       `}

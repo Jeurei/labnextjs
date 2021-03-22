@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import Routes from 'constants/routes';
 import { css } from '@emotion/react';
+import { useRouter } from 'next/router';
 import BreadCrumb from './breadCrumb';
 
 // TODO: предположительно сдесь будет ещё один роутинг который предусмотрен на этой странице, типа условно /specialists/1 и тк это рута не будет в родителе переключаться будет только мейн страниы
 
 const BreadCrumbs = ({ className }) => {
-  const currentPath = useLocation().pathname.split('/');
+  const router = useRouter();
+  const currentPath = router.pathname.split('/');
 
   const getArrayOfCurrentBreadCrumbs = (arr) => {
     const subRoutes = [];
@@ -37,7 +39,11 @@ const BreadCrumbs = ({ className }) => {
     <ul
       className={className && `${className}__breadcrumbs breadcrumbs`}
       css={css`
+        display: flex;
+        flex-direction: row;
+        padding: 0;
         margin-bottom: 16px;
+        list-style: none;
       `}
     >
       {routesArr.map((el) => {

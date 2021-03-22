@@ -77,7 +77,7 @@ const HeaderNavItem = ({ isTop, data }) => {
                   position: absolute;
                   z-index: 1000;
                   top: ${isTop ? '140%' : '100%'};
-                  left: ${isTop ? 'calc(100% - 1010px)' : 'calc(100% - 930px)'};
+                  left: ${isTop ? '70px' : '70px'};
                   display: none;
                   min-width: 1170px;
                   padding: 0;
@@ -149,7 +149,12 @@ const HeaderNavItem = ({ isTop, data }) => {
                       `}
                     >
                       {data.children.map((el) => (
-                        <li>
+                        <li
+                          css={css`
+                            margin-right: 10px;
+                            margin-bottom: 10px;
+                          `}
+                        >
                           <Link href={el.link}>
                             <a>{el.text}</a>
                           </Link>

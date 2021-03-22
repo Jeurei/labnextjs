@@ -112,7 +112,7 @@ const HeaderTopRight = ({ cart, openSearch }) => {
           `}
         >
           <CartIcon
-            className="header-top__list-icon header-top__list-icon--cart"
+            className="header-top__list-icon header-top__list-icon--cart cart-icon"
             width="21"
             height="19"
             fill="currentColor"
@@ -166,7 +166,7 @@ const HeaderTopRight = ({ cart, openSearch }) => {
           }}
         >
           <CartIcon
-            className="header-top__list-icon header-top__list-icon--cart"
+            className="header-top__list-icon header-top__list-icon--cart cart-icon"
             width="21"
             height="19"
             fill="currentColor"

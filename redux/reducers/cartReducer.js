@@ -1,4 +1,9 @@
-import { GET_CART, REMOVE_ITEM_FROM_CART } from '../actionTypes';
+import {
+  GET_CART,
+  REMOVE_ITEM_FROM_CART,
+  SET_CART,
+  SET_ITEM_TO_CART,
+} from '../actionTypes';
 
 const cartInitialState = {};
 
@@ -6,6 +11,10 @@ const reducer = (state = cartInitialState, action) => {
   switch (action.type) {
     case GET_CART:
       return { ...state, ...action.payload };
+    case SET_CART:
+      return { ...state, ...action.payload };
+    case SET_ITEM_TO_CART:
+      return { ...state, [Object.values(state).length]: action.payload };
     case REMOVE_ITEM_FROM_CART:
       return {
         ...[
