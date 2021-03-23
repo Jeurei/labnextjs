@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "mock": "json-server -w db.json -p 3005 -d 250 --id id"
+    "mock": "json-server -w db.json -p 3005 -d 10 --id id"
   },
   "dependencies": {
     "@babel/preset-env": "^7.13.9",
