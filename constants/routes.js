@@ -15,18 +15,22 @@ const routesConstants = {
         route: '/centers',
         name: 'Медицинские центры',
       },
+
       ONLINE: {
         route: '/online',
         name: 'Онлайн консультация',
       },
+
       COMPLEXES: {
-        route: '/complexes',
+        route: '/complex',
         name: 'Комплексные анализы',
       },
+
       LAB: {
         route: '/lab',
         name: 'Услуги лаборатории',
       },
+
       ADDITION: {
         route: '/additions',
         name: 'Дополнительно',

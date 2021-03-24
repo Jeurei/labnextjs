@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import Picture from './picture';
+import { ReactComponent as SmallLogo } from 'icons/small-logo.svg';
 
 const BreadCrumb = ({ data, isActive }) => {
   return (
@@ -12,7 +12,7 @@ const BreadCrumb = ({ data, isActive }) => {
       <Link href={`${data.route}`}>
         {(data.route === '/' && (
           <a className="breadcrumb__link">
-            <Picture src="img/breadCrumbLogo" alt="На главную" />
+            <SmallLogo alt="На главную" width="15" height="15" />
           </a>
         )) || <a className="breadcrumb__link">{data.name}</a>}
       </Link>

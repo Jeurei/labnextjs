@@ -1,15 +1,16 @@
 import { css, useTheme } from '@emotion/react';
-import InnerPageLayout from 'components/InnerPageLayout';
 import { breakpointsMap } from 'constants/styles';
-import Link from 'next/link';
 import {
   getCart,
   getCities,
   getDiscounts,
   getRoutes,
   getRoutesInBurger,
+  getSpecialists,
 } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
+import Link from 'next/link';
+import InnerPageLayout from 'components/InnerPageLayout';
 
 const NotFoundPage = () => {
   const theme = useTheme();
@@ -76,7 +77,6 @@ const NotFoundPage = () => {
             css={css`
               position: relative;
               padding-bottom: 9px;
-              cursor: pointer;
               font-size: 13px;
 
               &:before {

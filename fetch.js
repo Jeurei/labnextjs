@@ -22,7 +22,7 @@ const serverRoutesMap = {
 };
 
 export const getData = (url) => {
-  return axios(url).then((res) => res.data);
+  return axios(url).then((res) => Promise.resolve(res.data));
 };
 
 export default serverRoutesMap;

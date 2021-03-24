@@ -24,3 +24,10 @@ export const allTrue = (obj) => {
 
   return result;
 };
+
+export const createElement = (str) => {
+  const div = document.createElement('div');
+  div.innerHTML = str;
+
+  return div;
+};

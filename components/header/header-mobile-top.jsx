@@ -118,8 +118,8 @@ const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
               display: none;
               width: 100%;
               padding: 0;
-              padding-top: 10px;
-              padding-bottom: 6px;
+              padding-top: 5px;
+              padding-bottom: 5px;
 
               ${breakpointsMap.TABLET} {
                 position: relative;
@@ -130,16 +130,11 @@ const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
               }
             `}
           >
-            <Link
-              href="/"
-              css={css`
-                display: flex;
-                align-items: center;
-                margin-right: auto;
-              `}
-            >
+            <Link href="/">
               <a
                 css={css`
+                  display: flex;
+                  align-items: center;
                   margin-right: auto;
                 `}
               >

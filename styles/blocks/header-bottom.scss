@@ -32,6 +32,7 @@
   height: 48px;
   flex-direction: column;
   align-items: center;
+  align-self: center;
   justify-content: center;
   border: none;
   appearance: none;
@@ -110,6 +111,7 @@
 
   .header-bottom__mobile-top-img {
     margin-right: 20px;
+    cursor: pointer;
   }
 
   .header-bottom__mobile-burger-button-container {
@@ -118,7 +120,7 @@
 
   .header-bottom__left {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     padding-left: 35px;
   }
 }

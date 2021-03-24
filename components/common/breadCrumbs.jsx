@@ -31,9 +31,13 @@ const BreadCrumbs = ({ className }) => {
     return [...currArr, ...subRoutes];
   };
 
-  const routesArr = [].concat(
-    ...getArrayOfCurrentBreadCrumbs(Object.values(Routes)),
-  );
+  const routesArr = [
+    ...new Set(
+      []
+        .concat(...getArrayOfCurrentBreadCrumbs(Object.values(Routes)))
+        .map((el) => JSON.stringify(el)),
+    ),
+  ].map((el) => JSON.parse(el));
 
   return (
     <ul

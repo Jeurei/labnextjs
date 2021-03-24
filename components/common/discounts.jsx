@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Components from 'constants/components';
 import { breakpointsMap } from 'constants/styles';
 
 const discount = (data, isColumn) => {
@@ -15,7 +14,7 @@ const discount = (data, isColumn) => {
     align-items: center;
     padding-left: 130px;
     margin-bottom: 15px;
-    background-image: url(./img/${data.img});
+    background-image: url(/img/${data.img});
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -24,7 +23,7 @@ const discount = (data, isColumn) => {
 
     ${data.img2x &&
     `@media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
-      background-image: url(./img/${data.img2x});
+      background-image: url(/img/${data.img2x});
     }`}
 
     &:last-of-type {

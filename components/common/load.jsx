@@ -7,32 +7,34 @@ const Load = ({ state = false, children }) => {
   const [color, setColor] = useState('red');
 
   return (
-    <div
-      css={css`
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-
-        & > span {
-          align-self: center;
-        }
-      `}
-    >
+    <>
       {state ? (
-        <ClipLoader
-          color={color}
-          loading={state}
+        <div
           css={css`
-            display: block;
-            border: 2px solid red;
-            margin: 0 auto;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+
+            & > span {
+              align-self: center;
+            }
           `}
-          size={100}
-        />
+        >
+          <ClipLoader
+            color={color}
+            loading={state}
+            css={css`
+              display: block;
+              border: 2px solid red;
+              margin: 0 auto;
+            `}
+            size={100}
+          />
+        </div>
       ) : (
         children
       )}
-    </div>
+    </>
   );
 };
 

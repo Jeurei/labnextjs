@@ -282,14 +282,13 @@ const HeaderMobileBottom = ({
             </a>
           </div>
           <div className="header-bottom__left">
-            <Link
-              href="/"
-              css={css`
-                display: flex;
-                align-items: center;
-              `}
-            >
-              <a>
+            <Link href="/">
+              <a
+                css={css`
+                  display: flex;
+                  align-items: center;
+                `}
+              >
                 <Logo
                   className="header-bottom__mobile-top-img"
                   width="230"
