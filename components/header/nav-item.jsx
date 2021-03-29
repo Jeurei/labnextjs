@@ -11,7 +11,11 @@ const NavItem = ({ data }) => {
         <a className="nav__link">{data.name}</a>
       </Link>
       {data.children && data.children.length !== 0 && (
-        <SubMenu subMenuTitle={data.name} data={data.children} />
+        <SubMenu
+          subMenuTitle={data.name}
+          data={data.children}
+          root={data.path}
+        />
       )}
     </li>
   );

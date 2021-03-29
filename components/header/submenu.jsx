@@ -5,7 +5,7 @@ import { css, keyframes } from '@emotion/react';
 import SubmenuButton from './submenu-button';
 import SubMenuBack from './submenu-back';
 
-const SubMenu = ({ data, zIndex, subMenuTitle }) => {
+const SubMenu = ({ data, zIndex, subMenuTitle, root }) => {
   const ANIMATION_DURATION = 0.5;
   const [subMenuState, setSubMenuState] = useState(false);
   const [subMenuOpened, setSubMenuOpened] = useState(false);
@@ -72,7 +72,7 @@ const SubMenu = ({ data, zIndex, subMenuTitle }) => {
             {data.map((el) => (
               <li className="nav__item">
                 <a
-                  href={el.link}
+                  href={`${root}${el.link}`}
                   className="nav__link"
                   aria-label="Ссылка на страницу услуг"
                 >
@@ -112,6 +112,7 @@ SubMenu.propTypes = {
   ).isRequired,
   zIndex: PropTypes.number,
   subMenuTitle: PropTypes.string.isRequired,
+  root: PropTypes.string.isRequired,
 };
 
 export default SubMenu;

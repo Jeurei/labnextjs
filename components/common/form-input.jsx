@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { css, useTheme } from '@emotion/react';
 import { ReactComponent as CorrectIcon } from 'icons/check-circle-solid.svg';

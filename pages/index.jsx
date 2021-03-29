@@ -28,9 +28,6 @@ const Index = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store }) => {
     store.dispatch(getUserForm());
-    await store.dispatch(getCart());
-    await store.dispatch(getRoutes());
-    await store.dispatch(getCities());
     await store.dispatch(getLinks());
     await store.dispatch(getFeatures());
     await store.dispatch(getShares());
@@ -38,7 +35,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.dispatch(getComplexes());
     await store.dispatch(getArticles());
     await store.dispatch(getHints());
-    await store.dispatch(getRoutesInBurger());
   },
 );
 

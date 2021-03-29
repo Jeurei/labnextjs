@@ -34,53 +34,23 @@ const positionsList = () => {
     }
 
     ${breakpointsMap.TABLET} {
-      width: 245px;
-      flex-grow: 1;
+      width: 100%;
       margin-right: 10px;
       margin-bottom: 30px;
-
-      &:nth-of-type(2n) {
-        margin-right: 0;
-      }
-
-      &:last-of-type,
-      &:nth-last-of-type(2):nth-of-type(odd) {
-        width: 355px;
-        flex-grow: 0;
-      }
-    }
-
-    ${breakpointsMap.DESKTOP} {
-      width: 370.5px;
-      flex-grow: 0;
-      margin-right: 49px;
-
-      &:nth-of-type(2n) {
-        margin-right: 49px;
-      }
-
-      &:nth-of-type(3n) {
-        margin-right: 0;
-      }
-
-      &:last-of-type,
-      &:nth-last-of-type(2):nth-of-type(odd) {
-        width: 370px;
-      }
     }
   `;
 
   return (
     <ul
       css={css`
-        display: flex;
+        display: grid;
         width: 100%;
-        flex-direction: column;
-        flex-wrap: wrap;
         padding: 0;
+        grid-column-gap: 30px;
 
         ${breakpointsMap.TABLET} {
           flex-direction: row;
+          grid-template-columns: repeat(3, 1fr);
         }
       `}
     >

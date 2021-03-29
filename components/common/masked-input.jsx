@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputMask from 'react-input-mask';
 import { css, useTheme } from '@emotion/react';

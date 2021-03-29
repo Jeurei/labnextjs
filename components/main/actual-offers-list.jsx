@@ -1,10 +1,9 @@
 import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import components from 'constants/components';
 import SliderControls from 'common/slider-controls';
+import Slider from 'common/slider';
 import ActualOffer from './actual-offer';
-import Slider from './slider';
 
 const ActualOffersList = ({ offers }) => {
   const swiperRef = useRef(null);

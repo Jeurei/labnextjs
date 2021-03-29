@@ -24,8 +24,8 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
   const SubNav = styled('ul')`
     position: absolute;
     z-index: 1000;
-    top: ${isTop ? 'calc(110% - 2px)' : '100%'};
-    left: calc(0% - 100px);
+    top: ${isTop ? 'calc(110% - 7px)' : '100%'};
+    left: ${isTop ? 'calc(0% - 100px)' : 'calc(0% - 160px)'};
     display: none;
     min-width: 1170px;
     flex-wrap: wrap;

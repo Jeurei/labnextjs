@@ -2,8 +2,8 @@ import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SliderControls from 'common/slider-controls';
+import Slider from 'common/slider';
 import Complex from './complex';
-import Slider from './slider';
 import Links from './links';
 
 const Complexes = ({ complexes }) => {

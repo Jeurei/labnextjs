@@ -16,6 +16,7 @@ import ScrollToTop from 'containers/scroll-to-top';
 import { wrapper } from '../redux/index';
 import '../styles/style.scss';
 import 'nprogress/nprogress.css';
+import 'react-image-lightbox/style.css';
 
 const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = React.useState(false);
@@ -105,6 +106,14 @@ const App = ({ Component, pageProps }) => {
       </ThemeProvider>
     </>
   );
+};
+
+App.getInitialProps = async ({ ctx }) => {
+  await ctx.store.dispatch(getDiscounts());
+  await ctx.store.dispatch(getCart());
+  await ctx.store.dispatch(getRoutes());
+  await ctx.store.dispatch(getRoutesInBurger());
+  await ctx.store.dispatch(getCities());
 };
 
 export default wrapper.withRedux(App);

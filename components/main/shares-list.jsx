@@ -2,8 +2,8 @@ import React, { useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SliderControls from 'common/slider-controls';
+import Slider from 'common/slider';
 import Share from './share';
-import Slider from './slider';
 
 const SharesList = ({ shares }) => {
   const swiperRef = useRef(null);

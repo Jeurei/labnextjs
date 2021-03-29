@@ -1,9 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import Typed from 'react-typed';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ENTER_KEY_CODE } from 'constants/keys';
-import Components from 'constants/components';
 import { ReactComponent as SearchIcon } from 'icons/search-icon.svg';
 import { css } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';

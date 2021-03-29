@@ -282,19 +282,19 @@
 }
 
 .specialist__shedule-table-time-list {
-  display: flex;
-  width: 260px;
+  display: grid;
+  width: 100%;
   flex-wrap: wrap;
   align-self: center;
   padding: 0;
   margin-bottom: 0;
+  gap: 10px;
+  grid-template-columns: repeat(5, 1fr);
   list-style: none;
 }
 
 .specialist__shedule-table-time {
   display: flex;
-  width: 100%;
-  height: 100%;
   justify-content: center;
   padding-top: 11px;
   padding-bottom: 14px;
@@ -305,8 +305,6 @@
 }
 
 .specialist__shedule-table-time-list-item {
-  width: 70.7px;
-  margin-right: 17px;
   margin-bottom: 5px;
 
   background-color: #f7f7f7;
@@ -373,18 +371,6 @@
 
   .specialist__shedule-table-time-list {
     width: 100%;
-    align-self: flex-start;
-  }
-
-  .specialist__shedule-table-time-list-item {
-    margin-right: 21px;
-    &:nth-of-type(3n) {
-      margin-right: 25px;
-    }
-
-    &:nth-of-type(8n) {
-      margin-right: 0;
-    }
   }
 }
 
@@ -409,16 +395,5 @@
 
   .specialist__price {
     font-size: 26px;
-  }
-
-  .specialist__shedule-table-time-list-item {
-    margin-right: 14px;
-    &:nth-of-type(3n) {
-      margin-right: 13px;
-    }
-
-    &:nth-of-type(8n) {
-      margin-right: 13px;
-    }
   }
 }

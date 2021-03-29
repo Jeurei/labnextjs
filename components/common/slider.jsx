@@ -1,16 +1,23 @@
-import React, { cloneElement } from 'react';
+import { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import SwiperCore, { Pagination, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { css, keyframes } from '@emotion/react';
+import { css } from '@emotion/react';
 
 global.Element = typeof Element === 'undefined' ? function () {} : Element;
 
-const Slider = ({ data, component, swiperRef, sliderObject }) => {
+const Slider = ({
+  data,
+  component,
+  swiperRef,
+  sliderObject,
+  pagination = true,
+}) => {
   SwiperCore.use([Pagination, A11y]);
 
   return (
     <div
+      className="slider__main-container"
       css={css`
         position: relative;
         width: 100%;
@@ -19,7 +26,7 @@ const Slider = ({ data, component, swiperRef, sliderObject }) => {
       <Swiper
         ref={swiperRef}
         {...sliderObject}
-        pagination={{ clickable: true }}
+        pagination={{ clickable: pagination }}
       >
         {data.map((el) => (
           <SwiperSlide>
@@ -33,12 +40,17 @@ const Slider = ({ data, component, swiperRef, sliderObject }) => {
   );
 };
 
+Slider.defaultProps = {
+  pagination: true,
+};
+
 Slider.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   component: PropTypes.objectOf(PropTypes.any).isRequired,
   swiperRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
     .isRequired,
   sliderObject: PropTypes.objectOf(PropTypes.any).isRequired,
+  pagination: PropTypes.bool,
 };
 
 export default Slider;

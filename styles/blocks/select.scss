@@ -41,8 +41,6 @@
   }
 
   &--is-focused {
-    box-shadow: none;
-
     .select__input {
       color: $color-text;
     }

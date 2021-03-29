@@ -118,8 +118,6 @@ const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
               display: none;
               width: 100%;
               padding: 0;
-              padding-top: 5px;
-              padding-bottom: 5px;
 
               ${breakpointsMap.TABLET} {
                 position: relative;

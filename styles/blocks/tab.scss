@@ -88,7 +88,7 @@
 }
 
 @media (min-width: $desktop-width) {
-  .tab {
+  .tab--default {
     display: flex;
     width: 33.33%;
     min-height: 100%;
@@ -105,40 +105,40 @@
     &:last-of-type {
       padding-left: 20px;
     }
-  }
 
-  .tab__title {
-    align-items: flex-start;
-    padding-left: 0;
-    background-color: transparent;
-    font-size: $title-h4-fs;
-    line-height: $title-h4-lh;
+    .tab__title {
+      align-items: flex-start;
+      padding-left: 0;
+      background-color: transparent;
+      font-size: $title-h4-fs;
+      line-height: $title-h4-lh;
 
-    &::after {
-      display: none;
-    }
-  }
-
-  .tab__content {
-    min-height: 100%;
-    max-height: none;
-    background-color: transparent;
-    font-size: 14px;
-    line-height: 19px;
-  }
-
-  .tab__checkbox {
-    &:checked + .tab__title {
-      background-image: none;
-      color: $color-text;
+      &::after {
+        display: none;
+      }
     }
 
-    &:checked ~ .tab__content {
+    .tab__content {
+      min-height: 100%;
       max-height: none;
+      background-color: transparent;
+      font-size: 14px;
+      line-height: 19px;
     }
-  }
-  .tab__content-title {
-    margin-top: 11px;
-    letter-spacing: -1.3px;
+
+    .tab__checkbox {
+      &:checked + .tab__title {
+        background-image: none;
+        color: $color-text;
+      }
+
+      &:checked ~ .tab__content {
+        max-height: none;
+      }
+    }
+    .tab__content-title {
+      margin-top: 11px;
+      letter-spacing: -1.3px;
+    }
   }
 }

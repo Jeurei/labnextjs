@@ -1,12 +1,10 @@
 import { useTheme, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { breakpointsMap } from 'constants/styles';
-import { connect } from 'react-redux';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
-const ServicesTabs = ({ routes }) => {
+const MenuTabs = ({ routes, root }) => {
   const theme = useTheme();
   const router = useRouter();
   const createTab = (rout) => {
@@ -61,14 +59,12 @@ const ServicesTabs = ({ routes }) => {
       router.pathname.split('/').length - 1
     ];
 
-    const SERVICES_PATH = '/services';
-
     return (
       <Tab>
         <TabLink
           onClick={() => {
             if (`/${currentLink}` !== rout.link)
-              router.push(`${SERVICES_PATH}${rout.link}`);
+              router.push(`/${root}${rout.link}`);
           }}
           css={css`
             ${`/${currentLink}` === rout.link &&
@@ -110,18 +106,9 @@ const ServicesTabs = ({ routes }) => {
   );
 };
 
-ServicesTabs.propTypes = {
+MenuTabs.propTypes = {
   routes: PropTypes.objectOf(PropTypes.object).isRequired,
+  root: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const {
-    routes: {
-      routes: { services },
-    },
-  } = state;
-
-  return { routes: services };
-};
-
-export default connect(mapStateToProps, null)(ServicesTabs);
+export default MenuTabs;

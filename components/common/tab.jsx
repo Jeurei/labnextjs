@@ -2,7 +2,7 @@
 
 const Tab = () => {
   return (
-    <div className="footer__nav-tab tab">
+    <div className="footer__nav-tab tab tab--default">
       <input
         className="tab__checkbox"
         type="checkbox"

@@ -36,7 +36,7 @@ const HeaderNav = ({ isTop }) => {
       css={css`
         position: relative;
         display: none;
-        height: ${isTop ? '60px' : '100%'};
+        height: ${isTop ? '70px' : '100%'};
         flex-direction: row;
         flex-grow: 1;
         padding: 0;

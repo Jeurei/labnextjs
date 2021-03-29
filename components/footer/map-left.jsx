@@ -5,6 +5,9 @@ import SectionInner from 'containers/section-inner';
 import Select from 'common/select';
 import { ReactComponent as Logo } from 'icons/logo.svg';
 import { withYMaps } from 'react-yandex-maps';
+import { css } from '@emotion/react';
+
+global.Element = typeof Element === 'undefined' ? function () {} : Element;
 
 const MapLeft = ({ selectData, refProp }) => {
   return (
@@ -30,7 +33,15 @@ const MapLeft = ({ selectData, refProp }) => {
                 height="8.4"
                 fill="currentColor"
               />
-              <form className="geo__form">
+              <form
+                className="geo__form"
+                css={css`
+                  .select__control--is-focused {
+                    border: none !important;
+                    box-shadow: none !important;
+                  }
+                `}
+              >
                 <Select
                   selectClass="geo__select"
                   data={selectData}

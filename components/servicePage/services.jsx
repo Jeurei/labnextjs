@@ -1,12 +1,13 @@
+import MenuTabs from 'components/common/menu-tabs';
 import InnerPageLayout from 'components/InnerPageLayout';
 import PropTypes from 'prop-types';
-import ServicesTabs from './servicesTabs';
+import { connect } from 'react-redux';
 
-const Services = ({ children }) => {
+const Services = ({ children, services }) => {
   return (
-    <InnerPageLayout title="Лабдиагностика">
+    <InnerPageLayout title="Лабдиагностика | Услуги">
       <h1 className="main__title">Услуги</h1>
-      <ServicesTabs />
+      <MenuTabs routes={services} root="services" />
       {children}
     </InnerPageLayout>
   );
@@ -14,6 +15,17 @@ const Services = ({ children }) => {
 
 Services.propTypes = {
   children: PropTypes.node.isRequired,
+  services: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default Services;
+const mapStateToProps = (state) => {
+  const {
+    routes: {
+      routes: { services },
+    },
+  } = state;
+
+  return { services };
+};
+
+export default connect(mapStateToProps, null)(Services);

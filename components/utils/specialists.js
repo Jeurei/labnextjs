@@ -9,7 +9,6 @@ export const getSpecialistsJobsArray = (arr) => {
 };
 
 export const getSpecialistAdress = (arr) => {
-  console.log(arr);
   return arr.adresses.map((el) =>
     Object.values(el.center).map((elem) => `${el.city}, ${elem.adress}`),
   );

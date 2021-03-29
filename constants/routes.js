@@ -38,12 +38,12 @@ const routesConstants = {
     },
   },
   MEDCENTERS: {
-    route: '/medCenters',
+    route: '/centers',
     name: 'Медицинские центры',
   },
   REFERENCES: {
     route: '/references',
-    name: 'Справки',
+    name: 'Справки в ФНС',
   },
   SPECIALITY: {
     route: '/speciality',
@@ -77,8 +77,8 @@ const routesConstants = {
     route: '/vacansy',
     name: 'Вакансия',
   },
-  MAINTAINCE: {
-    route: '/maintaince',
+  INSURANCE: {
+    route: '/insurance',
     name: 'Обслуживание по полисам ДМС',
   },
   NOTFOUND: {
@@ -118,12 +118,16 @@ const routesConstants = {
     name: 'Акции',
   },
   ABOUTUS: {
-    route: '/aboutus',
+    route: '/aboutUs',
     name: 'О компании',
   },
   REFUND: {
     route: '/refund',
     name: 'Возврат',
+  },
+  FAQ: {
+    route: '/FAQ',
+    name: 'Ответы на вопросы',
   },
 };
 

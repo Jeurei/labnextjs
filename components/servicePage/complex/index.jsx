@@ -1,9 +1,7 @@
 import { ReactComponent as SearchIcon } from 'icons/search-icon.svg';
 import { ReactComponent as ExpandIcon } from 'icons/expand-icon.svg';
-import { ReactComponent as CartIcon } from 'icons/cart-icon.svg';
 import { css, useTheme } from '@emotion/react';
 import Select from 'common/select';
-import Picture from 'common/picture';
 import { breakpointsMap } from 'constants/styles';
 import Link from 'next/link';
 import Image from 'next/image';

@@ -1,7 +1,7 @@
 import Picture from 'common/picture';
 import SectionInner from 'containers/section-inner';
 import { css } from '@emotion/react';
-import Socials from './socials';
+import Socials from 'common/socials';
 
 const Copyrights = () => (
   <section className="footer__section footer__section--copyright section copyrights">

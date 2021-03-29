@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { ReactComponent as ArrowRightIcon } from 'icons/arrrow-right.svg';
 import { useEffect, useState } from 'react';
-import Load from 'components/common/load';
 import { bindActionCreators } from 'redux';
 import { serverRoutesMap, setSpecialists } from 'Redux/actions/actions';
 import { connect } from 'react-redux';
@@ -19,7 +18,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
   const SubNav = styled('ul')`
     position: absolute;
     z-index: 1000;
-    top: ${isTop ? 'calc(110% - 2px)' : '100%'};
+    top: ${isTop ? 'calc(110% - 7px)' : '100%'};
     left: calc(0% - 100px);
     display: none;
     min-width: 1170px;
@@ -33,11 +32,28 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
     }
   `;
 
-  const defaultNav = () => {
+  const defaultNav = (navData) => {
     const Item = styled('li')`
       position: relative;
+      display: flex;
       width: 100%;
+      height: 100%;
+      align-items: center;
+      padding-left: 27px;
       font-size: 16px;
+
+      &:hover {
+        background-color: #cacaca54;
+      }
+    `;
+
+    const LinkItem = styled('a')`
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      cursor: pointer;
+      white-space: pre;
     `;
 
     return (
@@ -48,71 +64,28 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
           height: 292px;
           flex-direction: column;
           justify-content: space-between;
-          padding-top: 56px;
-          padding-bottom: 38px;
-          padding-left: 27px;
+          padding-top: 0;
+          padding-bottom: 0;
         `}
       >
-        <Item>
-          <span>
-            Поставщикам расходных
-            <br />
-            материалов
-          </span>
-          <ArrowRightIcon
-            width="28px"
-            height="23px"
-            fill="currentColor"
-            css={css`
-              position: absolute;
-              top: -2px;
-              right: 10px;
-              color: ${theme.colors.inactiveColor};
-            `}
-          />
-        </Item>
-        <Item>
-          <span>Вопрос/ответ</span>
-          <ArrowRightIcon
-            width="28px"
-            height="23px"
-            fill="currentColor"
-            css={css`
-              position: absolute;
-              top: -2px;
-              right: 10px;
-              color: ${theme.colors.inactiveColor};
-            `}
-          />
-        </Item>
-        <Item>
-          <span>Отзывы</span>
-          <ArrowRightIcon
-            width="28px"
-            height="23px"
-            fill="currentColor"
-            css={css`
-              position: absolute;
-              top: -2px;
-              right: 10px;
-              color: ${theme.colors.inactiveColor};
-            `}
-          />
-        </Item>
-        <Item>
-          <span>Реквизиты</span>
-          <ArrowRightIcon
-            width="28px"
-            height="23px"
-            fill="currentColor"
-            css={css`
-              position: absolute;
-              top: -2px;
-              right: 10px;
-              color: ${theme.colors.inactiveColor};
-            `}
-          />
-        </Item>
+        {navData.map((el) => (
+          <Item>
+            <Link href={el.link}>
+              <LinkItem>{el.text}</LinkItem>
+            </Link>
+            <ArrowRightIcon
+              width="28px"
+              height="23px"
+              fill="currentColor"
+              css={css`
+                position: absolute;
+                top: 24px;
+                right: 10px;
+                color: ${theme.colors.inactiveColor};
+              `}
+            />
+          </Item>
+        ))}
       </SubNav>
     );
   };
@@ -302,7 +275,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
                 flex-wrap: wrap;
                 justify-content: space-between;
                 padding: 0;
-                padding: 35px 58px;
+                padding: 35px 18px;
                 font-size: 16px;
                 list-style: none;
               `}
@@ -422,7 +395,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
             </span>
             {data.children.length !== 0
               ? (unqueNavsMap[data.path] && unqueNavsMap[data.path]()) ||
-                defaultNav()
+                defaultNav(data.children)
               : ''}
           </a>
         </Link>
