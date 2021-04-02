@@ -1,113 +1,123 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Picture from 'common/picture';
 import Image from 'next/image';
 import Form from 'common/form';
 import { css, useTheme } from '@emotion/react';
 import { numberWithSpaces } from 'utils/common';
 import Link from 'next/link';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setUserFormState } from 'Redux/actions/actions';
 import SpecialistWorkTime from './specialist-work-time';
 
-const specialistInfo = (action, data) => {
-  const theme = useTheme();
-  const agesMap = {
-    1: 'Дети 0-18 лет',
-    2: 'Взрослые',
-    3: 'Дети 0-18 лет, взрослые',
-  };
-
-  return (
-    <div className="specialist__info">
-      <h3 className="specialist__name">
-        <Link href="specialists/[id]" as={`specialists/${data.id}`}>
-          <a>{data.name}</a>
-        </Link>
-      </h3>
-      <ul className="specialist__info-list">
-        <li className="specialist__info-item">
-          Должность:{' '}
-          <span
-            css={css`
-              font-weight: 500;
-            `}
-          >
-            {data.job.reduce((acc, curr) => `${acc}, ${curr}`)}
-          </span>
-        </li>
-        <li className="specialist__info-item">
-          Ведёт приём:
-          <span
-            css={css`
-              font-weight: 500;
-            `}
-          >
-            {agesMap[data.ages]}
-          </span>
-        </li>
-        <li className="specialist__info-item">
-          Первичный прием:
-          <span
-            className="specialist__price"
-            css={css`
-              font-weight: 500;
-            `}
-          >
-            {numberWithSpaces(data.price)} ₽
-          </span>
-        </li>
-        <li aria-label="Ссылка на услуги которые предоставляет данный специалист">
-          <a
-            className="specialist__info-item specialist__info-item--link"
-            href="/"
-          >
-            Все услуги
-          </a>
-        </li>
-      </ul>
-      <button
-        className="specialist__button button"
-        type="button"
-        aria-label="Записать на приём"
-        onClick={() => action(true)}
-      >
-        Запишитесь на прием
-      </button>
-      <button
-        type="button"
-        className="specialist__button button"
-        aria-label="Записать на онлайн консультацию"
-        css={css`
-          background-color: ${theme.colors.blue};
-          text-transform: uppercase;
-
-          &:hover,
-          &:active {
-            background-color: ${theme.colors.blue};
-          }
-        `}
-      >
-        online консультация
-      </button>
-      <p className="specialist__tel">
-        Телефон для записи:
-        <a
-          href="tel:88003000789"
-          css={css`
-            font-weight: 500;
-          `}
-        >
-          8 800 3000 789
-        </a>
-      </p>
-    </div>
-  );
-};
-
-const Specialist = ({ data }) => {
+const Specialist = ({ data, userForm, setFormState }) => {
   const [specialistPopup, setSpecialistPopup] = useState(false);
 
   const closeHandler = () => {
     setSpecialistPopup(false);
+  };
+
+  const onButtonClickHandler = (spec) => {
+    setFormState({
+      ...userForm,
+      specialist: spec,
+    });
+    setSpecialistPopup(true);
+  };
+
+  const specialistInfo = (specialist) => {
+    const theme = useTheme();
+    const agesMap = {
+      1: 'Дети 0-18 лет',
+      2: 'Взрослые',
+      3: 'Дети 0-18 лет, взрослые',
+    };
+
+    return (
+      <div className="specialist__info">
+        <h3 className="specialist__name">
+          <Link href="specialists/[id]" as={`specialists/${specialist.id}`}>
+            <a>{specialist.name}</a>
+          </Link>
+        </h3>
+        <ul className="specialist__info-list">
+          <li className="specialist__info-item">
+            Должность:{' '}
+            <span
+              css={css`
+                font-weight: 500;
+              `}
+            >
+              {specialist.job.reduce((acc, curr) => `${acc}, ${curr}`)}
+            </span>
+          </li>
+          <li className="specialist__info-item">
+            Ведёт приём:
+            <span
+              css={css`
+                font-weight: 500;
+              `}
+            >
+              {agesMap[specialist.ages]}
+            </span>
+          </li>
+          <li className="specialist__info-item">
+            Первичный прием:
+            <span
+              className="specialist__price"
+              css={css`
+                font-weight: 500;
+              `}
+            >
+              {numberWithSpaces(specialist.price)} ₽
+            </span>
+          </li>
+          <li aria-label="Ссылка на услуги которые предоставляет данный специалист">
+            <a
+              className="specialist__info-item specialist__info-item--link"
+              href="/"
+            >
+              Все услуги
+            </a>
+          </li>
+        </ul>
+        <button
+          className="specialist__button button"
+          type="button"
+          aria-label="Записать на приём"
+          onClick={() => onButtonClickHandler(specialist)}
+        >
+          Запишитесь на прием
+        </button>
+        <button
+          type="button"
+          className="specialist__button button"
+          aria-label="Записать на онлайн консультацию"
+          css={css`
+            background-color: ${theme.colors.blue};
+            text-transform: uppercase;
+
+            &:hover,
+            &:active {
+              background-color: ${theme.colors.blue};
+            }
+          `}
+        >
+          online консультация
+        </button>
+        <p className="specialist__tel">
+          Телефон для записи:
+          <a
+            href="tel:88003000789"
+            css={css`
+              font-weight: 500;
+            `}
+          >
+            8 800 3000 789
+          </a>
+        </p>
+      </div>
+    );
   };
 
   return (
@@ -121,7 +131,7 @@ const Specialist = ({ data }) => {
           alt="Изображение специалиста"
         />
       </div>
-      {specialistInfo(setSpecialistPopup, data)}
+      {specialistInfo(data)}
       <SpecialistWorkTime
         adresses={data.adresses}
         time={data.time}
@@ -151,6 +161,18 @@ Specialist.propTypes = {
     ),
     time: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
+  setFormState: PropTypes.func.isRequired,
+  userForm: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default Specialist;
+const mapDispatchToProps = (dispatch) => ({
+  setFormState: bindActionCreators(setUserFormState, dispatch),
+});
+
+const mapStateToProps = (state) => {
+  const { userForm } = state;
+
+  return { userForm };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Specialist);

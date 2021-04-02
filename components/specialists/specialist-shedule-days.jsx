@@ -31,7 +31,6 @@ const SpecialistSheduleDays = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
   const theme = useTheme();
-  console.log(adress);
   const onTimeClickOpenPopup = usePageContext();
 
   const getFormatedDate = (date, pattern) => {

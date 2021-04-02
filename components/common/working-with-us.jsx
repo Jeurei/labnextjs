@@ -1,6 +1,18 @@
 import { css } from '@emotion/react';
 import Image from 'next/image';
+import Slider from 'common/slider';
 import SliderControls from './slider-controls';
+
+const CompanyItem = () => (
+  <li>
+    <Image
+      src="/img/alfa.png"
+      alt="Изображение компании с которой сотрудничаем"
+      width="179"
+      height="56"
+    />
+  </li>
+);
 
 const WorkingWithUs = () => {
   return (
@@ -28,14 +40,11 @@ const WorkingWithUs = () => {
             list-style: none;
           `}
         >
-          <li>
-            <Image
-              src="/img/alfa.png"
-              alt="Изображение компании с которой сотрудничаем"
-              width="179"
-              height="56"
-            />
-          </li>
+          <Slider
+            component={<CompanyItem />}
+            data={new Array(5).fill()}
+            sliderObject={{ slidesPerView: 5 }}
+          />
         </ul>
       </div>
     </div>

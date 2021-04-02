@@ -407,6 +407,7 @@ const MedCenterLink = () => {
               padding-top: 29px;
               padding-bottom: 62px;
               padding-left: 38px;
+              cursor: pointer;
               font-size: 16px;
 
               &:after {
