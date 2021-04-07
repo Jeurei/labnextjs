@@ -99,12 +99,4 @@ const NotFoundPage = () => {
   );
 };
 
-export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-  await store.dispatch(getDiscounts());
-  await store.dispatch(getCart());
-  await store.dispatch(getRoutes());
-  await store.dispatch(getRoutesInBurger());
-  await store.dispatch(getCities());
-});
-
 export default NotFoundPage;

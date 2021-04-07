@@ -20,8 +20,8 @@ const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
   }
 
   70%{
-    min-height: 126px;
-    height: 126px;
+    min-height: 120px;
+    height: 120px;
   }
 
   100% {
