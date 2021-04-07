@@ -121,6 +121,7 @@ const Header = ({ cities, setCity, cart, routes }) => {
       onCloseClickHandler: () => setCartModal(false),
     },
     nav: {
+      source: Object.values(routes),
       navArr: navArray,
       setNavArr: setNavArray,
       slideArr: slideMenuArr,
@@ -158,7 +159,7 @@ const Header = ({ cities, setCity, cart, routes }) => {
         )}
         {citiesModalState && (
           <CitiesModal
-            citiesData={cities.list}
+            citiesData={cities}
             closeHandler={headerHandlers.cities.onClickClosePopupHandler}
             setCurrentCity={setCity}
             modalState={citiesModalState}

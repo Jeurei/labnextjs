@@ -41,6 +41,10 @@ const routesConstants = {
     route: '/centers',
     name: 'Медицинские центры',
   },
+  SHEDULE: {
+    route: '/shedule',
+    name: 'Расписсание врачей',
+  },
   REFERENCES: {
     route: '/references',
     name: 'Справки в ФНС',
@@ -90,7 +94,7 @@ const routesConstants = {
     name: 'Корпоративным клиентам',
   },
   ARTICLES: {
-    route: '/articles',
+    route: '/media',
     name: 'Пресс центр',
   },
   DISCOUTNS: {

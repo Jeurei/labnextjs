@@ -1,9 +1,13 @@
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 import Link from 'next/link';
+import { useState } from 'react';
+import Share from './share-block';
+import VacansyForm from './vacansy-form';
 
 const Vacansy = () => {
   const theme = useTheme();
+  const [isModal, setModal] = useState(false);
 
   return (
     <>
@@ -312,6 +316,22 @@ const Vacansy = () => {
           </p>
         </div>
       </div>
+      <button
+        className="button"
+        type="button"
+        css={css`
+          display: flex;
+          width: 256px;
+          height: 48px;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+        `}
+      >
+        Откликнуться
+      </button>
+      <Share />
+      {isModal && <VacansyForm />}
     </>
   );
 };

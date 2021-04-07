@@ -10,7 +10,9 @@ const Vacansies = () => {
       <Contacts />
       <div
         css={css`
+          display: inline-block;
           margin-bottom: 30px;
+          box-shadow: ${theme.colors.boxShadow};
         `}
       >
         <button
@@ -23,7 +25,6 @@ const Vacansies = () => {
             border: none;
             appearance: none;
             background-color: ${theme.colors.white};
-            box-shadow: ${theme.colors.boxShadow};
 
             &:hover {
               background-image: linear-gradient(264deg, #768bf8, #c23df1);
@@ -32,6 +33,25 @@ const Vacansies = () => {
           `}
         >
           Медицинская деятельность
+        </button>
+        <button
+          type="button"
+          css={css`
+            padding-top: 21px;
+            padding-right: 68px;
+            padding-bottom: 22px;
+            padding-left: 61px;
+            border: none;
+            appearance: none;
+            background-color: ${theme.colors.white};
+
+            &:hover {
+              background-image: linear-gradient(264deg, #768bf8, #c23df1);
+              color: ${theme.colors.white};
+            }
+          `}
+        >
+          Административный персонал
         </button>
       </div>
       <div

@@ -20,7 +20,7 @@
 
 .filter__select {
   width: 100%;
-  height: auto;
+  height: 60px;
   flex-grow: 1;
   order: 2;
   margin-top: 5px;
@@ -33,7 +33,18 @@
     }
   }
 
+  .select__menu {
+    border-radius: 4px !important;
+  }
+
+  .select__menu-list {
+    border-radius: 4px;
+  }
+
   .select__option {
+    display: flex;
+    min-height: 40px;
+    align-items: center;
     background-color: $white;
     color: $color-text;
 

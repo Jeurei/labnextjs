@@ -1,6 +1,5 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { breakpointsMap } from 'constants/styles';
 import Image from 'next/image';
 import Paragraph from 'components/common/paragraph';
 

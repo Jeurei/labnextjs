@@ -42,7 +42,9 @@ const VacansyBlock = () => {
           font-weight: 500;
         `}
       >
-        Бухгалтер
+        <Link href="vacansies/[id]" as="vacansies/1">
+          <a>Бухгалтер</a>
+        </Link>
       </h3>
       <ul
         css={css`

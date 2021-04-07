@@ -34,17 +34,26 @@ const Comment = () => {
         css={css`
           padding-left: 33px;
           margin-bottom: 13px;
+
+          &:hover {
+            .star {
+              color: #ffab1a;
+            }
+          }
         `}
       >
         {new Array(5).fill().map(() => (
           <Star
+            className="star"
             fill="currentColor"
             css={css`
               color: #ddd;
               cursor: pointer;
 
               &:hover {
-                color: #ffab1a;
+                &:hover ~ .star {
+                  color: #ddd;
+                }
               }
             `}
           />

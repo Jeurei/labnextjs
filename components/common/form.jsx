@@ -192,6 +192,17 @@ const Form = ({
     }
   };
 
+  useEffect(() => {
+    if (
+      allTrue(userForm.fields.firstField) &&
+      allTrue(userForm.fields.secondField)
+    ) {
+      setCurrentStep(2);
+    } else if (allTrue(userForm.fields.firstField)) {
+      setCurrentStep(1);
+    }
+  }, []);
+
   const onThirdStepHandlers = (bool, obj) => {
     setFormValid(bool);
     setFormState({

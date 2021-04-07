@@ -1,5 +1,4 @@
 import SectionInner from 'containers/section-inner';
-import Picture from 'common/picture';
 import Tab from 'common/tab';
 import Image from 'next/image';
 import { ReactComponent as Logo } from 'icons/logo.svg';

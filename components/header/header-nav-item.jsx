@@ -37,7 +37,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
       position: relative;
       display: flex;
       width: 100%;
-      height: 100%;
+      height: 70px;
       align-items: center;
       padding-left: 27px;
       font-size: 16px;
@@ -59,9 +59,8 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
     return (
       <SubNav
         css={css`
-          left: calc(100% - 74px);
+          left: calc(100% - 103px);
           min-width: 282px;
-          height: 292px;
           flex-direction: column;
           justify-content: space-between;
           padding-top: 0;
@@ -327,7 +326,6 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
       css={css`
         padding: 0;
         margin-top: 0;
-        margin-right: 28px;
         margin-bottom: 0;
         list-style: none;
       `}
@@ -360,7 +358,11 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
               display: flex;
               min-height: 100%;
               align-items: center;
+              cursor: pointer;
               white-space: nowrap;
+
+              ${!!data.children.length && `padding-right: 28px;`}
+
               ${!!data.children.length &&
               !unqueNavsMap[data.path] &&
               'position:relative;'}

@@ -99,6 +99,7 @@
 
   .header-bottom__left {
     display: block;
+    align-items: center;
     margin-right: auto;
   }
 }
@@ -110,7 +111,7 @@
   }
 
   .header-bottom__mobile-top-img {
-    margin-right: 20px;
+    margin-right: 30px;
     cursor: pointer;
   }
 
@@ -121,6 +122,6 @@
   .header-bottom__left {
     display: flex;
     align-items: stretch;
-    padding-left: 35px;
+    padding-left: 0;
   }
 }

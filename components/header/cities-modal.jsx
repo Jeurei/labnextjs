@@ -15,7 +15,7 @@ const CitiesModal = ({ citiesData, closeHandler, setCurrentCity }) => {
       <h3 className="cities__title">Выберете ваш населённый пункт</h3>
       <ul className="cities__list">
         {Object.values(citiesData).map((el) => (
-          <CitiesModalItem cityName={el.value} action={setCurrentCity} />
+          <CitiesModalItem cityName={el.label} action={setCurrentCity} />
         ))}
       </ul>
       <CrossButton

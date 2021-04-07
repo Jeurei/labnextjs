@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { ENTER_KEY_CODE } from 'constants/keys';
-import Picture from 'common/picture';
 import { ReactComponent as ExpandIcon } from 'icons/expand-icon.svg';
 import { ReactComponent as ArrowRight } from 'icons/arrow-right.svg';
 import Image from 'next/image';

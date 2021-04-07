@@ -131,6 +131,7 @@ const MedCenterLink = () => {
                   height="9"
                   viewBox="0 0 9 9"
                   css={css`
+                    top: 2.5px;
                     left: 15px;
                   `}
                 >
@@ -150,7 +151,7 @@ const MedCenterLink = () => {
               <p
                 className="baloon__shedule-state"
                 css={css`
-                  padding-left: 20px;
+                  padding-left: 30px;
                 `}
               >
                 Открыто
@@ -164,31 +165,6 @@ const MedCenterLink = () => {
                   padding-left: 10px;
                 `}
               >
-                <li
-                  className="shedule__item"
-                  css={css`
-                    ${breakpointsMap.TABLET} {
-                      flex-direction: row;
-                      margin-right: 5px;
-                    }
-
-                    ${breakpointsMap.DESKTOP} {
-                      flex-direction: column;
-                    }
-                  `}
-                >
-                  <p className="shedule__day">ПН</p>
-                  <div
-                    css={css`
-                      display: flex;
-                      flex-direction: column;
-                      margin-left: 10px;
-                    `}
-                  >
-                    <time className="shdeule__time">07:00</time>
-                    <time className="shdeule__time">19:00</time>
-                  </div>
-                </li>
                 <li
                   className="shedule__item"
                   css={css`
@@ -373,7 +349,11 @@ const MedCenterLink = () => {
           }
 
           &:hover {
-            background-image: ${theme.colors.linearGradient};
+            background-image: linear-gradient(
+              to right,
+              rgb(80, 175, 245),
+              rgb(200, 58, 241)
+            );
 
             &:before,
             &:after {
@@ -436,7 +416,7 @@ const MedCenterLink = () => {
 
               ${breakpointsMap.DESKTOP} {
                 &:after {
-                  top: 78px;
+                  top: 90px;
                 }
               }
             `}

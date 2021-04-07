@@ -306,7 +306,7 @@ const HeaderMobileBottom = ({
               aria-label="Ссылка на страницу для записи к врачу, или попап если скрипт работает"
               onClick={(evt) => {
                 evt.preventDefault();
-                onClickFormHandler();
+                onClickFormHandler(true);
               }}
             >
               Записаться к врачу

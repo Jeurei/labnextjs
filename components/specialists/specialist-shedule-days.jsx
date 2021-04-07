@@ -51,9 +51,9 @@ const SpecialistSheduleDays = ({
           ...userForm.fields,
           firstField: {
             ...userForm.fields.firstField,
-            city: adress.value.split(',')[0] || null,
-            center: adress.value || null,
-            spec: specialist.job,
+            city: (adress && adress.value.split(',')[0]) || null,
+            center: (adress && adress.value) || null,
+            spec: specialist.job[0],
             doctorsName: specialist.name,
           },
           secondField: {

@@ -5,7 +5,7 @@ const HOME_URL = 'http://localhost:3005';
 
 export const serverRoutesMap = {
   CART: `${HOME_URL}/cart`,
-  CITIES: `${HOME_URL}/cities`,
+  CITIES: `http://labdiag.praweb.ru/spravochniki/goroda`,
   MAPCITIES: `${HOME_URL}/mapCities`,
   SEARCHCATEGORIES: `${HOME_URL}/searchCategories`,
   HINTS: `${HOME_URL}/hints`,

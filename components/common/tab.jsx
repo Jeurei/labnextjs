@@ -1,14 +1,21 @@
 // TODO: сделать более универсальным
 
+import { getRandomInteger } from 'utils/common';
+
 const Tab = () => {
+  const id = getRandomInteger(0, 10000);
   return (
     <div className="footer__nav-tab tab tab--default">
       <input
         className="tab__checkbox"
         type="checkbox"
         onChange={() => console.log('hi')}
+        id={`footer-${id}`}
+        name={`footer-${id}`}
       />
-      <label className="tab__title">Анализы</label>
+      <label htmlFor={`footer-${id}`} className="tab__title">
+        Анализы
+      </label>
       <div className="tab__content">
         <a href="/" className="tab__content-title">
           Услуги лаборатории

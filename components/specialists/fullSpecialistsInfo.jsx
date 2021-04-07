@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { Panorama, YMaps } from 'react-yandex-maps';
 import * as Tabs from 'components/common/styled/tabs';
+import styled from '@emotion/styled';
+import Comment from 'components/common/comment';
 import Specialist from './specialist';
 
 const waysToGet = (theme, cb, state) => {
@@ -184,6 +186,15 @@ const FullSpecialistInfo = ({ specialists }) => {
     setMapPanoram(false);
   };
 
+  const Item = styled('li')`
+    min-width: 100%;
+    height: 104px;
+    padding-right: 22px;
+    padding-left: 22px;
+    margin-bottom: 37px;
+    box-shadow: 1px 1px 22px 0 RGBA(74, 74, 74, 0.2);
+  `;
+
   return (
     <>
       <h1 className="main__title">Специалист</h1>
@@ -249,6 +260,7 @@ const FullSpecialistInfo = ({ specialists }) => {
         >
           <div
             css={css`
+              width: 100%;
               padding-left: 0;
               margin-right: auto;
 
@@ -271,406 +283,115 @@ const FullSpecialistInfo = ({ specialists }) => {
                 }
               `}
             >
-              <li
-                className="tab"
-                css={css`
-                  width: 100%;
-                  padding-top: 0;
-                  padding-left: 0;
-                  margin-bottom: 12px;
-                  background-color: ${theme.colors.white};
-                  border-radius: 4px;
-                  box-shadow: ${theme.colors.boxShadow};
-
-                  &:last-of-type {
-                    padding-left: 0;
-                  }
-
-                  .tab__title {
-                    position: relative;
-                    display: flex;
-                    width: 100%;
-                    height: 100%;
-                    min-height: 36px;
-                    align-items: center;
-                    justify-content: flex-end;
-                    padding: 35px 24px;
-                    padding-left: 11px;
-                    border-radius: 4px;
-                    font-size: 16px;
-                    font-weight: 400;
-
-                    &::after {
-                      position: absolute;
-                      top: 11px;
-                      right: 13px;
-                      width: 9px;
-                      height: 9px;
-                      border: 1px solid $color-text;
-                      border-top: 0;
-                      border-left: 0;
-                      background-color: transparent;
-                      content: '';
-                      transform: rotate(45deg);
-                      transition: transform 0.35s ease-in-out;
-                    }
-                  }
-
-                  .tab__content {
-                    position: relative;
-                    max-height: 1px;
-                    padding: 0;
-                    padding-left: 2px;
-                    font-weight: 300;
-                    letter-spacing: -1px;
-                    overflow-y: hidden;
-                    transition: max-height 350ms ease-in-out;
-                  }
-
-                  .tab__content-title {
-                    margin-bottom: 8px;
-                    font-weight: 300;
-                  }
-
-                  .tab__checkbox {
-                    display: none;
-
-                    &:checked + .tab__title {
-                      background-image: linear-gradient(
-                        264deg,
-                        #57aafb,
-                        #c837f0
-                      );
-                      color: ${theme.colors.white};
-
-                      &::after {
-                        top: 15px;
-                        border-color: ${theme.colors.white};
-                        transform: rotate(-135deg);
-                      }
-                    }
-
-                    &:checked ~ .tab__content {
-                      max-height: 350px;
-                      transition: max-height 500ms ease-in-out;
-                    }
-                  }
-
-                  .tab__list {
-                    padding: 0;
-                    letter-spacing: 0;
-                    list-style: none;
-                  }
-
-                  .tab__list-item {
-                    margin-bottom: 11px;
-                  }
-
-                  ${breakpointsMap.DESKTOP} {
-                    width: 644px;
-                  }
-                `}
-              >
-                <input
-                  className="tab__checkbox"
-                  type="checkbox"
-                  id="tab-analyse"
-                  name="tab-group"
-                  onChange={() => console.log('hi')}
-                />
-                <label
-                  htmlFor="tab-analyse"
-                  className="tab__title"
+              <Item>
+                <a
+                  href="/"
                   css={css`
-                    padding-right: 30px;
-                    font-weight: 500;
+                    display: flex;
+                    min-width: 100%;
+                    height: 100%;
+                    align-items: center;
                   `}
                 >
-                  Прием врача акушера-гинеколога лечебно-диагностический
                   <span
                     css={css`
-                      display: none;
-                      margin-left: auto;
+                      margin-right: auto;
+                      font-size: 16px;
+                    `}
+                  >
+                    Прием врача акушера-гинеколога лечебно-
+                    <br />
+                    диагностический, первичный, амбулаторный
+                  </span>
+                  <span
+                    css={css`
                       font-size: 26px;
-                      font-weight: 500;
-
-                      @media (min-width: 589px) {
-                        display: flex;
-                      }
                     `}
                   >
                     1 100 ₽
                   </span>
-                </label>
-                <div className="tab__content">
-                  <h3 className="tab__content-title">
-                    Врач акушер-гинеколог и специалист ультразвуковой
-                    диагностики. Эксперт о планированию беременности, ведению
-                    беременности и родов, ведению пациенток в послеродовой
-                    период, по диагностике и лечению причин невынашивания
-                    беременности.
-                  </h3>
-                </div>
-              </li>
-              <li
-                className="tab"
+                </a>
+              </Item>
+              <Item
                 css={css`
-                  ${breakpointsMap.DESKTOP} {
-                    width: 644px;
-                    padding-top: 0;
-                    margin-bottom: 12px;
-                    background-color: ${theme.colors.white};
-                    border-radius: 4px;
-                    box-shadow: ${theme.colors.boxShadow};
+                  height: auto;
+                  padding: 0;
+                `}
+              >
+                <div
+                  css={css`
+                    display: flex;
+                    width: 100%;
+                    height: 104px;
+                    align-items: center;
+                    padding-right: 22px;
+                    padding-left: 22px;
+                    background-image: linear-gradient(
+                      to right,
+                      rgb(80, 175, 245),
+                      rgb(200, 58, 241)
+                    );
+                    color: ${theme.colors.white};
+                    font-size: 16px;
+                  `}
+                >
+                  Прием врача акушера-гинеколога лечебно-диагностический,
+                  первичный, амбулаторный
+                </div>
+                <p
+                  css={css`
+                    display: block;
+                    padding: 38px 31px 29px 24px;
+                    margin: 0;
+                    background-color: #fff;
+                    font-size: 14px;
+                  `}
+                >
+                  Врач акушер-гинеколог и специалист ультразвуковой диагностики.
+                  Эксперт о планированию беременности, ведению беременности и
+                  родов, ведению пациенток в послеродовой период, по диагностике
+                  и лечению причин невынашивания беременности.
+                </p>
+              </Item>
+              <Item
+                css={css`
+                  height: auto;
+                  padding: 0;
 
-                    &:last-of-type {
-                      padding-left: 0;
-                    }
-
-                    .tab__title {
-                      position: relative;
-                      display: flex;
-                      width: 100%;
-                      height: 100%;
-                      min-height: 36px;
-                      align-items: center;
-                      padding: 35px 24px;
-                      padding-left: 11px;
-                      border-radius: 4px;
-                      font-size: 16px;
-                      font-weight: 400;
-
-                      &::after {
-                        position: absolute;
-                        top: 11px;
-                        right: 13px;
-                        width: 9px;
-                        height: 9px;
-                        border: 1px solid $color-text;
-                        border-top: 0;
-                        border-left: 0;
-                        background-color: transparent;
-                        content: '';
-                        transform: rotate(45deg);
-                        transition: transform 0.35s ease-in-out;
-                      }
-                    }
-
-                    .tab__content {
-                      position: relative;
-                      max-height: 1px;
-                      padding: 0;
-                      padding-left: 2px;
-                      font-weight: 300;
-                      letter-spacing: -1px;
-                      overflow-y: hidden;
-                      transition: max-height 350ms ease-in-out;
-                    }
-
-                    .tab__content-title {
-                      margin-bottom: 8px;
-                      font-weight: 300;
-                    }
-
-                    .tab__checkbox {
-                      display: none;
-
-                      &:checked + .tab__title {
-                        background-image: linear-gradient(
-                          264deg,
-                          #57aafb,
-                          #c837f0
-                        );
-                        color: ${theme.colors.white};
-
-                        &::after {
-                          top: 15px;
-                          border-color: ${theme.colors.white};
-                          transform: rotate(-135deg);
-                        }
-                      }
-
-                      &:checked ~ .tab__content {
-                        max-height: none;
-                        transition: max-height 500ms ease-in-out;
-                      }
-                    }
-
-                    .tab__list {
-                      padding: 0;
-                      letter-spacing: 0;
-                      list-style: none;
-                    }
-
-                    .tab__list-item {
-                      margin-bottom: 11px;
-                    }
+                  & > div:not(:first-child) {
+                    margin-bottom: 0;
                   }
                 `}
               >
-                <input
-                  className="tab__checkbox"
-                  type="checkbox"
-                  id="tab-2"
-                  name="tab-group"
-                  onChange={() => console.log('hi')}
-                />
-                <label
-                  htmlFor="tab-2"
-                  className="tab__title"
+                <div
                   css={css`
-                    font-weight: 500;
+                    display: flex;
+                    width: 100%;
+                    height: 104px;
+                    align-items: center;
+                    padding-right: 22px;
+                    padding-left: 22px;
+                    background-image: linear-gradient(
+                      to right,
+                      rgb(80, 175, 245),
+                      rgb(200, 58, 241)
+                    );
+                    color: ${theme.colors.white};
+                    font-size: 16px;
                   `}
                 >
                   Отзывы
-                </label>
-                <div className="tab__content">
-                  <ul
-                    css={css`
-                      padding: 0;
-                      list-style: none;
-                    `}
-                  >
-                    <li
-                      css={css`
-                        position: relative;
-                        padding-top: 35px;
-                        padding-bottom: 34px;
-                        &:not(:last-of-type):before {
-                          position: absolute;
-                          bottom: 0;
-                          left: 0;
-                          display: block;
-                          width: 100%;
-                          height: 7px;
-                          background-image: ${theme.colors.linearGradient};
-                          content: '';
-                        }
-                      `}
-                    >
-                      <div
-                        css={css`
-                          padding-left: 33px;
-                          margin-bottom: 13px;
-                        `}
-                      >
-                        {new Array(5).fill().map(() => (
-                          <Star
-                            fill="currentColor"
-                            css={css`
-                              color: #ddd;
-                              cursor: pointer;
-
-                              &:hover {
-                                color: #ffab1a;
-                              }
-                            `}
-                          />
-                        ))}
-                      </div>
-                      <div
-                        css={css`
-                          padding-left: 53px;
-                        `}
-                      >
-                        Вопрос
-                      </div>
-                      <div
-                        css={css`
-                          padding-top: 30px;
-                          padding-left: 79px;
-                          background-image: url('img/quotes.svg');
-                          background-position: 50px 16px;
-
-                          background-repeat: no-repeat;
-                        `}
-                      >
-                        Ответ
-                      </div>
-                    </li>
-                    <li
-                      css={css`
-                        position: relative;
-                        padding-top: 35px;
-                        padding-bottom: 34px;
-
-                        &:not(:last-of-type):before {
-                          position: absolute;
-                          bottom: 0;
-                          left: 0;
-                          display: block;
-                          width: 100%;
-                          height: 7px;
-                          background-image: ${theme.colors.linearGradient};
-                          content: '';
-                        }
-                      `}
-                    >
-                      <div
-                        css={css`
-                          padding-left: 33px;
-                          margin-bottom: 13px;
-                        `}
-                      >
-                        {new Array(5).fill().map(() => (
-                          <Star
-                            fill="currentColor"
-                            css={css`
-                              color: #ddd;
-                              cursor: pointer;
-
-                              &:hover {
-                                color: #ffab1a;
-                              }
-                            `}
-                          />
-                        ))}
-                      </div>
-                      <div
-                        css={css`
-                          padding-left: 57px;
-                        `}
-                      >
-                        Вопрос
-                      </div>
-                      <div
-                        css={css`
-                          padding-top: 30px;
-                          padding-left: 79px;
-                          background-image: url('img/quotes.svg');
-                          background-position: 50px 16px;
-
-                          background-repeat: no-repeat;
-                        `}
-                      >
-                        Ответ
-                      </div>
-                    </li>
-                  </ul>
-                  <button
-                    type="button"
-                    css={css`
-                      width: 100%;
-                      height: 100%;
-                      padding-top: 10px;
-                      padding-bottom: 10px;
-                      border: none;
-                      appearance: none;
-                      background-color: ${theme.colors.colorText.hex};
-                      color: ${theme.colors.white};
-                      font-size: 12px;
-                    `}
-                  >
-                    Загрузить ещё
-                  </button>
                 </div>
-              </li>
+                <Comment />
+                <Comment />
+              </Item>
             </ul>
           </div>
           <div
             css={css`
               display: flex;
               width: 100%;
+              height: 624px;
               flex-direction: column;
               box-shadow: 1px 1px 22px 0 RGBA(74, 74, 74, 0.2);
 
@@ -742,13 +463,6 @@ const FullSpecialistInfo = ({ specialists }) => {
                 Панорама
               </button>
             </div>
-            <div
-              css={css`
-                padding: 0 20px 10px 20px;
-              `}
-            >
-              <p>{mockData[wayToGet]}</p>
-            </div>
             {waysToGet(theme, setWayToGet, wayToGet)}
             <p
               css={css`
@@ -770,8 +484,7 @@ const FullSpecialistInfo = ({ specialists }) => {
                 }
               `}
             >
-              Въезд со стороны ул. Малая Филёвская
-              <br /> Парковка с торца дома
+              {mockData[wayToGet]}
             </p>
           </div>
         </div>

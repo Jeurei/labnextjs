@@ -2,10 +2,10 @@ import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 import Image from 'next/image';
 import DefaultSearch from 'components/common/default-search';
-import MenuTabs from 'components/common/menu-tabs';
 import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
+import MenuTabs from './menu-tabs';
 
 const Media = ({ media }) => {
   const theme = useTheme();

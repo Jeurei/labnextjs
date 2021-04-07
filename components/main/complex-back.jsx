@@ -84,6 +84,7 @@ const ComplexBack = ({ action, data, state, liRef }) => {
           width="26.5"
           height="26.5"
           fill="currentColor"
+          stroke="currentColor"
         />
       </div>
     </div>
