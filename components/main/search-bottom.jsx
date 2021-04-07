@@ -1,7 +1,7 @@
 import { ReactComponent as AnalyseIcon } from 'icons/analyse.svg';
 import { ReactComponent as CenterIcon } from 'icons/center.svg';
 import { ReactComponent as DoctorIcon } from 'icons/doctor.svg';
-import { ReactComponent as SheduleIcon } from 'icons/shedule.svg';
+import { ReactComponent as SheduleIcon } from 'icons/onlineIcon.svg';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 // TODO: Возможно это тоже тянется с серва
@@ -68,8 +68,8 @@ const SearchBottom = () => {
             <DoctorIcon
               className="search__controll-icon"
               fill="currentColor"
-              width="27"
-              height="35"
+              width="31"
+              height="32"
             />
             Запись к врачу
           </span>
@@ -79,7 +79,7 @@ const SearchBottom = () => {
           className="search__control search__control--shedule"
           aria-label="Нажмите чтобы узнать расписсания врачей"
           name="shedule-button"
-          onClick={() => router.push('/shedule')}
+          onClick={() => router.push('/services/online')}
         >
           <span
             css={css`
@@ -89,10 +89,10 @@ const SearchBottom = () => {
             <SheduleIcon
               className="search__controll-icon"
               fill="currentColor"
-              width="28"
-              height="28"
+              width="31"
+              height="32"
             />
-            Расписание приема врачей
+            Онлайн консультация
           </span>
         </button>
       </div>

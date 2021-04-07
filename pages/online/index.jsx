@@ -1,10 +1,10 @@
 import InnerPageLayout from 'components/InnerPageLayout';
-import Shedule from 'components/shedule/shedule';
+import Online from 'components/online/online';
 
 const Index = () => {
   return (
     <InnerPageLayout>
-      <Shedule />
+      <Online />
     </InnerPageLayout>
   );
 };

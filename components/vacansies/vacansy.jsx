@@ -289,6 +289,7 @@ const Vacansy = () => {
               margin-top: 15px;
             }
           `}
+          onClick={() => setModal(true)}
         >
           Откликнуться
         </button>
@@ -327,6 +328,7 @@ const Vacansy = () => {
           justify-content: center;
           margin-bottom: 20px;
         `}
+        onClick={() => setModal(true)}
       >
         Откликнуться
       </button>
