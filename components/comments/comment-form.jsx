@@ -25,21 +25,6 @@ const CommentForm = ({ specialists, setSpecialistsState }) => {
     border: none;
   `;
 
-  useEffect(() => {
-    if (specialists.length === 0) {
-      setLoading(true);
-
-      axios({
-        method: 'GET',
-        url: serverRoutesMap.SPECIALISTS,
-        headers: [],
-      }).then((res) => {
-        setSpecialistsState(res.data);
-        setLoading(false);
-      });
-    }
-  }, [specialists]);
-
   const selectNamesData = getSpecialistsNamesArray(specialists).map((el) => ({
     value: el,
     label: el,

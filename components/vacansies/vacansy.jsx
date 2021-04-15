@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Share from './share-block';
 import VacansyForm from './vacansy-form';
+import VacansyQuest from './vacansy-quest';
 
 const Vacansy = () => {
   const theme = useTheme();
   const [isModal, setModal] = useState(false);
+  const [isQuest, setQuest] = useState(false);
 
   return (
     <>
@@ -333,7 +335,13 @@ const Vacansy = () => {
         Откликнуться
       </button>
       <Share />
-      {isModal && <VacansyForm />}
+      {isModal && (
+        <VacansyForm
+          closeForm={() => setModal(false)}
+          openQuest={() => setQuest(true)}
+        />
+      )}
+      {isQuest && <VacansyQuest closeQuest={() => setQuest(false)} />}
     </>
   );
 };

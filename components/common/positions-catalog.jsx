@@ -2,8 +2,12 @@ import { useTheme, css } from '@emotion/react';
 import { ReactComponent as DoctorIcon } from 'icons/doctor.svg';
 import { breakpointsMap } from 'constants/styles';
 import styled from '@emotion/styled';
+import { connect } from 'react-redux';
 
-const positionsList = () => {
+import PropTypes from 'prop-types';
+import { getSpecialistsJobsArray } from 'components/utils/specialists';
+
+const PositionsList = ({ specialists }) => {
   const theme = useTheme();
 
   const Position = styled('li')`
@@ -40,6 +44,31 @@ const positionsList = () => {
     }
   `;
 
+  const PositionElement = (data) => (
+    <Position>
+      <DoctorIcon
+        className="icon"
+        fill="currentColor"
+        width="22px"
+        height="33px"
+      />
+      <a
+        href="/"
+        css={css`
+          display: block;
+          width: 100%;
+          height: 100%;
+          padding-top: 16px;
+          padding-bottom: 16px;
+          padding-left: 51.5px;
+          font-weight: 500;
+        `}
+      >
+        {data}
+      </a>
+    </Position>
+  );
+
   return (
     <ul
       css={css`
@@ -54,121 +83,12 @@ const positionsList = () => {
         }
       `}
     >
-      <Position>
-        <DoctorIcon
-          className="icon"
-          fill="currentColor"
-          width="22px"
-          height="33px"
-        />
-        <a
-          href="/"
-          css={css`
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding-top: 16px;
-            padding-bottom: 16px;
-            padding-left: 51.5px;
-            font-weight: 500;
-          `}
-        >
-          Аллерголог
-        </a>
-      </Position>
-      <Position>
-        <DoctorIcon
-          className="icon"
-          fill="currentColor"
-          width="22px"
-          height="33px"
-        />
-        <a
-          href="/"
-          css={css`
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding-top: 16px;
-            padding-bottom: 16px;
-            padding-left: 51.5px;
-            font-weight: 500;
-          `}
-        >
-          Аллерголог
-        </a>
-      </Position>
-      <Position>
-        <DoctorIcon
-          className="icon"
-          fill="currentColor"
-          width="22px"
-          height="33px"
-        />
-        <a
-          href="/"
-          css={css`
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding-top: 16px;
-            padding-bottom: 16px;
-            padding-left: 51.5px;
-            font-weight: 500;
-          `}
-        >
-          Аллерголог
-        </a>
-      </Position>
-      <Position>
-        <DoctorIcon
-          className="icon"
-          fill="currentColor"
-          width="22px"
-          height="33px"
-        />
-        <a
-          href="/"
-          css={css`
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding-top: 16px;
-            padding-bottom: 16px;
-            padding-left: 51.5px;
-            font-weight: 500;
-          `}
-        >
-          Аллерголог
-        </a>
-      </Position>
-      <Position>
-        <DoctorIcon
-          className="icon"
-          fill="currentColor"
-          width="22px"
-          height="33px"
-        />
-        <a
-          href="/"
-          css={css`
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding-top: 16px;
-            padding-bottom: 16px;
-            padding-left: 51.5px;
-            font-weight: 500;
-          `}
-        >
-          Аллерголог
-        </a>
-      </Position>
+      {getSpecialistsJobsArray(specialists).map((el) => PositionElement(el))}
     </ul>
   );
 };
 
-const PositionsCatalog = () => {
+const PositionsCatalog = ({ specialists }) => {
   return (
     <div
       css={css`
@@ -176,9 +96,23 @@ const PositionsCatalog = () => {
         padding-top: 23px;
       `}
     >
-      {positionsList()}
+      <PositionsList specialists={specialists} />
     </div>
   );
 };
 
-export default PositionsCatalog;
+const mapStateToProps = (state) => {
+  const { specialists } = state;
+
+  return { specialists };
+};
+
+PositionsList.propTypes = {
+  specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+PositionsCatalog.propTypes = {
+  specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, null)(PositionsCatalog);

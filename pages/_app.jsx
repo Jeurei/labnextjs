@@ -9,6 +9,7 @@ import {
   getRoutes,
   getCities,
   getRoutesInBurger,
+  getCenters,
 } from 'Redux/actions/actions';
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
@@ -114,6 +115,7 @@ App.getInitialProps = async ({ ctx }) => {
   await ctx.store.dispatch(getRoutes());
   await ctx.store.dispatch(getRoutesInBurger());
   await ctx.store.dispatch(getCities());
+  await ctx.store.dispatch(getCenters());
 };
 
 export default wrapper.withRedux(App);

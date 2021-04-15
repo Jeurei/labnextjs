@@ -10,10 +10,10 @@ export const serverRoutesMap = {
   SEARCHCATEGORIES: `${HOME_URL}/searchCategories`,
   HINTS: `${HOME_URL}/hints`,
   MENU: `${HOME_URL}/menu`,
-  OFFERS: `${HOME_URL}/offers`,
+  OFFERS: `http://labdiag.praweb.ru/spravochniki/aktualnye-predlozheniya`,
   COMPLEX: `${HOME_URL}/complex`,
   LINKS: `${HOME_URL}/links`,
-  ARTICLES: `${HOME_URL}/articles`,
+  ARTICLES: `http://labdiag.praweb.ru/press-centr`,
   SHARES: `${HOME_URL}/shares`,
   FEATURES: `${HOME_URL}/features`,
   SPECIALISTS: `${HOME_URL}/specialists`,
@@ -21,6 +21,7 @@ export const serverRoutesMap = {
   DISCOUNTS: `${HOME_URL}/discounts`,
   ROUTES: `${HOME_URL}/routes`,
   ROUTESINBURDGER: `${HOME_URL}/routesInBurger`,
+  MEDCENTERS: `http://labdiag.praweb.ru/spravochniki/medicinskie-centry`,
 };
 
 export const getData = (url) => {
@@ -88,6 +89,15 @@ export const getCities = () => (dispatch) =>
     headers: [],
   }).then((response) =>
     dispatch({ type: Actions.GET_CITIES, payload: response.data }),
+  );
+
+export const getCenters = () => (dispatch) =>
+  axios({
+    method: 'GET',
+    url: serverRoutesMap.MEDCENTERS,
+    headers: [],
+  }).then((response) =>
+    dispatch({ type: Actions.GET_CENTERS, payload: response.data }),
   );
 
 export const getOffers = () => (dispatch) =>

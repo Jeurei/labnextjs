@@ -1,8 +1,5 @@
 import Main from 'components/main/main';
 import {
-  getRoutes,
-  getCities,
-  getCart,
   getLinks,
   getFeatures,
   getShares,
@@ -10,11 +7,10 @@ import {
   getComplexes,
   getArticles,
   getHints,
-  getRoutesInBurger,
   getUserForm,
+  getSpecialists,
 } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
-import { isEmpty } from 'utils/common';
 import MainLayout from '../components/MainLayout';
 
 const Index = () => {
@@ -35,6 +31,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.dispatch(getComplexes());
     await store.dispatch(getArticles());
     await store.dispatch(getHints());
+    await store.dispatch(getSpecialists());
   },
 );
 

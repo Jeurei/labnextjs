@@ -106,6 +106,7 @@ const MenuTabs = ({ routes, root }) => {
         <Tab>
           <TabLink
             aria-label="Оставить отзыв"
+            onClick={() => router.push('/media')}
             css={css`
               position: relative;
 

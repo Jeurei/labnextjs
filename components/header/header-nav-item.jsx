@@ -32,7 +32,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
     }
   `;
 
-  const defaultNav = (navData) => {
+  const defaultNav = (navData, root) => {
     const Item = styled('li')`
       position: relative;
       display: flex;
@@ -69,7 +69,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
       >
         {navData.map((el) => (
           <Item>
-            <Link href={el.link}>
+            <Link href={`${root}${el.link}`}>
               <LinkItem>{el.text}</LinkItem>
             </Link>
             <ArrowRightIcon
@@ -311,16 +311,6 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
     '/corpo': () => corpoNav(),
   };
 
-  useEffect(() => {
-    if (specialists.length === 0) {
-      setLoading(true);
-      getData(serverRoutesMap.SPECIALISTS).then((res) => {
-        setSpecialistsData(res);
-        setLoading(false);
-      });
-    }
-  }, []);
-
   return (
     <ul
       css={css`
@@ -397,7 +387,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
             </span>
             {data.children.length !== 0
               ? (unqueNavsMap[data.path] && unqueNavsMap[data.path]()) ||
-                defaultNav(data.children)
+                defaultNav(data.children, data.path)
               : ''}
           </a>
         </Link>

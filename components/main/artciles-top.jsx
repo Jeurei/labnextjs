@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { filterTypesMap } from 'constants/filter';
 import { ReactComponent as GrowArrow } from 'icons/grow-arrow.svg';
 import { css } from '@emotion/react';
+import Link from 'next/link';
 
 const ArticlesTop = ({ action, currentFilter }) => {
   const ACTIVE_CLASS = 'articles__sort-item--active';
@@ -78,24 +79,22 @@ const ArticlesTop = ({ action, currentFilter }) => {
           </button>
         </li>
       </ul>
-      <a
-        href="./"
-        className="articles__link-button button"
-        aria-label="В пресс центр"
-      >
-        В пресс-центр
-        <GrowArrow
-          width="9"
-          height="9"
-          fill="currentColor"
-          css={css`
-            position: absolute;
-            top: 8px;
-            right: 7px;
-            color: #fff;
-          `}
-        />
-      </a>
+      <Link href="/media">
+        <a className="articles__link-button button" aria-label="В пресс центр">
+          В пресс-центр
+          <GrowArrow
+            width="9"
+            height="9"
+            fill="currentColor"
+            css={css`
+              position: absolute;
+              top: 8px;
+              right: 7px;
+              color: #fff;
+            `}
+          />
+        </a>
+      </Link>
     </div>
   );
 };

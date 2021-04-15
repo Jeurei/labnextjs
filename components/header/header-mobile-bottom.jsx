@@ -174,7 +174,8 @@ const HeaderMobileBottom = ({
                   }}
                   arial-label="Открыть попап для выбора города"
                 >
-                  <span className="cities__city">{cities.currentCity}</span>
+                  <span className="cities__city">Пермь</span>
+                  {/* <span className="cities__city">{cities.currentCity}</span> */}
                 </a>
               </div>
               <MarkMapIcon

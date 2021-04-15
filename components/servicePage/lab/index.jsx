@@ -22,7 +22,7 @@ const spanHint = (text, delta = 0) => {
       css={css`
         position: absolute;
         top: -2px;
-        right: -6px;
+        right: 2px;
         display: flex;
         width: 18px;
         height: 18px;

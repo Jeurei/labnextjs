@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import Image from 'next/image';
+import { css } from '@emotion/react';
 
 const formatDate = (date) => {
   return format(new Date(date), 'd MMMM yyyy', { locale: ru });
@@ -28,9 +29,14 @@ const Article = ({ data }) => {
           className={`article__img-container${
             data.isNew ? ' article__img-container--new' : ''
           }`}
+          css={css`
+            & > div {
+              width: 100%;
+            }
+          `}
         >
           <Image
-            src="/img/article.png"
+            src={data.image}
             width="301"
             height="250"
             alt="Изображение статьи"
@@ -50,6 +56,7 @@ Article.propTypes = {
     isNews: PropTypes.bool,
     isBlog: PropTypes.bool,
     isUseful: PropTypes.bool,
+    image: PropTypes.string.isRequired,
   }).isRequired,
 };
 

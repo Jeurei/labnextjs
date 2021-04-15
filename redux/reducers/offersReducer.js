@@ -3,7 +3,7 @@ import { GET_OFFERS, SET_OFFERS } from '../actionTypes';
 const reducer = (state = [], action) => {
   switch (action.type) {
     case GET_OFFERS:
-      return [...state, ...action.payload];
+      return [...state, ...Object.values(action.payload)];
     case SET_OFFERS:
       return [...state, ...action.payload];
     default:

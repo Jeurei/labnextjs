@@ -6,10 +6,11 @@ import Select from 'common/select';
 import { ReactComponent as Logo } from 'icons/logo.svg';
 import { withYMaps } from 'react-yandex-maps';
 import { css } from '@emotion/react';
+import MapLeftResults from './map-left-results';
 
 global.Element = typeof Element === 'undefined' ? function () {} : Element;
 
-const MapLeft = ({ selectData, refProp }) => {
+const MapLeft = ({ cities, refProp }) => {
   return (
     <div className="map__left">
       <SectionInner>
@@ -44,7 +45,7 @@ const MapLeft = ({ selectData, refProp }) => {
               >
                 <Select
                   selectClass="geo__select"
-                  data={selectData}
+                  data={Object.values(cities)}
                   placeholder="Выберите город"
                 />
               </form>
@@ -52,37 +53,7 @@ const MapLeft = ({ selectData, refProp }) => {
           </div>
           <div className="geo__results">
             <SectionInner>
-              <h3 className="geo__results-title">
-                Найдено <span className="geo__results-value">1</span> отделение
-              </h3>
-              <ul className="geo__results-list">
-                <li className="geo__result result">
-                  <a
-                    href="./"
-                    className="result__link"
-                    aria-label="Показать на карте"
-                    onClick={(evt) => {
-                      evt.preventDefault();
-                      if (refProp.current) {
-                        refProp.current.panTo([-19.9490072, -69.6348673]);
-                      }
-                    }}
-                  >
-                    <MapMark
-                      className="geo__result-icon"
-                      width="8"
-                      height="8.4"
-                      fill="currentColor"
-                    />
-                    <p className="result__text">
-                      г. Пермь, ул. Хабаровская, 56
-                    </p>
-                    <p className="result__options">
-                      Возможна оплата картой, есть вход с коляской
-                    </p>
-                  </a>
-                </li>
-              </ul>
+              <MapLeftResults refProp={refProp} />
             </SectionInner>
           </div>
         </div>
@@ -92,11 +63,17 @@ const MapLeft = ({ selectData, refProp }) => {
 };
 
 MapLeft.propTypes = {
-  selectData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
   refProp: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
 };
 
-export default connect(null, null)(withYMaps(MapLeft));
+const mapStateToProps = (state) => {
+  const { cities } = state;
+
+  return { cities };
+};
+
+export default connect(mapStateToProps, null)(withYMaps(MapLeft));

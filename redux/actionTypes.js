@@ -66,3 +66,5 @@ export const GET_ALL = 'GET_ALL';
 // form
 export const GET_USER_FORM_STATE = 'GET_USER_FORM_STATE';
 export const SET_USER_FORM_STATE = 'SET_FORM_STATE';
+
+export const GET_CENTERS = 'GET_CENTERS';

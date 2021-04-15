@@ -222,21 +222,6 @@ const Form = ({
     <FormThirdStep action={onThirdStepHandlers} userForm={userForm} />,
   ];
 
-  useEffect(() => {
-    if (specialists.length === 0) {
-      setLoading(true);
-
-      axios({
-        method: 'GET',
-        url: serverRoutesMap.SPECIALISTS,
-        headers: [],
-      }).then((res) => {
-        setSpecialistsState(res.data);
-        setLoading(false);
-      });
-    }
-  }, [specialists]);
-
   return (
     <section className="specialist__form-container">
       <div className="specialist__form-overlay" />

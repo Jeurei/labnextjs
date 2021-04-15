@@ -1,6 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  images: {
+    domains: ['labdiag.praweb.ru'],
+  },
   webpack(config) {
     config.module.rules.push(
       {

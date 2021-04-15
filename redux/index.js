@@ -33,6 +33,7 @@ const reducer = (state, action) => {
     if (state.hints.length) nextState.hints = state.hints;
     if (state.specialists.length) nextState.specialists = state.specialists;
     if (state.discounts.length) nextState.discounts = state.discounts;
+    if (state.medcenters.length) nextState.medcenters = state.medcenters;
 
     return nextState;
   }

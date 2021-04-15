@@ -3,18 +3,21 @@ import CrossButton from 'components/common/crossButton';
 import FormFieldset from 'components/common/form-fieldset';
 import FormInput from 'components/common/form-input';
 import MaskedFormInput from 'components/common/masked-input';
+import TextareaInput from 'components/common/textarea-input';
 import styled from '@emotion/styled';
 
 import PropTypes from 'prop-types';
 
-const VacansyForm = ({ closeForm, openQuest }) => {
+const VacansyQuest = ({ closeQuest }) => {
   const theme = useTheme();
-  const Label = styled('Label')`
+
+  const Label = styled('label')`
     margin-bottom: 7px;
     @media (min-width: 570px) {
       margin-bottom: 13px;
     }
   `;
+
   return (
     <>
       <div className="specialist__form-overlay" />
@@ -72,9 +75,12 @@ const VacansyForm = ({ closeForm, openQuest }) => {
               font-weight: 400;
             `}
           >
-            Отклик на вакансию: Бухгалтер
+            Анкета на вакансию: Бухгалтер
           </h3>
-          <CrossButton buttonClass="vacansy__close-button" action={closeForm} />
+          <CrossButton
+            buttonClass="vacansy__close-button"
+            action={closeQuest}
+          />
         </div>
         <div
           css={css`
@@ -87,11 +93,15 @@ const VacansyForm = ({ closeForm, openQuest }) => {
               height: 100%;
             }
 
-            input {
+            .form__input {
               padding-top: 15px;
               padding-bottom: 15px;
               border-color: ${theme.colors.blue};
-              margin-bottom: 20px;
+              margin-bottom: 10px;
+
+              &--textarea {
+                min-height: 100px;
+              }
             }
 
             svg {
@@ -106,16 +116,27 @@ const VacansyForm = ({ closeForm, openQuest }) => {
           `}
         >
           <FormFieldset>
-            <Label htmlFor="client-vacansy-name">Ваше имя</Label>
+            <Label htmlFor="client-vacansy-name">Имя, Фамилия, Отчество</Label>
             <FormInput
               name="client-vacansy-name"
               id="client-vacansy-name"
               inputClass="form__input"
-              description="Введите ваше имя"
-              placeholder="Ваше имя"
+              description="Введите ваше ФИО"
+              placeholder="Ваше ФИО"
               type="text"
               descriptionId="client-name_descr"
-              text="Введите имя"
+              text="Введите ФИО"
+            />
+            <Label htmlFor="client-vacansy-cv">Ваш возраст:</Label>
+            <FormInput
+              name="client-vacansy-сv"
+              id="client-vacansy-cv"
+              inputClass="form__input"
+              description="Ваш возраст"
+              placeholder="Ваш возраст"
+              type="number"
+              descriptionId="client-name_descr"
+              text="Введите ваш возраст"
             />
             <Label htmlFor="client-vacansy-tel">Ваше телефон</Label>
             <MaskedFormInput
@@ -128,94 +149,34 @@ const VacansyForm = ({ closeForm, openQuest }) => {
               descriptionId="client-tel_descr"
               text="Введите номер телефона"
             />
-            <Label htmlFor="client-vacansy-cv">Ваше резюме:</Label>
-            <FormInput
-              name="client-vacansy-сv"
-              id="client-vacansy-cv"
-              inputClass="form__input"
-              description="Ссылка на ваше резюме"
-              placeholder="Ссылка на ваше резюме"
-              type="text"
-              descriptionId="client-name_descr"
-              text="Введите имя"
+            <Label htmlFor="client-vacansy-works">
+              Бывшее (-ые) места работы
+            </Label>
+            <TextareaInput
+              name="client-vacansy-works"
+              id="client-vacansy-works"
+              inputClass="form__input form__input--textarea"
+              cols={30}
+              rows={10}
+              description="Опишите ваш предыдущий опыт работы (где работали, какой список обязанностей выполняли)"
+              placeholder="Опишите ваш предыдущий опыт работы (где работали, какой список обязанностей выполняли)"
+              descriptionId="client-works_descr"
+              label="Опишите ваш предыдущий опыт работы (где работали, какой список обязанностей выполняли)"
+              text="Опишите ваш предыдущий опыт работы (где работали, какой список обязанностей выполняли)"
             />
-            <p
-              css={css`
-                margin: 0;
-                margin-bottom: 20px;
-                color: inherit;
-                font-size: 13px;
-              `}
-            >
-              Или прикрепите файл в формате .docx (Microsoft Office Word) или
-              .pdf
-            </p>
-            <div
-              css={css`
-                display: flex;
-                width: 100%;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-
-                @media (min-width: 570px) {
-                  flex-direction: row;
-                }
-              `}
-            >
-              <label
-                className="button"
-                htmlFor="vacansy-file"
-                css={css`
-                  width: 225px;
-                  height: 48px;
-                `}
-              >
-                Выбрать файл
-              </label>
-              <input
-                type="file"
-                name="vacansy-file"
-                id="vacansy-file"
-                css={css`
-                  display: none;
-                `}
-                aria-hidden="true"
-              />
-              <span>или</span>
-              <button
-                className="button"
-                type="button"
-                css={css`
-                  width: 225px;
-                  height: 48px;
-                `}
-                onClick={() => {
-                  closeForm();
-                  openQuest();
-                }}
-              >
-                Заполнить анкету
-              </button>
-            </div>
-            <p
-              css={css`
-                padding-bottom: 10px;
-                margin: 0;
-                margin-top: 20px;
-                color: inherit;
-                font-size: 13px;
-                text-align: center;
-
-                @media (min-width: 570px) {
-                  padding-bottom: 0;
-                  text-align: left;
-                }
-              `}
-            >
-              Нажимая кнопку «ОТПРАВИТЬ» вы соглашаетесь с нашей политикой
-              конфиденциальности !
-            </p>
+            <Label htmlFor="client-vacansy-ed">Образование</Label>
+            <TextareaInput
+              name="client-vacansy-ed"
+              id="client-vacansy-ed"
+              inputClass="form__input form__input--textarea"
+              cols={30}
+              rows={10}
+              description="Напишите какие учебные заведения заканчивали, по каким специальностям и в каком году"
+              placeholder="Напишите какие учебные заведения заканчивали, по каким специальностям и в каком году"
+              descriptionId="client-ed_descr"
+              label="Напишите какие учебные заведения заканчивали, по каким специальностям и в каком году"
+              text="Напишите какие учебные заведения заканчивали, по каким специальностям и в каком году"
+            />
           </FormFieldset>
         </div>
         <div
@@ -234,8 +195,9 @@ const VacansyForm = ({ closeForm, openQuest }) => {
               width: 100%;
               height: 48px;
             `}
+            onClick={() => closeQuest()}
           >
-            Отправить
+            Завершить
           </button>
         </div>
       </form>
@@ -243,9 +205,8 @@ const VacansyForm = ({ closeForm, openQuest }) => {
   );
 };
 
-VacansyForm.propTypes = {
-  closeForm: PropTypes.func.isRequired,
-  openQuest: PropTypes.func.isRequired,
+VacansyQuest.propTypes = {
+  closeQuest: PropTypes.func.isRequired,
 };
 
-export default VacansyForm;
+export default VacansyQuest;

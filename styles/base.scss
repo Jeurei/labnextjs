@@ -64,6 +64,12 @@ button {
 }
 
 input {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
   &:focus {
     outline: none;
   }
@@ -79,8 +85,11 @@ input {
   &[type='date']::-webkit-calendar-picker-indicator {
     display: none;
   }
-}
 
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
 #root {
   overflow-x: hidden;
 }
