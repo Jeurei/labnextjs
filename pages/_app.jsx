@@ -5,7 +5,6 @@ import Router from 'next/router';
 import nProgress from 'nprogress';
 import {
   getDiscounts,
-  getCart,
   getRoutes,
   getCities,
   getRoutesInBurger,
@@ -16,6 +15,7 @@ import {
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
 import ScrollToTop from 'containers/scroll-to-top';
+import { isEmpty } from 'utils/common';
 import { wrapper } from '../redux/index';
 import '../styles/style.scss';
 import 'nprogress/nprogress.css';
@@ -112,13 +112,17 @@ const App = ({ Component, pageProps }) => {
 };
 
 App.getInitialProps = async ({ ctx }) => {
-  await ctx.store.dispatch(getDiscounts());
-  await ctx.store.dispatch(getRoutes());
-  await ctx.store.dispatch(getRoutesInBurger());
-  await ctx.store.dispatch(getCities());
-  await ctx.store.dispatch(getCenters());
-  await ctx.store.dispatch(getSpecialities());
-  await ctx.store.dispatch(getSearchCategories());
+  const state = ctx.store.getState();
+  const req = [];
+  if (!state.discounts.length) req.push(ctx.store.dispatch(getDiscounts()));
+  if (!state.routes.routes) req.push(ctx.store.dispatch(getRoutes()));
+  if (!state.routes.burger) req.push(ctx.store.dispatch(getRoutesInBurger()));
+  if (isEmpty(state.cities)) req.push(ctx.store.dispatch(getCities()));
+  if (!state.medcenters.length) req.push(ctx.store.dispatch(getCenters()));
+  if (!state.specialities.length)
+    req.push(ctx.store.dispatch(getSpecialities()));
+  if (!state.search.length) req.push(ctx.store.dispatch(getSearchCategories()));
+  await Promise.all(req);
 };
 
 export default wrapper.withRedux(App);
