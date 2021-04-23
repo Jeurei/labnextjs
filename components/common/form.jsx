@@ -2,13 +2,19 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setUserFormState, setSpecialists } from 'Redux/actions/actions';
-import serverRoutesMap from 'fetch';
+import {
+  serverRoutesMap,
+  setUserFormState,
+  setSpecialists,
+  postData,
+} from 'Redux/actions/actions';
+
 import axios from 'axios';
 import { css, useTheme } from '@emotion/react';
 import { allTrue } from 'utils/common';
 import { ReactComponent as CorrectIcon } from 'icons/check-circle-solid.svg';
-
+import { DEFAULT_USER_FORM_STATE } from 'constants/form';
+import { useRouter } from 'next/router';
 import CrossButton from './crossButton';
 import FormFirstStep from './form-first-step';
 import FormSecondStep from './form-second-step';
@@ -30,7 +36,7 @@ const Form = ({
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setLoading] = useState(false);
   const theme = useTheme();
-
+  const router = useRouter();
   const formSteps = (action, onClickHandler) => {
     const onFirstClickHandler = () => {
       if (
@@ -156,13 +162,12 @@ const Form = ({
     );
   };
 
-  const firstStepLastInputHandler = (obj) => {
-    setFormState({ ...userForm, specialist: obj });
+  const onResetClickHandler = () => {
+    setFormState(DEFAULT_USER_FORM_STATE);
   };
 
-  const onSubmitHandler = (evt) => {
-    evt.preventDefault();
-    setFormCompletion(true);
+  const firstStepLastInputHandler = (obj) => {
+    setFormState({ ...userForm, specialist: obj });
   };
 
   const nextStep = () => {
@@ -176,6 +181,7 @@ const Form = ({
   const submitForm = (evt) => {
     evt.preventDefault();
     setFormCompletion(true);
+    postData(serverRoutesMap.FORM, { userForm, url: router.pathname });
   };
 
   const onButtonClickHandler = (evt, next = true) => {
@@ -217,24 +223,42 @@ const Form = ({
       specialists={specialists}
       action={setFormState}
       lastInputHandler={firstStepLastInputHandler}
+      reset={onResetClickHandler}
     />,
     <FormSecondStep specialist={userForm.specialist} />,
     <FormThirdStep action={onThirdStepHandlers} userForm={userForm} />,
   ];
+
+  useEffect(() => {
+    if (specialists.length === 0) {
+      setLoading(true);
+
+      axios({
+        method: 'GET',
+        url: serverRoutesMap.SPECIALISTS,
+        headers: [],
+      }).then((res) => {
+        setSpecialistsState(res.data);
+        setLoading(false);
+      });
+    }
+  }, [specialists]);
+
+  const onFormCompleteCloseClick = () => {
+    closeHandler();
+    setFormState(DEFAULT_USER_FORM_STATE);
+  };
 
   return (
     <section className="specialist__form-container">
       <div className="specialist__form-overlay" />
       {formCompleted ? (
         <FormCompleted
-          closeHandler={closeHandler}
+          closeHandler={onFormCompleteCloseClick}
           specialist={userForm.specialist}
         />
       ) : (
-        <form
-          className="specialist__form specialist-form"
-          onSubmit={(evt) => onSubmitHandler(evt)}
-        >
+        <form className="specialist__form specialist-form">
           {formSteps(closeHandler, setCurrentStep)}
           {currentStep === 2 && <FormInfo specialist={userForm.specialist} />}
           <div className="specialist-form__form-steps-container">

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import SectionInner from 'containers/section-inner';
+import { postData, serverRoutesMap } from 'Redux/actions/actions';
+import { useRouter } from 'next/router';
 import FormFieldset from './form-fieldset';
 import FormFirstField from './form-first-field';
 import FormThirdField from './form-third-field';
@@ -16,6 +18,8 @@ const Form = () => {
     message: '',
     agree: false,
   });
+
+  const router = useRouter();
 
   const [isFieldsValid, setIsFieldsValid] = useState({
     isFirstFieldValid: false,
@@ -35,7 +39,7 @@ const Form = () => {
   };
 
   const onSubmitHandler = () => {
-    // TODO: пока сервера нет но тут будет диспатч
+    postData(serverRoutesMap.FORM, { formFields, url: router.pathname });
   };
 
   return (
@@ -60,6 +64,7 @@ const Form = () => {
             action={checkboxChangeHandler}
             isFirstFieldValid={isFieldsValid.isFirstFieldValid}
             fieldsInputs={formFields}
+            submit={onSubmitHandler}
           />
         </form>
       </SectionInner>

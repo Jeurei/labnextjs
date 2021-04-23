@@ -14,7 +14,7 @@ const discount = (data, isColumn) => {
     align-items: center;
     padding-left: 130px;
     margin-bottom: 15px;
-    background-image: url(/img/${data.img});
+    background-image: url(${data.img});
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

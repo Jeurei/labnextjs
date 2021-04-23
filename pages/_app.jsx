@@ -10,6 +10,8 @@ import {
   getCities,
   getRoutesInBurger,
   getCenters,
+  getSpecialities,
+  getSearchCategories,
 } from 'Redux/actions/actions';
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
@@ -111,11 +113,12 @@ const App = ({ Component, pageProps }) => {
 
 App.getInitialProps = async ({ ctx }) => {
   await ctx.store.dispatch(getDiscounts());
-  await ctx.store.dispatch(getCart());
   await ctx.store.dispatch(getRoutes());
   await ctx.store.dispatch(getRoutesInBurger());
   await ctx.store.dispatch(getCities());
   await ctx.store.dispatch(getCenters());
+  await ctx.store.dispatch(getSpecialities());
+  await ctx.store.dispatch(getSearchCategories());
 };
 
 export default wrapper.withRedux(App);

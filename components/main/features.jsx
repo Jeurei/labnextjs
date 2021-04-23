@@ -13,7 +13,7 @@ const featuresItem = (data) => {
     <li
       className="features__list-item"
       css={css`
-        background-image: url('./img/${data.icon}');
+        background-image: url('${data.icon}');
       `}
     >
       <h3 className="features__list-item-title">{data.title}</h3>

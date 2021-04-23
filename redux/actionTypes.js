@@ -68,3 +68,7 @@ export const GET_USER_FORM_STATE = 'GET_USER_FORM_STATE';
 export const SET_USER_FORM_STATE = 'SET_FORM_STATE';
 
 export const GET_CENTERS = 'GET_CENTERS';
+
+// specialities
+
+export const GET_SPECIALITIES = 'GET_SPECIALITIES';

@@ -3,7 +3,12 @@ import { css } from '@emotion/react';
 import FormIosCheckbox from 'common/form-ios-checkbox';
 import FormFieldset from './form-fieldset';
 
-const FormThirdField = ({ action, isFirstFieldValid, fieldsInputs }) => (
+const FormThirdField = ({
+  action,
+  isFirstFieldValid,
+  fieldsInputs,
+  submit,
+}) => (
   <FormFieldset>
     <h3 className="form__input-chekbox-title">Задайте свой вопрос</h3>
     <div className="form__input-checkbox-container">
@@ -42,14 +47,16 @@ const FormThirdField = ({ action, isFirstFieldValid, fieldsInputs }) => (
             `
       }
       disabled={
-        isFirstFieldValid &&
-        fieldsInputs.name &&
-        fieldsInputs.tel &&
-        fieldsInputs.agree
+        !(
+          isFirstFieldValid &&
+          fieldsInputs.name &&
+          fieldsInputs.tel &&
+          fieldsInputs.agree
+        )
       }
       onClick={(evt) => {
         evt.preventDefault();
-        action();
+        submit();
       }}
     >
       Отправить
@@ -67,6 +74,7 @@ FormThirdField.propTypes = {
     message: PropTypes.string,
     agree: PropTypes.bool,
   }).isRequired,
+  submit: PropTypes.func.isRequired,
 };
 
 export default FormThirdField;

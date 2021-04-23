@@ -2,14 +2,6 @@ import { css, useTheme } from '@emotion/react';
 import InnerPageLayout from 'components/InnerPageLayout';
 import { breakpointsMap } from 'constants/styles';
 import Link from 'next/link';
-import {
-  getCart,
-  getCities,
-  getDiscounts,
-  getRoutes,
-  getRoutesInBurger,
-} from 'Redux/actions/actions';
-import { wrapper } from 'Redux/index';
 
 const NotFoundPage = () => {
   const theme = useTheme();

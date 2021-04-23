@@ -1,25 +1,20 @@
 import styled from '@emotion/styled';
-import { useTheme, css } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 import PropTypes from 'prop-types';
 import Load from 'components/common/load';
-import { getFlatArr } from 'components/utils/filter';
 
 const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
   const theme = useTheme();
   const alphabet = [
-    ...new Set(
-      getFlatArr(specialists.map((el) => el.job.map((elem) => elem[0]))),
-    ),
-  ].map((el) => ({
-    word: el,
-    job: [
-      ...new Set(
-        specialists
-          .map((elem) => elem.job.find((element) => element[0] === el))
-          .filter(Boolean),
-      ),
-    ],
-  }));
+    ...new Set(Object.values(specialists).map((el) => el.name[0])),
+  ].map((el) => {
+    return {
+      word: el,
+      job: Object.values(specialists)
+        .map((elem) => elem.name[0] === el && elem.name)
+        .filter(Boolean),
+    };
+  });
 
   const SubNav = styled('ul')`
     position: absolute;

@@ -5,27 +5,31 @@ const HOME_URL = 'http://localhost:3005';
 
 export const serverRoutesMap = {
   CART: `${HOME_URL}/cart`,
-  CITIES: `http://labdiag.praweb.ru/spravochniki/goroda`,
+  CITIES: `http://labdiag.praweb.ru/api/cities`,
   MAPCITIES: `${HOME_URL}/mapCities`,
-  SEARCHCATEGORIES: `${HOME_URL}/searchCategories`,
-  HINTS: `${HOME_URL}/hints`,
-  MENU: `${HOME_URL}/menu`,
+  SEARCHCATEGORIES: `http://labdiag.praweb.ru/api/searchcategories`,
+  HINTS: `http://labdiag.praweb.ru/api/hints`,
   OFFERS: `http://labdiag.praweb.ru/spravochniki/aktualnye-predlozheniya`,
-  COMPLEX: `${HOME_URL}/complex`,
-  LINKS: `${HOME_URL}/links`,
+  COMPLEX: `http://labdiag.praweb.ru/api/complex`,
+  LINKS: `http://labdiag.praweb.ru/api/links`,
   ARTICLES: `http://labdiag.praweb.ru/press-centr`,
-  SHARES: `${HOME_URL}/shares`,
-  FEATURES: `${HOME_URL}/features`,
+  SHARES: `http://labdiag.praweb.ru/api/promo`,
+  FEATURES: `http://labdiag.praweb.ru/api/features-on-main`,
   SPECIALISTS: `${HOME_URL}/specialists`,
-  SPECIALISTSFILTER: `${HOME_URL}/specialistsFilter`,
-  DISCOUNTS: `${HOME_URL}/discounts`,
-  ROUTES: `${HOME_URL}/routes`,
-  ROUTESINBURDGER: `${HOME_URL}/routesInBurger`,
-  MEDCENTERS: `http://labdiag.praweb.ru/spravochniki/medicinskie-centry`,
+  DISCOUNTS: `http://labdiag.praweb.ru/api/disconts`,
+  ROUTES: `http://labdiag.praweb.ru/api/routes`,
+  ROUTESINBURDGER: `http://labdiag.praweb.ru/api/routesinburger`,
+  MEDCENTERS: `http://labdiag.praweb.ru/api/centers`,
+  SPECIALITIES: 'http://labdiag.praweb.ru/api/specializations',
+  FORM: 'http://labdiag.praweb.ru/api/form',
 };
 
 export const getData = (url) => {
   return axios(url).then((res) => res.data);
+};
+
+export const postData = (url, data) => {
+  return axios({ method: 'post', url, data });
 };
 
 export const getRoutes = () => (dispatch) =>
@@ -63,6 +67,16 @@ export const setSpecialist = (id) => (dispatch) =>
   }).then((response) =>
     dispatch({ type: Actions.SET_SPECIALIST, payload: response.data }),
   );
+
+export const getSpecialities = () => (dispatch) => {
+  axios({
+    method: 'GET',
+    url: serverRoutesMap.SPECIALITIES,
+    headers: [],
+  }).then((response) =>
+    dispatch({ type: Actions.GET_SPECIALITIES, payload: response.data }),
+  );
+};
 
 export const getDiscounts = () => (dispatch) =>
   axios({

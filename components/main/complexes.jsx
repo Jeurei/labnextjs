@@ -35,7 +35,6 @@ const Complexes = ({ complexes }) => {
               component={<Complex />}
               swiperRef={swiperRef}
               sliderObject={{
-                loop: true,
                 breakpoints: {
                   320: {
                     slidesPerView: 1,

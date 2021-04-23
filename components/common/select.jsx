@@ -19,7 +19,7 @@ const SelectComponent = ({
       classNamePrefix="select"
       onChange={(value) => action(value)}
       noOptionsMessage={() => 'Не найдено'}
-      defaultValue={defaultValue.value && defaultValue.label && defaultValue}
+      value={defaultValue.value && defaultValue.label && defaultValue}
       css={css`
         ${cssStr}
       `}

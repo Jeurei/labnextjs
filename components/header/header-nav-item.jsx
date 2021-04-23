@@ -4,16 +4,14 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { ReactComponent as ArrowRightIcon } from 'icons/arrrow-right.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { bindActionCreators } from 'redux';
-import { serverRoutesMap, setSpecialists } from 'Redux/actions/actions';
+import { setSpecialists } from 'Redux/actions/actions';
 import { connect } from 'react-redux';
-import { getData } from 'fetch';
 import SpecialistsNav from './specialists-nav';
 
-const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
+const HeaderNavItem = ({ isTop, data, specialities }) => {
   const theme = useTheme();
-  const [isLoading, setLoading] = useState();
 
   const SubNav = styled('ul')`
     position: absolute;
@@ -301,11 +299,7 @@ const HeaderNavItem = ({ isTop, data, specialists, setSpecialistsData }) => {
 
   const unqueNavsMap = {
     '/specialists': () => (
-      <SpecialistsNav
-        isTop={isTop}
-        specialists={specialists}
-        isLoading={isLoading}
-      />
+      <SpecialistsNav isTop={isTop} specialists={specialities} />
     ),
     '/services': () => servicesNav(),
     '/corpo': () => corpoNav(),
@@ -406,14 +400,14 @@ HeaderNavItem.propTypes = {
       PropTypes.arrayOf(PropTypes.object),
     ]).isRequired.isRequired,
   }).isRequired,
-  specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialities: PropTypes.objectOf(PropTypes.object).isRequired,
   setSpecialistsData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { specialists } = state;
+  const { specialities } = state;
 
-  return { specialists };
+  return { specialities };
 };
 
 const mapDispatchToProps = (dispatch) => ({

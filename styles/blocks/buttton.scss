@@ -75,12 +75,13 @@
   appearance: none;
   background-color: transparent;
   color: transparent;
+  color: $color-text;
 
   &:after {
     @include pseudo('', 2px, 19px);
     position: absolute;
     top: 0;
-    left: 9;
+    left: 9px;
     background-color: $color-text;
     transform: rotate(45deg);
   }
@@ -88,7 +89,7 @@
     @include pseudo('', 2px, 19px);
     position: absolute;
     top: 0;
-    left: 9;
+    left: 9px;
     background-color: $color-text;
     transform: rotate(-45deg);
   }

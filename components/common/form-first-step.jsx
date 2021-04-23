@@ -8,14 +8,23 @@ import {
   getSpecialistsNamesArray,
   getSpecialistCenters,
 } from 'components/utils/specialists';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { css } from '@emotion/react';
+import ReactSelect from 'react-select';
 import Select from './select';
 
-// TODO:тут чутьчть подругому
+import CrossButton from './crossButton';
 
-const FormFirstStep = ({ selects, specialists, action, lastInputHandler }) => {
+const FormFirstStep = ({
+  selects,
+  specialists,
+  action,
+  lastInputHandler,
+  reset,
+}) => {
   const ONLINE_SELECT_TYPE = 'online';
   const [currentArr, setCurrentArr] = useState(specialists);
+  const ref = useRef();
 
   const firstSelectData = [
     { value: 'offline', label: 'В клинике' },
@@ -99,11 +108,41 @@ const FormFirstStep = ({ selects, specialists, action, lastInputHandler }) => {
 
   return (
     <div className="specialist-form__form-step form-step">
-      <div className="form-step__select-container">
+      <div
+        className="form-step__select-container"
+        css={css`
+          position: relative;
+        `}
+      >
         <h3 className="form-step__select-title">Тип записи</h3>
+        {(selects.fields.firstField.city ||
+          selects.fields.firstField.spec ||
+          selects.fields.firstField.center ||
+          selects.fields.firstField.doctorsName) && (
+          <button
+            className="form__first-step-reset cross-button"
+            type="button"
+            name="close-button"
+            onClick={reset}
+            css={css`
+              right: 0;
+              width: auto;
+              padding-right: 20px;
+
+              &::before,
+              &::after {
+                right: 8px;
+                left: auto;
+              }
+            `}
+          >
+            Сбросить
+          </button>
+        )}
         <Select
           selectClass="form__step-select"
           placeholder="Выберите тип записи"
+          ref={ref}
           data={firstSelectData}
           defaultValue={
             selects.fields.firstField.type
@@ -125,19 +164,22 @@ const FormFirstStep = ({ selects, specialists, action, lastInputHandler }) => {
       {selects.fields.firstField.type !== ONLINE_SELECT_TYPE && (
         <div className="form-step__select-container">
           <h3 className="form-step__select-title">Населенный пункт</h3>
-          <Select
-            selectClass="form__step-select"
+          <ReactSelect
+            className="form__step-select"
+            classNamePrefix="select"
+            noOptionsMessage={() => 'Не найдено'}
             placeholder="Выберите населенный пункт"
-            data={secondSelectData}
-            defaultValue={
+            isDisabled={selects.fields.firstField.city}
+            options={secondSelectData}
+            value={
               selects.fields.firstField.city
                 ? {
                     value: selects.fields.firstField.city,
                     label: selects.fields.firstField.city,
                   }
-                : {}
+                : null
             }
-            action={(value) =>
+            onChange={(value) =>
               onChangeHandler({
                 fields: {
                   ...selects.fields,
@@ -153,19 +195,22 @@ const FormFirstStep = ({ selects, specialists, action, lastInputHandler }) => {
       )}
       <div className="form-step__select-container">
         <h3 className="form-step__select-title">Специализация</h3>
-        <Select
-          selectClass="form__step-select"
+        <ReactSelect
+          className="form__step-select"
+          classNamePrefix="select"
+          isDisabled={selects.fields.firstField.spec}
+          noOptionsMessage={() => 'Не найдено'}
           placeholder="Выберите специализацию"
-          defaultValue={
+          options={thirdSelectData}
+          value={
             selects.fields.firstField.spec
               ? {
                   value: selects.fields.firstField.spec,
                   label: selects.fields.firstField.spec,
                 }
-              : {}
+              : null
           }
-          data={thirdSelectData}
-          action={(value) =>
+          onChange={(value) =>
             onChangeHandler({
               fields: {
                 ...selects.fields,
@@ -178,19 +223,22 @@ const FormFirstStep = ({ selects, specialists, action, lastInputHandler }) => {
       {selects.fields.firstField.type !== ONLINE_SELECT_TYPE && (
         <div className="form-step__select-container">
           <h3 className="form-step__select-title">Медицинский центр</h3>
-          <Select
-            selectClass="form__step-select"
+          <ReactSelect
+            className="form__step-select"
+            classNamePrefix="select"
+            isDisabled={selects.fields.firstField.center}
+            noOptionsMessage={() => 'Не найдено'}
             placeholder="Выберите медицинский центр"
-            defaultValue={
+            options={fourthSelectData}
+            value={
               selects.fields.firstField.center
                 ? {
                     value: selects.fields.firstField.center,
                     label: selects.fields.firstField.center,
                   }
-                : {}
+                : null
             }
-            data={fourthSelectData}
-            action={(value) =>
+            onChange={(value) =>
               onChangeHandler({
                 fields: {
                   ...selects.fields,
@@ -206,23 +254,22 @@ const FormFirstStep = ({ selects, specialists, action, lastInputHandler }) => {
       )}
       <div className="form-step__select-container">
         <h3 className="form-step__select-title">Врач ФИО</h3>
-        <Select
-          selectClass="form__step-select"
+        <ReactSelect
+          className="form__step-select"
+          classNamePrefix="select"
+          isDisabled={selects.fields.firstField.doctorsName}
+          noOptionsMessage={() => 'Не найдено'}
           placeholder="Выберите врача"
-          defaultValue={
-            selects.fields.firstField.doctorsName || selects.specialist.name
+          options={fifthSelectData}
+          value={
+            selects.fields.firstField.doctorsName
               ? {
-                  value:
-                    selects.specialist.name ||
-                    selects.fields.firstField.doctorsName,
-                  label:
-                    selects.specialist.name ||
-                    selects.fields.firstField.doctorsName,
+                  value: selects.fields.firstField.doctorsName,
+                  label: selects.fields.firstField.doctorsName,
                 }
-              : {}
+              : null
           }
-          data={fifthSelectData}
-          action={(value) =>
+          onChange={(value) =>
             onChangeHandler({
               fields: {
                 ...selects.fields,
@@ -262,6 +309,7 @@ FormFirstStep.propTypes = {
   ).isRequired,
   selects: PropTypes.objectOf(PropTypes.object).isRequired,
   lastInputHandler: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 export default FormFirstStep;

@@ -8,7 +8,6 @@ import {
   getArticles,
   getHints,
   getUserForm,
-  getSpecialists,
 } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
 import MainLayout from '../components/MainLayout';
@@ -31,7 +30,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.dispatch(getComplexes());
     await store.dispatch(getArticles());
     await store.dispatch(getHints());
-    await store.dispatch(getSpecialists());
   },
 );
 

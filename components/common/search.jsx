@@ -145,4 +145,10 @@ Search.propTypes = {
   isModal: PropTypes.bool,
 };
 
-export default connect(null, null)(Search);
+const mapStateToProps = (state) => {
+  const { search } = state;
+
+  return { selectData: search };
+};
+
+export default connect(mapStateToProps, null)(Search);
