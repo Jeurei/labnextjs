@@ -218,3 +218,5 @@ export const removeItemFromCart = (payload) => ({
   type: Actions.REMOVE_ITEM_FROM_CART,
   payload,
 });
+
+export const fetchDataRoute = 'https://labdiag.praweb.ru/api/getpage?id=';

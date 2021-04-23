@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import Image from 'next/image';
 import { css } from '@emotion/react';
+import Link from 'next/link';
 
 const formatDate = (date) => {
   return format(new Date(date), 'd MMMM yyyy', { locale: ru });
@@ -14,37 +15,39 @@ const formatDateForHtml = (date) => {
 
 const Article = ({ data }) => {
   return (
-    <a href="./" className="articles__link">
-      <article className="articles__article article">
-        <div className="article__text">
-          <time
-            className="article__time"
-            dateTime={formatDateForHtml(data.date)}
+    <Link href="/media/[id]" as={`/media/${data.id}`}>
+      <a className="articles__link">
+        <article className="articles__article article">
+          <div className="article__text">
+            <time
+              className="article__time"
+              dateTime={formatDateForHtml(data.date)}
+            >
+              {formatDate(data.date)}.
+            </time>
+            <h3 className="article__title">{data.title}</h3>
+          </div>
+          <div
+            className={`article__img-container${
+              data.isNew ? ' article__img-container--new' : ''
+            }`}
+            css={css`
+              & > div {
+                width: 100%;
+              }
+            `}
           >
-            {formatDate(data.date)}.
-          </time>
-          <h3 className="article__title">{data.title}</h3>
-        </div>
-        <div
-          className={`article__img-container${
-            data.isNew ? ' article__img-container--new' : ''
-          }`}
-          css={css`
-            & > div {
-              width: 100%;
-            }
-          `}
-        >
-          <Image
-            src={data.image}
-            width="301"
-            height="250"
-            alt="Изображение статьи"
-            className="article__img"
-          />
-        </div>
-      </article>
-    </a>
+            <Image
+              src={data.image}
+              width="301"
+              height="250"
+              alt="Изображение статьи"
+              className="article__img"
+            />
+          </div>
+        </article>
+      </a>
+    </Link>
   );
 };
 
@@ -57,6 +60,7 @@ Article.propTypes = {
     isBlog: PropTypes.bool,
     isUseful: PropTypes.bool,
     image: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 
