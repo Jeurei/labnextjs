@@ -1,27 +1,27 @@
 import axios from 'axios';
 import * as Actions from '../actionTypes';
 
-const HOME_URL = 'http://localhost:3005';
+const HOME_URL = 'https://localhost:3005';
 
 export const serverRoutesMap = {
   CART: `${HOME_URL}/cart`,
-  CITIES: `http://labdiag.praweb.ru/api/cities`,
+  CITIES: `https://labdiag.praweb.ru/api/cities`,
   MAPCITIES: `${HOME_URL}/mapCities`,
-  SEARCHCATEGORIES: `http://labdiag.praweb.ru/api/searchcategories`,
-  HINTS: `http://labdiag.praweb.ru/api/hints`,
-  OFFERS: `http://labdiag.praweb.ru/spravochniki/aktualnye-predlozheniya`,
-  COMPLEX: `http://labdiag.praweb.ru/api/complex`,
-  LINKS: `http://labdiag.praweb.ru/api/links`,
-  ARTICLES: `http://labdiag.praweb.ru/press-centr`,
-  SHARES: `http://labdiag.praweb.ru/api/promo`,
-  FEATURES: `http://labdiag.praweb.ru/api/features-on-main`,
+  SEARCHCATEGORIES: `https://labdiag.praweb.ru/api/searchcategories`,
+  HINTS: `https://labdiag.praweb.ru/api/hints`,
+  OFFERS: `https://labdiag.praweb.ru/spravochniki/aktualnye-predlozheniya`,
+  COMPLEX: `https://labdiag.praweb.ru/api/complex`,
+  LINKS: `https://labdiag.praweb.ru/api/links`,
+  ARTICLES: `https://labdiag.praweb.ru/press-centr`,
+  SHARES: `https://labdiag.praweb.ru/api/promo`,
+  FEATURES: `https://labdiag.praweb.ru/api/features-on-main`,
   SPECIALISTS: `${HOME_URL}/specialists`,
-  DISCOUNTS: `http://labdiag.praweb.ru/api/disconts`,
-  ROUTES: `http://labdiag.praweb.ru/api/routes`,
-  ROUTESINBURDGER: `http://labdiag.praweb.ru/api/routesinburger`,
-  MEDCENTERS: `http://labdiag.praweb.ru/api/centers`,
-  SPECIALITIES: 'http://labdiag.praweb.ru/api/specializations',
-  FORM: 'http://labdiag.praweb.ru/api/form',
+  DISCOUNTS: `https://labdiag.praweb.ru/api/disconts`,
+  ROUTES: `https://labdiag.praweb.ru/api/routes`,
+  ROUTESINBURDGER: `https://labdiag.praweb.ru/api/routesinburger`,
+  MEDCENTERS: `https://labdiag.praweb.ru/api/centers`,
+  SPECIALITIES: 'https://labdiag.praweb.ru/api/specializations',
+  FORM: 'https://labdiag.praweb.ru/api/form',
 };
 
 export const getData = (url) => {
