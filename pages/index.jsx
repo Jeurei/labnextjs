@@ -20,22 +20,21 @@ const Index = () => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store }) => {
-    const state = store.getState();
-    const req = [];
+Index.getInitialProps = async (ctx) => {
+  const { store } = ctx;
+  const state = store.getState();
+  const req = [];
 
-    if (!state.features.length) req.push(store.dispatch(getFeatures()));
-    if (!state.links.length) req.push(store.dispatch(getLinks()));
-    if (!state.shares.length) req.push(store.dispatch(getShares()));
-    if (!state.offers.length) req.push(store.dispatch(getOffers()));
-    if (!state.complexes.length) req.push(store.dispatch(getComplexes()));
-    if (!state.articles.length) req.push(store.dispatch(getArticles()));
-    if (!state.hints.length) req.push(store.dispatch(getHints()));
-    await Promise.all(req);
+  if (!state.features.length) req.push(store.dispatch(getFeatures()));
+  if (!state.links.length) req.push(store.dispatch(getLinks()));
+  if (!state.shares.length) req.push(store.dispatch(getShares()));
+  if (!state.offers.length) req.push(store.dispatch(getOffers()));
+  if (!state.complexes.length) req.push(store.dispatch(getComplexes()));
+  if (!state.articles.length) req.push(store.dispatch(getArticles()));
+  if (!state.hints.length) req.push(store.dispatch(getHints()));
+  await Promise.all(req);
 
-    store.dispatch(getUserForm());
-  },
-);
+  store.dispatch(getUserForm());
+};
 
 export default Index;
