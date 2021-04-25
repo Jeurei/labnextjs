@@ -12,7 +12,7 @@ const Index = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store }) => {
+  (store) => async () => {
     const state = store.getState();
     if (!state.features) await store.dispatch(getFeatures());
   },

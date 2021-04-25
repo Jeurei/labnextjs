@@ -12,7 +12,7 @@ const Index = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store }) => {
+  (store) => async () => {
     await store.dispatch(getSpecialists());
   },
 );
