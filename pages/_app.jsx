@@ -111,18 +111,17 @@ const App = ({ Component, pageProps }) => {
   );
 };
 
-App.getInitialProps = async ({ ctx }) => {
-  const state = ctx.store.getState();
+App.getInitialProps = wrapper.getInitialAppProps((store) => async () => {
+  const state = store.getState();
   const req = [];
-  if (!state.discounts.length) req.push(ctx.store.dispatch(getDiscounts()));
-  if (!state.routes.routes) req.push(ctx.store.dispatch(getRoutes()));
-  if (!state.routes.burger) req.push(ctx.store.dispatch(getRoutesInBurger()));
-  if (isEmpty(state.cities)) req.push(ctx.store.dispatch(getCities()));
-  if (!state.medcenters.length) req.push(ctx.store.dispatch(getCenters()));
-  if (!state.specialities.length)
-    req.push(ctx.store.dispatch(getSpecialities()));
-  if (!state.search.length) req.push(ctx.store.dispatch(getSearchCategories()));
+  if (!state.discounts.length) req.push(store.dispatch(getDiscounts()));
+  if (!state.routes.routes) req.push(store.dispatch(getRoutes()));
+  if (!state.routes.burger) req.push(store.dispatch(getRoutesInBurger()));
+  if (isEmpty(state.cities)) req.push(store.dispatch(getCities()));
+  if (!state.medcenters.length) req.push(store.dispatch(getCenters()));
+  if (!state.specialities.length) req.push(store.dispatch(getSpecialities()));
+  if (!state.search.length) req.push(store.dispatch(getSearchCategories()));
   await Promise.all(req);
-};
+});
 
 export default wrapper.withRedux(App);
