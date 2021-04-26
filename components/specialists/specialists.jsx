@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-cycle
-import { getFlatArr } from '../utils/filter';
+import {
+  findSpecialistCenter,
+  findSpecialistJobs,
+} from 'components/utils/specialists';
+import { filterDublicatesObjects, getFlatArr } from '../utils/filter';
 import Filter from './filter';
 import SpecialistsCatalog from './specialists-catalog';
 
@@ -43,7 +47,7 @@ const filterArrayByAges = (arr, ages) => {
   return arr.filter((el) => el.ages === 3 || el.ages === ages);
 };
 
-const Specialists = ({ specialists }) => {
+const Specialists = ({ specialists, medcenters, specialities }) => {
   const [specialistsArr, setSpecialistsArr] = useState([...specialists]);
   const [currentFilter, setCurrentFilter] = useState({
     category: '',
@@ -56,12 +60,19 @@ const Specialists = ({ specialists }) => {
   const onChangeFiltersFieldsHanlder = (obj) => {
     setCurrentFilter({ ...currentFilter, ...obj });
   };
-
   const filter = {
-    specialistsCategrories: [
-      ...new Set(getFlatArr(specialists.map((el) => el.job))),
-    ],
-    centers: getFlatArr(specialists.map((el) => el.adresses)),
+    specialistsCategrories: getFlatArr(
+      [
+        ...new Set(getFlatArr(specialists.map((el) => el.specializations))),
+      ].map((el) => findSpecialistJobs(el, Object.values(specialities))),
+    ),
+    centers: getFlatArr(
+      filterDublicatesObjects(
+        getFlatArr(specialists.map((el) => el.centers)).map((el) => {
+          return findSpecialistCenter(el, medcenters);
+        }),
+      ),
+    ),
     specialistsNames: specialists.map((el) => el.name),
   };
 
@@ -113,12 +124,14 @@ Specialists.propTypes = {
       ),
     }),
   ).isRequired,
+  medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialities: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { specialists } = state;
+  const { specialists, medcenters, specialities } = state;
 
-  return { specialists };
+  return { specialists, medcenters, specialities };
 };
 
 export default connect(mapStateToProps, null)(Specialists);

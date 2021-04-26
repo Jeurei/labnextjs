@@ -1,24 +1,21 @@
 import PropTypes from 'prop-types';
 import Select from 'common/select';
+import { connect } from 'react-redux';
 import { filterDublicatesObjects, getFlatArr } from '../utils/filter';
 
-const FilterBottomAdress = ({ selectData, action }) => {
+const FilterBottomAdress = ({ selectData, action, cities }) => {
   const onSelectChangeHandler = ({ value }) => {
     action({ adress: value });
   };
 
   const data = filterDublicatesObjects(
-    getFlatArr(
-      selectData.map((city) =>
-        city.center.map((center) => ({
-          value: `${city.city}-${center.adress}`,
-          label: `${city.city}, ${center.adress}, ${center.name}`,
-        })),
-      ),
-    ).filter(
-      (v, i, a) =>
-        a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i,
-    ),
+    selectData.map((center) => ({
+      value: `${cities[center.city].label}-${center.name}`,
+      label: `${cities[center.city].label}, ${center.name}`,
+    })),
+  ).filter(
+    (v, i, a) =>
+      a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i,
   );
 
   return (
@@ -36,6 +33,13 @@ const FilterBottomAdress = ({ selectData, action }) => {
 FilterBottomAdress.propTypes = {
   selectData: PropTypes.arrayOf(PropTypes.object).isRequired,
   action: PropTypes.func.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default FilterBottomAdress;
+const mapStateToProps = (state) => {
+  const { cities } = state;
+
+  return { cities };
+};
+
+export default connect(mapStateToProps, null)(FilterBottomAdress);

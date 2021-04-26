@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import { setUserFormState } from 'Redux/actions/actions';
 import SpecialistWorkTime from './specialist-work-time';
 
-const Specialist = ({ data, userForm, setFormState }) => {
+const Specialist = ({ data, userForm, setFormState, specialities }) => {
   const [specialistPopup, setSpecialistPopup] = useState(false);
 
   const closeHandler = () => {
@@ -33,6 +33,12 @@ const Specialist = ({ data, userForm, setFormState }) => {
       3: 'Дети 0-18 лет, взрослые',
     };
 
+    console.log(
+      specialist.specializations
+        .map((el) => Object.values(specialities).find((elem) => elem.id === el))
+        .map((elem) => elem.name),
+    );
+
     return (
       <div className="specialist__info">
         <h3 className="specialist__name">
@@ -48,7 +54,12 @@ const Specialist = ({ data, userForm, setFormState }) => {
                 font-weight: 500;
               `}
             >
-              {specialist.job.reduce((acc, curr) => `${acc}, ${curr}`)}
+              {specialist.specializations
+                .map((el) =>
+                  Object.values(specialities).find((elem) => elem.id === el),
+                )
+                .map((el) => el.name)
+                .reduce((acc, curr) => `${acc}, ${curr}`)}
             </span>
           </li>
           <li className="specialist__info-item">
@@ -133,7 +144,7 @@ const Specialist = ({ data, userForm, setFormState }) => {
       </div>
       {specialistInfo(data)}
       <SpecialistWorkTime
-        adresses={data.adresses}
+        adresses={data.centers}
         time={data.time}
         specialist={data}
       />
@@ -148,21 +159,12 @@ Specialist.propTypes = {
     job: PropTypes.arrayOf(PropTypes.string),
     ages: PropTypes.number,
     price: PropTypes.number,
-    adresses: PropTypes.arrayOf(
-      PropTypes.shape({
-        city: PropTypes.string,
-        center: PropTypes.arrayOf(
-          PropTypes.shape({
-            name: PropTypes.string,
-            adress: PropTypes.string,
-          }),
-        ),
-      }),
-    ),
+    centers: PropTypes.arrayOf(PropTypes.object).isRequired,
     time: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
   setFormState: PropTypes.func.isRequired,
   userForm: PropTypes.objectOf(PropTypes.object).isRequired,
+  specialities: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -170,9 +172,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => {
-  const { userForm } = state;
+  const { userForm, specialities } = state;
 
-  return { userForm };
+  return { userForm, specialities };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Specialist);

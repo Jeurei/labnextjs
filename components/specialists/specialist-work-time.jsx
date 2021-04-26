@@ -13,17 +13,29 @@ const SpecialistWorkTime = ({
   userForm,
   setFormState,
   specialist = null,
+  medcenters,
+  cities,
 }) => {
-  const data = filterDublicatesObjects(
-    getFlatArr(
-      adresses.map((city) =>
-        city.center.map((center) => ({
-          value: `${city.city}, ${center.adress}, ${center.adress}`,
-          label: `${city.city}, ${center.adress}, ${center.name}`,
-        })),
+  const data = getFlatArr(
+    adresses.map((el) =>
+      medcenters.map(
+        (element) =>
+          el === element.id && {
+            value: `${
+              Object.values(cities).find(
+                (elementCity) => elementCity.value === element.city,
+              ).label
+            }, ${element.name}`,
+            label: `${
+              Object.values(cities).find(
+                (elementCity) => elementCity.value === element.city,
+              ).label
+            }, ${element.name}`,
+          },
       ),
     ),
-  );
+  ).filter(Boolean);
+
   const [selectedAdress, setSelectedAdress] = useState(null);
 
   return (
@@ -62,13 +74,15 @@ SpecialistWorkTime.propTypes = {
   ).isRequired,
   userForm: PropTypes.objectOf(PropTypes.object).isRequired,
   setFormState: PropTypes.func.isRequired,
+  medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,
   specialist: PropTypes.objectOf(PropTypes.object),
+  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { userForm } = state;
+  const { userForm, medcenters, cities } = state;
 
-  return { userForm };
+  return { userForm, medcenters, cities };
 };
 
 const mapDispatchToProps = (dispatch) => ({

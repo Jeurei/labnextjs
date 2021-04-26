@@ -10,6 +10,8 @@ const getTodayDay = (currentDate) => {
 };
 
 const SpecialistShedule = ({ time, specialist, adress }) => {
+  if (time.length === 0)
+    return <span>К сожалению к этому специалисту запись пока невозможна</span>;
   const currentDate = new Date();
   const [currentYear, setCurrentYear] = useState(getYear(currentDate));
   const [currentMounth, setCurrentMounth] = useState(getMonth(currentDate));

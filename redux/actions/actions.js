@@ -15,7 +15,7 @@ export const serverRoutesMap = {
   ARTICLES: `https://labdiag.praweb.ru/press-centr`,
   SHARES: `https://labdiag.praweb.ru/api/promo`,
   FEATURES: `https://labdiag.praweb.ru/api/features-on-main`,
-  SPECIALISTS: `${HOME_URL}/specialists`,
+  SPECIALISTS: `https://labdiag.praweb.ru/api/specialists`,
   DISCOUNTS: `https://labdiag.praweb.ru/api/disconts`,
   ROUTES: `https://labdiag.praweb.ru/api/routes`,
   ROUTESINBURDGER: `https://labdiag.praweb.ru/api/routesinburger`,

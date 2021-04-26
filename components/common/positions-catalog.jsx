@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getSpecialistsJobsArray } from 'components/utils/specialists';
 
-const PositionsList = ({ specialists }) => {
+const PositionsList = ({ specialists, specialities }) => {
   const theme = useTheme();
 
   const Position = styled('li')`
@@ -64,7 +64,7 @@ const PositionsList = ({ specialists }) => {
           font-weight: 500;
         `}
       >
-        {data}
+        {data.name}
       </a>
     </Position>
   );
@@ -83,12 +83,18 @@ const PositionsList = ({ specialists }) => {
         }
       `}
     >
-      {getSpecialistsJobsArray(specialists).map((el) => PositionElement(el))}
+      {getSpecialistsJobsArray(specialists)
+        .map((el) =>
+          Object.values(specialities).find(
+            (element) => element.id === el && element,
+          ),
+        )
+        .map((el) => PositionElement(el))}
     </ul>
   );
 };
 
-const PositionsCatalog = ({ specialists }) => {
+const PositionsCatalog = ({ specialists, specialities }) => {
   return (
     <div
       css={css`
@@ -96,23 +102,25 @@ const PositionsCatalog = ({ specialists }) => {
         padding-top: 23px;
       `}
     >
-      <PositionsList specialists={specialists} />
+      <PositionsList specialists={specialists} specialities={specialities} />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  const { specialists } = state;
+  const { specialists, specialities } = state;
 
-  return { specialists };
+  return { specialists, specialities };
 };
 
 PositionsList.propTypes = {
   specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialities: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 PositionsCatalog.propTypes = {
   specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialities: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(PositionsCatalog);

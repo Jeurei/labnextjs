@@ -32,8 +32,8 @@ const FilterTop = ({ categories, names, action }) => {
       <Select
         selectClass="filter__select"
         data={categories.map((el) => ({
-          value: el,
-          label: el,
+          value: el.name,
+          label: el.name,
         }))}
         placeholder="Выбрать специалиста"
         action={onSelectChangeHandler}

@@ -5,7 +5,7 @@ export const getSpecialistsNamesArray = (arr) => {
 };
 
 export const getSpecialistsJobsArray = (arr) => {
-  return [...new Set(getFlatArr(arr.map((el) => el.job)))];
+  return [...new Set(getFlatArr(arr.map((el) => el.specializations)))];
 };
 
 export const getSpecialistAdress = (arr) => {
@@ -53,4 +53,12 @@ export const getAllSpecialistsAdressesArray = (arr) => {
       ]),
     ),
   ];
+};
+
+export const findSpecialistCenter = (id, arr) => {
+  return arr.map((el) => el.id === id && el).filter(Boolean);
+};
+
+export const findSpecialistJobs = (id, arr) => {
+  return arr.map((el) => el.id === id && el).filter(Boolean);
 };
