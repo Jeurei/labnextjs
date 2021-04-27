@@ -1,22 +1,12 @@
-import { css } from '@emotion/react';
-import { connect } from 'react-redux';
-import ReferencesSlider from 'components/common/references-slider';
-import FeaturesBlock from 'common/features-block';
-import Comment from 'components/common/comment';
-import File from 'components/common/file';
-import AboutCompany from './about-company';
-import GradientBlock from './gradient-block';
-import ButtonsBlock from './buttons-block';
+import PageBuilder from 'components/common/pageBuilder';
+import PropTypes from 'prop-types';
 
-const AboutUs = () => {
+const AboutUs = ({ data }) => {
   return (
     <>
       <h2 className="main__title">О компании</h2>
-      <AboutCompany />
-      <FeaturesBlock />
-      <GradientBlock />
-      <ButtonsBlock />
-      <div
+      {data.page && data.page.length !== 0 && <PageBuilder data={data.page} />}
+      {/* <div
         css={css`
           display: flex;
           flex-direction: column;
@@ -98,15 +88,13 @@ const AboutUs = () => {
           <Comment />
           <Comment />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
 
-const mapStateToProps = (state) => {
-  const { features } = state;
-
-  return { features };
+AboutUs.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps, null)(AboutUs);
+export default AboutUs;

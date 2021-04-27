@@ -15,6 +15,8 @@ import userForm from './userFormReducer';
 import medcenters from './medcentersReducer';
 import specialities from './specialitiesReducer';
 import search from './searchReducer';
+import vacansies from './vacansiesReducer';
+import comments from './reviewsReducer';
 
 const rootReducer = combineReducers({
   cart,
@@ -33,6 +35,8 @@ const rootReducer = combineReducers({
   medcenters,
   specialities,
   search,
+  vacansies,
+  comments,
 });
 
 export default rootReducer;

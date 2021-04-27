@@ -11,7 +11,7 @@ const TCompany = () => {
         align-items: center;
         padding-left: 167px;
         margin-bottom: 31px;
-        background-image: url('img/utk.svg'), url('img/utkbg.png');
+        background-image: url('/img/utk.svg'), url('/img/utkbg.png');
         background-position: 60px center, center;
         background-repeat: no-repeat;
         background-size: 79px 121px, cover;
@@ -19,7 +19,7 @@ const TCompany = () => {
         font-size: 33px;
 
         @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
-          background-image: url('img/utk.svg'), url('img/utkbg@2x.png');
+          background-image: url('/img/utk.svg'), url('/img/utkbg@2x.png');
         }
       `}
     >

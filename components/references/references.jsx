@@ -1,6 +1,5 @@
 import { css, useTheme } from '@emotion/react';
 import React from 'react';
-import { ReactComponent as SheduleIcon } from 'icons/shedule.svg';
 import { breakpointsMap } from 'constants/styles';
 import Paragraph from 'components/common/paragraph';
 import Form from './form';

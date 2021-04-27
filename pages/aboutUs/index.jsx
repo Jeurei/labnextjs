@@ -1,21 +1,28 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import AboutUs from 'components/aboutus/aboutus';
-import { wrapper } from 'Redux/index';
-import { getFeatures } from 'Redux/actions/actions';
+import { serverRoutesMap } from 'Redux/actions/actions';
 
-const Index = () => {
+import PropTypes from 'prop-types';
+import axios from 'axios';
+
+const Index = ({ pageData }) => {
   return (
     <InnerPageLayout title="Лабдиагностика | О компании">
-      <AboutUs />
+      <AboutUs data={pageData} />
     </InnerPageLayout>
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async () => {
-    const state = store.getState();
-    if (!state.features) await store.dispatch(getFeatures());
-  },
-);
+export const getServerSideProps = async () => {
+  const pageData = await axios(`${serverRoutesMap.ABOUTUS}`).then((res) => {
+    return res.data;
+  });
+
+  return { props: { pageData } };
+};
+
+Index.propTypes = {
+  pageData: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default Index;

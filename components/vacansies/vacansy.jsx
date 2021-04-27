@@ -2,18 +2,20 @@ import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 import Link from 'next/link';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import PageBuilder from 'components/common/pageBuilder';
+import { numberWithSpaces } from 'utils/common';
 import Share from './share-block';
 import VacansyForm from './vacansy-form';
 import VacansyQuest from './vacansy-quest';
 
-const Vacansy = () => {
+const Vacansy = ({ data }) => {
   const theme = useTheme();
   const [isModal, setModal] = useState(false);
   const [isQuest, setQuest] = useState(false);
-
   return (
     <>
-      <h2 className="main__title">Вакансия бухгалтер</h2>
+      <h2 className="main__title">Вакансия {data.title}</h2>
       <div
         css={css`
           display: flex;
@@ -133,6 +135,7 @@ const Vacansy = () => {
             list-style: none;
 
             ${breakpointsMap.DESKTOP} {
+              min-width: 500px;
               margin-bottom: 0;
             }
           `}
@@ -140,29 +143,26 @@ const Vacansy = () => {
           <li
             css={css`
               display: flex;
+              margin-bottom: 25px;
             `}
           >
             <p
               className="vacancy__op-text"
               css={css`
+                width: 50%;
                 margin: 0;
-                margin-right: auto;
-                margin-bottom: 25px;
                 opacity: 0.4;
-
-                ${breakpointsMap.DESKTOP} {
-                  margin-right: 153px;
-                }
               `}
             >
               График:
             </p>
             <p
               css={css`
+                width: 50%;
                 margin: 0;
               `}
             >
-              Полный рабочий день
+              {data.data.workSchedule}
             </p>
           </li>
           <li
@@ -174,22 +174,20 @@ const Vacansy = () => {
             <p
               className="vacancy__op-text"
               css={css`
+                width: 50%;
                 margin: 0;
-                margin-right: auto;
                 opacity: 0.4;
-                ${breakpointsMap.DESKTOP} {
-                  margin-right: 153px;
-                }
               `}
             >
-              График:
+              Опыт работы:
             </p>
             <p
               css={css`
+                width: 50%;
                 margin: 0;
               `}
             >
-              Полный рабочий день
+              {data.data.workExperience}
             </p>
           </li>
           <li
@@ -200,22 +198,20 @@ const Vacansy = () => {
             <p
               className="vacancy__op-text"
               css={css`
+                width: calc(50% - 34px);
                 margin: 0;
-                margin-right: auto;
                 opacity: 0.4;
-                ${breakpointsMap.DESKTOP} {
-                  margin-right: 153px;
-                }
               `}
             >
               График:
             </p>
             <p
               css={css`
+                width: 50%;
                 margin: 0;
               `}
             >
-              Полный рабочий день
+              {data.data.education}
             </p>
           </li>
         </ul>
@@ -243,7 +239,7 @@ const Vacansy = () => {
               }
             `}
           >
-            31 100 ₽
+            {numberWithSpaces(data.data.salary)} ₽
           </span>
           <Link href="/vacansies">
             <a
@@ -296,29 +292,7 @@ const Vacansy = () => {
           Откликнуться
         </button>
       </div>
-      <div>
-        <div>
-          <h3
-            css={css`
-              font-size: 16px;
-              font-weight: 500;
-            `}
-          >
-            Обязанности
-          </h3>
-          <p
-            css={css`
-              font-size: 13px;
-            `}
-          >
-            Ведение бухгалтерского учета государственных учреждений (операции с
-            нефинансовыми активами, расчеты с дебиторами по доходам ( в т.ч.
-            учет администрирования доходов главным администратором доходов),
-            санкционирование, расчеты с поставщиками и подрядчиками) Ведение
-            налогового учета;
-          </p>
-        </div>
-      </div>
+      {data.page && data.page.length !== 0 && <PageBuilder data={data.page} />}
       <button
         className="button"
         type="button"
@@ -344,6 +318,10 @@ const Vacansy = () => {
       {isQuest && <VacansyQuest closeQuest={() => setQuest(false)} />}
     </>
   );
+};
+
+Vacansy.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Vacansy;

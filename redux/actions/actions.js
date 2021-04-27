@@ -22,6 +22,13 @@ export const serverRoutesMap = {
   MEDCENTERS: `https://labdiag.praweb.ru/api/centers`,
   SPECIALITIES: 'https://labdiag.praweb.ru/api/specializations',
   FORM: 'https://labdiag.praweb.ru/api/form',
+  VACANCIES: 'https://labdiag.praweb.ru/api/vacansii',
+  FAQPAGE: 'https://labdiag.praweb.ru/api/getpage?id=74',
+  SUPPLIERS: 'https://labdiag.praweb.ru/api/getpage?id=75',
+  ABOUTUS: 'https://labdiag.praweb.ru/api/getpage?id=76',
+  COMMENTS: 'https://labdiag.praweb.ru/api/reviews',
+  REFERENCESPAGE: 'https://labdiag.praweb.ru/api/getpage?id=85',
+  CORPO: 'https://labdiag.praweb.ru/api/getpage?id=79',
 };
 
 export const getData = (url) => {
@@ -139,6 +146,24 @@ export const getShares = () => (dispatch) =>
     headers: [],
   }).then((response) =>
     dispatch({ type: Actions.GET_SHARES, payload: response.data }),
+  );
+
+export const getVacasies = () => (dispatch) =>
+  axios({
+    method: 'GET',
+    url: serverRoutesMap.VACANCIES,
+    headers: [],
+  }).then((response) =>
+    dispatch({ type: Actions.GET_VACANSIES, payload: response.data }),
+  );
+
+export const getReviews = () => (dispatch) =>
+  axios({
+    method: 'GET',
+    url: serverRoutesMap.COMMENTS,
+    headers: [],
+  }).then((response) =>
+    dispatch({ type: Actions.GET_REVIEWS, payload: response.data }),
   );
 
 export const getArticles = () => (dispatch) =>

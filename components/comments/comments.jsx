@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { css, useTheme } from '@emotion/react';
-import { breakpointsMap } from 'constants/styles';
-import { ReactComponent as Star } from 'icons/star.svg';
+import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Comment from 'components/common/comment';
 import MenuTabs from './menu-tabs';
 import CommentForm from './comment-form';
 
-const Comments = ({ children }) => {
-  const theme = useTheme();
+const Comments = ({ children, comments }) => {
   const [isComments, setComments] = useState(false);
 
   const onCreateCommentClickHandler = () => {
@@ -26,7 +23,6 @@ const Comments = ({ children }) => {
         isShown={isComments}
       />
       {isComments && <CommentForm />}
-
       <div>
         <h3
           css={css`
@@ -47,10 +43,9 @@ const Comments = ({ children }) => {
             list-style: none;
           `}
         >
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+          {comments.map((el) => (
+            <Comment data={el} />
+          ))}
         </div>
       </div>
     </>
@@ -59,6 +54,7 @@ const Comments = ({ children }) => {
 
 Comments.propTypes = {
   children: PropTypes.objectOf(PropTypes.object).isRequired,
+  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -68,9 +64,10 @@ const mapStateToProps = (state) => {
         aboutUs: { children },
       },
     },
+    comments,
   } = state;
 
-  return { children };
+  return { children, comments };
 };
 
 export default connect(mapStateToProps, null)(Comments);

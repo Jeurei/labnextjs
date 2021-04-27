@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { numWord } from 'utils/common';
 
+global.Element = typeof Element === 'undefined' ? function () {} : Element;
+
 const MapLeftResults = ({ refProp, medcenters }) => {
   const arr = medcenters.map((el) => el.city === '4' && el).filter(Boolean);
 

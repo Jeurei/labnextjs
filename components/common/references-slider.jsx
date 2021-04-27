@@ -6,17 +6,24 @@ import { useCallback, useRef } from 'react';
 import Slider from './slider';
 import LightBoxImg from './light-box-img';
 
-const SlideComponent = ({ quantity }) => (
-  <>
-    {new Array(quantity).fill().map(() => (
-      <div className="reference__picture">
-        <LightBoxImg />
-      </div>
-    ))}
-  </>
-);
+const SlideComponent = ({ data }) => {
+  return (
+    <>
+      {data && (
+        <div
+          className="reference__picture"
+          css={css`
+            filter: grayscale(100%);
+          `}
+        >
+          <LightBoxImg data={data} />
+        </div>
+      )}
+    </>
+  );
+};
 
-const ReferencesSlider = ({ title, quantity = 2 }) => {
+const ReferencesSlider = ({ title, data }) => {
   const swiperRef = useRef(null);
 
   const prevSlide = useCallback(() => {
@@ -49,8 +56,7 @@ const ReferencesSlider = ({ title, quantity = 2 }) => {
         }
 
         ${breakpointsMap.DESKTOP} {
-          width: 50%;
-          margin-right: 69px;
+          width: 100%;
         }
       `}
     >
@@ -79,8 +85,8 @@ const ReferencesSlider = ({ title, quantity = 2 }) => {
       <div>
         <Slider
           swiperRef={swiperRef}
-          component={<SlideComponent quantity={quantity} />}
-          data={new Array(2).fill()}
+          component={<SlideComponent />}
+          data={data}
           sliderObject={{}}
         />
       </div>
@@ -89,16 +95,12 @@ const ReferencesSlider = ({ title, quantity = 2 }) => {
 };
 
 SlideComponent.propTypes = {
-  quantity: PropTypes.number.isRequired,
-};
-
-ReferencesSlider.defaultProps = {
-  quantity: 2,
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 ReferencesSlider.propTypes = {
   title: PropTypes.string.isRequired,
-  quantity: PropTypes.number,
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default ReferencesSlider;

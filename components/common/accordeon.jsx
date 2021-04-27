@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 
-const Accordeon = ({ title, children }) => {
+const Accordeon = ({ title, children, id }) => {
   return (
     <div className="footer__nav-tab tab">
       <input
         className="tab__checkbox"
         type="checkbox"
         onChange={() => console.log('hi')}
-        id="testtest"
-        name="testtest"
+        id={id}
+        name={id}
         css={css`
           &:checked + .tab__title {
             &::after {
@@ -26,7 +26,7 @@ const Accordeon = ({ title, children }) => {
       />
       <label
         className="tab__title"
-        htmlFor="testtest"
+        htmlFor={id}
         css={css`
           height: 57px;
           font-size: 16px;
@@ -90,6 +90,7 @@ const Accordeon = ({ title, children }) => {
 Accordeon.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Accordeon;

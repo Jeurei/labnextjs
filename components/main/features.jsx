@@ -2,8 +2,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import SectionInner from 'containers/section-inner';
-import Picture from 'common/picture';
-import components from 'constants/components';
 import { ReactComponent as Logo } from 'icons/features__logo-img.svg';
 
 // TODO: Узнать шаблонизируется ли этот блок

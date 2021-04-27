@@ -1,8 +1,10 @@
 import { css, useTheme } from '@emotion/react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import VacansyBlock from './vacansy-block';
 import Contacts from './contacts';
 
-const Vacansies = () => {
+const Vacansies = ({ vacansies }) => {
   const theme = useTheme();
   return (
     <>
@@ -62,12 +64,22 @@ const Vacansies = () => {
           grid-template-columns: repeat(3, 1fr);
         `}
       >
-        <VacansyBlock />
-        <VacansyBlock />
-        <VacansyBlock />
+        {vacansies.map((el) => (
+          <VacansyBlock data={el} />
+        ))}
       </div>
     </>
   );
 };
 
-export default Vacansies;
+Vacansies.propTypes = {
+  vacansies: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { vacansies } = state;
+
+  return { vacansies };
+};
+
+export default connect(mapStateToProps, null)(Vacansies);

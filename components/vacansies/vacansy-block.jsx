@@ -1,7 +1,10 @@
 import { useTheme, css } from '@emotion/react';
 import Link from 'next/link';
 
-const VacansyBlock = () => {
+import PropTypes from 'prop-types';
+import { numberWithSpaces } from 'utils/common';
+
+const VacansyBlock = ({ data }) => {
   const theme = useTheme();
   return (
     <article
@@ -43,7 +46,7 @@ const VacansyBlock = () => {
         `}
       >
         <Link href="vacansies/[id]" as="vacansies/1">
-          <a>Бухгалтер</a>
+          <a>{data.title}</a>
         </Link>
       </h3>
       <ul
@@ -67,7 +70,7 @@ const VacansyBlock = () => {
           >
             График:
           </p>
-          <p>Полный рабочий день</p>
+          <p>{data.workSchedule}</p>
         </li>
         <li
           css={css`
@@ -81,9 +84,9 @@ const VacansyBlock = () => {
               opacity: 0.4;
             `}
           >
-            График:
+            Опыт работы:
           </p>
-          <p>Полный рабочий день</p>
+          <p>{data.workExperience}</p>
         </li>
         <li
           css={css`
@@ -97,9 +100,9 @@ const VacansyBlock = () => {
               opacity: 0.4;
             `}
           >
-            График:
+            Образование:
           </p>
-          <p>Полный рабочий день</p>
+          <p>{data.education}</p>
         </li>
       </ul>
       <div
@@ -129,10 +132,10 @@ const VacansyBlock = () => {
             font-weight: 500;
           `}
         >
-          31 100 ₽
+          {numberWithSpaces(data.salary)} ₽
         </span>
       </div>
-      <Link href="vacansies/[id]" as="vacansies/1">
+      <Link href="vacansies/[id]" as={`vacansies/${data.id}`}>
         <a
           className="vacansy__link"
           css={css`
@@ -158,6 +161,10 @@ const VacansyBlock = () => {
       </Link>
     </article>
   );
+};
+
+VacansyBlock.propTypes = {
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default VacansyBlock;

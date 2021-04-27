@@ -72,3 +72,9 @@ export const GET_CENTERS = 'GET_CENTERS';
 // specialities
 
 export const GET_SPECIALITIES = 'GET_SPECIALITIES';
+
+// vacancies
+export const GET_VACANSIES = 'GET_VACANSIES';
+
+// reviews
+export const GET_REVIEWS = 'GET_REVIEWS';

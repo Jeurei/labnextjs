@@ -2,7 +2,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Lightbox from 'react-image-lightbox';
 
-const LightBoxImg = () => {
+import PropTypes from 'prop-types';
+
+const LightBoxImg = ({ data }) => {
   const [isShown, setShown] = useState(false);
 
   const onClickHandler = () => {
@@ -12,20 +14,21 @@ const LightBoxImg = () => {
   return (
     <div className="reference__picture">
       <Image
-        src="/img/reference.png"
+        src={data.thumb}
         containerClass="reference__picture"
         width="218"
         height="309"
         onClick={onClickHandler}
       />
       {isShown && (
-        <Lightbox
-          mainSrc="/img/reference.png"
-          onCloseRequest={() => setShown(false)}
-        />
+        <Lightbox mainSrc={data.image} onCloseRequest={() => setShown(false)} />
       )}
     </div>
   );
+};
+
+LightBoxImg.propTypes = {
+  data: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default LightBoxImg;

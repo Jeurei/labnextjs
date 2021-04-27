@@ -3,7 +3,10 @@ import { css } from '@emotion/react';
 import Image from 'next/image';
 import Paragraph from 'components/common/paragraph';
 
-const Maintaince = () => {
+import PropTypes from 'prop-types';
+import PageBuilder from 'components/common/pageBuilder';
+
+const Maintaince = ({ data }) => {
   return (
     <>
       <h2
@@ -12,9 +15,10 @@ const Maintaince = () => {
           margin-bottom: 40px;
         `}
       >
-        Обслуживание по полисам ДМС
+        {data.title}
       </h2>
-      <Paragraph>
+      {data.page && <PageBuilder data={data.page} />}
+      {/* <Paragraph>
         Лечебно-диагностический центр « Лабдиагностика» оказывает медицинские
         услуги по полисам Добровольного Медицинского Страхования (ДМС) следующих
         страховых компаний:
@@ -39,9 +43,13 @@ const Maintaince = () => {
         письмо от страховой компании или иметь «прямой доступ» в клинику (быть в
         списках сотрудников на прикрепление) к медицинскому центру
         «Лабдиагностика». Условия{' '}
-      </Paragraph>
+      </Paragraph> */}
     </>
   );
+};
+
+Maintaince.propTypes = {
+  data: PropTypes.objectOf(PropTypes.objectз).isRequired,
 };
 
 export default Maintaince;

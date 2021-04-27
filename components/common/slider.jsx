@@ -14,7 +14,6 @@ const Slider = ({
   pagination = true,
 }) => {
   SwiperCore.use([Pagination, A11y]);
-
   return (
     <div
       className="slider__main-container"

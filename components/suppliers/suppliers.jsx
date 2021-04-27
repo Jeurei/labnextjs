@@ -1,10 +1,11 @@
 import { css, useTheme } from '@emotion/react';
+import PageBuilder from 'components/common/pageBuilder';
 import Paragraph from 'components/common/paragraph';
 import SimpleForm from 'components/common/simple-form';
-import Table from './table';
+import PropTypes from 'prop-types';
 import TCompany from './tCompany';
 
-const Suppliers = () => {
+const Suppliers = ({ data }) => {
   const theme = useTheme();
   return (
     <>
@@ -26,9 +27,13 @@ const Suppliers = () => {
       </h3>
       <SimpleForm wFile />
       <TCompany />
-      <Table />
+      {data.page && <PageBuilder data={data.page} />}
     </>
   );
+};
+
+Suppliers.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default Suppliers;

@@ -1,7 +1,9 @@
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 
-const File = () => {
+import PropTypes from 'prop-types';
+
+const File = ({ data }) => {
   const theme = useTheme();
   return (
     <a
@@ -11,7 +13,7 @@ const File = () => {
         display: block;
         padding: 30px 64px;
         margin-bottom: 30px;
-        background-image: url('img/file.svg');
+        background-image: url(${data.icon});
         background-position: 25px 32px;
         background-repeat: no-repeat;
         background-size: 21px 26px;
@@ -22,9 +24,13 @@ const File = () => {
         }
       `}
     >
-      ФЗ No323 «Об основах охраны здоровья граждан в Российской Федерации».
+      {data.title}
     </a>
   );
+};
+
+File.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default File;
