@@ -145,17 +145,20 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
               display: flex;
               height: 100%;
               flex-wrap: wrap;
-              justify-content: space-between;
+              justify-content: flex-start;
               padding: 0;
               padding: 46px 36px;
               font-size: 16px;
               list-style: none;
+
+              li:nth-of-type(odd) {
+                margin-right: auto;
+              }
             `}
           >
             {data.children.map((el) => (
               <li
                 css={css`
-                  margin-right: 10px;
                   margin-bottom: 10px;
                 `}
               >
