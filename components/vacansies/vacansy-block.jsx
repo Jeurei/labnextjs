@@ -45,7 +45,7 @@ const VacansyBlock = ({ data }) => {
           font-weight: 500;
         `}
       >
-        <Link href="vacansies/[id]" as="vacansies/1">
+        <Link href="vacansies/[id]" as={`vacansies/${data.id}`}>
           <a>{data.title}</a>
         </Link>
       </h3>
