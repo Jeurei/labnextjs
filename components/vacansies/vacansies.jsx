@@ -1,11 +1,19 @@
 import { css, useTheme } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import VacansyBlock from './vacansy-block';
 import Contacts from './contacts';
 
 const Vacansies = ({ vacansies }) => {
   const theme = useTheme();
+  const [vacansiesType, setVacansiesType] = useState(0);
+
+  const vacansiesMap = {
+    0: () => [...vacansies].filter((el) => el.vacancyType === 'medical'),
+    1: () => [...vacansies].filter((el) => el.vacancyType === 'administration'),
+  };
+
   return (
     <>
       <h2 className="main__title">Вакансии</h2>
@@ -25,14 +33,20 @@ const Vacansies = ({ vacansies }) => {
             padding-bottom: 22px;
             padding-left: 61px;
             border: none;
+            border-right: 1px solid #4a4a4a;
             appearance: none;
             background-color: ${theme.colors.white};
+            ${vacansiesType === 0
+              ? 'background-image: linear-gradient(264deg, #768bf8, #c23df1);color:#fff;'
+              : ''}
 
             &:hover {
+              border-right: 1px solid #fff;
               background-image: linear-gradient(264deg, #768bf8, #c23df1);
               color: ${theme.colors.white};
             }
           `}
+          onClick={() => setVacansiesType(0)}
         >
           Медицинская деятельность
         </button>
@@ -46,12 +60,16 @@ const Vacansies = ({ vacansies }) => {
             border: none;
             appearance: none;
             background-color: ${theme.colors.white};
+            ${vacansiesType === 1
+              ? 'background-image: linear-gradient(264deg, #768bf8, #c23df1);color:#fff;'
+              : ''}
 
             &:hover {
               background-image: linear-gradient(264deg, #768bf8, #c23df1);
               color: ${theme.colors.white};
             }
           `}
+          onClick={() => setVacansiesType(1)}
         >
           Административный персонал
         </button>
@@ -64,7 +82,7 @@ const Vacansies = ({ vacansies }) => {
           grid-template-columns: repeat(3, 1fr);
         `}
       >
-        {vacansies.map((el) => (
+        {vacansiesMap[vacansiesType]().map((el) => (
           <VacansyBlock data={el} />
         ))}
       </div>
