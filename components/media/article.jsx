@@ -2,7 +2,7 @@ import { useTheme, css } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 import { format } from 'date-fns';
 import Image from 'next/image';
-
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const formatDate = (date) => {
@@ -41,25 +41,34 @@ const Article = ({ data }) => {
         }
       `}
     >
-      <Image
-        src={data.image}
-        width="269"
-        height="269"
-        imgClass="articlePage__article"
-      />
-      <h3
-        css={css`
-          padding-top: 27px;
-          padding-right: 21px;
-          padding-left: 19px;
-          margin: 0;
-          margin-bottom: 12px;
-          font-size: 16px;
-          font-weight: 500;
-        `}
-      >
-        {data.title}
-      </h3>
+      <Link href="media/[id]" as={`media/${data.id}`}>
+        <a>
+          <Image
+            src={data.image}
+            width="269"
+            height="269"
+            imgClass="articlePage__article"
+          />
+        </a>
+      </Link>
+      <Link href="media/[id]" as={`media/${data.id}`}>
+        <a>
+          <h3
+            css={css`
+              padding-top: 27px;
+              padding-right: 21px;
+              padding-left: 19px;
+              margin: 0;
+              margin-bottom: 12px;
+              font-size: 16px;
+              font-weight: 500;
+            `}
+          >
+            {data.title}
+          </h3>
+        </a>
+      </Link>
+
       <div
         css={css`
           display: flex;
