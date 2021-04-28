@@ -28,9 +28,7 @@ export const getSpecialistCenters = (arr) => {
 
 export const getSpecialistsCitiesArr = (arr) => {
   return [
-    ...new Set(
-      getFlatArr(arr.map((el) => el.adresses.map((elem) => elem.city))),
-    ),
+    ...new Set(getFlatArr(arr.map((el) => el.centers.map((elem) => elem)))),
   ];
 };
 
@@ -38,18 +36,7 @@ export const getAllSpecialistsAdressesArray = (arr) => {
   return [
     ...new Set(
       getFlatArr([
-        ...new Set(
-          getFlatArr(
-            arr.map((el) =>
-              el.adresses.map((elem) =>
-                Object.values(elem.center).map(
-                  (element) =>
-                    `${elem.city}, ${element.adress}, ${element.name}`,
-                ),
-              ),
-            ),
-          ),
-        ),
+        ...new Set(getFlatArr(arr.map((el) => el.centers.map((elem) => elem)))),
       ]),
     ),
   ];

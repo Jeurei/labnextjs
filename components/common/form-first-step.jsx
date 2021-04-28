@@ -11,9 +11,8 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import ReactSelect from 'react-select';
+import { connect } from 'react-redux';
 import Select from './select';
-
-import CrossButton from './crossButton';
 
 const FormFirstStep = ({
   selects,
@@ -21,6 +20,8 @@ const FormFirstStep = ({
   action,
   lastInputHandler,
   reset,
+  cities,
+  medcenters,
 }) => {
   const ONLINE_SELECT_TYPE = 'online';
   const [currentArr, setCurrentArr] = useState(specialists);
@@ -65,9 +66,17 @@ const FormFirstStep = ({
     );
   };
 
-  const secondSelectData = getSpecialistsCitiesArr(currentArr).map((el) => ({
-    value: el,
-    label: el,
+  const secondSelectData = [
+    ...new Set(
+      getSpecialistsCitiesArr(currentArr)
+        .map((el) => Object.values(medcenters).find((elem) => elem.id === el))
+        .map((el) =>
+          Object.values(cities).find((elem) => elem.value === el.city),
+        ),
+    ),
+  ].map((el) => ({
+    value: el.value,
+    label: el.label,
   }));
 
   const thirdSelectData = getSpecialistsJobsArray(currentArr).map((el) => ({
@@ -310,6 +319,14 @@ FormFirstStep.propTypes = {
   selects: PropTypes.objectOf(PropTypes.object).isRequired,
   lastInputHandler: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
+  cities: PropTypes.objectOf(PropTypes.object).isRequired,
+  medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default FormFirstStep;
+const mapStateToProps = (state) => {
+  const { cities, medcenters } = state;
+
+  return { cities, medcenters };
+};
+
+export default connect(mapStateToProps, null)(FormFirstStep);

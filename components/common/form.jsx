@@ -238,7 +238,7 @@ const Form = ({
         url: serverRoutesMap.SPECIALISTS,
         headers: [],
       }).then((res) => {
-        setSpecialistsState(res.data);
+        setSpecialistsState(Object.values(res.data));
         setLoading(false);
       });
     }
