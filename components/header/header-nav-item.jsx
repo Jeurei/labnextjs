@@ -51,7 +51,7 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
       height: 100%;
       align-items: center;
       cursor: pointer;
-      white-space: pre;
+      white-space: normal;
     `;
 
     return (
