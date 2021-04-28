@@ -540,9 +540,9 @@ const BottomGradientLinks = ({ data }) => {
           position: absolute;
           z-index: -1;
           top: 0;
-          left: -10%;
+          left: -100%;
           display: block;
-          width: 110vw;
+          width: 1000vw;
           min-height: 100%;
           background-color: #f7f7f7;
           content: '';
