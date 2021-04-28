@@ -39,7 +39,7 @@
 
   &--limited {
     &::after {
-      @include pseudo('ОСТАЛОСЬ 4 ДНЯ', 75px, 20px);
+      @include pseudo('ОСТАЛОСЬ ' (attr(data-amount)) ' ДНЯ', 75px, 20px);
       position: absolute;
       top: 13px;
       right: 0;

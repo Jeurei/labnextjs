@@ -1,4 +1,7 @@
 /* eslint-disable max-len */
+
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 /* eslint-disable import/prefer-default-export */
 export const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -40,4 +43,12 @@ export const numWord = (value, words) => {
   if (num === 1) return words[0];
 
   return words[2];
+};
+
+export const formatDate = (date) => {
+  return format(new Date(Number(date)), 'd MMMM yyyy', { locale: ru });
+};
+
+export const formatDateForHtml = (date) => {
+  return format(new Date(Number(date)), 'yyyy-M-d', { locale: ru });
 };

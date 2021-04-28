@@ -1,17 +1,8 @@
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
 import Image from 'next/image';
 import { css } from '@emotion/react';
 import Link from 'next/link';
-
-const formatDate = (date) => {
-  return format(new Date(date), 'd MMMM yyyy', { locale: ru });
-};
-
-const formatDateForHtml = (date) => {
-  return format(new Date(date), 'yyyy-M-d', { locale: ru });
-};
+import { formatDate, formatDateForHtml } from 'utils/common';
 
 const Article = ({ data }) => {
   return (

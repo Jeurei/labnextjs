@@ -1,6 +1,6 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import Shares from 'components/shares/shares';
-import { getSpecialists } from 'Redux/actions/actions';
+import { getArticles } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
 
 const Index = () => {
@@ -13,7 +13,9 @@ const Index = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
-    await store.dispatch(getSpecialists());
+    const state = store.getState();
+
+    if (!state.articles.length) await store.dispatch(getArticles());
   },
 );
 

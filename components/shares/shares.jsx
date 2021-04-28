@@ -15,15 +15,34 @@ import MedCenterLink from 'components/common/medCenter-link';
 import DoctorOnline from 'components/common/doctorOnline';
 import Table from 'components/common/table';
 import Complex from 'components/common/complex';
-import Share from 'common/share';
+import Share from 'components/main/share';
 import Articles from './articles';
 
-const Shares = ({ specialists }) => {
-  const theme = useTheme();
+const Shares = ({ shares }) => {
   return (
     <>
       <h2 className="main__title">Акции</h2>
-      <article
+      <ul
+        css={css`
+          display: flex;
+          flex-wrap: wrap;
+          align-items: stretch;
+          padding: 0;
+          list-style: none;
+
+          .shares__list-item {
+            min-width: 381px;
+            min-height: 100%;
+            margin-right: 37px;
+          }
+        `}
+      >
+        {shares.map((el) => (
+          <Share data={el} />
+        ))}
+      </ul>
+
+      {/* <article
         css={css`
           width: 100%;
           height: 511px;
@@ -188,37 +207,19 @@ const Shares = ({ specialists }) => {
       <Table />
       <Complex />
       <Share />
-      <Articles />
+      <Articles /> */}
     </>
   );
 };
 
 Shares.propTypes = {
-  specialists: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      job: PropTypes.arrayOf(PropTypes.string),
-      ages: PropTypes.number,
-      price: PropTypes.number,
-      adresses: PropTypes.arrayOf(
-        PropTypes.shape({
-          city: PropTypes.string,
-          center: PropTypes.arrayOf(
-            PropTypes.shape({
-              name: PropTypes.string,
-              adress: PropTypes.string,
-            }),
-          ),
-        }),
-      ),
-    }),
-  ).isRequired,
+  shares: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { specialists } = state;
+  const { shares } = state;
 
-  return { specialists };
+  return { shares };
 };
 
 export default connect(mapStateToProps, null)(Shares);
