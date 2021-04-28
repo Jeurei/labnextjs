@@ -6,7 +6,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const formatDate = (date) => {
-  return format(new Date(date), 'k:mm');
+  return format(new Date(Number(date)), 'k:mm');
 };
 
 const Article = ({ data }) => {
