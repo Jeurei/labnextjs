@@ -98,7 +98,7 @@ const routesConstants = {
     name: 'Пресс центр',
   },
   DISCOUTNS: {
-    route: '/discountes',
+    route: '/discounts',
     name: 'Дисконтная программа',
   },
   SUPPLIERS: {

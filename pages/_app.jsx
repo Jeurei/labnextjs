@@ -11,6 +11,7 @@ import {
   getCenters,
   getSpecialities,
   getSearchCategories,
+  getConfig,
 } from 'Redux/actions/actions';
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
@@ -114,6 +115,7 @@ const App = ({ Component, pageProps }) => {
 App.getInitialProps = wrapper.getInitialAppProps((store) => async () => {
   const state = store.getState();
   const req = [];
+  if (!state.config.length) req.push(store.dispatch(getConfig()));
   if (!state.discounts.length) req.push(store.dispatch(getDiscounts()));
   if (!state.routes.routes) req.push(store.dispatch(getRoutes()));
   if (!state.routes.burger) req.push(store.dispatch(getRoutesInBurger()));

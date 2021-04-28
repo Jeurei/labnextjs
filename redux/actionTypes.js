@@ -78,3 +78,7 @@ export const GET_VACANSIES = 'GET_VACANSIES';
 
 // reviews
 export const GET_REVIEWS = 'GET_REVIEWS';
+
+// config
+
+export const GET_CONFIG = 'GET_CONFIG';

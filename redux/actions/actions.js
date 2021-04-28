@@ -29,6 +29,18 @@ export const serverRoutesMap = {
   COMMENTS: 'https://labdiag.praweb.ru/api/reviews',
   REFERENCESPAGE: 'https://labdiag.praweb.ru/api/getpage?id=85',
   CORPO: 'https://labdiag.praweb.ru/api/getpage?id=79',
+  CONFIG: 'https://labdiag.praweb.ru/config',
+  DISCOUNTSPAGE: 'https://labdiag.praweb.ru/api/getpage?id=87',
+};
+
+export const getConfig = () => (dispatch) => {
+  axios({
+    method: 'GET',
+    url: serverRoutesMap.CONFIG,
+    headers: [],
+  }).then((response) =>
+    dispatch({ type: Actions.GET_CONFIG, payload: response.data }),
+  );
 };
 
 export const getData = (url) => {

@@ -4,8 +4,11 @@ import { ReactComponent as TelIcon } from 'icons/tel-icon.svg';
 import { ReactComponent as MailIcon } from 'icons/mail.svg';
 import { ReactComponent as MarkIcon } from 'icons/map-mark-icon.svg';
 import { breakpointsMap } from 'constants/styles';
+import { connect } from 'react-redux';
 
-const Contacts = () => {
+import PropTypes from 'prop-types';
+
+const Contacts = ({ config }) => {
   const theme = useTheme();
   return (
     <section className="footer__section footer__section-contacts section contacts">
@@ -25,7 +28,7 @@ const Contacts = () => {
               `}
             >
               <p className="contact__text-small">Ежедневно и круглосуточно</p>
-              <p className="contact__text">8 800 3000 789</p>
+              <p className="contact__text">{config.footerPhone}</p>
             </a>
             <TelIcon
               fill="currentColor"
@@ -57,7 +60,7 @@ const Contacts = () => {
               `}
             >
               <p className="contact__text-small">E-mail</p>
-              <p className="contact__text">info@labdiag.perm.ru</p>
+              <p className="contact__text">{config.footerEmail}</p>
             </a>
             <MailIcon
               fill="currentColor"
@@ -78,7 +81,7 @@ const Contacts = () => {
           </li>
           <li className="contacts__contact contact contact--adress">
             <p className="contact__text-small">Адрес</p>
-            <p className="contact__text">Пермь, 9 мая, 18а</p>
+            <p className="contact__text">{config.footerAddress}</p>
             <MarkIcon
               fill="currentColor"
               css={css`
@@ -102,4 +105,14 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+const mapStateToProps = (state) => {
+  const { config } = state;
+
+  return { config };
+};
+
+Contacts.propTypes = {
+  config: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, null)(Contacts);

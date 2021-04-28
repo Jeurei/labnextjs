@@ -7,7 +7,7 @@ import { breakpointsMap } from 'constants/styles';
 import { css } from '@emotion/react';
 import { useHeaderContext } from './header';
 
-const HeaderTopLeft = ({ cities }) => {
+const HeaderTopLeft = ({ cities, config }) => {
   const {
     cities: { onCitiesClickHandler, onClickClosePopupHandler },
   } = useHeaderContext();
@@ -76,7 +76,7 @@ const HeaderTopLeft = ({ cities }) => {
         `}
       >
         <TelIcon width="9" height="9.5" stroke="currentColor" />
-        +7 (999) 999-99-99
+        {config.headerPhone}
       </p>
     </div>
   );
@@ -87,12 +87,13 @@ HeaderTopLeft.propTypes = {
     currentCity: PropTypes.string.isRequired,
     list: PropTypes.objectOf(PropTypes.object).isRequired,
   }).isRequired,
+  config: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { cities } = state;
+  const { cities, config } = state;
 
-  return { cities };
+  return { cities, config };
 };
 
 export default connect(mapStateToProps, null)(HeaderTopLeft);

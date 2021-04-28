@@ -1,7 +1,10 @@
 import { useTheme, css } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
+import { connect } from 'react-redux';
 
-const Contacts = () => {
+import PropTypes from 'prop-types';
+
+const Contacts = ({ config }) => {
   const theme = useTheme();
   return (
     <div
@@ -57,7 +60,7 @@ const Contacts = () => {
             margin: 0;
           `}
         >
-          2 700 789, доб. 800
+          {config.hrPhone}
         </p>
       </div>
       <div
@@ -95,11 +98,21 @@ const Contacts = () => {
             margin: 0;
           `}
         >
-          info@labdiag.perm.ru
+          {config.hrEmail}
         </p>
       </div>
     </div>
   );
 };
 
-export default Contacts;
+const mapStateToProps = (state) => {
+  const { config } = state;
+
+  return { config };
+};
+
+Contacts.propTypes = {
+  config: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, null)(Contacts);

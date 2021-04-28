@@ -17,6 +17,7 @@ import specialities from './specialitiesReducer';
 import search from './searchReducer';
 import vacansies from './vacansiesReducer';
 import comments from './reviewsReducer';
+import config from './configReducer';
 
 const rootReducer = combineReducers({
   cart,
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   search,
   vacansies,
   comments,
+  config,
 });
 
 export default rootReducer;
