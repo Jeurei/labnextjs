@@ -328,30 +328,21 @@ const PageHeader = ({ data }) => {
         position: relative;
         display: flex;
         min-height: 366px;
+        background-image: url(/img/aboutusbg.png);
+        background-repeat: no-repeat;
+        background-size: cover;
         color: ${theme.colors.white};
+        content: '';
+
+        @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
+          background-image: url(/img/aboutusbg@2x.png);
+        }
 
         .aboutus__img-container {
           display: none;
           width: 100%;
           height: 100%;
           align-items: center;
-        }
-
-        &:before {
-          position: absolute;
-          z-index: -1;
-          left: -10%;
-          display: block;
-          width: 110vw;
-          min-height: 100%;
-          background-image: url(/img/aboutusbg.png);
-          background-repeat: no-repeat;
-          background-size: cover;
-          content: '';
-
-          @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
-            background-image: url(/img/aboutusbg@2x.png);
-          }
         }
 
         ${breakpointsMap.TABLET} {
@@ -456,9 +447,9 @@ const Advantages = ({ data }) => {
           position: absolute;
           z-index: -1;
           top: 0;
-          left: -10%;
+          left: -100%;
           display: block;
-          width: 110vw;
+          width: 10000vw;
           height: 100%;
           background-color: #f7f7f7;
           content: '';

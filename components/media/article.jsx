@@ -1,8 +1,15 @@
 import { useTheme, css } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
+import { format } from 'date-fns';
 import Image from 'next/image';
 
-const Article = () => {
+import PropTypes from 'prop-types';
+
+const formatDate = (date) => {
+  return format(new Date(date), 'k:mm');
+};
+
+const Article = ({ data }) => {
   const theme = useTheme();
   return (
     <article
@@ -35,7 +42,7 @@ const Article = () => {
       `}
     >
       <Image
-        src="/img/articlesimg.png"
+        src={data.image}
         width="269"
         height="269"
         imgClass="articlePage__article"
@@ -51,7 +58,7 @@ const Article = () => {
           font-weight: 500;
         `}
       >
-        Врачи диагностировали у Байдена две трещины в костях ноги
+        {data.title}
       </h3>
       <div
         css={css`
@@ -78,31 +85,15 @@ const Article = () => {
             }
           `}
         >
-          12:35
+          {formatDate(data.date)}
         </time>
-        <span
-          css={css`
-            position: relative;
-
-            &:before {
-              position: absolute;
-              top: 3px;
-              left: -14px;
-              display: block;
-              width: 12px;
-              height: 7.5px;
-              background-image: url('img/views.svg');
-              background-repeat: no-repeat;
-              background-size: 12px 7.5px;
-              content: '';
-            }
-          `}
-        >
-          532
-        </span>
       </div>
     </article>
   );
+};
+
+Article.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default Article;

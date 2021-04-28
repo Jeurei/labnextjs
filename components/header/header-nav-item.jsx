@@ -152,6 +152,7 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
               list-style: none;
 
               li:nth-of-type(odd) {
+                padding: 0px 86px 0 0;
                 margin-right: auto;
               }
             `}

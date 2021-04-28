@@ -3,10 +3,20 @@ import { breakpointsMap } from 'constants/styles';
 import DefaultSearch from 'components/common/default-search';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import MenuTabs from './menu-tabs';
 import Article from './article';
 
-const Media = ({ media }) => {
+const Media = ({ media, articles }) => {
+  const router = useRouter();
+
+  const articlesMap = {
+    media: () => articles.map((el) => <Article data={el} />),
+    news: () => articles.map((el) => el.isNews && <Article data={el} />),
+    blog: () => articles.map((el) => el.isBlog && <Article data={el} />),
+    useful: () => articles.map((el) => el.isUseful && <Article data={el} />),
+  };
+
   return (
     <>
       <h2 className="main__title">Пресс центр</h2>
@@ -25,7 +35,7 @@ const Media = ({ media }) => {
           }
         `}
       >
-        <Article />
+        {articlesMap[router.pathname.split('/').pop()]()}
       </div>
     </>
   );
@@ -33,6 +43,7 @@ const Media = ({ media }) => {
 
 Media.propTypes = {
   media: PropTypes.objectOf(PropTypes.object).isRequired,
+  articles: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -40,9 +51,10 @@ const mapStateToProps = (state) => {
     routes: {
       routes: { media },
     },
+    articles,
   } = state;
 
-  return { media };
+  return { media, articles };
 };
 
 export default connect(mapStateToProps, null)(Media);

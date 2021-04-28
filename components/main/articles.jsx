@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SectionInner from 'containers/section-inner';
 import components from 'constants/components';
+
 import { filterTypesMap } from 'constants/filter';
 import ArticlesTop from './artciles-top';
 import ArticlesBottom from './articles-bottom';
