@@ -4,6 +4,10 @@ import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 import { numberWithSpaces } from 'utils/common';
 import { ReactComponent as FeLogo } from 'icons/features__logo-img.svg';
+import styled from '@emotion/styled';
+import { cloneElement } from 'react';
+import { ReactComponent as SheduleIcon } from 'icons/shedule.svg';
+import Select from 'common/select';
 import Accordeon from './accordeon';
 import LinearBottomButton from './linear-bottom-button';
 import File from './file';
@@ -740,6 +744,440 @@ const Discounts = ({ data }) => {
   return <>{DiscountBlock(data)}</>;
 };
 
+const Heading = ({ data }) => (
+  <h3
+    css={css`
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: 500;
+    `}
+  >
+    {data.title}
+  </h3>
+);
+
+const List = ({ data }) =>
+  data.type === 'numeric' ? (
+    <ol
+      css={css`
+        padding: 0;
+        padding-left: 14px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      `}
+    >
+      {Object.values(data.items).map((el) => (
+        <li>{el}</li>
+      ))}
+    </ol>
+  ) : (
+    <ul
+      css={css`
+        padding: 0;
+        padding-left: 14px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      `}
+    >
+      {Object.values(data.items).map((el) => (
+        <li>{el}</li>
+      ))}
+    </ul>
+  );
+
+const Form = ({ data }) => {
+  const theme = useTheme();
+
+  const Time = (timeData) => {
+    return (
+      <>
+        <legend
+          css={css`
+            padding-top: 43px;
+            margin-bottom: 31px;
+            font-size: 13px;
+            font-weight: 500;
+
+            ${breakpointsMap.DESKTOP} {
+              padding-left: 43px;
+            }
+          `}
+        >
+          {timeData.title}
+        </legend>
+        <fieldset
+          css={css`
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            border: none;
+            margin-bottom: 31px;
+            background-color: ${theme.colors.white};
+
+            ${breakpointsMap.DESKTOP} {
+              padding-right: 38px;
+              padding-left: 43px;
+            }
+          `}
+        >
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+
+              ${breakpointsMap.DESKTOP} {
+                flex-direction: row;
+              }
+            `}
+          >
+            <div
+              css={css`
+                width: 100%;
+                ${breakpointsMap.DESKTOP} {
+                  width: 50%;
+                  margin-right: 26px;
+                }
+              `}
+            >
+              <div
+                css={css`
+                  position: relative;
+                  margin-bottom: 10px;
+                `}
+              >
+                <input
+                  type="date"
+                  className="search__input"
+                  placeholder="Дата рождения получателя услуги:"
+                  aria-label="Выберите дату рождения"
+                  aria-describedby="reciever-birthdate"
+                  css={css`
+                    width: 100%;
+                    height: 60px;
+                    padding-left: 28px;
+                    border: 1px solid ${theme.colors.blue};
+                    border-radius: 4px;
+                  `}
+                />
+                <p className="visually-hidden" id="reciever-birthdate">
+                  Введите дату рождения получателя
+                </p>
+                <SheduleIcon
+                  fill="currentColor"
+                  stroke="currentColor"
+                  width="20px"
+                  height="20px"
+                  css={css`
+                    position: absolute;
+                    top: 20px;
+                    right: 13px;
+                    color: ${theme.colors.blue};
+                    font-weight: 400;
+                    stroke-width: 0;
+                  `}
+                />
+              </div>
+            </div>
+            <div
+              css={css`
+                width: 100%;
+
+                .select {
+                  height: 60px;
+                }
+
+                ${breakpointsMap.DESKTOP} {
+                  width: 50%;
+                }
+              `}
+            >
+              <Select
+                selectClass="specialist__adress"
+                placeholder="Выберите 17:00"
+              />
+            </div>
+          </div>
+        </fieldset>
+      </>
+    );
+  };
+
+  const Text = (textData) => (
+    <fieldset
+      css={css`
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        border: none;
+        margin-bottom: 31px;
+        background-color: ${theme.colors.white};
+
+        ${breakpointsMap.DESKTOP} {
+          padding-right: 38px;
+          padding-left: 43px;
+        }
+      `}
+    >
+      <input
+        type="text"
+        className="search__input"
+        placeholder={`Ваше ${textData.title}`}
+        aria-label={`Введите ${textData.title}`}
+        aria-describedby="order-name"
+        css={css`
+          height: 60px;
+          padding-left: 28px;
+          border: 1px solid ${theme.colors.blue};
+          margin-top: 10px;
+          margin-bottom: 10px;
+          border-radius: 4px;
+        `}
+      />
+      <p className="visually-hidden" id="order-name">
+        Введите ваше {textData.title}
+      </p>
+    </fieldset>
+  );
+
+  const Tel = (telData) => (
+    <fieldset
+      css={css`
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        border: none;
+        margin-bottom: 31px;
+        background-color: ${theme.colors.white};
+
+        ${breakpointsMap.DESKTOP} {
+          padding-right: 38px;
+          padding-left: 43px;
+        }
+      `}
+    >
+      <input
+        type="text"
+        className="search__input"
+        placeholder={`Ваше ${telData.title}`}
+        aria-label={`Введите ${telData.title}`}
+        aria-describedby="order-name"
+        css={css`
+          height: 60px;
+          padding-left: 28px;
+          border: 1px solid ${theme.colors.blue};
+          margin-top: 10px;
+          margin-bottom: 10px;
+          border-radius: 4px;
+        `}
+      />
+      <p className="visually-hidden" id="order-name">
+        Введите ваше {telData.title}
+      </p>
+    </fieldset>
+  );
+
+  const TextArea = (areaData) => (
+    <fieldset
+      css={css`
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        border: none;
+        margin-bottom: 31px;
+        background-color: ${theme.colors.white};
+
+        ${breakpointsMap.DESKTOP} {
+          padding-right: 38px;
+          padding-left: 43px;
+        }
+      `}
+    >
+      <textarea
+        type="text"
+        className="search__input"
+        placeholder={areaData.title}
+        aria-label={areaData.title}
+        aria-describedby="order-message"
+        css={css`
+          min-height: 185px;
+          padding-left: 28px;
+          border: 1px solid ${theme.colors.blue};
+          margin-bottom: 28px;
+          border-radius: 4px;
+        `}
+      />
+      <p className="visually-hidden" id="order-message">
+        {areaData.title}
+      </p>
+    </fieldset>
+  );
+
+  const CheckBoxes = (boxesData) => (
+    <fieldset
+      css={css`
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        border: none;
+        margin-bottom: 31px;
+        background-color: ${theme.colors.white};
+
+        ${breakpointsMap.DESKTOP} {
+          padding-right: 38px;
+          padding-left: 43px;
+        }
+      `}
+    >
+      <div
+        css={css`
+          width: 100%;
+          margin-top: 20px;
+
+          ${breakpointsMap.DESKTOP} {
+            width: 50%;
+            margin-top: 0;
+          }
+        `}
+      >
+        <div
+          className="filter__checkbox-group"
+          css={css`
+            width: 100%;
+            margin-bottom: 23px;
+          `}
+        >
+          <input
+            type="checkbox"
+            name="order-guarantee"
+            id="order-guarantee"
+            value="order-guarantee"
+            aria-label={boxesData.title}
+            className="filter__input filter__input--checkbox"
+          />
+          <label
+            className="filter__label"
+            htmlFor="order-guarantee"
+            css={css`
+              display: block;
+            `}
+          >
+            {boxesData.title}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  );
+
+  const InputsMap = {
+    time: Time,
+    text: Text,
+    phone: Tel,
+    textarea: TextArea,
+    checkRequired: CheckBoxes,
+  };
+
+  return (
+    <div
+      css={css`
+        background-color: #f7f7f7;
+        box-shadow: ${theme.colors.boxShadow};
+      `}
+    >
+      <h3
+        css={css`
+          position: relative;
+          padding-top: 22px;
+          padding-bottom: 20px;
+          padding-left: 29px;
+          margin: 0;
+          font-size: 16px;
+          font-weight: 500;
+
+          &:before {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 4px;
+            background-image: ${theme.colors.linearGradient};
+            content: '';
+          }
+        `}
+      >
+        {data.title}
+      </h3>
+      <form
+        action="post"
+        css={css`
+          padding-right: 10px;
+          padding-bottom: 30px;
+          padding-left: 10px;
+          background-color: ${theme.colors.white};
+        `}
+      >
+        {Object.values(data.inputList).map((el) => InputsMap[el.type](el))}
+        <button
+          type="submit"
+          className="button"
+          css={css`
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 17px;
+            border: none;
+            margin-bottom: 38px;
+            border-radius: 4px;
+          `}
+        >
+          {data.button}
+        </button>
+      </form>
+      {data.showBanner && (
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 31px;
+            padding-right: 10px;
+            padding-bottom: 24px;
+            margin-top: -40px;
+            background-image: ${theme.colors.linearGradient};
+            color: ${theme.colors.white};
+          `}
+        >
+          <p
+            css={css`
+              font-size: 13px;
+              text-align: center;
+            `}
+          >
+            {data.upperBannerTitle}
+          </p>
+          <span
+            css={css`
+              margin-top: 15px;
+              margin-bottom: 15px;
+              font-size: 22px;
+            `}
+          >
+            {data.bannerTitle}
+          </span>
+          <p
+            css={css`
+              font-size: 13px;
+              text-align: center;
+            `}
+          >
+            {data.lowerBannerTitle}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const SliderSmall = ({ data }) => <WorkingWithUs data={data} />;
 
 const ComponentsMap = {
@@ -756,6 +1194,9 @@ const ComponentsMap = {
   partnersList: PartnersList,
   sliderSmall: SliderSmall,
   discont: Discounts,
+  heading: Heading,
+  list: List,
+  form: Form,
 };
 
 const PageBuilder = ({ data }) => {
@@ -832,6 +1273,18 @@ SliderSmall.propTypes = {
 
 Discounts.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+Heading.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+List.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+Form.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 PageBuilder.propTypes = {
