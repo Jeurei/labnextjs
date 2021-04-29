@@ -394,7 +394,13 @@ const PageHeader = ({ data }) => {
           </h3>
           <p>{data.text}</p>
         </div>
-        <div className="aboutus__img-container">
+        <div
+          className="aboutus__img-container"
+          css={css`
+            justify-content: flex-end;
+            padding-right: 70px;
+          `}
+        >
           <Image
             src={data.imageCircle}
             className="aboutus__img"
@@ -672,7 +678,6 @@ const Discounts = ({ data }) => {
 
         ${breakpointsMap.DESKTOP} {
           width: 570px;
-          margin-right: auto;
           margin-bottom: 30px;
         }
       `}
@@ -741,7 +746,22 @@ const Discounts = ({ data }) => {
     </div>
   );
 
-  return <>{DiscountBlock(data)}</>;
+  return (
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+
+        ${breakpointsMap.DESKTOP} {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+      `}
+    >
+      {Object.values(data.discontList).map((el) => DiscountBlock(el))}
+    </div>
+  );
 };
 
 const Heading = ({ data }) => (
@@ -1193,7 +1213,7 @@ const ComponentsMap = {
   licenses: Licenses,
   partnersList: PartnersList,
   sliderSmall: SliderSmall,
-  discont: Discounts,
+  discontList: Discounts,
   heading: Heading,
   list: List,
   form: Form,

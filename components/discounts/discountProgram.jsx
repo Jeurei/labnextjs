@@ -10,19 +10,7 @@ const DiscountProgram = ({ data }) => {
   return (
     <>
       <h2 className="main__title">{data.title}</h2>
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-
-          ${breakpointsMap.DESKTOP} {
-            flex-direction: row;
-            flex-wrap: wrap;
-          }
-        `}
-      >
-        {data.page && <PageBuilder data={data.page} />}
-      </div>
+      {data.page && <PageBuilder data={data.page} />}
     </>
   );
 };
