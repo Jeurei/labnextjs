@@ -62,7 +62,7 @@ const routesConstants = {
     name: 'Онлайн консультация',
   },
   TOHOME: {
-    route: '/tohome',
+    route: '/toHome',
     name: 'Выезд на дом',
   },
   COMPLEXANALYZE: {
