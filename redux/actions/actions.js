@@ -32,6 +32,7 @@ export const serverRoutesMap = {
   CONFIG: 'https://labdiag.praweb.ru/config',
   DISCOUNTSPAGE: 'https://labdiag.praweb.ru/api/getpage?id=87',
   TOHOME: 'https://labdiag.praweb.ru/api/getpage?id=77',
+  ILLNESS: 'https://labdiag.praweb.ru/api/getpage?id=89',
 };
 
 export const getConfig = () => (dispatch) => {

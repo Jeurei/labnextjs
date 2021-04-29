@@ -4,10 +4,16 @@ import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 import { numberWithSpaces } from 'utils/common';
 import { ReactComponent as FeLogo } from 'icons/features__logo-img.svg';
-import styled from '@emotion/styled';
-import { cloneElement } from 'react';
 import { ReactComponent as SheduleIcon } from 'icons/shedule.svg';
 import Select from 'common/select';
+import PComponent from 'common/paragraph';
+import { fetchDataRoute } from 'Redux/actions/actions';
+import Specialist from 'components/specialists/specialist';
+import { useState } from 'react';
+import Load from 'common/load';
+import axios from 'axios';
+import GradientBlock from 'components/aboutus/gradient-block';
+import LinearTextBlock from 'components/references/linear-text-block';
 import Accordeon from './accordeon';
 import LinearBottomButton from './linear-bottom-button';
 import File from './file';
@@ -56,6 +62,21 @@ const Paragraph = ({ data }) => {
     </>
   );
 };
+
+const ParagraphWithGradient = ({ data }) => (
+  <>
+    <h3
+      css={css`
+        margin-bottom: 29px;
+        font-size: 16px;
+        font-weight: 500;
+      `}
+    >
+      {data && data.title}
+    </h3>
+    <PComponent withLinear>{data.text}</PComponent>
+  </>
+);
 
 const Definition = ({ data }) => (
   <>
@@ -493,6 +514,7 @@ const Banner = ({ data }) => {
     <div
       css={css`
         position: relative;
+        margin-bottom: 60px;
         color: ${theme.colors.white};
 
         &:before {
@@ -503,7 +525,7 @@ const Banner = ({ data }) => {
           width: 110vw;
           min-height: 100%;
           background-image: url(${data.icon}), ${theme.colors.linearGradient};
-          background-position: calc(100% - 230px) -15px, center;
+          background-position: calc(100% - 230px) 45%, center;
           background-repeat: no-repeat, repeat;
           content: '';
 
@@ -531,10 +553,14 @@ const Banner = ({ data }) => {
         >
           {data.title}
         </h3>
-        <Paragraph>{data.text}</Paragraph>
+        <p>{data.text}</p>
       </div>
     </div>
   );
+};
+
+const SmallBanner = ({ data }) => {
+  return <LinearTextBlock>{data.text}</LinearTextBlock>;
 };
 
 const BottomGradientLinks = ({ data }) => {
@@ -1198,6 +1224,69 @@ const Form = ({ data }) => {
   );
 };
 
+const ThreeLinesBanner = ({ data }) => {
+  const theme = useTheme();
+  return (
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 31px;
+        padding-right: 10px;
+        padding-bottom: 24px;
+        margin-top: -40px;
+        background-image: ${theme.colors.linearGradient};
+        color: ${theme.colors.white};
+      `}
+    >
+      <p
+        css={css`
+          font-size: 13px;
+          text-align: center;
+        `}
+      >
+        {data.upperTitle}
+      </p>
+      <span
+        css={css`
+          margin-top: 15px;
+          margin-bottom: 15px;
+          font-size: 22px;
+        `}
+      >
+        {data.title}
+      </span>
+      <p
+        css={css`
+          font-size: 13px;
+          text-align: center;
+        `}
+      >
+        {data.lowerTitle}
+      </p>
+    </div>
+  );
+};
+
+const SpecialistComponent = ({ data }) => {
+  const [isLoading, setLoading] = useState(true);
+  const [specData, setSpecData] = useState(null);
+
+  axios(`${fetchDataRoute}${data.id}`).then((res) => {
+    setLoading(false);
+    setSpecData(res.data);
+    console.log(`${fetchDataRoute}${data.id}`);
+  });
+
+  return (
+    <Load state={isLoading}>
+      <Specialist data={specData} />
+    </Load>
+  );
+};
+
 const SliderSmall = ({ data }) => <WorkingWithUs data={data} />;
 
 const ComponentsMap = {
@@ -1217,6 +1306,11 @@ const ComponentsMap = {
   heading: Heading,
   list: List,
   form: Form,
+  paragraphWithGradient: ParagraphWithGradient,
+  banner3lines: ThreeLinesBanner,
+  banner: Banner,
+  smallBanner: SmallBanner,
+  // specialist: SpecialistComponent,
 };
 
 const PageBuilder = ({ data }) => {
@@ -1242,6 +1336,14 @@ Paragraph.propTypes = {
     title: PropTypes.string,
     text: PropTypes.string,
   }.isRequired,
+};
+
+ParagraphWithGradient.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+SmallBanner.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 Definition.propTypes = {
@@ -1304,6 +1406,14 @@ List.propTypes = {
 };
 
 Form.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+ThreeLinesBanner.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+SpecialistComponent.propTypes = {
   data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
