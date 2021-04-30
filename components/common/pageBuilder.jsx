@@ -19,6 +19,7 @@ import LinearBottomButton from './linear-bottom-button';
 import File from './file';
 import ReferencesSlider from './references-slider';
 import WorkingWithUs from './working-with-us';
+import SimpleForm from './simple-form';
 
 const Img = ({ data }) => {
   return (
@@ -672,7 +673,6 @@ const Discounts = ({ data }) => {
         padding-bottom: 10px;
         margin-bottom: 10px;
         box-shadow: ${theme.colors.boxShadow};
-        cursor: pointer;
 
         &:hover {
           background-image: linear-gradient(247deg, #689afa, #f426ee);
@@ -680,7 +680,7 @@ const Discounts = ({ data }) => {
 
           .discount__value-container {
             border-color: ${theme.colors.white};
-            background-image: url('img/discountvalue.svg');
+            background-image: url('${discData.iconHover}');
             background-position: center 0;
             background-repeat: no-repeat;
             background-size: 25px 25px;
@@ -788,6 +788,10 @@ const Discounts = ({ data }) => {
       {Object.values(data.discontList).map((el) => DiscountBlock(el))}
     </div>
   );
+};
+
+const CommercialForm = ({ data }) => {
+  return <SimpleForm title={data.title} />;
 };
 
 const Heading = ({ data }) => (
@@ -1310,6 +1314,7 @@ const ComponentsMap = {
   banner3lines: ThreeLinesBanner,
   banner: Banner,
   smallBanner: SmallBanner,
+  commercialForm: CommercialForm,
   // specialist: SpecialistComponent,
 };
 
@@ -1367,6 +1372,10 @@ PageHeader.propTypes = {
 
 Advantages.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+CommercialForm.propTypes = {
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 Banner.propTypes = {

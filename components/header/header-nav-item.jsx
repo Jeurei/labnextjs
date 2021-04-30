@@ -88,7 +88,13 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
   };
 
   const corpoNav = () => (
-    <SubNav>
+    <SubNav
+      css={css`
+        left: calc(0% - 20%);
+        width: 1170px;
+        min-width: 1170px;
+      `}
+    >
       <li
         css={css`
           display: flex;
@@ -202,7 +208,8 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
       <SubNav
         css={css`
           left: -20px;
-          min-width: 586px;
+          width: 940px;
+          min-width: 940px;
           min-height: 563px;
         `}
       >

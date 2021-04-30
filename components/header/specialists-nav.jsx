@@ -20,8 +20,9 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
     position: absolute;
     z-index: 1000;
     top: ${isTop ? 'calc(110% - 7px)' : '100%'};
-    left: ${isTop ? 'calc(0% - 100px)' : 'calc(0% - 160px)'};
+    left: ${isTop ? 'calc(0% - 20%)' : 'calc(0% - 20%)'};
     display: none;
+    width: 1170px;
     min-width: 1170px;
     flex-wrap: wrap;
     padding: 0;

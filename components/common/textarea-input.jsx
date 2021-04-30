@@ -19,9 +19,6 @@ const TextareaInput = ({
     placeholder={placeholder}
     aria-label={label}
     value={value}
-    css={css`
-      height: 130px;
-    `}
     onChange={(evt) => action(evt.currentTarget.value)}
   />
 );
