@@ -20,7 +20,7 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
     position: absolute;
     z-index: 1000;
     top: ${isTop ? 'calc(110% - 7px)' : '100%'};
-    left: ${isTop ? 'calc(0% - 20%)' : 'calc(0% - 20%)'};
+    left: 50%;
     display: none;
     width: 1170px;
     min-width: 1170px;
@@ -29,6 +29,7 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
     background-color: ${theme.colors.white};
     box-shadow: ${theme.colors.boxShadow};
     list-style: none;
+    transform: translateX(-50%);
 
     &:hover {
       display: none;
