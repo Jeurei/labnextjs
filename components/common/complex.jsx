@@ -43,7 +43,6 @@ const Complex = () => {
           <Image
             src="/img/service-complex.png"
             className="complex__img"
-            containerClass="complex__img-container"
             alt="Изображение описывающющее анализ"
             layout="fill"
             css={css`

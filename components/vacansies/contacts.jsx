@@ -112,7 +112,7 @@ const mapStateToProps = (state) => {
 };
 
 Contacts.propTypes = {
-  config: PropTypes.objectOf(PropTypes.object).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Contacts);

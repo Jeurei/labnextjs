@@ -10,7 +10,7 @@ const MapLeftResults = ({ refProp, medcenters }) => {
 
   const resultItem = (el) => {
     return (
-      <li className="geo__result result">
+      <li className="geo__result result" key={el.coordinate}>
         <a
           href="./"
           className="result__link"

@@ -60,23 +60,13 @@ SpecialistWorkTime.defaultProps = {
 };
 
 SpecialistWorkTime.propTypes = {
-  time: PropTypes.objectOf(PropTypes.object).isRequired,
-  adresses: PropTypes.arrayOf(
-    PropTypes.shape({
-      city: PropTypes.string,
-      center: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string,
-          adress: PropTypes.string,
-        }),
-      ),
-    }),
-  ).isRequired,
+  time: PropTypes.arrayOf(PropTypes.any).isRequired,
+  adresses: PropTypes.arrayOf(PropTypes.string).isRequired,
   userForm: PropTypes.objectOf(PropTypes.object).isRequired,
   setFormState: PropTypes.func.isRequired,
   medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,
-  specialist: PropTypes.objectOf(PropTypes.object),
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialist: PropTypes.objectOf(PropTypes.any),
+  cities: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => {

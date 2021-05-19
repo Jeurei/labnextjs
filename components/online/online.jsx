@@ -2,11 +2,12 @@ import React from 'react';
 import Picture from 'common/picture';
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
+import SectionInner from 'containers/section-inner';
 
 const Online = () => {
   const theme = useTheme();
   return (
-    <>
+    <SectionInner>
       <h2 className="main__title">Онлайн консультация эндокринолога</h2>
       <p
         css={css`
@@ -511,7 +512,7 @@ const Online = () => {
           </ul>
         </div>
       </div>
-    </>
+    </SectionInner>
   );
 };
 

@@ -76,13 +76,13 @@ const Complexes = () => {
           <Select
             selectClass="services-complexes"
             action={() => console.log(true)}
-            data={{ value: 'test', labe: 'test' }}
+            data={[{ value: 'test', label: 'test' }]}
             placeholder="Органы системы"
           />
           <Select
             selectClass="services-complexes"
             action={() => console.log(true)}
-            data={{ value: 'test', labe: 'test' }}
+            data={[{ value: 'test', label: 'test' }]}
             placeholder="Заболевания"
           />
         </div>
@@ -206,7 +206,6 @@ const Complexes = () => {
             <Image
               src="/img/service-complex.png"
               className="complex__img"
-              containerClass="complex__img-container"
               alt="Изображение описывающющее анализ"
               layout="fill"
               css={css`

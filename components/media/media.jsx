@@ -4,6 +4,7 @@ import DefaultSearch from 'components/common/default-search';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import SectionInner from 'containers/section-inner';
 import MenuTabs from './menu-tabs';
 import Article from './article';
 
@@ -11,39 +12,52 @@ const Media = ({ media, articles }) => {
   const router = useRouter();
 
   const articlesMap = {
-    media: () => articles.map((el) => <Article data={el} />),
-    news: () => articles.map((el) => el.isNews && <Article data={el} />),
-    blog: () => articles.map((el) => el.isBlog && <Article data={el} />),
-    useful: () => articles.map((el) => el.isUseful && <Article data={el} />),
+    media: () =>
+      articles.map((el) => <Article data={el} key={JSON.stringify(el)} />),
+    news: () =>
+      articles.map(
+        (el) => el.isNews && <Article data={el} key={JSON.stringify(el)} />,
+      ),
+    blog: () =>
+      articles.map(
+        (el) => el.isBlog && <Article data={el} key={JSON.stringify(el)} />,
+      ),
+    useful: () =>
+      articles.map(
+        (el) => el.isUseful && <Article data={el} key={JSON.stringify(el)} />,
+      ),
   };
 
   return (
     <>
-      <h2 className="main__title">Пресс центр</h2>
-      <DefaultSearch />
-      <MenuTabs routes={media} root="media" />
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+      <SectionInner>
+        <DefaultSearch />
+        <MenuTabs routes={media} root="media" />
+        <div
+          css={css`
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            column-gap: 20px;
 
-          ${breakpointsMap.TABLET} {
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: flex-start;
-          }
-        `}
-      >
-        {articlesMap[router.pathname.split('/').pop()]()}
-      </div>
+            ${breakpointsMap.TABLET} {
+              grid-template-columns: repeat(2, 1fr);
+            }
+
+            ${breakpointsMap.DESKTOP} {
+              grid-template-columns: repeat(4, 1fr);
+            }
+          `}
+        >
+          {articlesMap[router.pathname.split('/').pop()]()}
+        </div>
+      </SectionInner>
     </>
   );
 };
 
 Media.propTypes = {
-  media: PropTypes.objectOf(PropTypes.object).isRequired,
-  articles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  media: PropTypes.objectOf(PropTypes.any).isRequired,
+  articles: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => {

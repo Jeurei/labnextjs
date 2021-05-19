@@ -59,7 +59,7 @@ ActualOffersList.propTypes = {
     PropTypes.shape({
       title: PropTypes.string,
       text: PropTypes.string,
-      price: PropTypes.number,
+      price: PropTypes.string,
     }),
   ).isRequired,
 };

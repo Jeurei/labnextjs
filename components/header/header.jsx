@@ -94,16 +94,22 @@ const Header = ({ cities, setCity, cart, routes }) => {
 
   const removeListener = () => {
     window.removeEventListener('scroll', hideBottomHeader);
+    window.removeEventListener('scroll', showBottomHeader);
   };
 
   useEffect(() => {
     switchWindowListeners();
+
+    return () => {
+      removeListener();
+    };
   }, [isBottomHeaderShown]);
 
   useEffect(() => {
     resizeHandler();
     window.addEventListener('resize', resizeHandler);
     switchWindowListeners();
+
     return () => {
       removeListener();
     };
@@ -178,8 +184,8 @@ const Header = ({ cities, setCity, cart, routes }) => {
 
 Header.propTypes = {
   cities: PropTypes.shape({
-    currentCity: PropTypes.string.isRequired,
-    list: PropTypes.objectOf(PropTypes.object).isRequired,
+    currentCity: PropTypes.string,
+    list: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
   setCity: PropTypes.func.isRequired,
   cart: PropTypes.objectOf(PropTypes.object).isRequired,

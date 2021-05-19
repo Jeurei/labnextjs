@@ -12,6 +12,10 @@ const TextareaInput = ({
   value,
 }) => (
   <textarea
+    css={css`
+      height: 140px;
+      flex-grow: 1;
+    `}
     id={id}
     cols={cols}
     rows={rows}

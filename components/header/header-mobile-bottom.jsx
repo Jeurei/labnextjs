@@ -23,7 +23,6 @@ import HeaderNav from './header-nav';
 
 const HeaderMobileBottom = ({
   isHidden,
-  cities,
   cart,
   openSearch,
   animationDuration,
@@ -172,7 +171,6 @@ const HeaderMobileBottom = ({
                     evt.preventDefault();
                     onCitiesClickHandler();
                   }}
-                  arial-label="Открыть попап для выбора города"
                 >
                   <span className="cities__city">Пермь</span>
                   {/* <span className="cities__city">{cities.currentCity}</span> */}
@@ -294,7 +292,6 @@ const HeaderMobileBottom = ({
                   className="header-bottom__mobile-top-img"
                   width="230"
                   height="34"
-                  alt="Логотип компании Лабдиагностика"
                 />
               </a>
             </Link>
@@ -374,7 +371,7 @@ const HeaderMobileBottom = ({
 HeaderMobileBottom.propTypes = {
   isHidden: PropTypes.bool.isRequired,
   cities: PropTypes.shape({
-    currentCity: PropTypes.string.isRequired,
+    currentCity: PropTypes.string,
   }).isRequired,
   openSearch: PropTypes.func.isRequired,
   cart: PropTypes.objectOf(PropTypes.object).isRequired,

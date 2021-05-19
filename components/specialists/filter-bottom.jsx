@@ -25,7 +25,7 @@ const FilterBottom = ({ centresSelect, action, cities }) => {
 FilterBottom.propTypes = {
   centresSelect: PropTypes.arrayOf(PropTypes.object).isRequired,
   action: PropTypes.func.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cities: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => {

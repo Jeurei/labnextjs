@@ -6,16 +6,15 @@ import styled from '@emotion/styled';
 import { ReactComponent as Star } from 'icons/star.svg';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { bindActionCreators } from 'redux';
-import { serverRoutesMap, setSpecialists } from 'Redux/actions/actions';
-import axios from 'axios';
+import { setSpecialists } from 'Redux/actions/actions';
 import Load from 'components/common/load';
 import { getSpecialistsNamesArray } from 'components/utils/specialists';
 import DatePicker from 'components/common/datePicker';
 import TimePicker from 'components/common/timePicker';
 
-const CommentForm = ({ specialists, setSpecialistsState }) => {
+const CommentForm = ({ specialists }) => {
   const [isLoading, setLoading] = useState(false);
   const theme = useTheme();
 

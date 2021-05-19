@@ -19,7 +19,9 @@ const InnerPageLayout = ({
         <Section>
           <SectionInner>
             <BreadCrumbs />
-            {children}
+          </SectionInner>
+          {children}
+          <SectionInner>
             <Discounts isColumn={isColumn} />
           </SectionInner>
         </Section>

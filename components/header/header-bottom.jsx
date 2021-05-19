@@ -162,7 +162,6 @@ const HeaderBottom = ({
                     evt.preventDefault();
                     onCitiesClickHandler();
                   }}
-                  arial-label="Открыть попап для выбора города"
                 >
                   <span className="cities__city">{cities.currentCity}</span>
                 </a>

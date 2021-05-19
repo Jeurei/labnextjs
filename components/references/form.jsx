@@ -349,7 +349,7 @@ const Form = () => {
       </legend>
       <PersonalInfo />
       {new Array(quantityOfPatients).fill().map(() => (
-        <Patient />
+        <Patient key={Math.random(0, 1000)} />
       ))}
     </form>
   );

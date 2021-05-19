@@ -5,6 +5,7 @@
   justify-content: flex-start;
   margin-bottom: 10px;
   box-shadow: $box-shadow;
+  width: 100%;
 }
 
 .article__img {
@@ -73,10 +74,6 @@
 @media (min-width: $tablet-width) {
   .article {
     margin-bottom: 28px;
-
-    &:nth-child(even) {
-      margin-right: 0;
-    }
   }
 }
 @media (min-width: $desktop-width) {

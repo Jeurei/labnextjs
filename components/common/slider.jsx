@@ -28,7 +28,7 @@ const Slider = ({
         pagination={{ clickable: pagination }}
       >
         {data.map((el) => (
-          <SwiperSlide>
+          <SwiperSlide key={JSON.stringify(el) + Math.random(0, 100)}>
             {cloneElement(component, {
               data: el,
             })}

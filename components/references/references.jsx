@@ -2,13 +2,14 @@ import { css, useTheme } from '@emotion/react';
 import React from 'react';
 import { breakpointsMap } from 'constants/styles';
 import Paragraph from 'components/common/paragraph';
+import SectionInner from 'containers/section-inner';
 import Form from './form';
 import LinearTextBlock from './linear-text-block';
 
 const References = () => {
   const theme = useTheme();
   return (
-    <>
+    <SectionInner>
       <h2 className="main__title">Справка в ФНС</h2>
       <div>
         <Paragraph>
@@ -125,7 +126,7 @@ const References = () => {
           <p />
         </div>
       </div>
-    </>
+    </SectionInner>
   );
 };
 

@@ -66,10 +66,10 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
     <SubNav>
       <Load state={isLoading}>
         {Object.values(alphabet).map((el) => (
-          <Item>
+          <Item key={el.word}>
             <Title>{el.word}</Title>
             {el.job.map((elem) => (
-              <Span>{elem}</Span>
+              <Span key={elem}>{elem}</Span>
             ))}
           </Item>
         ))}
@@ -84,7 +84,7 @@ SpecialistsNav.defaultProps = {
 };
 
 SpecialistsNav.propTypes = {
-  specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialists: PropTypes.objectOf(PropTypes.object).isRequired,
   isTop: PropTypes.bool,
   isLoading: PropTypes.bool,
 };

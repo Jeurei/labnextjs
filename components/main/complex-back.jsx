@@ -96,8 +96,8 @@ ComplexBack.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
     list: PropTypes.arrayOf(PropTypes.string).isRequired,
-    price: PropTypes.number.isRequired,
-    oldPrice: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
+    oldPrice: PropTypes.string,
   }).isRequired,
   state: PropTypes.bool.isRequired,
   liRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }).isRequired,

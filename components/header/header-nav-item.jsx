@@ -4,14 +4,15 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { ReactComponent as ArrowRightIcon } from 'icons/arrrow-right.svg';
-import { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { setSpecialists } from 'Redux/actions/actions';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import SpecialistsNav from './specialists-nav';
 
 const HeaderNavItem = ({ isTop, data, specialities }) => {
   const theme = useTheme();
+  const router = useRouter();
 
   const SubNav = styled('ul')`
     position: absolute;
@@ -66,10 +67,12 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
         `}
       >
         {navData.map((el) => (
-          <Item>
-            <Link href={`${root}${el.link}`}>
-              <LinkItem>{el.text}</LinkItem>
-            </Link>
+          <Item key={el.text}>
+            <object type="uwu/owo">
+              <Link href={`${root}${el.link}`}>
+                <LinkItem>{el.text}</LinkItem>
+              </Link>
+            </object>
             <ArrowRightIcon
               width="28px"
               height="23px"
@@ -169,10 +172,13 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
                 css={css`
                   margin-bottom: 10px;
                 `}
+                key={el.text}
               >
-                <Link href={el.link}>
-                  <a>{el.text}</a>
-                </Link>
+                <object type="owo/uwu">
+                  <Link href={el.link}>
+                    <a> {el.text}</a>
+                  </Link>
+                </object>
               </li>
             ))}
           </ul>
@@ -296,11 +302,15 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
                     margin-right: 10px;
                     margin-bottom: 10px;
                   `}
+                  key={el.text}
+                  componentClass="span"
                 >
                   <Title>Услуги врачей</Title>
-                  <Link href={el.link}>
-                    <LinkItem>{el.text}</LinkItem>
-                  </Link>
+                  <object type="uwu/owo">
+                    <Link href={el.link}>
+                      <LinkItem>{el.text}</LinkItem>
+                    </Link>
+                  </object>
                 </Item>
               ))}
             </ul>
@@ -319,87 +329,78 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
   };
 
   return (
-    <ul
+    <li
+      className="header__nav-item"
       css={css`
-        padding: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-        list-style: none;
+        display: flex;
+        min-height: 100%;
+
+        ${breakpointsMap.DESKTOP} {
+          &:hover {
+            ul {
+              display: flex;
+            }
+          }
+        }
       `}
     >
-      <li
-        className="header__nav-item"
+      <Link
+        href={data.path}
         css={css`
           display: flex;
           min-height: 100%;
-
-          ${breakpointsMap.DESKTOP} {
-            &:hover {
-              ul {
-                display: flex;
-              }
-            }
-          }
+          align-items: center;
         `}
       >
-        <Link
-          href={data.path}
+        <a
           css={css`
             display: flex;
             min-height: 100%;
             align-items: center;
+            cursor: pointer;
+            white-space: nowrap;
+
+            ${!!data.children.length && `padding-right: 28px;`}
+
+            ${!!data.children.length &&
+            !unqueNavsMap[data.path] &&
+            'position:relative;'}
           `}
         >
-          <a
+          <span
             css={css`
-              display: flex;
-              min-height: 100%;
-              align-items: center;
+              position: relative;
               cursor: pointer;
-              white-space: nowrap;
+              &:after,
+              &:before {
+                position: absolute;
+                top: 50%;
+                right: -18px;
+                display: ${data.children.length ? 'block' : 'none'};
+                width: 10px;
+                height: 1px;
+                background-color: ${theme.colors.colorText.hex};
+                content: '';
+              }
 
-              ${!!data.children.length && `padding-right: 28px;`}
-
-              ${!!data.children.length &&
-              !unqueNavsMap[data.path] &&
-              'position:relative;'}
+              &:after {
+                transform: rotate(45deg);
+              }
+              &:before {
+                right: -25px;
+                transform: rotate(-45deg);
+              }
             `}
           >
-            <span
-              css={css`
-                position: relative;
-                cursor: pointer;
-                &:after,
-                &:before {
-                  position: absolute;
-                  top: 50%;
-                  right: -18px;
-                  display: ${data.children.length ? 'block' : 'none'};
-                  width: 10px;
-                  height: 1px;
-                  background-color: ${theme.colors.colorText.hex};
-                  content: '';
-                }
-
-                &:after {
-                  transform: rotate(45deg);
-                }
-                &:before {
-                  right: -25px;
-                  transform: rotate(-45deg);
-                }
-              `}
-            >
-              {data.name}
-            </span>
-            {data.children.length !== 0
-              ? (unqueNavsMap[data.path] && unqueNavsMap[data.path]()) ||
-                defaultNav(data.children, data.path)
-              : ''}
-          </a>
-        </Link>
-      </li>
-    </ul>
+            {data.name}
+          </span>
+          {data.children.length !== 0
+            ? (unqueNavsMap[data.path] && unqueNavsMap[data.path]()) ||
+              defaultNav(data.children, data.path)
+            : ''}
+        </a>
+      </Link>
+    </li>
   );
 };
 
@@ -414,7 +415,6 @@ HeaderNavItem.propTypes = {
     ]).isRequired.isRequired,
   }).isRequired,
   specialities: PropTypes.objectOf(PropTypes.object).isRequired,
-  setSpecialistsData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

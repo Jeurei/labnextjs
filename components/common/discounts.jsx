@@ -72,6 +72,7 @@ const discount = (data, isColumn) => {
           content: '';
         }
       `}
+      key={data.title}
     >
       <h3
         css={css`

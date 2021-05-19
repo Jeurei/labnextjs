@@ -116,7 +116,7 @@ const FilterTop = ({ categories, names, action }) => {
 };
 
 FilterTop.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.any).isRequired,
   action: PropTypes.func.isRequired,
   names: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

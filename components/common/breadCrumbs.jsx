@@ -53,6 +53,7 @@ const BreadCrumbs = ({ className }) => {
       {routesArr.map((el) => {
         return (
           <BreadCrumb
+            key={el.name}
             data={el}
             isActive={
               el.route.replace('/', '') === currentPath[currentPath.length - 1]

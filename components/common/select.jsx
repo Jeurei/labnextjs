@@ -30,13 +30,15 @@ const SelectComponent = ({
 SelectComponent.defaultProps = {
   cssStr: ``,
   defaultValue: {},
+  action: () => console.log('forgot me? :c'),
+  data: [],
 };
 
 SelectComponent.propTypes = {
   placeholder: PropTypes.string.isRequired,
   selectClass: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  action: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  action: PropTypes.func,
   cssStr: PropTypes.string,
   defaultValue: PropTypes.objectOf(PropTypes.string),
 };

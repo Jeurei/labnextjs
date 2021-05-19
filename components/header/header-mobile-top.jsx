@@ -140,7 +140,6 @@ const HeaderMobileTop = ({ openSearch, isHidden, animationDuration }) => {
                   className="header-bottom__mobile-top-img"
                   width="230"
                   height="34"
-                  alt="Логотип компании Лабдиагностика"
                 />
               </a>
             </Link>

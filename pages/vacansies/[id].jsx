@@ -22,7 +22,7 @@ export const getServerSideProps = async ({ params: { id } }) => {
 };
 
 Vacansy.propTypes = {
-  pageData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pageData: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Vacansy;

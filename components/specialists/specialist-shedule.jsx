@@ -95,8 +95,8 @@ SpecialistShedule.defaultProps = {
 };
 
 SpecialistShedule.propTypes = {
-  time: PropTypes.objectOf(PropTypes.object).isRequired,
-  specialist: PropTypes.objectOf(PropTypes.object),
+  time: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialist: PropTypes.objectOf(PropTypes.any),
   adress: PropTypes.objectOf(PropTypes.object),
 };
 

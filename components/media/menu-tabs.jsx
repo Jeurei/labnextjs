@@ -14,7 +14,7 @@ const MenuTabs = ({ routes, root }) => {
     ];
 
     return (
-      <Tab>
+      <Tab key={rout.link}>
         <TabLink
           onClick={() => {
             if (`/${currentLink}` !== rout.link)
@@ -135,9 +135,8 @@ const MenuTabs = ({ routes, root }) => {
 };
 
 MenuTabs.propTypes = {
-  routes: PropTypes.objectOf(PropTypes.object).isRequired,
+  routes: PropTypes.objectOf(PropTypes.any).isRequired,
   root: PropTypes.string.isRequired,
-  isShown: PropTypes.bool.isRequired,
 };
 
 export default MenuTabs;

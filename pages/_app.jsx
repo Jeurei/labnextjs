@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// import "../styles/style.scss";
 import React from 'react';
 import Router from 'next/router';
 import nProgress from 'nprogress';
@@ -17,14 +16,19 @@ import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
 import ScrollToTop from 'containers/scroll-to-top';
 import { isEmpty } from 'utils/common';
-import { wrapper } from '../redux/index';
 import '../styles/style.scss';
 import 'nprogress/nprogress.css';
 import 'react-image-lightbox/style.css';
+import { wrapper } from 'Redux/index';
+import Loading from 'components/common/loading';
 
 const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = React.useState(false);
-  nProgress.configure({ showSpinner: false });
+  nProgress.configure({
+    showSpinner: false,
+    trickleRate: 0.02,
+    trickleSpeed: 800,
+  });
 
   const theme = {
     colors: {
@@ -105,7 +109,7 @@ const App = ({ Component, pageProps }) => {
             apikey: 'dfd9fe91-82da-412d-a4dd-eafd43340cfa',
           }}
         >
-          {loading ? <h1>Loading...</h1> : <Component {...pageProps} />}
+          {loading ? <Loading /> : <Component {...pageProps} />}
         </YMaps>
       </ThemeProvider>
     </>
@@ -121,7 +125,7 @@ App.getInitialProps = wrapper.getInitialAppProps((store) => async () => {
   if (!state.routes.burger) req.push(store.dispatch(getRoutesInBurger()));
   if (isEmpty(state.cities)) req.push(store.dispatch(getCities()));
   if (!state.medcenters.length) req.push(store.dispatch(getCenters()));
-  if (!state.specialities.length) req.push(store.dispatch(getSpecialities()));
+  if (isEmpty(state.specialities)) req.push(store.dispatch(getSpecialities()));
   if (!state.search.length) req.push(store.dispatch(getSearchCategories()));
   await Promise.all(req);
 });

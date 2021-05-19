@@ -1,4 +1,3 @@
-import Picture from 'common/picture';
 import SectionInner from 'containers/section-inner';
 import { css } from '@emotion/react';
 import Socials from 'common/socials';
@@ -32,8 +31,7 @@ const Copyrights = () => (
               </p>
 
               <img
-                containerClass="creators-team__logo"
-                src="img/whitelogopraweb.svg"
+                src="/img/whitelogopraweb.svg"
                 width="53"
                 height="24"
                 alt="Логотип компании,которая разрабоатала этот сайт"

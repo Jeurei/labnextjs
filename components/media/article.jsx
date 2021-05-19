@@ -15,7 +15,7 @@ const Article = ({ data }) => {
     <article
       css={css`
         display: flex;
-        width: 320px;
+        width: 100%;
         min-height: 269px;
         flex-direction: column;
         padding-bottom: 25px;
@@ -25,29 +25,21 @@ const Article = ({ data }) => {
         .articlePage__article {
           width: 100%;
         }
-
-        ${breakpointsMap.TABLET} {
-          width: 340px;
-          margin-right: auto;
-        }
-
-        ${breakpointsMap.DESKTOP} {
-          width: 269px;
-          margin-right: 30px;
-
-          &:nth-of-type(4n) {
-            margin-right: 0;
-          }
-        }
       `}
     >
       <Link href="media/[id]" as={`media/${data.id}`}>
-        <a>
+        <a
+          css={css`
+            position: relative;
+            width: 100%;
+            height: 269px;
+            cursor: pointer;
+          `}
+        >
           <Image
             src={data.image}
-            width="269"
-            height="269"
-            imgClass="articlePage__article"
+            layout="fill"
+            imgclass="articlePage__article"
           />
         </a>
       </Link>
@@ -102,7 +94,7 @@ const Article = ({ data }) => {
 };
 
 Article.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Article;

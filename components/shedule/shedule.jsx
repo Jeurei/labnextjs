@@ -3,12 +3,13 @@ import { ReactComponent as SearchIcon } from 'icons/search-icon.svg';
 import Select from 'common/select';
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
+import SectionInner from 'containers/section-inner';
 
 const Shedule = () => {
   const theme = useTheme();
 
   return (
-    <>
+    <SectionInner>
       <h2 className="main__title">Прайс по услугам</h2>
       <div className="filter__top">
         <Select
@@ -278,7 +279,7 @@ const Shedule = () => {
           </tr>
         </tbody>
       </table>
-    </>
+    </SectionInner>
   );
 };
 

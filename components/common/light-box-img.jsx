@@ -15,7 +15,6 @@ const LightBoxImg = ({ data }) => {
     <div className="reference__picture">
       <Image
         src={data.thumb}
-        containerClass="reference__picture"
         width="218"
         height="309"
         onClick={onClickHandler}

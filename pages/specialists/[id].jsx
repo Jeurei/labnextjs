@@ -12,7 +12,7 @@ const Index = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store, query }) => {
+  (store) => async ({ query }) => {
     await store.dispatch(setSpecialist(query.id));
   },
 );

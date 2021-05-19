@@ -54,7 +54,11 @@ const WorkingWithUs = ({ data }) => {
           flex-direction: column;
         `}
       >
-        <SliderControls nextSlide={nextSlide} prevSlide={prevSlide} />
+        <SliderControls
+          nextSlide={nextSlide}
+          prevSlide={prevSlide}
+          className="working-with-us"
+        />
         <ul
           css={css`
             padding: 0;
@@ -74,7 +78,7 @@ const WorkingWithUs = ({ data }) => {
 };
 
 WorkingWithUs.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default WorkingWithUs;

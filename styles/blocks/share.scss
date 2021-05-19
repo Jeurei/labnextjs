@@ -39,7 +39,7 @@
 
   &--limited {
     &::after {
-      @include pseudo('ОСТАЛОСЬ ' (attr(data-amount)) ' ДНЯ', 75px, 20px);
+      @include pseudo('ОСТАЛОСЬ ' (attr(data-amount)), 75px, 20px);
       position: absolute;
       top: 13px;
       right: 0;
@@ -50,6 +50,7 @@
       font-weight: 600;
       letter-spacing: 0.6px;
       text-transform: uppercase;
+      min-height: 33px;
     }
 
     &::before {

@@ -26,6 +26,7 @@ const Ymap = ({ objRef, fs = false, lays = false, medcenters }) => {
     <Placemark
       geometry={data.coordinate.split(',').map((elem) => Number(elem))}
       modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
+      key={data.coordinate}
       options={{
         iconLayout: 'default#image',
         iconImageHref: '/img/greenPlaceMarkIcon.svg',
@@ -111,8 +112,12 @@ const Ymap = ({ objRef, fs = false, lays = false, medcenters }) => {
         .classList.toggle('shedule--shown');
     }
   };
+
   useEffect(() => {
     mapRef.current.addEventListener('click', onTimeClickHandler);
+    return () =>
+      mapRef.current &&
+      mapRef.current.removeEventListener('click', onTimeClickHandler);
   }, []);
 
   return (
@@ -143,14 +148,11 @@ const Ymap = ({ objRef, fs = false, lays = false, medcenters }) => {
 Ymap.defaultProps = {
   fs: false,
   lays: false,
+  objRef: undefined,
 };
 
 Ymap.propTypes = {
-  center: PropTypes.arrayOf(PropTypes.number).isRequired,
-  objRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
+  objRef: PropTypes.objectOf(PropTypes.any),
   fs: PropTypes.bool,
   lays: PropTypes.bool,
   medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,

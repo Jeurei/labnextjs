@@ -12,8 +12,9 @@ import Specialist from 'components/specialists/specialist';
 import { useState } from 'react';
 import Load from 'common/load';
 import axios from 'axios';
-import GradientBlock from 'components/aboutus/gradient-block';
 import LinearTextBlock from 'components/references/linear-text-block';
+import SectionInner from 'containers/section-inner';
+import * as React from 'react';
 import Accordeon from './accordeon';
 import LinearBottomButton from './linear-bottom-button';
 import File from './file';
@@ -23,27 +24,29 @@ import SimpleForm from './simple-form';
 
 const Img = ({ data }) => {
   return (
-    <div
-      css={css`
-        position: relative;
-        width: 100%;
-        min-height: 500px;
-      `}
-    >
-      <Image
-        src={data.image}
+    <SectionInner key={`ImageComponent-${data.image}`}>
+      <div
         css={css`
-          position: absolute;
+          position: relative;
+          width: 100%;
+          min-height: 500px;
         `}
-        layout="fill"
-      />
-    </div>
+      >
+        <Image
+          src={data.image}
+          css={css`
+            position: absolute;
+          `}
+          layout="fill"
+        />
+      </div>
+    </SectionInner>
   );
 };
 
 const Paragraph = ({ data }) => {
   return (
-    <>
+    <SectionInner key={JSON.stringify(data)}>
       <h3
         css={css`
           margin-bottom: 29px;
@@ -60,12 +63,12 @@ const Paragraph = ({ data }) => {
       >
         {data && data.text}
       </p>
-    </>
+    </SectionInner>
   );
 };
 
 const ParagraphWithGradient = ({ data }) => (
-  <>
+  <SectionInner key={JSON.stringify(data)}>
     <h3
       css={css`
         margin-bottom: 29px;
@@ -76,11 +79,11 @@ const ParagraphWithGradient = ({ data }) => (
       {data && data.title}
     </h3>
     <PComponent withLinear>{data.text}</PComponent>
-  </>
+  </SectionInner>
 );
 
 const Definition = ({ data }) => (
-  <>
+  <SectionInner key={data.word}>
     <p
       css={css`
         font-size: 13px;
@@ -95,14 +98,16 @@ const Definition = ({ data }) => (
       </span>{' '}
       {data.definition}
     </p>
-  </>
+  </SectionInner>
 );
 
 const Faq = ({ data }) => {
   return data.faqList.map((el, index) => (
-    <Accordeon title={el.question} id={`${index}-faq`}>
-      {el.answer}
-    </Accordeon>
+    <SectionInner key={el.question}>
+      <Accordeon title={el.question} id={`${index}-faq`}>
+        {el.answer}
+      </Accordeon>
+    </SectionInner>
   ));
 };
 
@@ -234,115 +239,117 @@ const PriceList = ({ data }) => {
   );
 
   TableRow.propTypes = {
-    rowData: PropTypes.arrayOf(PropTypes.object).isRequired,
+    rowData: PropTypes.objectOf(PropTypes.any).isRequired,
   };
 
   return (
-    <table
-      css={css`
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-      `}
-    >
-      <caption
-        css={css`
-          padding-left: 5px;
-          margin-bottom: 15px;
-          font-size: 16px;
-          font-weight: 500;
-          text-align: left;
-
-          ${breakpointsMap.DESKTOP} {
-            margin-bottom: 25px;
-          }
-        `}
-      >
-        {data.title}
-      </caption>
-      <thead
-        css={css`
-          display: none;
-          padding-top: 26.5px;
-          padding-left: 17.5px;
-          border-top: 1px dashed rgba(${theme.colors.colorText.rgb}, 0.5);
-          margin-bottom: 27px;
-
-          ${breakpointsMap.DESKTOP} {
-            display: block;
-          }
-        `}
-      >
-        <tr>
-          <th
-            css={css`
-              width: 377px;
-              font-size: 12px;
-              font-weight: 400;
-              text-align: left;
-            `}
-          >
-            {data.header1}
-          </th>
-          <th
-            css={css`
-              width: 175px;
-              font-size: 12px;
-              font-weight: 400;
-              text-align: left;
-            `}
-          >
-            {data.header2}
-          </th>
-          <th
-            css={css`
-              width: 150px;
-              font-size: 12px;
-              font-weight: 400;
-              text-align: left;
-            `}
-          >
-            {data.header3}
-          </th>
-          <th
-            css={css`
-              width: 219px;
-              font-size: 12px;
-              font-weight: 400;
-              text-align: left;
-            `}
-          >
-            {data.header4}
-          </th>
-          <th
-            css={css`
-              width: 217px;
-              font-size: 12px;
-              font-weight: 400;
-              text-align: left;
-            `}
-          >
-            {data.header5}
-          </th>
-        </tr>
-      </thead>
-      <tbody
+    <SectionInner key={JSON.stringify(data)}>
+      <table
         css={css`
           display: flex;
           flex-direction: column;
-          padding-right: 5px;
-          padding-left: 5px;
-
-          ${breakpointsMap.TABLET} {
-            padding: 0;
-          }
+          justify-content: flex-start;
         `}
       >
-        {Object.values(data.priceList).map((el) => (
-          <TableRow rowData={el} />
-        ))}
-      </tbody>
-    </table>
+        <caption
+          css={css`
+            padding-left: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+
+            ${breakpointsMap.DESKTOP} {
+              margin-bottom: 25px;
+            }
+          `}
+        >
+          {data.title}
+        </caption>
+        <thead
+          css={css`
+            display: none;
+            padding-top: 26.5px;
+            padding-left: 17.5px;
+            border-top: 1px dashed rgba(${theme.colors.colorText.rgb}, 0.5);
+            margin-bottom: 27px;
+
+            ${breakpointsMap.DESKTOP} {
+              display: block;
+            }
+          `}
+        >
+          <tr>
+            <th
+              css={css`
+                width: 377px;
+                font-size: 12px;
+                font-weight: 400;
+                text-align: left;
+              `}
+            >
+              {data.header1}
+            </th>
+            <th
+              css={css`
+                width: 175px;
+                font-size: 12px;
+                font-weight: 400;
+                text-align: left;
+              `}
+            >
+              {data.header2}
+            </th>
+            <th
+              css={css`
+                width: 150px;
+                font-size: 12px;
+                font-weight: 400;
+                text-align: left;
+              `}
+            >
+              {data.header3}
+            </th>
+            <th
+              css={css`
+                width: 219px;
+                font-size: 12px;
+                font-weight: 400;
+                text-align: left;
+              `}
+            >
+              {data.header4}
+            </th>
+            <th
+              css={css`
+                width: 217px;
+                font-size: 12px;
+                font-weight: 400;
+                text-align: left;
+              `}
+            >
+              {data.header5}
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          css={css`
+            display: flex;
+            flex-direction: column;
+            padding-right: 5px;
+            padding-left: 5px;
+
+            ${breakpointsMap.TABLET} {
+              padding: 0;
+            }
+          `}
+        >
+          {Object.values(data.priceList).map((el) => (
+            <TableRow rowData={el} key={el.element1} />
+          ))}
+        </tbody>
+      </table>
+    </SectionInner>
   );
 };
 
@@ -351,14 +358,12 @@ const PageHeader = ({ data }) => {
   return (
     <div
       css={css`
-        position: relative;
         display: flex;
         min-height: 366px;
         background-image: url(/img/aboutusbg.png);
         background-repeat: no-repeat;
         background-size: cover;
         color: ${theme.colors.white};
-        content: '';
 
         @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
           background-image: url(/img/aboutusbg@2x.png);
@@ -377,60 +382,63 @@ const PageHeader = ({ data }) => {
           }
         }
       `}
+      key={JSON.stringify(data)}
     >
-      <div
-        css={css`
-          display: flex;
-          width: 100%;
-          height: 100%;
-          min-height: 344px;
-          align-items: center;
-
-          .aboutus__img {
-            height: 190px;
-            border-radius: 50%;
-          }
-
-          .aboutUs__logo {
-            margin-bottom: 29px;
-          }
-
-          ${breakpointsMap.DESKTOP} {
-            .aboutus__img {
-              height: 296px;
-            }
-          }
-        `}
-      >
-        <div>
-          <FeLogo className="aboutUs__logo" width="216px" height="32px" />
-          <h3
-            css={css`
-              margin-top: 0;
-              margin-bottom: 29px;
-              font-size: 16px;
-              font-weight: 500;
-            `}
-          >
-            {data.title}
-          </h3>
-          <p>{data.text}</p>
-        </div>
+      <SectionInner>
         <div
-          className="aboutus__img-container"
           css={css`
-            justify-content: flex-end;
-            padding-right: 70px;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            min-height: 344px;
+            align-items: center;
+
+            .aboutus__img {
+              height: 190px;
+              border-radius: 50%;
+            }
+
+            .aboutUs__logo {
+              margin-bottom: 29px;
+            }
+
+            ${breakpointsMap.DESKTOP} {
+              .aboutus__img {
+                height: 296px;
+              }
+            }
           `}
         >
-          <Image
-            src={data.imageCircle}
-            className="aboutus__img"
-            width="296"
-            height="296"
-          />
+          <div>
+            <FeLogo className="aboutUs__logo" width="216px" height="32px" />
+            <h3
+              css={css`
+                margin-top: 0;
+                margin-bottom: 29px;
+                font-size: 16px;
+                font-weight: 500;
+              `}
+            >
+              {data.title}
+            </h3>
+            <p>{data.text}</p>
+          </div>
+          <div
+            className="aboutus__img-container"
+            css={css`
+              justify-content: flex-end;
+              padding-right: 70px;
+            `}
+          >
+            <Image
+              src={data.imageCircle}
+              className="aboutus__img"
+              width="296"
+              height="296"
+            />
+          </div>
         </div>
-      </div>
+      </SectionInner>
     </div>
   );
 };
@@ -442,6 +450,7 @@ const featuresItem = (data) => {
       css={css`
         position: relative;
       `}
+      key={JSON.stringify(data)}
     >
       <div
         css={css`
@@ -474,37 +483,28 @@ const Advantages = ({ data }) => {
         position: relative;
         padding-top: 31px;
         background-color: #f7f7f7;
-
-        &:after {
-          position: absolute;
-          z-index: -1;
-          top: 0;
-          left: -100%;
-          display: block;
-          width: 10000vw;
-          height: 100%;
-          background-color: #f7f7f7;
-          content: '';
-        }
       `}
+      key={JSON.stringify(data)}
     >
-      <h2
-        className="section__title"
-        css={css`
-          margin-bottom: 88px;
-          font-size: 16px;
-          font-weight: 500;
+      <SectionInner>
+        <h2
+          className="section__title"
+          css={css`
+            margin-bottom: 88px;
+            font-size: 16px;
+            font-weight: 500;
 
-          &:after {
-            color: ${theme.colors.blue};
-          }
-        `}
-      >
-        {data.title}
-      </h2>
-      <ul className="features__list">
-        {Object.values(data.advantagesList).map((el) => featuresItem(el))}
-      </ul>
+            &:after {
+              color: ${theme.colors.blue};
+            }
+          `}
+        >
+          {data.title}
+        </h2>
+        <ul className="features__list">
+          {Object.values(data.advantagesList).map((el) => featuresItem(el))}
+        </ul>
+      </SectionInner>
     </div>
   );
 };
@@ -512,151 +512,169 @@ const Advantages = ({ data }) => {
 const Banner = ({ data }) => {
   const theme = useTheme();
   return (
-    <div
-      css={css`
-        position: relative;
-        margin-bottom: 60px;
-        color: ${theme.colors.white};
-
-        &:before {
-          position: absolute;
-          z-index: -1;
-          left: -10%;
-          display: block;
-          width: 110vw;
-          min-height: 100%;
-          background-image: url(${data.icon}), ${theme.colors.linearGradient};
-          background-position: calc(100% - 230px) 45%, center;
-          background-repeat: no-repeat, repeat;
-          content: '';
-
-          @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
-            background-image: url(${data.icon}), ${theme.colors.linearGradient};
-          }
-        }
-      `}
-    >
+    <SectionInner key={JSON.stringify(data)}>
       <div
         css={css`
-          padding-top: 35px;
-          padding-bottom: 35px;
+          position: relative;
+          margin-bottom: 60px;
+          color: ${theme.colors.white};
 
-          ${breakpointsMap.TABLET} {
-            padding-right: 250px;
-            padding-left: 0;
+          &:before {
+            position: absolute;
+            z-index: -1;
+            left: -10%;
+            display: block;
+            width: 110vw;
+            min-height: 100%;
+            background-image: url(${data.icon}), ${theme.colors.linearGradient};
+            background-position: calc(100% - 230px) 45%, center;
+            background-repeat: no-repeat, repeat;
+            content: '';
+
+            @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
+              background-image: url(${data.icon}),
+                ${theme.colors.linearGradient};
+            }
           }
         `}
       >
-        <h3
+        <div
           css={css`
-            font-weight: 500;
+            padding-top: 35px;
+            padding-bottom: 35px;
+
+            ${breakpointsMap.TABLET} {
+              padding-right: 250px;
+              padding-left: 0;
+            }
           `}
         >
-          {data.title}
-        </h3>
-        <p>{data.text}</p>
+          <h3
+            css={css`
+              font-weight: 500;
+            `}
+          >
+            {data.title}
+          </h3>
+          <p>{data.text}</p>
+        </div>
       </div>
-    </div>
+    </SectionInner>
   );
 };
 
 const SmallBanner = ({ data }) => {
-  return <LinearTextBlock>{data.text}</LinearTextBlock>;
+  return (
+    <SectionInner key={data.text}>
+      <LinearTextBlock>{data.text}</LinearTextBlock>
+    </SectionInner>
+  );
 };
 
 const BottomGradientLinks = ({ data }) => {
   return (
-    <div
-      css={css`
-        position: relative;
-        padding-top: 10px;
-        padding-right: 10px;
-        padding-bottom: 51px;
-
-        &:before {
-          position: absolute;
-          z-index: -1;
-          top: 0;
-          left: -100%;
-          display: block;
-          width: 1000vw;
-          min-height: 100%;
-          background-color: #f7f7f7;
-          content: '';
-        }
-
-        ${breakpointsMap.TABLET} {
-          padding-right: 0;
-          padding-left: 0;
-        }
-      `}
-    >
+    <SectionInner key={JSON.stringify(data)}>
       <div
         css={css`
-          display: flex;
-          margin-top: 40px;
+          position: relative;
+          padding-top: 10px;
+          padding-right: 10px;
+          padding-bottom: 51px;
+
+          &:before {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: -100%;
+            display: block;
+            width: 1000vw;
+            min-height: 100%;
+            background-color: #f7f7f7;
+            content: '';
+          }
+
+          ${breakpointsMap.TABLET} {
+            padding-right: 0;
+            padding-left: 0;
+          }
         `}
       >
-        {Object.values(data.linksList).map((el) => (
-          <LinearBottomButton>{el.title}</LinearBottomButton>
-        ))}
+        <div
+          css={css`
+            display: flex;
+            margin-top: 40px;
+          `}
+        >
+          {Object.values(data.linksList).map((el) => (
+            <LinearBottomButton key={el.title}>{el.title}</LinearBottomButton>
+          ))}
+        </div>
       </div>
-    </div>
+    </SectionInner>
   );
 };
 
 const Files = ({ data }) => {
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        padding-top: 36px;
-        padding-bottom: 11px;
-      `}
-    >
-      <h3
+    <SectionInner key={JSON.stringify(data)}>
+      <div
         css={css`
-          margin-bottom: 33px;
-          font-size: 16px;
-          font-weight: 500;
+          display: flex;
+          flex-direction: column;
+          padding-top: 36px;
+          padding-bottom: 11px;
         `}
       >
-        {data.title}
-      </h3>
-      {Object.values(data.filesList).map((el) => (
-        <File data={el} />
-      ))}
-    </div>
+        <h3
+          css={css`
+            margin-bottom: 33px;
+            font-size: 16px;
+            font-weight: 500;
+          `}
+        >
+          {data.title}
+        </h3>
+        {Object.values(data.filesList).map((el) => (
+          <File data={el} key={el.title} />
+        ))}
+      </div>
+    </SectionInner>
   );
 };
 
 const Licenses = ({ data }) => {
-  return <ReferencesSlider title={data.title} data={data.licensesList} />;
+  return (
+    <SectionInner key={JSON.stringify(data)}>
+      <ReferencesSlider title={data.title} data={data.licensesList} />
+    </SectionInner>
+  );
 };
 
 const PartnersList = ({ data }) => (
-  <div
-    css={css`
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-    `}
-  >
-    {Object.values(data.partnersList).map((el) => (
-      <Image
-        css={css`
-          filter: grayscale(100%);
+  <SectionInner key={JSON.stringify(data)}>
+    <div
+      css={css`
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+      `}
+    >
+      {Object.values(data.partnersList).map((el) => (
+        <Image
+          css={css`
+            filter: grayscale(100%);
 
-          &:hover {
-            filter: grayscale(0);
-          }
-        `}
-        src={el.image}
-        width="179"
-        height="56"
-      />
-    ))}
-  </div>
+            &:hover {
+              filter: grayscale(0);
+            }
+          `}
+          src={el.image}
+          width="179"
+          height="56"
+          key={`${el.image}${Math.random(0, 1000)}`}
+        />
+      ))}
+    </div>
+  </SectionInner>
 );
 
 const Discounts = ({ data }) => {
@@ -707,6 +725,7 @@ const Discounts = ({ data }) => {
           margin-bottom: 30px;
         }
       `}
+      key={discData.text}
     >
       <div
         className="discount__value-container"
@@ -773,74 +792,85 @@ const Discounts = ({ data }) => {
   );
 
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
+    <SectionInner key={JSON.stringify(data)}>
+      <div
+        css={css`
+          display: flex;
+          flex-direction: column;
 
-        ${breakpointsMap.DESKTOP} {
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: space-between;
-        }
-      `}
-    >
-      {Object.values(data.discontList).map((el) => DiscountBlock(el))}
-    </div>
+          ${breakpointsMap.DESKTOP} {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+          }
+        `}
+      >
+        {Object.values(data.discontList).map((el) => DiscountBlock(el))}
+      </div>
+    </SectionInner>
   );
 };
 
 const CommercialForm = ({ data }) => {
-  return <SimpleForm title={data.title} />;
+  return (
+    <SectionInner key={JSON.stringify(data)}>
+      <SimpleForm title={data.title} />
+    </SectionInner>
+  );
 };
 
 const Heading = ({ data }) => (
-  <h3
-    css={css`
-      margin-bottom: 20px;
-      font-size: 16px;
-      font-weight: 500;
-    `}
-  >
-    {data.title}
-  </h3>
+  <SectionInner key={JSON.stringify(data)}>
+    <h3
+      css={css`
+        margin-bottom: 20px;
+        font-size: 16px;
+        font-weight: 500;
+      `}
+    >
+      {data.title}
+    </h3>
+  </SectionInner>
 );
 
-const List = ({ data }) =>
-  data.type === 'numeric' ? (
-    <ol
-      css={css`
-        padding: 0;
-        padding-left: 14px;
-        margin-bottom: 20px;
-        font-weight: 500;
-      `}
-    >
-      {Object.values(data.items).map((el) => (
-        <li>{el}</li>
-      ))}
-    </ol>
-  ) : (
-    <ul
-      css={css`
-        padding: 0;
-        padding-left: 14px;
-        margin-bottom: 20px;
-        font-weight: 500;
-      `}
-    >
-      {Object.values(data.items).map((el) => (
-        <li>{el}</li>
-      ))}
-    </ul>
-  );
+const List = ({ data }) => (
+  <SectionInner key={JSON.stringify(data)}>
+    {data.type === 'numeric' ? (
+      <ol
+        css={css`
+          padding: 0;
+          padding-left: 14px;
+          margin-bottom: 20px;
+          font-weight: 500;
+        `}
+      >
+        {Object.values(data.items).map((el) => (
+          <li key={el}>{el}</li>
+        ))}
+      </ol>
+    ) : (
+      <ul
+        css={css`
+          padding: 0;
+          padding-left: 14px;
+          margin-bottom: 20px;
+          font-weight: 500;
+        `}
+      >
+        {Object.values(data.items).map((el) => (
+          <li key={el}>{el}</li>
+        ))}
+      </ul>
+    )}
+  </SectionInner>
+);
 
 const Form = ({ data }) => {
   const theme = useTheme();
 
   const Time = (timeData) => {
     return (
-      <>
+      <React.Fragment key={timeData.title}>
         <legend
           css={css`
             padding-top: 43px;
@@ -948,7 +978,7 @@ const Form = ({ data }) => {
             </div>
           </div>
         </fieldset>
-      </>
+      </React.Fragment>
     );
   };
 
@@ -967,6 +997,7 @@ const Form = ({ data }) => {
           padding-left: 43px;
         }
       `}
+      key={textData.title}
     >
       <input
         type="text"
@@ -1004,6 +1035,7 @@ const Form = ({ data }) => {
           padding-left: 43px;
         }
       `}
+      key={telData.title}
     >
       <input
         type="text"
@@ -1041,6 +1073,7 @@ const Form = ({ data }) => {
           padding-left: 43px;
         }
       `}
+      key={areaData.title}
     >
       <textarea
         type="text"
@@ -1077,6 +1110,7 @@ const Form = ({ data }) => {
           padding-left: 43px;
         }
       `}
+      key={boxesData.title}
     >
       <div
         css={css`
@@ -1127,150 +1161,154 @@ const Form = ({ data }) => {
   };
 
   return (
-    <div
-      css={css`
-        background-color: #f7f7f7;
-        box-shadow: ${theme.colors.boxShadow};
-      `}
-    >
-      <h3
+    <SectionInner key={JSON.stringify(data)}>
+      <div
         css={css`
-          position: relative;
-          padding-top: 22px;
-          padding-bottom: 20px;
-          padding-left: 29px;
-          margin: 0;
-          font-size: 16px;
-          font-weight: 500;
+          background-color: #f7f7f7;
+          box-shadow: ${theme.colors.boxShadow};
+        `}
+      >
+        <h3
+          css={css`
+            position: relative;
+            padding-top: 22px;
+            padding-bottom: 20px;
+            padding-left: 29px;
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
 
-          &:before {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            display: block;
-            width: 100%;
-            height: 4px;
-            background-image: ${theme.colors.linearGradient};
-            content: '';
-          }
-        `}
-      >
-        {data.title}
-      </h3>
-      <form
-        action="post"
-        css={css`
-          padding-right: 10px;
-          padding-bottom: 30px;
-          padding-left: 10px;
-          background-color: ${theme.colors.white};
-        `}
-      >
-        {Object.values(data.inputList).map((el) => InputsMap[el.type](el))}
-        <button
-          type="submit"
-          className="button"
-          css={css`
-            width: 100%;
-            padding-top: 15px;
-            padding-bottom: 17px;
-            border: none;
-            margin-bottom: 38px;
-            border-radius: 4px;
+            &:before {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              display: block;
+              width: 100%;
+              height: 4px;
+              background-image: ${theme.colors.linearGradient};
+              content: '';
+            }
           `}
         >
-          {data.button}
-        </button>
-      </form>
-      {data.showBanner && (
-        <div
+          {data.title}
+        </h3>
+        <form
+          action="post"
           css={css`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 31px;
             padding-right: 10px;
-            padding-bottom: 24px;
-            margin-top: -40px;
-            background-image: ${theme.colors.linearGradient};
-            color: ${theme.colors.white};
+            padding-bottom: 30px;
+            padding-left: 10px;
+            background-color: ${theme.colors.white};
           `}
         >
-          <p
+          {Object.values(data.inputList).map((el) => InputsMap[el.type](el))}
+          <button
+            type="submit"
+            className="button"
             css={css`
-              font-size: 13px;
-              text-align: center;
+              width: 100%;
+              padding-top: 15px;
+              padding-bottom: 17px;
+              border: none;
+              margin-bottom: 38px;
+              border-radius: 4px;
             `}
           >
-            {data.upperBannerTitle}
-          </p>
-          <span
+            {data.button}
+          </button>
+        </form>
+        {data.showBanner && (
+          <div
             css={css`
-              margin-top: 15px;
-              margin-bottom: 15px;
-              font-size: 22px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              padding-top: 31px;
+              padding-right: 10px;
+              padding-bottom: 24px;
+              margin-top: -40px;
+              background-image: ${theme.colors.linearGradient};
+              color: ${theme.colors.white};
             `}
           >
-            {data.bannerTitle}
-          </span>
-          <p
-            css={css`
-              font-size: 13px;
-              text-align: center;
-            `}
-          >
-            {data.lowerBannerTitle}
-          </p>
-        </div>
-      )}
-    </div>
+            <p
+              css={css`
+                font-size: 13px;
+                text-align: center;
+              `}
+            >
+              {data.upperBannerTitle}
+            </p>
+            <span
+              css={css`
+                margin-top: 15px;
+                margin-bottom: 15px;
+                font-size: 22px;
+              `}
+            >
+              {data.bannerTitle}
+            </span>
+            <p
+              css={css`
+                font-size: 13px;
+                text-align: center;
+              `}
+            >
+              {data.lowerBannerTitle}
+            </p>
+          </div>
+        )}
+      </div>
+    </SectionInner>
   );
 };
 
 const ThreeLinesBanner = ({ data }) => {
   const theme = useTheme();
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: 31px;
-        padding-right: 10px;
-        padding-bottom: 24px;
-        margin-top: -40px;
-        background-image: ${theme.colors.linearGradient};
-        color: ${theme.colors.white};
-      `}
-    >
-      <p
+    <SectionInner key={data.upperTitle}>
+      <div
         css={css`
-          font-size: 13px;
-          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding-top: 31px;
+          padding-right: 10px;
+          padding-bottom: 24px;
+          margin-top: -40px;
+          background-image: ${theme.colors.linearGradient};
+          color: ${theme.colors.white};
         `}
       >
-        {data.upperTitle}
-      </p>
-      <span
-        css={css`
-          margin-top: 15px;
-          margin-bottom: 15px;
-          font-size: 22px;
-        `}
-      >
-        {data.title}
-      </span>
-      <p
-        css={css`
-          font-size: 13px;
-          text-align: center;
-        `}
-      >
-        {data.lowerTitle}
-      </p>
-    </div>
+        <p
+          css={css`
+            font-size: 13px;
+            text-align: center;
+          `}
+        >
+          {data.upperTitle}
+        </p>
+        <span
+          css={css`
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-size: 22px;
+          `}
+        >
+          {data.title}
+        </span>
+        <p
+          css={css`
+            font-size: 13px;
+            text-align: center;
+          `}
+        >
+          {data.lowerTitle}
+        </p>
+      </div>
+    </SectionInner>
   );
 };
 
@@ -1281,17 +1319,22 @@ const SpecialistComponent = ({ data }) => {
   axios(`${fetchDataRoute}${data.id}`).then((res) => {
     setLoading(false);
     setSpecData(res.data);
-    console.log(`${fetchDataRoute}${data.id}`);
   });
 
   return (
-    <Load state={isLoading}>
-      <Specialist data={specData} />
-    </Load>
+    <SectionInner>
+      <Load state={isLoading}>
+        <Specialist data={specData} />
+      </Load>
+    </SectionInner>
   );
 };
 
-const SliderSmall = ({ data }) => <WorkingWithUs data={data} />;
+const SliderSmall = ({ data }) => (
+  <SectionInner key={JSON.stringify(data)}>
+    <WorkingWithUs data={data} />
+  </SectionInner>
+);
 
 const ComponentsMap = {
   image: Img,
@@ -1344,11 +1387,11 @@ Paragraph.propTypes = {
 };
 
 ParagraphWithGradient.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 SmallBanner.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Definition.propTypes = {
@@ -1359,75 +1402,75 @@ Definition.propTypes = {
 };
 
 Faq.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 PriceList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 PageHeader.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 Advantages.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 CommercialForm.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Banner.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 BottomGradientLinks.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 Files.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 Licenses.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 PartnersList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 SliderSmall.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 Discounts.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 Heading.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 List.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Form.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 ThreeLinesBanner.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 SpecialistComponent.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 PageBuilder.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default PageBuilder;

@@ -33,7 +33,7 @@ const FilterBottomAdress = ({ selectData, action, cities }) => {
 FilterBottomAdress.propTypes = {
   selectData: PropTypes.arrayOf(PropTypes.object).isRequired,
   action: PropTypes.func.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cities: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => {

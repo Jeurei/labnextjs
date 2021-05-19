@@ -22,7 +22,7 @@ export const getServerSideProps = async ({ params: { id } }) => {
 };
 
 Index.propTypes = {
-  pageData: PropTypes.objectOf(PropTypes.object).isRequired,
+  pageData: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Index;

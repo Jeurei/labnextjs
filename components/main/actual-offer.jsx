@@ -60,7 +60,7 @@ ActualOffer.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
     text: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
   }),
 };
 

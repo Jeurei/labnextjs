@@ -7,7 +7,7 @@ const FAQ = ({ data }) => {
 };
 
 FAQ.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default FAQ;

@@ -94,13 +94,17 @@ const ReferencesSlider = ({ title, data }) => {
   );
 };
 
+SlideComponent.defaultProps = {
+  data: undefined,
+};
+
 SlideComponent.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any),
 };
 
 ReferencesSlider.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default ReferencesSlider;

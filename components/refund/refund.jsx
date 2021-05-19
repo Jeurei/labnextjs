@@ -2,11 +2,12 @@ import { css, useTheme } from '@emotion/react';
 import React from 'react';
 import { breakpointsMap } from 'constants/styles';
 import { ReactComponent as SheduleIcon } from 'icons/shedule.svg';
+import SectionInner from 'containers/section-inner';
 
 const Refund = () => {
   const theme = useTheme();
   return (
-    <>
+    <SectionInner>
       <h2 className="main__title">
         Заявление для возврата денежных средств, оплаченных банковской картой на
         сайте
@@ -285,7 +286,7 @@ const Refund = () => {
           </button>
         </div>
       </form>
-    </>
+    </SectionInner>
   );
 };
 

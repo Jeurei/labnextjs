@@ -7,9 +7,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getSpecialistsJobsArray } from 'components/utils/specialists';
 
-const PositionsList = ({ specialists, specialities }) => {
+const PositionsList = ({ specialities }) => {
   const theme = useTheme();
-
   const Position = styled('li')`
     position: relative;
     margin-bottom: 15px;
@@ -45,7 +44,7 @@ const PositionsList = ({ specialists, specialities }) => {
   `;
 
   const PositionElement = (data) => (
-    <Position>
+    <Position key={data.name}>
       <DoctorIcon
         className="icon"
         fill="currentColor"
@@ -83,18 +82,12 @@ const PositionsList = ({ specialists, specialities }) => {
         }
       `}
     >
-      {getSpecialistsJobsArray(specialists)
-        .map((el) =>
-          Object.values(specialities).find(
-            (element) => element.id === el && element,
-          ),
-        )
-        .map((el) => PositionElement(el))}
+      {Object.values(specialities).map((el) => PositionElement(el))}
     </ul>
   );
 };
 
-const PositionsCatalog = ({ specialists, specialities }) => {
+const PositionsCatalog = ({ specialities }) => {
   return (
     <div
       css={css`
@@ -102,25 +95,23 @@ const PositionsCatalog = ({ specialists, specialities }) => {
         padding-top: 23px;
       `}
     >
-      <PositionsList specialists={specialists} specialities={specialities} />
+      <PositionsList specialities={specialities} />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  const { specialists, specialities } = state;
+  const { specialities } = state;
 
-  return { specialists, specialities };
+  return { specialities };
 };
 
 PositionsList.propTypes = {
-  specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  specialities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialities: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 PositionsCatalog.propTypes = {
-  specialists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  specialities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialities: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(PositionsCatalog);

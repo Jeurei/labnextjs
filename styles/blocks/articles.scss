@@ -140,6 +140,7 @@
   .articles__bottom {
     grid-template-columns: repeat(2, 1fr);
     justify-items: start;
+    column-gap: 60px;
   }
 }
 
@@ -170,6 +171,7 @@
   .articles__bottom {
     padding: 0;
     grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
   }
 
   .articles__link {

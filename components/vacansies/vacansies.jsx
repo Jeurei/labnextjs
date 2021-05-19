@@ -2,6 +2,8 @@ import { css, useTheme } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import Section from 'containers/section';
+import SectionInner from 'containers/section-inner';
 import VacansyBlock from './vacansy-block';
 import Contacts from './contacts';
 
@@ -15,7 +17,7 @@ const Vacansies = ({ vacansies }) => {
   };
 
   return (
-    <>
+    <SectionInner>
       <h2 className="main__title">Вакансии</h2>
       <Contacts />
       <div
@@ -83,10 +85,10 @@ const Vacansies = ({ vacansies }) => {
         `}
       >
         {vacansiesMap[vacansiesType]().map((el) => (
-          <VacansyBlock data={el} />
+          <VacansyBlock data={el} key={JSON.stringify(el)} />
         ))}
       </div>
-    </>
+    </SectionInner>
   );
 };
 

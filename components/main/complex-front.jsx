@@ -87,8 +87,8 @@ ComplexFront.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
     list: PropTypes.arrayOf(PropTypes.string).isRequired,
-    price: PropTypes.number.isRequired,
-    oldPrice: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
+    oldPrice: PropTypes.string,
   }).isRequired,
 };
 

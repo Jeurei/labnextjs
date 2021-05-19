@@ -14,12 +14,7 @@ const FooterBottom = () => (
         <Tab />
       </SectionInner>
       <SectionInner>
-        <Logo
-          className="footer-nav__logo"
-          width="230"
-          height="36"
-          alt="Логотип компании Лабдиагностика"
-        />
+        <Logo className="footer-nav__logo" width="230" height="36" />
         <div className="footer-nav__top copyright-top">
           <p className="copyright-top__text">
             Сеть многопрофильных медицинских центров

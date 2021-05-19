@@ -33,12 +33,6 @@ const Specialist = ({ data, userForm, setFormState, specialities }) => {
       3: 'Дети 0-18 лет, взрослые',
     };
 
-    console.log(
-      specialist.specializations
-        .map((el) => Object.values(specialities).find((elem) => elem.id === el))
-        .map((elem) => elem.name),
-    );
-
     return (
       <div className="specialist__info">
         <h3 className="specialist__name">
@@ -157,10 +151,10 @@ Specialist.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     job: PropTypes.arrayOf(PropTypes.string),
-    ages: PropTypes.number,
-    price: PropTypes.number,
-    centers: PropTypes.arrayOf(PropTypes.object).isRequired,
-    time: PropTypes.objectOf(PropTypes.object),
+    ages: PropTypes.string,
+    price: PropTypes.string,
+    centers: PropTypes.arrayOf(PropTypes.any).isRequired,
+    time: PropTypes.arrayOf(PropTypes.any),
   }).isRequired,
   setFormState: PropTypes.func.isRequired,
   userForm: PropTypes.objectOf(PropTypes.object).isRequired,

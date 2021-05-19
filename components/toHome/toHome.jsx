@@ -1,29 +1,27 @@
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import React from 'react';
-import { ReactComponent as SheduleIcon } from 'icons/shedule.svg';
-import { breakpointsMap } from 'constants/styles';
-import Select from 'common/select';
 
 import PropTypes from 'prop-types';
 import PageBuilder from 'components/common/pageBuilder';
+import SectionInner from 'containers/section-inner';
 
 const ToHome = ({ data }) => {
-  const theme = useTheme();
-
   return (
-    <div
-      css={css`
-        padding-bottom: 39px;
-      `}
-    >
-      <h2 className="main__title">{data.title}</h2>
-      {data.page && <PageBuilder data={data.page} />}
-    </div>
+    <SectionInner>
+      <div
+        css={css`
+          padding-bottom: 39px;
+        `}
+      >
+        <h2 className="main__title">{data.title}</h2>
+        {data.page && <PageBuilder data={data.page} />}
+      </div>
+    </SectionInner>
   );
 };
 
 ToHome.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default ToHome;

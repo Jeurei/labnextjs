@@ -52,7 +52,6 @@ const HeaderTopLeft = ({ cities, config }) => {
               evt.preventDefault();
               onCitiesClickHandler();
             }}
-            arial-label="Открыть попап для выбора города"
           >
             <span className="cities__city">Пермь</span>
             {/* <span className="cities__city">{cities.currentCity}</span> */}
@@ -84,10 +83,10 @@ const HeaderTopLeft = ({ cities, config }) => {
 
 HeaderTopLeft.propTypes = {
   cities: PropTypes.shape({
-    currentCity: PropTypes.string.isRequired,
-    list: PropTypes.objectOf(PropTypes.object).isRequired,
+    currentCity: PropTypes.string,
+    list: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
-  config: PropTypes.objectOf(PropTypes.object).isRequired,
+  config: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => {

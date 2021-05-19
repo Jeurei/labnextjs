@@ -4,7 +4,7 @@ import ComplexListItem from './complex-list-item';
 const ComplexList = ({ data }) => (
   <ul className="complex__list">
     {data.map((el) => (
-      <ComplexListItem text={el} />
+      <ComplexListItem text={el} key={el} />
     ))}
   </ul>
 );

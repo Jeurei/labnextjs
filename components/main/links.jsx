@@ -15,7 +15,7 @@ const linkItem = (data) => {
   );
 
   return (
-    <li className="link__list-item link link--about-us">
+    <li className="link__list-item link link--about-us" key={data.text}>
       {svgPicture('about-us', 67, 74, 'Иконка')}
       <a
         href={data.link}

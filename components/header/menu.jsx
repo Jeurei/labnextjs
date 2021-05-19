@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Drawer from 'react-motion-drawer';
 import CrossButton from 'common/crossButton';
-import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import NavItem from './nav-item';
@@ -46,7 +45,7 @@ const Menu = ({ burger }) => {
             />
             <ul className="nav__list">
               {navArr.map((el) => (
-                <NavItem data={el} />
+                <NavItem data={el} key={JSON.stringify(el)} />
               ))}
             </ul>
           </Drawer>

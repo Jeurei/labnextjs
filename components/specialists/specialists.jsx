@@ -6,6 +6,7 @@ import {
   findSpecialistCenter,
   findSpecialistJobs,
 } from 'components/utils/specialists';
+import SectionInner from 'containers/section-inner';
 import { filterDublicatesObjects, getFlatArr } from '../utils/filter';
 import Filter from './filter';
 import SpecialistsCatalog from './specialists-catalog';
@@ -96,11 +97,11 @@ const Specialists = ({ specialists, medcenters, specialities }) => {
   }, [currentFilter]);
 
   return (
-    <>
+    <SectionInner>
       <h1 className="main__title">Специалисты</h1>
       <Filter filter={filter} action={onChangeFiltersFieldsHanlder} />
       <SpecialistsCatalog specialists={specialistsArr} />
-    </>
+    </SectionInner>
   );
 };
 
@@ -109,8 +110,8 @@ Specialists.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       job: PropTypes.arrayOf(PropTypes.string),
-      ages: PropTypes.number,
-      price: PropTypes.number,
+      ages: PropTypes.string,
+      price: PropTypes.string,
       adresses: PropTypes.arrayOf(
         PropTypes.shape({
           city: PropTypes.string,
@@ -125,7 +126,7 @@ Specialists.propTypes = {
     }),
   ).isRequired,
   medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,
-  specialities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  specialities: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => {

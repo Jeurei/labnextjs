@@ -68,9 +68,21 @@ const HeaderNav = ({ isTop }) => {
         }
       `}
     >
-      {navArr.map((el) => (
-        <HeaderNavItem isTop={isTop} data={el} />
-      ))}
+      <ul
+        css={css`
+          padding: 0;
+          margin-top: 0;
+          margin-bottom: 0;
+          list-style: none;
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+        `}
+      >
+        {navArr.map((el) => (
+          <HeaderNavItem isTop={isTop} data={el} key={el.name} />
+        ))}
+      </ul>
     </nav>
   );
 };

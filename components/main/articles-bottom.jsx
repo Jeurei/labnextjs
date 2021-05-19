@@ -6,7 +6,7 @@ const ArticlesBottom = ({ data }) => {
   return (
     <div className="articles__bottom">
       {data.slice(0, MAX_QUANTITY).map((el) => (
-        <Article data={el} />
+        <Article data={el} key={`article-${el.id}`} />
       ))}
     </div>
   );

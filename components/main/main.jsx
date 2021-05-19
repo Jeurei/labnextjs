@@ -9,7 +9,7 @@ import Shares from './shares';
 import Features from './features';
 
 const Main = () => (
-  <MainContainer>
+  <>
     <h1
       className="main__title visually-hidden"
       css={css`
@@ -24,7 +24,7 @@ const Main = () => (
     <Articles />
     <Shares />
     <Features />
-  </MainContainer>
+  </>
 );
 
 export default Main;

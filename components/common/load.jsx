@@ -40,11 +40,12 @@ const Load = ({ state = false, children }) => {
 
 Load.defaultProps = {
   state: false,
+  children: undefined,
 };
 
 Load.propTypes = {
   state: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default Load;

@@ -14,12 +14,7 @@ const MapLeft = ({ cities, refProp }) => {
   return (
     <div className="map__left">
       <SectionInner>
-        <Logo
-          className="map__logo"
-          width="248"
-          height="36"
-          alt="Логотип компании Лабдиагностика"
-        />
+        <Logo className="map__logo" width="248" height="36" />
       </SectionInner>
       <div className="map__left-container">
         <SectionInner>
@@ -63,7 +58,7 @@ const MapLeft = ({ cities, refProp }) => {
 };
 
 MapLeft.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cities: PropTypes.objectOf(PropTypes.object).isRequired,
   refProp: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

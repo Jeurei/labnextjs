@@ -1,10 +1,13 @@
 import PageBuilder from 'components/common/pageBuilder';
+import SectionInner from 'containers/section-inner';
 import PropTypes from 'prop-types';
 
 const AboutUs = ({ data }) => {
   return (
     <>
-      <h2 className="main__title">О компании</h2>
+      <SectionInner>
+        <h2 className="main__title">О компании</h2>
+      </SectionInner>
       {data.page && data.page.length !== 0 && <PageBuilder data={data.page} />}
       {/* <div
         css={css`
@@ -94,7 +97,7 @@ const AboutUs = ({ data }) => {
 };
 
 AboutUs.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default AboutUs;

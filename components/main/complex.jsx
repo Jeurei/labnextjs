@@ -32,8 +32,8 @@ Complex.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
     list: PropTypes.arrayOf(PropTypes.string),
-    price: PropTypes.number,
-    oldPrice: PropTypes.number,
+    price: PropTypes.string,
+    oldPrice: PropTypes.string,
   }),
 };
 

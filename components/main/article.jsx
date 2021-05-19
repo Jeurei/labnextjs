@@ -44,14 +44,14 @@ const Article = ({ data }) => {
 
 Article.propTypes = {
   data: PropTypes.shape({
-    date: PropTypes.instanceOf(Date),
+    date: PropTypes.string,
     title: PropTypes.string,
     isNew: PropTypes.bool,
     isNews: PropTypes.bool,
     isBlog: PropTypes.bool,
     isUseful: PropTypes.bool,
     image: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

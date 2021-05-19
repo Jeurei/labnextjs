@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Comment from 'components/common/comment';
+import SectionInner from 'containers/section-inner';
 import MenuTabs from './menu-tabs';
 import CommentForm from './comment-form';
 
@@ -14,7 +15,7 @@ const Comments = ({ children, comments }) => {
   };
 
   return (
-    <>
+    <SectionInner>
       <h2 className="main__title">Отзывы</h2>
       <MenuTabs
         routes={children.find((el) => el.link === '/comments')}
@@ -48,7 +49,7 @@ const Comments = ({ children, comments }) => {
           ))}
         </div>
       </div>
-    </>
+    </SectionInner>
   );
 };
 

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { css } from '@emotion/react';
 import Card from 'containers/card';
 import Specialist from './specialist';
 
@@ -9,7 +8,7 @@ const SpecialistsCatalog = ({ specialists }) => {
   return (
     <section className="specialists__catalog">
       {specialists.map((el) => (
-        <Card>
+        <Card key={el.name}>
           <Specialist data={el} />
         </Card>
       ))}

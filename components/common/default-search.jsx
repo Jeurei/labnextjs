@@ -58,7 +58,7 @@ const DefaultSearch = () => {
           transform="scale(1)"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          strokeWidth="2"
           opacity="1"
         />
       </button>
