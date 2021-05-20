@@ -96,7 +96,7 @@ const NotFoundPage = () => {
   );
 };
 
-NotFoundPage.getStaticProps = wrapper.getStaticProps((store) => async () => {
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await getInitialPropsForApp(store);
 });
 
