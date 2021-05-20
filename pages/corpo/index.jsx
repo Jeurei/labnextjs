@@ -3,8 +3,10 @@ import Corpo from 'components/corpo/corpo';
 import { serverRoutesMap } from 'Redux/actions/actions';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { getInitialPropsForApp } from 'utils/common';
+import { wrapper } from 'Redux/index';
 
-const Index = ({ pageData }) => {
+const Index = ({ initialProps: { pageData } }) => {
   return (
     <InnerPageLayout title="Лабдиагностика | Корпоративным клиентам">
       <Corpo data={pageData} />
@@ -12,16 +14,18 @@ const Index = ({ pageData }) => {
   );
 };
 
-export const getServerSideProps = async () => {
+Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
+  await getInitialPropsForApp(store);
+
   const pageData = await axios(`${serverRoutesMap.CORPO}`).then((res) => {
     return res.data;
   });
 
-  return { props: { pageData } };
-};
+  return { pageData };
+});
 
 Index.propTypes = {
-  pageData: PropTypes.objectOf(PropTypes.any).isRequired,
+  initialProps: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Index;

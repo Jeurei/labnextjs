@@ -4,8 +4,10 @@ import axios from 'axios';
 import { serverRoutesMap } from 'Redux/actions/actions';
 
 import PropTypes from 'prop-types';
+import { wrapper } from 'Redux/index';
+import { getInitialPropsForApp } from 'utils/common';
 
-const Index = ({ pageData }) => {
+const Index = ({ initialProps: { pageData } }) => {
   return (
     <InnerPageLayout title="Лабдиагностика | Поставщикам">
       <Suppliers data={pageData} />
@@ -13,16 +15,18 @@ const Index = ({ pageData }) => {
   );
 };
 
-export const getServerSideProps = async () => {
+Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
+  await getInitialPropsForApp(store);
+
   const pageData = await axios(`${serverRoutesMap.SUPPLIERS}`).then((res) => {
     return res.data;
   });
 
-  return { props: { pageData } };
-};
+  return { pageData };
+});
 
 Index.propTypes = {
-  pageData: PropTypes.objectOf(PropTypes.any).isRequired,
+  initialProps: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Index;

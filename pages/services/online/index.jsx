@@ -1,5 +1,7 @@
 import Online from 'components/servicePage/online/index';
 import Services from 'components/servicePage/services';
+import { wrapper } from 'Redux/index';
+import { getInitialPropsForApp } from 'utils/common';
 
 const Index = () => {
   return (
@@ -8,5 +10,9 @@ const Index = () => {
     </Services>
   );
 };
+
+Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
+  await getInitialPropsForApp(store);
+});
 
 export default Index;

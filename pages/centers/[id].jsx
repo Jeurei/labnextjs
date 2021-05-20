@@ -1,5 +1,7 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import MedCenter from 'components/medcenters/medCenter';
+import { wrapper } from 'Redux/index';
+import { getInitialPropsForApp } from 'utils/common';
 
 const Center = () => {
   return (
@@ -8,5 +10,9 @@ const Center = () => {
     </InnerPageLayout>
   );
 };
+
+Center.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
+  await getInitialPropsForApp(store);
+});
 
 export default Center;

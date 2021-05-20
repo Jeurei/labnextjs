@@ -4,8 +4,10 @@ import { fetchDataRoute } from 'Redux/actions/actions';
 import PageBuilder from 'components/common/pageBuilder';
 
 import PropTypes from 'prop-types';
+import { wrapper } from 'Redux/index';
+import { getInitialPropsForApp } from 'utils/common';
 
-const Index = ({ pageData }) => {
+const Index = ({ initialProps: { pageData } }) => {
   return (
     <InnerPageLayout>
       {pageData.page && <PageBuilder data={pageData.page} />}
@@ -13,16 +15,20 @@ const Index = ({ pageData }) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { id } }) => {
-  const pageData = await axios(`${fetchDataRoute}${id}`).then((res) => {
-    return res.data;
-  });
+Index.getInitialProps = wrapper.getInitialPageProps(
+  (store) => async ({ query: { id } }) => {
+    await getInitialPropsForApp(store);
 
-  return { props: { pageData } };
-};
+    const pageData = await axios(`${fetchDataRoute}${id}`).then((res) => {
+      return res.data;
+    });
+
+    return { pageData };
+  },
+);
 
 Index.propTypes = {
-  pageData: PropTypes.objectOf(PropTypes.any).isRequired,
+  initialProps: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default Index;

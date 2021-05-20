@@ -1,8 +1,17 @@
 /* eslint-disable max-len */
-
+import {
+  getDiscounts,
+  getRoutes,
+  getCities,
+  getRoutesInBurger,
+  getCenters,
+  getSpecialities,
+  getSearchCategories,
+  getConfig,
+} from 'Redux/actions/actions';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
-/* eslint-disable import/prefer-default-export */
+
 export const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -51,4 +60,18 @@ export const formatDate = (date) => {
 
 export const formatDateForHtml = (date) => {
   return format(new Date(Number(date)), 'yyyy-M-d', { locale: ru });
+};
+
+export const getInitialPropsForApp = async (store) => {
+  const state = store.getState();
+  const req = [];
+  if (!state.config.length) req.push(store.dispatch(getConfig()));
+  if (!state.discounts.length) req.push(store.dispatch(getDiscounts()));
+  if (!state.routes.routes) req.push(store.dispatch(getRoutes()));
+  if (!state.routes.burger) req.push(store.dispatch(getRoutesInBurger()));
+  if (isEmpty(state.cities)) req.push(store.dispatch(getCities()));
+  if (!state.medcenters.length) req.push(store.dispatch(getCenters()));
+  if (isEmpty(state.specialities)) req.push(store.dispatch(getSpecialities()));
+  if (!state.search.length) req.push(store.dispatch(getSearchCategories()));
+  await Promise.all(req);
 };

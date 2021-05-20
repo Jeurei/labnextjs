@@ -4,8 +4,10 @@ import axios from 'axios';
 import { fetchDataRoute } from 'Redux/actions/actions';
 
 import PropTypes from 'prop-types';
+import { wrapper } from 'Redux/index';
+import { getInitialPropsForApp } from 'utils/common';
 
-const Vacansy = ({ pageData }) => {
+const Vacansy = ({ initialProps: { pageData } }) => {
   return (
     <InnerPageLayout>
       <VacansyPage data={pageData} />
@@ -13,16 +15,20 @@ const Vacansy = ({ pageData }) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { id } }) => {
-  const pageData = await axios(`${fetchDataRoute}${id}`).then((res) => {
-    return res.data;
-  });
+Vacansy.getInitialProps = wrapper.getInitialPageProps(
+  (store) => async ({ query: { id } }) => {
+    await getInitialPropsForApp(store);
 
-  return { props: { pageData } };
-};
+    const pageData = await axios(`${fetchDataRoute}${id}`).then((res) => {
+      return res.data;
+    });
+
+    return { pageData };
+  },
+);
 
 Vacansy.propTypes = {
-  pageData: PropTypes.objectOf(PropTypes.any).isRequired,
+  initialProps: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Vacansy;

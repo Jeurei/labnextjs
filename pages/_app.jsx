@@ -2,16 +2,7 @@
 import React from 'react';
 import Router from 'next/router';
 import nProgress from 'nprogress';
-import {
-  getDiscounts,
-  getRoutes,
-  getCities,
-  getRoutesInBurger,
-  getCenters,
-  getSpecialities,
-  getSearchCategories,
-  getConfig,
-} from 'Redux/actions/actions';
+
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
 import ScrollToTop from 'containers/scroll-to-top';
@@ -115,19 +106,5 @@ const App = ({ Component, pageProps }) => {
     </>
   );
 };
-
-App.getInitialProps = wrapper.getInitialAppProps((store) => async () => {
-  const state = store.getState();
-  const req = [];
-  if (!state.config.length) req.push(store.dispatch(getConfig()));
-  if (!state.discounts.length) req.push(store.dispatch(getDiscounts()));
-  if (!state.routes.routes) req.push(store.dispatch(getRoutes()));
-  if (!state.routes.burger) req.push(store.dispatch(getRoutesInBurger()));
-  if (isEmpty(state.cities)) req.push(store.dispatch(getCities()));
-  if (!state.medcenters.length) req.push(store.dispatch(getCenters()));
-  if (isEmpty(state.specialities)) req.push(store.dispatch(getSpecialities()));
-  if (!state.search.length) req.push(store.dispatch(getSearchCategories()));
-  await Promise.all(req);
-});
 
 export default wrapper.withRedux(App);

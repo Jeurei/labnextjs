@@ -1,7 +1,13 @@
 import Services from 'components/servicePage/services';
+import { wrapper } from 'Redux/index';
+import { getInitialPropsForApp } from 'utils/common';
 
-const index = () => {
+const Index = () => {
   return <Services />;
 };
 
-export default index;
+Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
+  await getInitialPropsForApp(store);
+});
+
+export default Index;
