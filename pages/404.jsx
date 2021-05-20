@@ -3,6 +3,8 @@ import InnerPageLayout from 'components/InnerPageLayout';
 import { breakpointsMap } from 'constants/styles';
 import SectionInner from 'containers/section-inner';
 import Link from 'next/link';
+import { wrapper } from 'Redux/index';
+import { getInitialPropsForApp } from 'utils/common';
 
 const NotFoundPage = () => {
   const theme = useTheme();
@@ -93,5 +95,11 @@ const NotFoundPage = () => {
     </InnerPageLayout>
   );
 };
+
+NotFoundPage.getInitialProps = wrapper.getInitialPageProps(
+  (store) => async () => {
+    await getInitialPropsForApp(store);
+  },
+);
 
 export default NotFoundPage;
