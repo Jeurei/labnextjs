@@ -2,11 +2,9 @@
 import React from 'react';
 import Router from 'next/router';
 import nProgress from 'nprogress';
-
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
 import ScrollToTop from 'containers/scroll-to-top';
-import { isEmpty } from 'utils/common';
 import '../styles/style.scss';
 import 'nprogress/nprogress.css';
 import 'react-image-lightbox/style.css';

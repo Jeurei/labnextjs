@@ -1,11 +1,8 @@
 import FAQ from 'components/FAQ/FAQ';
 import InnerPageLayout from 'components/InnerPageLayout';
-import axios from 'axios';
-import { serverRoutesMap } from 'Redux/actions/actions';
-
 import PropTypes from 'prop-types';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialPropsFAQ } from 'api';
 
 const Index = ({ initialProps: { pageData } }) => {
   return (
@@ -18,10 +15,7 @@ const Index = ({ initialProps: { pageData } }) => {
 Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await getInitialPropsForApp(store);
 
-  const pageData = await axios(`${serverRoutesMap.FAQPAGE}`).then((res) => {
-    return res.data;
-  });
-
+  const pageData = await getInitialPropsFAQ();
   return { pageData };
 });
 

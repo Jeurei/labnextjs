@@ -1,11 +1,8 @@
 import DiscountProgram from 'components/discounts/discountProgram';
 import InnerPageLayout from 'components/InnerPageLayout';
-import { serverRoutesMap } from 'Redux/actions/actions';
-
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialDiscounts } from 'api';
 
 const Index = ({ initialProps: { pageData } }) => {
   return (
@@ -17,11 +14,7 @@ const Index = ({ initialProps: { pageData } }) => {
 
 Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await getInitialPropsForApp(store);
-  const pageData = await axios(`${serverRoutesMap.DISCOUNTSPAGE}`).then(
-    (res) => {
-      return res.data;
-    },
-  );
+  const pageData = await getInitialDiscounts();
 
   return { pageData };
 });

@@ -512,32 +512,22 @@ const Advantages = ({ data }) => {
 const Banner = ({ data }) => {
   const theme = useTheme();
   return (
-    <SectionInner key={JSON.stringify(data)}>
-      <div
-        css={css`
-          position: relative;
-          margin-bottom: 60px;
-          color: ${theme.colors.white};
+    <div
+      css={css`
+        position: relative;
+        margin-bottom: 60px;
+        color: ${theme.colors.white};
+        background-image: url(${data.icon}), ${theme.colors.linearGradient};
+        background-repeat: no-repeat, repeat;
+        background-position: calc(100% - 230px) 45%, center;
 
-          &:before {
-            position: absolute;
-            z-index: -1;
-            left: -10%;
-            display: block;
-            width: 110vw;
-            min-height: 100%;
+          @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
             background-image: url(${data.icon}), ${theme.colors.linearGradient};
-            background-position: calc(100% - 230px) 45%, center;
-            background-repeat: no-repeat, repeat;
-            content: '';
-
-            @media (min-resolution: 1.5dppx), (min-resolution: 144dpi) {
-              background-image: url(${data.icon}),
-                ${theme.colors.linearGradient};
-            }
           }
-        `}
-      >
+        }
+      `}
+    >
+      <SectionInner key={JSON.stringify(data)}>
         <div
           css={css`
             padding-top: 35px;
@@ -558,8 +548,8 @@ const Banner = ({ data }) => {
           </h3>
           <p>{data.text}</p>
         </div>
-      </div>
-    </SectionInner>
+      </SectionInner>
+    </div>
   );
 };
 

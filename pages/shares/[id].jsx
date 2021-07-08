@@ -1,11 +1,8 @@
 import InnerPageLayout from 'components/InnerPageLayout';
-import axios from 'axios';
-import { fetchDataRoute } from 'Redux/actions/actions';
 import PageBuilder from 'components/common/pageBuilder';
-
 import PropTypes from 'prop-types';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialPropsDynamic } from 'api';
 
 const Index = ({ initialProps: { pageData } }) => {
   return (
@@ -19,9 +16,7 @@ Index.getInitialProps = wrapper.getInitialPageProps(
   (store) => async ({ query: { id } }) => {
     await getInitialPropsForApp(store);
 
-    const pageData = await axios(`${fetchDataRoute}${id}`).then((res) => {
-      return res.data;
-    });
+    const pageData = await getInitialPropsDynamic(id);
 
     return { pageData };
   },

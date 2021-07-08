@@ -108,10 +108,6 @@ const Cart = () => {
       padding-bottom: 22px;
     }
   `;
-  const TextContainer = styled('p')`
-    margin: 0;
-  `;
-
   const SpanContainer = styled('span')`
     font-size: 14px;
   `;

@@ -5,7 +5,7 @@ import { fetchDataRoute } from 'Redux/actions/actions';
 
 import PropTypes from 'prop-types';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp } from 'api';
 
 const Vacansy = ({ initialProps: { pageData } }) => {
   return (

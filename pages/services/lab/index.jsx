@@ -1,7 +1,7 @@
 import Lab from 'components/servicePage/lab/index';
 import Services from 'components/servicePage/services';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp } from 'api';
 
 const Index = () => {
   return (

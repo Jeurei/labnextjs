@@ -1,5 +1,5 @@
+import { getInitialPropsForApp, getInitialArticles } from 'api/';
 import MediaLayout from 'components/media/mediaLayout';
-import { getArticles } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
 
 const Index = () => {
@@ -8,8 +8,8 @@ const Index = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
-    const state = store.getState();
-    await store.dispatch(getArticles());
+    await getInitialPropsForApp(store);
+    await getInitialArticles(store);
   },
 );
 

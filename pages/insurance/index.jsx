@@ -1,11 +1,8 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import Insurance from 'components/insurance/insurance';
-import { serverRoutesMap } from 'Redux/actions/actions';
-
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialPropsInsurance } from 'api';
 
 const Index = ({ initialProps: { pageData } }) => {
   return (
@@ -17,11 +14,7 @@ const Index = ({ initialProps: { pageData } }) => {
 
 Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await getInitialPropsForApp(store);
-  const pageData = await axios(`${serverRoutesMap.REFERENCESPAGE}`).then(
-    (res) => {
-      return res.data;
-    },
-  );
+  const pageData = await getInitialPropsInsurance();
 
   return { pageData };
 });

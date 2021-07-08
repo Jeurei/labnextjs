@@ -1,8 +1,7 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import Vacansies from 'components/vacansies/vacansies';
-import { getVacasies } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialPropsForVacansies } from 'api';
 
 const Index = () => {
   return (
@@ -14,7 +13,7 @@ const Index = () => {
 
 Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await getInitialPropsForApp(store);
-  await store.dispatch(getVacasies());
+  await getInitialPropsForVacansies(store);
 });
 
 export default Index;

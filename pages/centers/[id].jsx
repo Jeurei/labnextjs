@@ -1,7 +1,7 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import MedCenter from 'components/medcenters/medCenter';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp } from 'api';
 
 const Center = () => {
   return (

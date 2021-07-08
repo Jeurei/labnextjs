@@ -4,6 +4,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "paths": {
+      "api/*": ["api/*"],
       "Redux/*": ["redux/*"],
       "utils/*": ["utils/*"],
       "public/*": ["public/*"],

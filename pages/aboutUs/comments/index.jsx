@@ -1,8 +1,7 @@
 import Comments from 'components/comments/comments';
 import InnerPageLayout from 'components/InnerPageLayout';
-import { getReviews } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialComments } from 'api';
 
 const Index = () => {
   return (
@@ -14,8 +13,7 @@ const Index = () => {
 
 Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await getInitialPropsForApp(store);
-  const state = store.getState();
-  if (state.comments.length === 0) await store.dispatch(getReviews());
+  await getInitialComments(store);
 });
 
 export default Index;

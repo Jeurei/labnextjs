@@ -4,7 +4,7 @@ import { breakpointsMap } from 'constants/styles';
 import SectionInner from 'containers/section-inner';
 import Link from 'next/link';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp } from 'api';
 
 const NotFoundPage = () => {
   const theme = useTheme();

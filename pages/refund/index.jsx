@@ -1,7 +1,7 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import Refund from 'components/refund/refund';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp } from 'api';
 
 const Index = () => {
   return (

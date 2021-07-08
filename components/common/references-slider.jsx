@@ -43,7 +43,6 @@ const ReferencesSlider = ({ title, data }) => {
 
         .swiper-slide {
           display: flex;
-          width: 100% !important;
           justify-content: center;
         }
 
@@ -87,7 +86,24 @@ const ReferencesSlider = ({ title, data }) => {
           swiperRef={swiperRef}
           component={<SlideComponent />}
           data={data}
-          sliderObject={{}}
+          sliderObject={{
+            breakpoints: {
+              320: {
+                slidesPerView: 1,
+                slidesPerGroup: 1,
+              },
+
+              720: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+              },
+
+              1210: {
+                slidesPerView: 4,
+                slidesPerGroup: 4,
+              },
+            },
+          }}
         />
       </div>
     </div>

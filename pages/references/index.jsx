@@ -1,7 +1,7 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import References from 'components/references/references';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp } from 'api';
 
 const Index = () => {
   return (

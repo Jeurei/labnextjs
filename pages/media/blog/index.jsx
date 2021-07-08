@@ -1,7 +1,6 @@
 import MediaLayout from 'components/media/mediaLayout';
-import { getArticles } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialArticles } from 'api';
 
 const Index = () => {
   return <MediaLayout />;
@@ -9,7 +8,7 @@ const Index = () => {
 
 Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await getInitialPropsForApp(store);
-  await store.dispatch(getArticles());
+  await getInitialArticles(store);
 });
 
 export default Index;

@@ -1,8 +1,7 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import Shares from 'components/shares/shares';
-import { getShares } from 'Redux/actions/actions';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp, getInitialPropsForShares } from 'api';
 
 const Index = () => {
   return (
@@ -14,10 +13,7 @@ const Index = () => {
 
 Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
   await getInitialPropsForApp(store);
-
-  const state = store.getState();
-
-  if (!state.shares.length) await store.dispatch(getShares());
+  await getInitialPropsForShares(store);
 });
 
 export default Index;

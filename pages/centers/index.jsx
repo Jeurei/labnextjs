@@ -1,7 +1,7 @@
 import InnerPageLayout from 'components/InnerPageLayout';
 import MedCenters from 'components/medcenters/medCenters';
 import { wrapper } from 'Redux/index';
-import { getInitialPropsForApp } from 'utils/common';
+import { getInitialPropsForApp } from 'api';
 
 const Index = () => {
   return (
