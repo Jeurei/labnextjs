@@ -1,5 +1,4 @@
-import { useContext, useRef, useState } from 'react';
-import { css } from '@emotion/react';
+import { useRef, useState } from 'react';
 import MapLeft from './map-left';
 import Ymap from './ymap';
 

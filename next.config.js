@@ -6,7 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   images: {
-    domains: ['labdiag.praweb.ru'],
+    domains: ['labdiag-prod.praweb.ru'],
   },
   webpack(config, { isServer }) {
     if (!isServer) {

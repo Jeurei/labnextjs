@@ -11,8 +11,10 @@ const Index = () => {
   );
 };
 
-Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
-  await getInitialPropsForApp(store);
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    await getInitialPropsForApp(store);
+  },
+);
 
 export default Index;

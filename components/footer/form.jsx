@@ -7,9 +7,6 @@ import FormFirstField from './form-first-field';
 import FormThirdField from './form-third-field';
 import TextareaInput from './textarea-input';
 
-// TODO: ввод должен сохранятся междустранично но покка страниц
-// TODO: если можно отправить и фокус на инпуте с имейлом и он был верным а стал не верным можно отправить неправильный имейл
-
 const Form = () => {
   const [formFields, setFormFields] = useState({
     email: '',

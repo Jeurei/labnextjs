@@ -3,6 +3,7 @@ import { breakpointsMap } from 'constants/styles';
 
 const BigTable = () => {
   const theme = useTheme();
+
   const TableColumn = () => (
     <ul
       css={css`

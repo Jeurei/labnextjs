@@ -11,7 +11,7 @@ const Index = () => {
   );
 };
 
-Index.getInitialProps = wrapper.getInitialPageProps(
+export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async ({ query }) => {
     await getInitialPropsForApp(store);
     await getInitialPropsForSpecialist(store, query);

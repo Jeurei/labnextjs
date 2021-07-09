@@ -6,9 +6,11 @@ const Index = () => {
   return <MediaLayout />;
 };
 
-Index.getInitialProps = wrapper.getInitialPageProps((store) => async () => {
-  await getInitialPropsForApp(store);
-  await getInitialPropsForMedia(store);
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    await getInitialPropsForApp(store);
+    await getInitialPropsForMedia(store);
+  },
+);
 
 export default Index;

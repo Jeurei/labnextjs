@@ -5,38 +5,38 @@ import fs from 'fs';
 import path from 'path';
 import * as Actions from '../actionTypes';
 
-const HOME_URL = 'https://localhost:3005';
+const HOME_URL = 'https://labdiag-prod.praweb.ru/';
 
 export const serverRoutesMap = {
   CART: `${HOME_URL}/cart`,
-  CITIES: `https://labdiag.praweb.ru/api/cities`,
+  CITIES: `${HOME_URL}api/cities`,
   MAPCITIES: `${HOME_URL}/mapCities`,
-  SEARCHCATEGORIES: `https://labdiag.praweb.ru/api/searchcategories`,
-  HINTS: `https://labdiag.praweb.ru/api/hints`,
-  OFFERS: `https://labdiag.praweb.ru/spravochniki/aktualnye-predlozheniya`,
-  COMPLEX: `https://labdiag.praweb.ru/api/complex`,
-  LINKS: `https://labdiag.praweb.ru/api/links`,
-  ARTICLES: `https://labdiag.praweb.ru/press-centr`,
-  SHARES: `https://labdiag.praweb.ru/api/promo`,
-  FEATURES: `https://labdiag.praweb.ru/api/features-on-main`,
-  SPECIALISTS: `https://labdiag.praweb.ru/api/specialists`,
-  DISCOUNTS: `https://labdiag.praweb.ru/api/disconts`,
-  ROUTES: `https://labdiag.praweb.ru/api/routes`,
-  ROUTESINBURDGER: `https://labdiag.praweb.ru/api/routesinburger`,
-  MEDCENTERS: `https://labdiag.praweb.ru/api/centers`,
-  SPECIALITIES: 'https://labdiag.praweb.ru/api/specializations',
-  FORM: 'https://labdiag.praweb.ru/api/form',
-  VACANCIES: 'https://labdiag.praweb.ru/api/vacansii',
-  FAQPAGE: 'https://labdiag.praweb.ru/api/getpage?id=74',
-  SUPPLIERS: 'https://labdiag.praweb.ru/api/getpage?id=75',
-  ABOUTUS: 'https://labdiag.praweb.ru/api/getpage?id=76',
-  COMMENTS: 'https://labdiag.praweb.ru/api/reviews',
-  REFERENCESPAGE: 'https://labdiag.praweb.ru/api/getpage?id=85',
-  CORPO: 'https://labdiag.praweb.ru/api/getpage?id=79',
-  CONFIG: 'https://labdiag.praweb.ru/config',
-  DISCOUNTSPAGE: 'https://labdiag.praweb.ru/api/getpage?id=87',
-  TOHOME: 'https://labdiag.praweb.ru/api/getpage?id=77',
-  ILLNESS: 'https://labdiag.praweb.ru/api/getpage?id=89',
+  SEARCHCATEGORIES: `${HOME_URL}api/searchcategories`,
+  HINTS: `${HOME_URL}api/hints`,
+  OFFERS: `${HOME_URL}spravochniki/aktualnye-predlozheniya`,
+  COMPLEX: `${HOME_URL}api/complex`,
+  LINKS: `${HOME_URL}api/links`,
+  ARTICLES: `${HOME_URL}press-centr`,
+  SHARES: `${HOME_URL}api/promo`,
+  FEATURES: `${HOME_URL}api/features-on-main`,
+  SPECIALISTS: `${HOME_URL}api/specialists`,
+  DISCOUNTS: `${HOME_URL}api/disconts`,
+  ROUTES: `${HOME_URL}api/routes`,
+  ROUTESINBURDGER: `${HOME_URL}api/routesinburger`,
+  MEDCENTERS: `${HOME_URL}api/centers`,
+  SPECIALITIES: `${HOME_URL}api/specializations`,
+  FORM: `${HOME_URL}api/form`,
+  VACANCIES: `${HOME_URL}api/vacansii`,
+  FAQPAGE: `${HOME_URL}api/getpage?id=74`,
+  SUPPLIERS: `${HOME_URL}api/getpage?id=75`,
+  ABOUTUS: `${HOME_URL}api/getpage?id=76`,
+  COMMENTS: `${HOME_URL}api/reviews`,
+  REFERENCESPAGE: `${HOME_URL}api/getpage?id=85`,
+  CORPO: `${HOME_URL}api/getpage?id=79`,
+  CONFIG: `${HOME_URL}config`,
+  DISCOUNTSPAGE: `${HOME_URL}api/getpage?id=87`,
+  TOHOME: `${HOME_URL}api/getpage?id=77`,
+  ILLNESS: `${HOME_URL}api/getpage?id=89`,
 };
 
 const getDifference = (file) => {
@@ -51,13 +51,17 @@ const getDataFromFs = async (url, action, dispatch) => {
   const file = path.join(process.cwd(), fileName);
 
   try {
-    if (fs.existsSync(fileName) && getDifference(file) < 24) {
+    if (fs.existsSync(file) && getDifference(file) < 24) {
       res = JSON.parse(fs.readFileSync(file, 'utf8'));
       dispatch({ type: action, payload: res });
     } else {
       res = await axios({ method: 'GET', url, headers: [] });
 
       res = res.data;
+
+      if (fs.existsSync(file)) {
+        fs.unlink(file);
+      }
 
       fs.writeFile(fileName, JSON.stringify(res), (data, e) => {
         if (e) console.log(e);
@@ -187,4 +191,4 @@ export const removeItemFromCart = (payload) => ({
   payload,
 });
 
-export const fetchDataRoute = 'https://labdiag.praweb.ru/api/getpage?id=';
+export const fetchDataRoute = `${HOME_URL}api/getpage?id=`;

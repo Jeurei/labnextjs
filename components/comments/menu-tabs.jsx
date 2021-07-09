@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 const MenuTabs = ({ routes, root, action, isShown }) => {
   const theme = useTheme();
   const router = useRouter();
+
   const createTab = (rout) => {
     const currentLink = router.pathname.split('/')[
       router.pathname.split('/').length - 1

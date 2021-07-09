@@ -11,6 +11,8 @@ import 'react-image-lightbox/style.css';
 import { wrapper } from 'Redux/index';
 import Loading from 'components/common/loading';
 
+global.Element = typeof Element === 'undefined' ? function () {} : Element;
+
 const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = React.useState(false);
   nProgress.configure({

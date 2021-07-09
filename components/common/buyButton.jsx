@@ -93,6 +93,7 @@ const BuyButton = ({ data, setCartItem }) => {
           );
           border-radius: 50%;
         `}
+        aria-label="Добавить продукт в корзину"
       >
         <CartIcon fill="#9A66F5" width="23.74px" height="21px" />{' '}
       </button>

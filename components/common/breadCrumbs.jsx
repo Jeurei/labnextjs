@@ -4,8 +4,6 @@ import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import BreadCrumb from './breadCrumb';
 
-// TODO: предположительно сдесь будет ещё один роутинг который предусмотрен на этой странице, типа условно /specialists/1 и тк это рута не будет в родителе переключаться будет только мейн страниы
-
 const BreadCrumbs = ({ className }) => {
   const router = useRouter();
   const currentPath = router.pathname.split('/');

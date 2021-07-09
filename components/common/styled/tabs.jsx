@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 
 export const Tab = styled.li`

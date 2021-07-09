@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const CrossButton = ({ buttonClass, label, action, text = '' }) => (
+const CrossButton = ({ buttonClass, label, action }) => (
   <button
     className={`${buttonClass} cross-button`}
     type="button"
@@ -10,15 +10,10 @@ const CrossButton = ({ buttonClass, label, action, text = '' }) => (
   />
 );
 
-CrossButton.defaultProps = {
-  text: '',
-};
-
 CrossButton.propTypes = {
   buttonClass: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   action: PropTypes.func.isRequired,
-  text: PropTypes.string,
 };
 
 export default CrossButton;

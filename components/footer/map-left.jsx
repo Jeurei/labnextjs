@@ -8,8 +8,6 @@ import { withYMaps } from 'react-yandex-maps';
 import { css } from '@emotion/react';
 import MapLeftResults from './map-left-results';
 
-global.Element = typeof Element === 'undefined' ? function () {} : Element;
-
 const MapLeft = ({ cities, refProp }) => {
   return (
     <div className="map__left">
