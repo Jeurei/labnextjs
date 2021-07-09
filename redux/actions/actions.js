@@ -1,4 +1,8 @@
 import axios from 'axios';
+import MD5 from 'crypto-js/md5';
+import { differenceInHours } from 'date-fns';
+import fs from 'fs';
+import path from 'path';
 import * as Actions from '../actionTypes';
 
 const HOME_URL = 'https://localhost:3005';
@@ -35,14 +39,38 @@ export const serverRoutesMap = {
   ILLNESS: 'https://labdiag.praweb.ru/api/getpage?id=89',
 };
 
-export const getConfig = () => (dispatch) => {
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.CONFIG,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_CONFIG, payload: response.data }),
-  );
+const getDifference = (file) => {
+  const { birthtime } = fs.statSync(file);
+  return differenceInHours(new Date(), new Date(birthtime));
+};
+
+const getDataFromFs = async (url, action, dispatch) => {
+  const fileName = `${MD5(url)}.json`;
+  let res;
+
+  const file = path.join(process.cwd(), fileName);
+
+  try {
+    if (fs.existsSync(fileName) && getDifference(file) < 24) {
+      res = JSON.parse(fs.readFileSync(file, 'utf8'));
+      dispatch({ type: action, payload: res });
+    } else {
+      res = await axios({ method: 'GET', url, headers: [] });
+
+      res = res.data;
+
+      fs.writeFile(fileName, JSON.stringify(res), (data, e) => {
+        if (e) console.log(e);
+      });
+    }
+    dispatch({ type: action, payload: res });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getConfig = () => async (dispatch) => {
+  await getDataFromFs(serverRoutesMap.CONFIG, Actions.GET_CONFIG, dispatch);
 };
 
 export const getData = (url) => {
@@ -54,176 +82,77 @@ export const postData = (url, data) => {
 };
 
 export const getRoutes = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.ROUTES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_ROUTES, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.ROUTES, Actions.GET_ROUTES, dispatch);
 
 export const getRoutesInBurger = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.ROUTESINBURDGER,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_ROUTES_IN_BURGER, payload: response.data }),
+  getDataFromFs(
+    serverRoutesMap.ROUTESINBURDGER,
+    Actions.GET_ROUTES_IN_BURGER,
+    dispatch,
   );
 
 export const getSpecialists = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.SPECIALISTS,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_SPECIALISTS, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.SPECIALISTS, Actions.GET_SPECIALISTS, dispatch);
 
 export const setSpecialist = (id) => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: `${serverRoutesMap.SPECIALISTS}\\${id}`,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.SET_SPECIALIST, payload: response.data }),
+  getDataFromFs(
+    `${serverRoutesMap.SPECIALISTS}\\${id}`,
+    Actions.SET_SPECIALIST,
+    dispatch,
   );
 
-export const getSpecialities = () => (dispatch) => {
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.SPECIALITIES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_SPECIALITIES, payload: response.data }),
+export const getSpecialities = () => (dispatch) =>
+  getDataFromFs(
+    serverRoutesMap.SPECIALITIES,
+    Actions.GET_SPECIALITIES,
+    dispatch,
   );
-};
 
 export const getDiscounts = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.DISCOUNTS,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_DISCOUTNS, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.DISCOUNTS, Actions.GET_DISCOUTNS, dispatch);
 
 export const getCart = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.CART,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_CART, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.CART, Actions.GET_CART, dispatch);
 
 export const getCities = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.CITIES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_CITIES, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.CITIES, Actions.GET_CITIES, dispatch);
 
 export const getCenters = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.MEDCENTERS,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_CENTERS, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.MEDCENTERS, Actions.GET_CENTERS, dispatch);
 
 export const getOffers = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.OFFERS,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_OFFERS, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.OFFERS, Actions.GET_OFFERS, dispatch);
 
 export const getComplexes = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.COMPLEX,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_COMPLEXES, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.COMPLEX, Actions.GET_COMPLEXES, dispatch);
 
 export const getShares = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.SHARES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_SHARES, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.SHARES, Actions.GET_SHARES, dispatch);
 
 export const getVacasies = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.VACANCIES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_VACANSIES, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.VACANCIES, Actions.GET_VACANSIES, dispatch);
 
 export const getReviews = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.COMMENTS,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_REVIEWS, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.COMMENTS, Actions.GET_REVIEWS, dispatch);
 
 export const getArticles = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.ARTICLES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_ARTICLES, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.ARTICLES, Actions.GET_ARTICLES, dispatch);
 
 export const getFeatures = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.FEATURES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_FEATURES, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.FEATURES, Actions.GET_FEATURES, dispatch);
 
 export const getLinks = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.LINKS,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_LINKS, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.LINKS, Actions.GET_LINKS, dispatch);
 
 export const getSearchCategories = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.SEARCHCATEGORIES,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_SEARCH_CATEGORIES, payload: response.data }),
+  getDataFromFs(
+    serverRoutesMap.SEARCHCATEGORIES,
+    Actions.GET_SEARCH_CATEGORIES,
+    dispatch,
   );
 
 export const getHints = () => (dispatch) =>
-  axios({
-    method: 'GET',
-    url: serverRoutesMap.HINTS,
-    headers: [],
-  }).then((response) =>
-    dispatch({ type: Actions.GET_SEARCH_HINTS, payload: response.data }),
-  );
+  getDataFromFs(serverRoutesMap.HINTS, Actions.GET_SEARCH_HINTS, dispatch);
 
 export const getUserForm = () => (dispatch) =>
   dispatch({ type: Actions.GET_USER_FORM_STATE });

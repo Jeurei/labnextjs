@@ -1,10 +1,19 @@
+/* eslint-disable no-param-reassign */
 const path = require('path');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   images: {
     domains: ['labdiag.praweb.ru'],
   },
-  webpack(config) {
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.node = {
+        fs: 'empty',
+      };
+    }
     config.module.rules.push(
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -46,4 +55,4 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-};
+});
