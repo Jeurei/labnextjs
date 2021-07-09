@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { format, getDate, getYear } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { ru } from 'date-fns/locale/ru';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserFormState } from 'Redux/actions/actions';

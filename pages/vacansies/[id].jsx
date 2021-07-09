@@ -2,7 +2,6 @@ import InnerPageLayout from 'components/InnerPageLayout';
 import VacansyPage from 'components/vacansies/vacansy';
 import axios from 'axios';
 import { fetchDataRoute } from 'Redux/actions/actions';
-
 import PropTypes from 'prop-types';
 import { wrapper } from 'Redux/index';
 import { getInitialPropsForApp } from 'api';

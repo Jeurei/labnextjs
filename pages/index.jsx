@@ -5,9 +5,9 @@ import MainLayout from '../components/MainLayout';
 
 const Index = () => {
   return (
-    <MainLayout title="Лабдиагностка">
-      <Main />
-    </MainLayout>
+    // <MainLayout title="Лабдиагностка">
+    <Main />
+    // </MainLayout>
   );
 };
 

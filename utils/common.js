@@ -10,7 +10,7 @@ import {
   getConfig,
 } from 'Redux/actions/actions';
 import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { ru } from 'date-fns/locale/ru';
 
 export const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));

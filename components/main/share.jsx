@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { ReactComponent as ArrowRight } from 'icons/arrrow-right.svg';
 import Link from 'next/link';
 import { format, differenceInDays, fromUnixTime } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { ru } from 'date-fns/locale/ru';
 import { numWord } from 'utils/common';
 
 const formatDate = (date) => {
