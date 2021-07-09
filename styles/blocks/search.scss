@@ -16,16 +16,6 @@
   .section__inner {
     padding-left: 0;
   }
-
-  @media (min-resolution: $retina-dppx), (min-resolution: $retina-dpi) {
-    background-image: url('../../public/img/mobile-bg@2x.png'),
-      linear-gradient(
-        to left,
-        RGBA(250, 0, 235, 1),
-        RGBA(154, 102, 245, 1),
-        RGBA(43, 215, 255, 1)
-      );
-  }
 }
 
 .search__title {
@@ -290,7 +280,7 @@
   .search {
     min-height: 594px;
     padding-bottom: 69px;
-    background-image: url('../../public/img/mainbg.png'),
+    background-image: url('../../public/img/mainbg.jpg'),
       linear-gradient(
         to left,
         RGBA(250, 0, 235, 1),
@@ -300,10 +290,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-
-    @media (min-resolution: $retina-dppx), (min-resolution: $retina-dpi) {
-      background-image: url('../../public/img/mainbg@2x.png');
-    }
   }
 
   .search__container {

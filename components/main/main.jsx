@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import React, { Suspense } from 'react';
 import Search from './search';
 import ActualOffers from './actual-offers';
 import Complexes from './complexes';

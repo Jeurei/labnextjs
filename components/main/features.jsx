@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import SectionInner from 'containers/section-inner';
 import { ReactComponent as Logo } from 'icons/features__logo-img.svg';
-
-// TODO: Узнать шаблонизируется ли этот блок
+import Image from 'next/image';
 
 const featuresItem = (data) => {
   return (
@@ -22,7 +21,12 @@ const featuresItem = (data) => {
 };
 
 const Features = ({ features }) => (
-  <section className="main__section main__section-features section features">
+  <section
+    className="main__section main__section-features section features"
+    css={css`
+      position: relative;
+    `}
+  >
     <SectionInner>
       <h2 className="section__title">
         Почему именно
