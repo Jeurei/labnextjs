@@ -53,7 +53,8 @@
           ["reducers", "./reducers"],
           ["store", "./store"],
           ["containers", "./containers"],
-          ["icons", "./icons"]
+          ["icons", "./icons"],
+          ["hooks", "./hooks"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".json"]
       }

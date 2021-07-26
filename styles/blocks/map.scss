@@ -46,7 +46,7 @@
 
 .map__right {
   min-width: 100vw;
-  height: 380px;
+  min-height: 100%;
   background-image: url('../../public/img/map-bg.webp');
   background-position: 0;
   background-repeat: no-repeat;
