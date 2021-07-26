@@ -24,11 +24,31 @@ class MyDocument extends Document {
           />
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-          <link rel="preoload" href="/fonts/GraphikLCG-Medium.woff2" />
-          <link rel="preoload" href="/fonts/GraphikLCG-Bold.woff2" />
-          <link rel="preoload" href="/fonts/GraphikLCG-Light.woff2" />
-          <link rel="preoload" href="/fonts/GraphikLCG-Semibold.woff2" />
-          <link rel="preoload" href="/fonts/GraphikLCG-Regular.woff2" />
+          <link
+            crossOrigin="anonymous"
+            rel="preoload"
+            href="/fonts/GraphikLCG-Medium.woff2"
+          />
+          <link
+            crossOrigin="anonymous"
+            rel="preoload"
+            href="/fonts/GraphikLCG-Bold.woff2"
+          />
+          <link
+            crossOrigin="anonymous"
+            rel="preoload"
+            href="/fonts/GraphikLCG-Light.woff2"
+          />
+          <link
+            crossOrigin="anonymous"
+            rel="preoload"
+            href="/fonts/GraphikLCG-Semibold.woff2"
+          />
+          <link
+            crossOrigin="anonymous"
+            rel="preoload"
+            href="/fonts/GraphikLCG-Regular.woff2"
+          />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
         </Head>
