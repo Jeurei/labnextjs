@@ -62,7 +62,7 @@ const getDataFromFs = async (url, action, dispatch) => {
         fs.unlinkSync(file);
       }
 
-      fs.writeFileSync(`cache/${fileName}`, JSON.stringify(res), (data, e) => {
+      fs.writeFileSync(`/cache/${fileName}`, JSON.stringify(res), (data, e) => {
         if (e) console.log(e);
       });
     }
