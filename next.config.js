@@ -8,12 +8,18 @@ module.exports = withBundleAnalyzer({
   images: {
     domains: ['labdiag-prod.praweb.ru'],
   },
+
   webpack(config, { isServer }) {
     if (!isServer) {
       config.node = {
         fs: 'empty',
       };
     }
+
+    config.resolve.alias['bn.js'] = path.join(
+      __dirname,
+      'node_modules/bn.js/lib/bn.js',
+    );
     config.module.rules.push(
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
