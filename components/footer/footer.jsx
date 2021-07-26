@@ -9,7 +9,7 @@ import Map from './map';
 const Footer = () => (
   <footer className="footer">
     <Form />
-    <Map />
+    {/* <Map /> */}
     <div
       css={css`
         background-color: #f7f7f7;
