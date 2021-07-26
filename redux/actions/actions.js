@@ -1,13 +1,13 @@
 import axios from 'axios';
 import MD5 from 'crypto-js/md5';
-import { differenceInMinutes } from 'date-fns';
+import { differenceInHours } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
 import * as Actions from '../actionTypes';
 
 const HOME_URL = 'https://labdiag-prod.praweb.ru/';
 
-const MAX_FILE_TIME = 15;
+const MAX_FILE_TIME = 24;
 export const serverRoutesMap = {
   CART: `${HOME_URL}/cart`,
   CITIES: `${HOME_URL}api/cities`,
@@ -42,7 +42,7 @@ export const serverRoutesMap = {
 
 const getDifference = (file) => {
   const { birthtime } = fs.statSync(file);
-  return differenceInMinutes(new Date(), new Date(birthtime));
+  return differenceInHours(new Date(), new Date(birthtime));
 };
 
 const getDataFromFs = async (url, action, dispatch) => {
