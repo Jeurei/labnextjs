@@ -1,7 +1,7 @@
 .search-modal {
   max-height: 1px;
   padding-top: 29px;
-  background-image: url('../../public/img/search-modal.png'),
+  background-image: url('../../public/img/search-modal.webp'),
     linear-gradient(
       to left,
       RGBA(250, 0, 235, 1),
@@ -20,7 +20,7 @@
   }
 
   @media (min-resolution: $retina-dppx), (min-resolution: $retina-dpi) {
-    background-image: url('../../public/img/search-modal@2x.png'),
+    background-image: url('../../public/img/search-modal@2x.webp'),
       linear-gradient(
         to left,
         RGBA(250, 0, 235, 1),

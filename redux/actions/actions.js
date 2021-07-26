@@ -59,10 +59,6 @@ const getDataFromFs = async (url, action, dispatch) => {
 
       res = res.data;
 
-      if (fs.existsSync(file)) {
-        fs.unlink(file);
-      }
-
       fs.writeFile(`cache/${fileName}`, JSON.stringify(res), (data, e) => {
         if (e) console.log(e);
       });
