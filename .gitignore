@@ -34,4 +34,5 @@ yarn-error.log*
 .vercel
 
 #cache
-/cache
+cache/*
+!cache/.gitkeep
