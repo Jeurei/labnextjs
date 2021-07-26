@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as Actions from 'Redux/actions/actions';
 import { isEmpty } from 'utils/common';
 
-// Обычный страницы
+// Обычные страницы
 export const getInitialPropsForApp = async (store) => {
   const state = store.getState();
   const req = [];

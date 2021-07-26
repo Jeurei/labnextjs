@@ -1,12 +1,13 @@
 import axios from 'axios';
 import MD5 from 'crypto-js/md5';
-import { differenceInHours } from 'date-fns';
+import { differenceInMinutes } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
 import * as Actions from '../actionTypes';
 
 const HOME_URL = 'https://labdiag-prod.praweb.ru/';
 
+const MAX_FILE_TIME = 15;
 export const serverRoutesMap = {
   CART: `${HOME_URL}/cart`,
   CITIES: `${HOME_URL}api/cities`,
@@ -41,17 +42,16 @@ export const serverRoutesMap = {
 
 const getDifference = (file) => {
   const { birthtime } = fs.statSync(file);
-  return differenceInHours(new Date(), new Date(birthtime));
+  return differenceInMinutes(new Date(), new Date(birthtime));
 };
 
 const getDataFromFs = async (url, action, dispatch) => {
   const fileName = `${MD5(url)}.json`;
   let res;
-
-  const file = path.join(process.cwd(), fileName);
+  const file = path.join(process.cwd(), '/cache/', fileName);
 
   try {
-    if (fs.existsSync(file) && getDifference(file) < 24) {
+    if (fs.existsSync(file) && getDifference(file) < MAX_FILE_TIME) {
       res = JSON.parse(fs.readFileSync(file, 'utf8'));
       dispatch({ type: action, payload: res });
     } else {
@@ -63,7 +63,7 @@ const getDataFromFs = async (url, action, dispatch) => {
         fs.unlink(file);
       }
 
-      fs.writeFile(fileName, JSON.stringify(res), (data, e) => {
+      fs.writeFile(`cache/${fileName}`, JSON.stringify(res), (data, e) => {
         if (e) console.log(e);
       });
     }
