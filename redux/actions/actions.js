@@ -58,11 +58,12 @@ const getDataFromFs = async (url, action, dispatch) => {
       res = await axios({ method: 'GET', url, headers: [] });
 
       res = res.data;
+
       if (fs.existsSync(file)) {
         fs.unlinkSync(file);
       }
 
-      fs.writeFileSync(`/cache/${fileName}`, JSON.stringify(res), (data, e) => {
+      fs.writeFileSync(`cache/${fileName}`, JSON.stringify(res), (data, e) => {
         if (e) console.log(e);
       });
     }
