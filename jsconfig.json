@@ -15,6 +15,7 @@
       "store/*": ["store/*"],
       "containers/*": ["containers/*"],
       "icons/*": ["icons/*"],
+      "hooks/*": ["hooks/*"],
       "fetch": ["fetch"]
     }
   }
