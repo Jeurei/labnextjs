@@ -48,6 +48,15 @@ module.exports = withBundleAnalyzer({
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
       },
+      {
+        test: /\.(png|jpg|gif|eot|ttf|woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 100000,
+          },
+        },
+      },
     );
 
     return config;
