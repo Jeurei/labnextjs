@@ -1,15 +1,11 @@
 import { useTheme, css } from '@emotion/react';
-import { breakpointsMap } from 'constants/styles';
-import { format } from 'date-fns';
+import { formatDate } from 'components/utils/common';
 import Image from 'next/image';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-const formatDate = (date) => {
-  return format(new Date(Number(date)), 'k:mm');
-};
-
 const Article = ({ data }) => {
+  const FORMAT_WAY = 'k:mm';
   const theme = useTheme();
   return (
     <article
@@ -86,7 +82,7 @@ const Article = ({ data }) => {
             }
           `}
         >
-          {formatDate(data.date)}
+          {formatDate(data.date, FORMAT_WAY)}
         </time>
       </div>
     </article>

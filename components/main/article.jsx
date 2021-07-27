@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { formatDate, formatDateForHtml } from 'components/utils/common';
 
 const Article = ({ data }) => {
+  const FORMAT_WAY = 'd MMMM yyyy';
+
   return (
     <Link href="/media/[id]" as={`/media/${data.id}`}>
       <a className="articles__link">
@@ -14,7 +16,7 @@ const Article = ({ data }) => {
               className="article__time"
               dateTime={formatDateForHtml(data.date)}
             >
-              {formatDate(data.date)}.
+              {formatDate(data.date, FORMAT_WAY)}.
             </time>
             <h3 className="article__title">{data.title}</h3>
           </div>

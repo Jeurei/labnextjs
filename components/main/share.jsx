@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types';
 import { ReactComponent as ArrowRight } from 'icons/arrrow-right.svg';
 import Link from 'next/link';
-import { format, differenceInDays, fromUnixTime } from 'date-fns';
-import { ru } from 'date-fns/locale/ru';
-import { numWord } from 'components/utils/common';
-
-const formatDate = (date) => {
-  return format(fromUnixTime(date), 'dd.MM.yyyy', { locale: ru });
-};
+import { differenceInDays, fromUnixTime } from 'date-fns';
+import { formatDate, numWord } from 'components/utils/common';
+import { css } from '@emotion/react';
 
 const Share = ({ data }) => {
+  const FORMAT_WAY = 'dd.MM.yyyy';
   const dif = differenceInDays(
     fromUnixTime(data.finishDate),
     fromUnixTime(data.startDate),
   );
+
+  const startDate = () => formatDate(data.startDate, FORMAT_WAY);
+
+  const endDate = () => formatDate(data.finishDate, FORMAT_WAY);
+
   return (
     <li className="shares__list-item">
       <Link href="/shares/[id]" as={`/shares/${data.id}`}>
@@ -31,13 +33,15 @@ const Share = ({ data }) => {
             <div className="share__bottom">
               <p className="share__bottom-text">
                 Срок действия акции:
-                <time dateTime={formatDate(data.startDate)}>
-                  {formatDate(data.startDate)}
+                <time
+                  dateTime={startDate()}
+                  css={css`
+                    padding-left: 5px;
+                  `}
+                >
+                  {startDate()}
                 </time>{' '}
-                -{' '}
-                <time dateTime={formatDate(data.finishDate)}>
-                  {formatDate(data.finishDate)}
-                </time>
+                - <time dateTime={endDate()}>{endDate()}</time>
                 <ArrowRight
                   width="17"
                   height="17"
