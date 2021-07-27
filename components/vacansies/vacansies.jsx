@@ -2,8 +2,7 @@ import { css, useTheme } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import Section from 'containers/section';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import VacansyBlock from './vacansy-block';
 import Contacts from './contacts';
 

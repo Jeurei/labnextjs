@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { ReactComponent as Logo } from 'icons/features__logo-img.svg';
-import Image from 'next/image';
 
 const featuresItem = (data) => {
   return (

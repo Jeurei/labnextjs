@@ -3,7 +3,7 @@ import { ReactComponent as ArrowRight } from 'icons/arrrow-right.svg';
 import Link from 'next/link';
 import { format, differenceInDays, fromUnixTime } from 'date-fns';
 import { ru } from 'date-fns/locale/ru';
-import { numWord } from 'utils/common';
+import { numWord } from 'components/utils/common';
 
 const formatDate = (date) => {
   return format(fromUnixTime(date), 'dd.MM.yyyy', { locale: ru });

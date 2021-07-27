@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import SubMenu from './submenu';
 
-// TODO: Роутинг сабменю
-
 const NavItem = ({ data }) => {
   return (
     <li className="nav__item">

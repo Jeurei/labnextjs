@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ReactComponent as MapMark } from 'icons/map-mark-icon.svg';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import Select from 'common/select';
 import { ReactComponent as Logo } from 'icons/logo.svg';
 import { withYMaps } from 'react-yandex-maps';

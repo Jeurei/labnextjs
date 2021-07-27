@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import components from 'constants/components';
 import Search from 'common/search';
 import Hints from './hints';
 

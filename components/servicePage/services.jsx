@@ -1,6 +1,6 @@
 import MenuTabs from 'components/common/menu-tabs';
 import InnerPageLayout from 'components/InnerPageLayout';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 

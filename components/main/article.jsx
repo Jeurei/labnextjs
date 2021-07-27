@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { css } from '@emotion/react';
 import Link from 'next/link';
-import { formatDate, formatDateForHtml } from 'utils/common';
+import { formatDate, formatDateForHtml } from 'components/utils/common';
 
 const Article = ({ data }) => {
   return (

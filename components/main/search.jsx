@@ -1,4 +1,4 @@
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import SearchBottom from './search-bottom';
 import SearchContainerTop from './search-container-top';
 

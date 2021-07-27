@@ -4,7 +4,6 @@ import Router from 'next/router';
 import nProgress from 'nprogress';
 import { ThemeProvider } from '@emotion/react';
 import { YMaps } from 'react-yandex-maps';
-import ScrollToTop from 'containers/scroll-to-top';
 import '../styles/style.scss';
 import 'nprogress/nprogress.css';
 import 'react-image-lightbox/style.css';
@@ -94,7 +93,6 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <ScrollToTop />
         <YMaps
           query={{
             apikey: 'dfd9fe91-82da-412d-a4dd-eafd43340cfa',

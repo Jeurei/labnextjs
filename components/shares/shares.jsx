@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Share from 'components/main/share';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 
 const Shares = ({ shares }) => {
   return (

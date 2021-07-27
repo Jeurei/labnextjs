@@ -1,7 +1,7 @@
 import PageBuilder from 'components/common/pageBuilder';
 import PropTypes from 'prop-types';
 import { css, useTheme } from '@emotion/react';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 
 const Illness = ({ data }) => {
   const theme = useTheme();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { postData, serverRoutesMap } from 'Redux/actions/actions';
 import { useRouter } from 'next/router';
 import FormFieldset from './form-fieldset';

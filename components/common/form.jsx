@@ -11,7 +11,7 @@ import {
 
 import axios from 'axios';
 import { css, useTheme } from '@emotion/react';
-import { allTrue } from 'utils/common';
+import { allTrue } from 'components/utils/common';
 import { ReactComponent as CorrectIcon } from 'icons/check-circle-solid.svg';
 import { DEFAULT_USER_FORM_STATE } from 'constants/form';
 import { useRouter } from 'next/router';

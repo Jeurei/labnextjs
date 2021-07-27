@@ -3,7 +3,7 @@ import { ReactComponent as SearchIcon } from 'icons/search-icon.svg';
 import Select from 'common/select';
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 
 const Shedule = () => {
   const theme = useTheme();

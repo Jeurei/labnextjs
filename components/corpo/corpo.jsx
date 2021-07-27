@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import PageBuilder from 'components/common/pageBuilder';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 
 const Corpo = ({ data }) => {
   return (

@@ -14,7 +14,7 @@
       "reducers/*": ["reducers/*"],
       "store/*": ["store/*"],
       "containers/*": ["containers/*"],
-      "icons/*": ["icons/*"],
+      "icons/*": ["public/icons/*"],
       "hooks/*": ["hooks/*"],
       "fetch": ["fetch"]
     }

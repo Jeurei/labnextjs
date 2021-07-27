@@ -4,7 +4,7 @@ import DefaultSearch from 'components/common/default-search';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import MenuTabs from './menu-tabs';
 import Article from './article';
 

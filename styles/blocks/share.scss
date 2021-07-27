@@ -51,6 +51,8 @@
       letter-spacing: 0.6px;
       text-transform: uppercase;
       min-height: 33px;
+      display: flex;
+      align-items: center;
     }
 
     &::before {
@@ -90,8 +92,7 @@
 
 @media (min-width: $desktop-width) {
   .share {
-    &::after,
-    ::before {
+    &::after {
       height: 24px;
     }
 
@@ -99,7 +100,8 @@
       top: 16px;
       right: 0;
       width: 92px;
-      padding-top: 9px;
+      padding-top: 1px;
+      padding-bottom: 1px;
       border-bottom-left-radius: 5px;
       border-top-left-radius: 5px;
       font-size: 8px;
@@ -110,7 +112,7 @@
       top: 16px;
       right: 72px;
       width: 33px;
-      height: 33px;
+      height: 35px;
     }
   }
 
@@ -119,6 +121,7 @@
   }
 
   .share__title {
+    margin-top: 30px;
     padding-left: 6px;
     margin-bottom: 15px;
     font-size: $title-h3-fs;

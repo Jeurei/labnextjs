@@ -1,5 +1,5 @@
 import Load from 'components/common/load';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import ActualOffersList from './actual-offers-list';
 
 const ActualOffers = () => (

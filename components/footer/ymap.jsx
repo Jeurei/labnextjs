@@ -22,11 +22,11 @@ const Ymap = ({ objRef, fs = false, lays = false, medcenters }) => {
 
   const mapRef = useRef();
 
-  const getPlaceMark = (data) => (
+  const PlaceMark = (data) => (
     <Placemark
       geometry={data.coordinate.split(',').map((elem) => Number(elem))}
       modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
-      key={data.coordinate}
+      key={`Placemark-${data.id}`}
       options={{
         iconLayout: 'default#image',
         iconImageHref: '/img/greenPlaceMarkIcon.svg',
@@ -139,7 +139,7 @@ const Ymap = ({ objRef, fs = false, lays = false, medcenters }) => {
       >
         {fs && <FullscreenControl />}
         {lays && <TypeSelector options={{ size: 'small' }} />}
-        {medcenters.map((el) => getPlaceMark(el))}
+        {medcenters.map((el) => PlaceMark(el))}
       </Map>
     </div>
   );
