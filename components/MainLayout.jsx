@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import MainContainer from 'containers/main-container';
+import MainContainer from 'components/header/main-container';
 import dynamic from 'next/dynamic';
 import Form from './common/form';
 import Load from './common/load';

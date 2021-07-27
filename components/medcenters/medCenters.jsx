@@ -1,8 +1,6 @@
 import MedCenterLink from 'components/common/medCenter-link';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import Filter from './filter';
-
-// TODO: разбить на компоненты
 
 const MedCenters = () => {
   return (

@@ -10,9 +10,13 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
   ].map((el) => {
     return {
       word: el,
-      job: Object.values(specialists)
-        .map((elem) => elem.name[0] === el && elem.name)
-        .filter(Boolean),
+      job: [
+        ...new Set(
+          Object.values(specialists)
+            .map((elem) => elem.name[0] === el && elem.name)
+            .filter(Boolean),
+        ),
+      ],
     };
   });
 
@@ -30,6 +34,7 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
     box-shadow: ${theme.colors.boxShadow};
     list-style: none;
     transform: translateX(-50%);
+    padding-bottom: 36px;
 
     &:hover {
       display: none;
@@ -44,7 +49,6 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
     flex-grow: 1;
     padding-top: 41px;
     padding-right: 36px;
-    padding-bottom: 36px;
     padding-left: 36px;
   `;
 
@@ -52,6 +56,7 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
     width: 100%;
     margin-bottom: 10px;
     font-size: 16px;
+    line-height: 20px;
   `;
 
   const Title = styled('h3')`

@@ -7,7 +7,7 @@ import { removeItemFromCart } from 'Redux/actions/actions';
 import { bindActionCreators } from 'redux';
 import { showing } from '../utils/animation';
 import CartModalGroup from './cart-modal-group';
-import { numberWithSpaces } from '../../utils/common';
+import { numberWithSpaces } from '../utils/common';
 
 const Cart = ({ cartData, closeHandler, removeItem }) => {
   const typesMap = [

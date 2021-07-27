@@ -2,7 +2,7 @@ import React from 'react';
 import Picture from 'common/picture';
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 
 const Online = () => {
   const theme = useTheme();

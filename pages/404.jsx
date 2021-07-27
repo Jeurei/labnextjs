@@ -1,7 +1,7 @@
 import { css, useTheme } from '@emotion/react';
 import InnerPageLayout from 'components/InnerPageLayout';
 import { breakpointsMap } from 'constants/styles';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import Link from 'next/link';
 import { wrapper } from 'Redux/index';
 import { getInitialPropsForApp } from 'api';

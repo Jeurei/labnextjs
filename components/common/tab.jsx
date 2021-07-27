@@ -1,6 +1,4 @@
-// TODO: сделать более универсальным
-
-import { getRandomInteger } from 'utils/common';
+import { getRandomInteger } from 'components/utils/common';
 
 const Tab = () => {
   const id = getRandomInteger(0, 10000);

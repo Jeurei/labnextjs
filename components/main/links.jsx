@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { ReactComponent as ArrowRight } from 'icons/arrow-right.svg';
 
 const linkItem = (data) => {

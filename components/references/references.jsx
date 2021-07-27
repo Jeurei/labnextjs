@@ -2,7 +2,7 @@ import { css, useTheme } from '@emotion/react';
 import React from 'react';
 import { breakpointsMap } from 'constants/styles';
 import Paragraph from 'components/common/paragraph';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import Form from './form';
 import LinearTextBlock from './linear-text-block';
 

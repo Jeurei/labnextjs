@@ -2,7 +2,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import thunkMiddleware from 'redux-thunk';
-import { isEmpty } from 'utils/common';
+import { isEmpty } from 'components/utils/common';
 import rootReducer from './reducers/index';
 
 const bindMiddleware = (middleware) => {

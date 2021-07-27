@@ -2,7 +2,7 @@ import { useTheme, css } from '@emotion/react';
 import Link from 'next/link';
 
 import PropTypes from 'prop-types';
-import { numberWithSpaces } from 'utils/common';
+import { numberWithSpaces } from 'components/utils/common';
 
 const VacansyBlock = ({ data }) => {
   const theme = useTheme();

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import Form from 'common/form';
 import { css, useTheme } from '@emotion/react';
-import { numberWithSpaces } from 'utils/common';
+import { numberWithSpaces } from 'components/utils/common';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

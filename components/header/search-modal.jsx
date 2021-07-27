@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useRef } from 'react';
 import { css, keyframes } from '@emotion/react';
 import PropTypes from 'prop-types';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { ENTER_KEY_CODE } from 'constants/keys';
 import CrossButton from 'components/common/crossButton';
 import { searchShowing } from '../utils/animation';
@@ -66,7 +65,8 @@ const SearchModal = ({ isDeleting, animationDuration, deleteElement }) => {
           <SearchModalContainerTop />
         </div>
       </SectionInner>
-      <span
+      <button
+        type="button"
         css={css`
           position: absolute;
           z-index: -2;
@@ -79,12 +79,17 @@ const SearchModal = ({ isDeleting, animationDuration, deleteElement }) => {
           opacity: 1;
           touch-action: pan-y;
           user-select: none;
+          color: transparent;
+          apearance: none;
+          border: none;
         `}
         onClick={() => deleteElement()}
         onKeyDown={(evt) => {
           if (evt.key === ENTER_KEY_CODE) deleteElement();
         }}
-      />
+      >
+        закрыть
+      </button>
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { css } from '@emotion/react';
 import Socials from 'common/socials';
 

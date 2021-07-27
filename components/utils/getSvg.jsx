@@ -1,5 +1,3 @@
-import { useState, useEffect, useRef } from 'react';
-
 export const createElement = (str) => {
   const div = document.createElement('div');
   div.innerHTML = str;

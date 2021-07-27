@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { filterTypesMap } from 'constants/filter';
 import ArticlesTop from './artciles-top';
 import ArticlesBottom from './articles-bottom';

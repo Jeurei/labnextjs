@@ -1,5 +1,5 @@
 import PageBuilder from 'components/common/pageBuilder';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import PropTypes from 'prop-types';
 
 const AboutUs = ({ data }) => {

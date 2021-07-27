@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import InnerPageLayout from 'components/InnerPageLayout';
-import { isEmpty } from 'utils/common';
+import { isEmpty } from 'components/utils/common';
 import PageBuilder from 'components/common/pageBuilder';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { wrapper } from 'Redux/index';
 import { getInitialPropsDynamic, getInitialPropsForApp } from 'api/';
 

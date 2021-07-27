@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { ReactComponent as ArrowRightIcon } from 'icons/arrrow-right.svg';
-import { numberWithSpaces } from 'utils/common';
+import { numberWithSpaces } from 'components/utils/common';
 import { ReactComponent as CovidIcon } from 'public/img/covid.svg';
 import { css } from '@emotion/react';
 

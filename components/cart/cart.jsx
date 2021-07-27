@@ -8,7 +8,7 @@ import { ReactComponent as FileIcon } from 'icons/file.svg';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import CrossButton from 'common/crossButton';
 import { ReactComponent as CartIcon } from 'icons/cart-icon.svg';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 
 const spanHint = (text, delta = 0) => {
   const theme = useTheme();

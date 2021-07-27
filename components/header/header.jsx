@@ -9,9 +9,6 @@ import Cart from './cart';
 import HeaderMobileTop from './header-mobile-top';
 import HeaderMobileBottom from './header-mobile-bottom';
 
-// import HeaderTopFixed from './header-top-fixed';
-// import HeaderFixedContainer from 'containers/header-fixed-container';
-
 const headerContext = React.createContext();
 
 export const useHeaderContext = () => {
@@ -32,7 +29,6 @@ const Header = ({ cities, setCity, cart, routes }) => {
   const [navArray, setNavArray] = useState(Object.values(routes));
   const [slideMenuArr, setSlideMenuArr] = useState([]);
   const [isMobile, setMobile] = useState(false);
-  const delta = 0;
 
   const deleteElement = () => {
     setDeleting(true);

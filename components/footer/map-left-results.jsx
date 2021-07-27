@@ -1,14 +1,15 @@
 import { ReactComponent as MapMark } from 'icons/map-mark-icon.svg';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { numWord } from 'utils/common';
+import { numWord } from 'components/utils/common';
+import { PERM_ID } from 'constants/constants';
 
 const MapLeftResults = ({ refProp, medcenters }) => {
-  const arr = medcenters.map((el) => el.city === '4' && el).filter(Boolean);
+  const arr = medcenters.map((el) => el.city === PERM_ID && el).filter(Boolean);
 
   const resultItem = (el) => {
     return (
-      <li className="geo__result result" key={el.coordinate}>
+      <li className="geo__result result" key={el.id}>
         <a
           href="./"
           className="result__link"

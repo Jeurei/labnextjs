@@ -7,12 +7,10 @@ import { ReactComponent as ArrowRightIcon } from 'icons/arrrow-right.svg';
 import { bindActionCreators } from 'redux';
 import { setSpecialists } from 'Redux/actions/actions';
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
 import SpecialistsNav from './specialists-nav';
 
 const HeaderNavItem = ({ isTop, data, specialities }) => {
   const theme = useTheme();
-  const router = useRouter();
 
   const SubNav = styled('ul')`
     position: absolute;
@@ -358,7 +356,6 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
             min-height: 100%;
             align-items: center;
             cursor: pointer;
-            white-space: nowrap;
 
             ${!!data.children.length && `padding-right: 28px;`}
 

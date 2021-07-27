@@ -29,10 +29,10 @@ const ActualOffersList = ({ offers }) => {
           component={<ActualOffer />}
           swiperRef={swiperRef}
           sliderObject={{
-            spaceBetween: 40,
-            slidesPerView: 3,
-            slidesPerGroup: 3,
+            spaceBetween: 30,
             loop: true,
+            speed: 1000,
+
             breakpoints: {
               320: {
                 slidesPerView: 1,

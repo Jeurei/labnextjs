@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import FixedCircle from 'common/fixedCircle';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import Discounts from 'common/discounts';
-import Section from 'containers/section';
+import Section from 'components/header/section';
 import MainLayout from './MainLayout';
 import BreadCrumbs from './common/breadCrumbs';
 

@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Comment from 'components/common/comment';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import MenuTabs from './menu-tabs';
 import CommentForm from './comment-form';
 

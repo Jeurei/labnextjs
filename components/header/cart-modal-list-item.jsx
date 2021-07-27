@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css, keyframes } from '@emotion/react';
 import CrossButton from 'common/crossButton';
-import { numberWithSpaces } from '../../utils/common';
+import { numberWithSpaces } from '../utils/common';
 
 const CartModalListItem = ({ itemData, action }) => {
   const animationDuration = 0.2;

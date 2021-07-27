@@ -2,7 +2,7 @@ import { css, useTheme } from '@emotion/react';
 import React from 'react';
 import { breakpointsMap } from 'constants/styles';
 import { ReactComponent as SheduleIcon } from 'icons/shedule.svg';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 
 const Refund = () => {
   const theme = useTheme();

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-cycle
 import {
   findSpecialistCenter,
   findSpecialistJobs,
 } from 'components/utils/specialists';
-import SectionInner from 'containers/section-inner';
+import SectionInner from 'components/header/section-inner';
 import { filterDublicatesObjects, getFlatArr } from '../utils/filter';
 import Filter from './filter';
 import SpecialistsCatalog from './specialists-catalog';
