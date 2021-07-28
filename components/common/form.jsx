@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import FormFieldset from './form-fieldset';
 import FormFirstField from './form-first-field';
 import FormThirdField from './form-third-field';
-import TextareaInput from '../footer/textarea-input';
+import TextareaInput from './textarea-input';
 
 const formContext = React.createContext();
 export const useFormContext = () => useContext(formContext);
