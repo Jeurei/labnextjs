@@ -31,6 +31,8 @@ const SharesList = ({ shares }) => {
           sliderObject={{
             spaceBetween: 30,
             loop: true,
+            speed: 1000,
+
             breakpoints: {
               320: {
                 slidesPerView: 1,

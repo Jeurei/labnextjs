@@ -8,12 +8,12 @@ import '../styles/style.scss';
 import 'nprogress/nprogress.css';
 import 'react-image-lightbox/style.css';
 import { wrapper } from 'Redux/index';
-import Loading from 'components/common/loading';
 
 global.Element = typeof Element === 'undefined' ? function () {} : Element;
 
 const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = React.useState(false);
+
   nProgress.configure({
     showSpinner: false,
     trickleRate: 0.02,
@@ -98,7 +98,7 @@ const App = ({ Component, pageProps }) => {
             apikey: 'dfd9fe91-82da-412d-a4dd-eafd43340cfa',
           }}
         >
-          {loading ? <Loading /> : <Component {...pageProps} />}
+          {!loading && <Component {...pageProps} />}
         </YMaps>
       </ThemeProvider>
     </>

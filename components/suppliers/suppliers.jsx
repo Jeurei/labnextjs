@@ -1,7 +1,7 @@
 import { css, useTheme } from '@emotion/react';
 import PageBuilder from 'components/common/pageBuilder';
 import Paragraph from 'components/common/paragraph';
-import SimpleForm from 'components/common/simple-form';
+import SimpleForm from 'components/common/form';
 import SectionInner from 'components/header/section-inner';
 import PropTypes from 'prop-types';
 import TCompany from './tCompany';

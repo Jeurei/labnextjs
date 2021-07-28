@@ -9,18 +9,17 @@ import Select from 'common/select';
 import PComponent from 'common/paragraph';
 import { fetchDataRoute } from 'Redux/actions/actions';
 import Specialist from 'components/specialists/specialist';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Load from 'common/load';
 import axios from 'axios';
 import LinearTextBlock from 'components/references/linear-text-block';
 import SectionInner from 'components/header/section-inner';
-import * as React from 'react';
 import Accordeon from './accordeon';
 import LinearBottomButton from './linear-bottom-button';
 import File from './file';
 import ReferencesSlider from './references-slider';
 import WorkingWithUs from './working-with-us';
-import SimpleForm from './simple-form';
+import SimpleForm from './form';
 
 const Img = ({ data }) => {
   return (

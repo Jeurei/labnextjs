@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 const MenuTabs = ({ routes, root }) => {
+  const DEFAULT__ROUTE = '/media';
+
   const theme = useTheme();
   const router = useRouter();
-  const DEFAULT__ROUTE = '/media';
+
   const createTab = (rout) => {
     const currentLink = router.pathname.split('/')[
       router.pathname.split('/').length - 1
@@ -105,7 +107,6 @@ const MenuTabs = ({ routes, root }) => {
       <TabList>
         <Tab>
           <TabLink
-            aria-label="Оставить отзыв"
             onClick={() => router.push('/media')}
             css={css`
               position: relative;
