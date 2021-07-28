@@ -114,13 +114,16 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
-  padding-top: 6px;
   padding-right: 14px;
 }
 
 .complex__price {
   font-size: 16px;
   letter-spacing: 2.1px;
+
+  &:last-child:only-child {
+    margin: auto 0;
+  }
 }
 
 .complex__price--old {

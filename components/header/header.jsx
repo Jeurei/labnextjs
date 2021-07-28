@@ -6,8 +6,8 @@ import { bindActionCreators } from 'redux';
 import SearchModal from './search-modal';
 import CitiesModal from './cities-modal';
 import Cart from './cart';
-import HeaderMobileTop from './header-mobile-top';
-import HeaderMobileBottom from './header-mobile-bottom';
+import HeaderTop from './header-top';
+import HeaderBottom from './header-bottom';
 
 const headerContext = React.createContext();
 
@@ -18,8 +18,10 @@ export const useHeaderContext = () => {
 const Header = ({ cities, setCity, cart, routes }) => {
   const HEADER_MIN_HEIGHT = 126;
   const animationDuration = 0.7;
-  const headerAnimationDuration = 0.2;
-  const MAX_MOBILE_WIDTH = 720;
+  const HEADER_ANIMATION_DURATION = 0.2;
+  const MS_PER_S = 1000;
+  const ANIMATION_DIFF = 550;
+
   const [isSearchModalOpen, setSearhModalOpen] = useState(false);
   const [isBottomHeaderShown, setBottomHeaderHidden] = useState(false);
   const [isHidden, setHidden] = useState(false);
@@ -28,7 +30,8 @@ const Header = ({ cities, setCity, cart, routes }) => {
   const [citiesModalState, setCitiesModalState] = useState(false);
   const [navArray, setNavArray] = useState(Object.values(routes));
   const [slideMenuArr, setSlideMenuArr] = useState([]);
-  const [isMobile, setMobile] = useState(false);
+
+  const getAnimationDelay = () => animationDuration * MS_PER_S - ANIMATION_DIFF;
 
   const deleteElement = () => {
     setDeleting(true);
@@ -36,7 +39,7 @@ const Header = ({ cities, setCity, cart, routes }) => {
     setTimeout(() => {
       setSearhModalOpen(false);
       setDeleting(false);
-    }, animationDuration * 1000 - 550);
+    }, getAnimationDelay());
   };
 
   const onWheelEventHandler = () => {
@@ -55,7 +58,7 @@ const Header = ({ cities, setCity, cart, routes }) => {
 
     setTimeout(() => {
       setBottomHeaderHidden(bool);
-    }, animationDuration * 1000 - 500);
+    }, getAnimationDelay());
   };
 
   const hideBottomHeader = () => {
@@ -70,14 +73,6 @@ const Header = ({ cities, setCity, cart, routes }) => {
     }
   };
 
-  const resizeHandler = () => {
-    if (window.innerWidth < MAX_MOBILE_WIDTH) {
-      setMobile(true);
-    } else {
-      setMobile(false);
-    }
-  };
-
   const switchWindowListeners = () => {
     if (!isBottomHeaderShown) {
       window.removeEventListener('scroll', hideBottomHeader);
@@ -88,7 +83,7 @@ const Header = ({ cities, setCity, cart, routes }) => {
     }
   };
 
-  const removeListener = () => {
+  const removeListeners = () => {
     window.removeEventListener('scroll', hideBottomHeader);
     window.removeEventListener('scroll', showBottomHeader);
   };
@@ -97,17 +92,15 @@ const Header = ({ cities, setCity, cart, routes }) => {
     switchWindowListeners();
 
     return () => {
-      removeListener();
+      removeListeners();
     };
   }, [isBottomHeaderShown]);
 
   useEffect(() => {
-    resizeHandler();
-    window.addEventListener('resize', resizeHandler);
     switchWindowListeners();
 
     return () => {
-      removeListener();
+      removeListeners();
     };
   }, []);
 
@@ -142,18 +135,18 @@ const Header = ({ cities, setCity, cart, routes }) => {
       )}
       <headerContext.Provider value={headerHandlers}>
         {isBottomHeaderShown ? (
-          <HeaderMobileBottom
+          <HeaderBottom
             isHidden={isHidden}
             headerBottomState={isBottomHeaderShown}
-            animationDuration={headerAnimationDuration}
+            animationDuration={HEADER_ANIMATION_DURATION}
             openSearch={
               isSearchModalOpen ? deleteElement : searchButtonClickHandler
             }
           />
         ) : (
-          <HeaderMobileTop
+          <HeaderTop
             isHidden={isHidden}
-            animationDuration={headerAnimationDuration}
+            animationDuration={HEADER_ANIMATION_DURATION}
             openSearch={
               isSearchModalOpen ? deleteElement : searchButtonClickHandler
             }

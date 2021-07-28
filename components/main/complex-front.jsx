@@ -59,9 +59,11 @@ const ComplexFront = ({ action, data }) => {
         <div className="complex__bottom-container-top">
           <p className="complex__price-text">Цена комплекса</p>
           <div className="complex__price-container">
-            <span className="complex__price complex__price--old">
-              {data.oldPrice} ₽
-            </span>
+            {data.oldPrice && (
+              <span className="complex__price complex__price--old">
+                {data.oldPrice} ₽
+              </span>
+            )}
             <span className="complex__price">{data.price} ₽</span>
           </div>
         </div>
