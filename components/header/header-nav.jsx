@@ -7,6 +7,8 @@ import { useHeaderContext } from './header';
 
 const HeaderNav = ({ isTop }) => {
   const HEADER_ELEMENTS_WIDTH = 700;
+  const HEADER_NAV_WIDTH = 1210;
+
   const {
     nav: { navArr, setNavArr, slideArr, setSlideArr, source },
   } = useHeaderContext();
@@ -25,7 +27,7 @@ const HeaderNav = ({ isTop }) => {
 
   useEffect(() => {
     if (
-      window.innerWidth >= 1210 &&
+      window.innerWidth >= HEADER_NAV_WIDTH &&
       document.querySelector('.header').offsetWidth - HEADER_ELEMENTS_WIDTH <
         [...document.querySelectorAll('.header__nav-item')]
           .map((el) => el.offsetWidth)
@@ -35,18 +37,22 @@ const HeaderNav = ({ isTop }) => {
     }
   }, [navArr]);
 
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth < 1210) {
-        setMobileNav();
-      } else {
-        setNavs();
-      }
-    });
+  const resizeHandler = () => {
+    if (window.innerWidth < HEADER_NAV_WIDTH) {
+      setMobileNav();
+    } else {
+      setNavs();
+    }
+  };
 
-    if (window.innerWidth < 1210) {
+  useEffect(() => {
+    window.addEventListener('resize', resizeHandler);
+
+    if (window.innerWidth < HEADER_NAV_WIDTH) {
       setMobileNav();
     }
+
+    return window.removeEventListener('resize', resizeHandler);
   }, []);
 
   return (

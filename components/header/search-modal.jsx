@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { css, keyframes } from '@emotion/react';
 import PropTypes from 'prop-types';
 import SectionInner from 'components/header/section-inner';
@@ -9,7 +9,10 @@ import SearchModalContainerTop from './search-modal-top';
 
 const SearchModal = ({ isDeleting, animationDuration, deleteElement }) => {
   const MIN_TABLET_WIDTH = 720;
-  const modalRef = useRef();
+  const ANIMATION_DIF = 0.5;
+
+  const isSmallerThanTablet = () => window.innerWidth < MIN_TABLET_WIDTH;
+
   const deletingKeyFrames = keyframes`
       0% {
        min-height: 400px;
@@ -30,15 +33,14 @@ const SearchModal = ({ isDeleting, animationDuration, deleteElement }) => {
       css={
         isDeleting
           ? css`
-              animation: ${deletingKeyFrames} ${animationDuration - 0.5}s
-                forwards ease-in-out;
+              animation: ${deletingKeyFrames}
+                ${animationDuration - ANIMATION_DIF}s forwards ease-in-out;
             `
           : css`
-              animation: ${searchShowing} ${animationDuration - 0.5}s forwards
-                ease-in-out;
+              animation: ${searchShowing} ${animationDuration - ANIMATION_DIF}s
+                forwards ease-in-out;
             `
       }
-      ref={modalRef}
     >
       <SectionInner>
         <div
@@ -54,14 +56,13 @@ const SearchModal = ({ isDeleting, animationDuration, deleteElement }) => {
             }
           `}
         >
-          {window.innerWidth < MIN_TABLET_WIDTH && (
+          {isSmallerThanTablet() && (
             <CrossButton
               buttonClass="search__modal-close"
               label="Закрыть поиск"
               action={deleteElement}
             />
           )}
-
           <SearchModalContainerTop />
         </div>
       </SectionInner>

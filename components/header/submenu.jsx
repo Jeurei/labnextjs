@@ -6,7 +6,7 @@ import SubmenuButton from './submenu-button';
 import SubMenuBack from './submenu-back';
 
 const SubMenu = ({ data, zIndex, subMenuTitle, root }) => {
-  const ANIMATION_DURATION = 0.5;
+  const ANIMATION_DURATION = 5000;
   const [subMenuState, setSubMenuState] = useState(false);
   const [subMenuOpened, setSubMenuOpened] = useState(false);
   const [shouldBeDeleted, setShouldBeDeleted] = useState(false);
@@ -31,7 +31,7 @@ const SubMenu = ({ data, zIndex, subMenuTitle, root }) => {
       setSubMenuState(false);
       setSubMenuOpened(false);
       setShouldBeDeleted(false);
-    }, ANIMATION_DURATION * 1000);
+    }, ANIMATION_DURATION);
   };
 
   const closingAnimation = keyframes`
