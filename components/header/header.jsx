@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setCurrentCity } from 'Redux/actions/actions';
 import { bindActionCreators } from 'redux';
-import SearchModal from './search-modal';
-import CitiesModal from './cities-modal';
-import Cart from './cart';
+import dynamic from 'next/dynamic';
+import Loader from 'common/loader';
 import HeaderTop from './header-top';
 import HeaderBottom from './header-bottom';
 
@@ -14,6 +13,18 @@ const headerContext = React.createContext();
 export const useHeaderContext = () => {
   return useContext(headerContext);
 };
+
+const SearchModal = dynamic(import('./search-modal'), {
+  loading: () => <Loader />,
+});
+
+const CitiesModal = dynamic(import('./cities-modal'), {
+  loading: () => <Loader />,
+});
+
+const Cart = dynamic(import('./cart'), {
+  loading: () => <Loader />,
+});
 
 const Header = ({ cities, setCity, cart, routes }) => {
   const HEADER_MIN_HEIGHT = 126;
