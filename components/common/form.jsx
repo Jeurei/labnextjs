@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
-import SectionInner from 'components/header/section-inner';
 import { postData, serverRoutesMap } from 'Redux/actions/actions';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import { useTheme, css } from '@emotion/react';
 import FormFieldset from './form-fieldset';
 import FormFirstField from './form-first-field';
 import FormThirdField from './form-third-field';
 import TextareaInput from './textarea-input';
+import FileInput from './file-input';
 
 const formContext = React.createContext();
 export const useFormContext = () => useContext(formContext);
@@ -21,6 +22,8 @@ const Form = ({ title = '', wFile = false }) => {
   });
 
   const router = useRouter();
+
+  const theme = useTheme();
 
   const [isFieldsValid, setIsFieldsValid] = useState({
     isFirstFieldValid: false,
@@ -56,6 +59,19 @@ const Form = ({ title = '', wFile = false }) => {
 
   return (
     <form action="post" className="form-section__form form">
+      {title && (
+        <legend
+          css={css`
+            width: 100%;
+            margin-bottom: 42px;
+            color: ${theme.colors.colorText.hex};
+            font-size: 16px;
+            font-weight: 500;
+          `}
+        >
+          {title}
+        </legend>
+      )}
       <formContext.Provider value={formState}>
         <FormFirstField action={firstFieldValidHandler} />
         <FormFieldset>
@@ -69,6 +85,7 @@ const Form = ({ title = '', wFile = false }) => {
             action={messageTypeHandler}
             value={formFields.message}
           />
+          {wFile && <FileInput />}
         </FormFieldset>
         <FormThirdField
           action={checkboxChangeHandler}
