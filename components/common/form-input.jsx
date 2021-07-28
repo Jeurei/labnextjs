@@ -17,13 +17,13 @@ const FormInput = ({
   action,
   formValidation,
   errorMessage,
+  value,
 }) => {
-  const [inputState, setInputState] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const theme = useTheme();
 
-  const onLoseFocusHandler = () => {
-    action({ [name]: inputState });
+  const onBlurHandler = (evt) => {
+    action(evt);
     setIsFocused(false);
   };
 
@@ -39,7 +39,7 @@ const FormInput = ({
           `${theme.colors.red}`};
           border-color: ${formValidation &&
           !isFocused &&
-          inputState.length !== 0 &&
+          value.length !== 0 &&
           `${theme.colors.green}`};
         `}
         type={type}
@@ -48,18 +48,17 @@ const FormInput = ({
         name={name}
         placeholder={`${placeholder}*`}
         aria-describedby={descriptionId}
-        value={inputState}
+        value={value}
         onFocus={() => setIsFocused(true)}
         onChange={(evt) => {
-          setInputState(evt.currentTarget.value);
-          onLoseFocusHandler();
+          action(evt);
         }}
-        onBlur={() => onLoseFocusHandler()}
+        onBlur={(evt) => onBlurHandler(evt)}
       />
       <p className="visually-hidden" id={descriptionId}>
         {description}
       </p>
-      {formValidation && !isFocused && inputState.length !== 0 && (
+      {formValidation && !isFocused && value.length !== 0 && (
         <CorrectIcon
           fill="currentColor"
           width="23"
@@ -105,6 +104,7 @@ FormInput.propTypes = {
   action: PropTypes.func.isRequired,
   formValidation: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default FormInput;

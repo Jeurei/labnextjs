@@ -5,16 +5,42 @@ import { differenceInDays, fromUnixTime } from 'date-fns';
 import { formatDate, numWord } from 'components/utils/common';
 import { css } from '@emotion/react';
 
-const Share = ({ data }) => {
+const ShareBottom = ({ date }) => {
   const FORMAT_WAY = 'dd.MM.yyyy';
+
+  const startDate = () => formatDate(date.start, FORMAT_WAY);
+
+  const endDate = () => formatDate(date.end, FORMAT_WAY);
+
+  return (
+    <div className="share__bottom">
+      <p className="share__bottom-text">
+        Срок действия акции:
+        <time
+          dateTime={startDate()}
+          css={css`
+            padding-left: 5px;
+          `}
+        >
+          {startDate()}
+        </time>{' '}
+        - <time dateTime={endDate()}>{endDate()}</time>
+        <ArrowRight
+          width="17"
+          height="17"
+          className="share__icon"
+          fill="currentColor"
+        />
+      </p>
+    </div>
+  );
+};
+
+const Share = ({ data }) => {
   const dif = differenceInDays(
     fromUnixTime(data.finishDate),
     fromUnixTime(data.startDate),
   );
-
-  const startDate = () => formatDate(data.startDate, FORMAT_WAY);
-
-  const endDate = () => formatDate(data.finishDate, FORMAT_WAY);
 
   return (
     <li className="shares__list-item">
@@ -30,31 +56,21 @@ const Share = ({ data }) => {
               <h3 className="share__title">{data.title}</h3>
               <p className="share__text">{data.text}</p>
             </div>
-            <div className="share__bottom">
-              <p className="share__bottom-text">
-                Срок действия акции:
-                <time
-                  dateTime={startDate()}
-                  css={css`
-                    padding-left: 5px;
-                  `}
-                >
-                  {startDate()}
-                </time>{' '}
-                - <time dateTime={endDate()}>{endDate()}</time>
-                <ArrowRight
-                  width="17"
-                  height="17"
-                  className="share__icon"
-                  fill="currentColor"
-                />
-              </p>
-            </div>
+            <ShareBottom
+              date={{ start: data.startDate, end: data.finishDate }}
+            />
           </article>
         </a>
       </Link>
     </li>
   );
+};
+
+ShareBottom.propTypes = {
+  date: PropTypes.shape({
+    start: PropTypes.string.isRequired,
+    end: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 Share.defaultProps = {

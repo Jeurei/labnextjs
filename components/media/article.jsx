@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 const Article = ({ data }) => {
   const FORMAT_WAY = 'k:mm';
   const theme = useTheme();
+
   return (
     <article
       css={css`
@@ -23,7 +24,7 @@ const Article = ({ data }) => {
         }
       `}
     >
-      <Link href="media/[id]" as={`media/${data.id}`}>
+      <Link href="/media/[id]" as={`/media/${data.id}`} replace>
         <a
           css={css`
             position: relative;
@@ -39,7 +40,7 @@ const Article = ({ data }) => {
           />
         </a>
       </Link>
-      <Link href="media/[id]" as={`media/${data.id}`}>
+      <Link href="/media/[id]" as={`/media/${data.id}`} replace>
         <a>
           <h3
             css={css`

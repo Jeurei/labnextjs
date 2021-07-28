@@ -1,24 +1,22 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { errorMessagesMap } from 'constants/form';
 import FormInput from 'common/form-input';
 import MaskedFormInput from 'common/masked-input';
 import FormFieldset from './form-fieldset';
+import { useFormContext } from './form';
 
 const FormFirstField = ({ action }) => {
-  const [inputsField, setInputsField] = useState({
-    name: '',
-    email: '',
-    tel: '',
-  });
+  const { formFields, setFormFields } = useFormContext();
+
   const [formValidation, setFormValidation] = useState({
-    isNameValid: true,
-    isTelValid: true,
-    isEmailValid: true,
+    name: true,
+    tel: true,
+    email: true,
   });
 
-  const onChangeInputValueHandler = (obj) => {
-    setInputsField({ ...inputsField, ...obj });
+  const changeValidation = (obj) => {
+    setFormValidation({ ...formValidation, ...obj });
   };
 
   const validateEmail = (email) => {
@@ -26,56 +24,26 @@ const FormFirstField = ({ action }) => {
     return re.test(email);
   };
 
-  const isRequiredAreNotEmpty = () => {
-    if (inputsField.name && inputsField.tel) {
-      return true;
-    }
-    return false;
+  const validationsMap = {
+    name: () => formFields.name.length !== 0,
+    tel: () => formFields.tel.replace(/[^0-9]/g, '').length === 11,
+    email: () => validateEmail(formFields.email) || formFields.email === '',
   };
 
-  const changeValidation = (obj) => {
-    setFormValidation({ ...formValidation, ...obj });
-  };
+  const changeHandler = (evt) => {
+    const { target } = evt;
+    const { value, name } = target;
 
-  const checkNameInput = (value) => {
-    onChangeInputValueHandler(value);
-    if (value.name.length !== 0) {
-      changeValidation({ isNameValid: true });
-    } else {
-      changeValidation({ isNameValid: false });
-    }
-  };
+    setFormFields({ ...formFields, [name]: value });
 
-  const checkTelInput = (value) => {
-    onChangeInputValueHandler(value);
-    if (value.tel.replace(/[^0-9]/g, '').length === 11) {
-      changeValidation({ isTelValid: true });
-    } else {
-      changeValidation({ isTelValid: false });
-    }
-  };
-
-  const checkEmailInput = (value) => {
-    onChangeInputValueHandler(value);
-    if (validateEmail(value.email)) {
-      changeValidation({ isEmailValid: true });
-    } else if (value.email !== '') {
-      changeValidation({ isEmailValid: false });
-    } else {
-      changeValidation({ isEmailValid: true });
-    }
+    changeValidation({ [name]: validationsMap[name]() });
   };
 
   useEffect(() => {
-    if (
-      formValidation.isNameValid &&
-      formValidation.isEmailValid &&
-      formValidation.isTelValid &&
-      isRequiredAreNotEmpty()
-    ) {
-      action(true, inputsField);
+    if (formValidation.tel && formValidation.name && formValidation.email) {
+      action(true, formFields);
     } else {
-      action(false, inputsField);
+      action(false, formFields);
     }
   }, [formValidation]);
 
@@ -85,13 +53,14 @@ const FormFirstField = ({ action }) => {
         name="name"
         id="name"
         inputClass="form__input"
-        description="Введите ваше ФИО"
-        placeholder="Ваше ФИО"
+        description="Введите ваше имя"
+        placeholder="Ваше имя"
         type="text"
-        descriptionId="fio__descr"
-        text="Введите ФИО"
-        action={checkNameInput}
-        formValidation={formValidation.isNameValid}
+        descriptionId="name_descr"
+        text="Введите имя"
+        value={formFields.name}
+        action={changeHandler}
+        formValidation={formValidation.name}
         errorMessage={errorMessagesMap.NAME}
       />
       <MaskedFormInput
@@ -103,8 +72,9 @@ const FormFirstField = ({ action }) => {
         type="tel"
         descriptionId="tel_descr"
         text="Введите номер телефона"
-        action={checkTelInput}
-        formValidation={formValidation.isTelValid}
+        value={formFields.tel}
+        action={changeHandler}
+        formValidation={formValidation.tel}
         errorMessage={errorMessagesMap.TEL}
       />
       <FormInput
@@ -116,8 +86,9 @@ const FormFirstField = ({ action }) => {
         type="email"
         descriptionId="email_descr"
         text="Введите email"
-        action={checkEmailInput}
-        formValidation={formValidation.isEmailValid}
+        action={changeHandler}
+        value={formFields.email}
+        formValidation={formValidation.email}
         errorMessage={errorMessagesMap.EMAIL}
       />
     </FormFieldset>

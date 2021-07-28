@@ -15,7 +15,7 @@ const HeaderTopRight = ({ cart, openSearch }) => {
   const MOBILE_MAX_WIDTH = 720;
   const router = useRouter();
   const {
-    cart: { state, onClickHandler, onCloseClickHandler },
+    cart: { onClickHandler },
   } = useHeaderContext();
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import Form from 'common/form';
+import Form from 'components/common/form';
 import { css, useTheme } from '@emotion/react';
 import { numberWithSpaces } from 'components/utils/common';
 import Link from 'next/link';

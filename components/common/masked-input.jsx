@@ -20,14 +20,15 @@ const MaskedFormInput = ({
   text,
   descriptionId,
   action,
+  value,
   formValidation,
   errorMessage,
 }) => {
-  const [inputState, setInputState] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const theme = useTheme();
-  const onLoseFocusHandler = () => {
-    action({ [name]: inputState });
+
+  const onBlurHandler = (evt) => {
+    action(evt);
     setIsFocused(false);
   };
 
@@ -44,24 +45,24 @@ const MaskedFormInput = ({
         placeholder={`${placeholder}*`}
         aria-describedby={descriptionId}
         mask={inputMasksMap[type]}
-        value={inputState}
+        value={value}
         onFocus={() => setIsFocused(true)}
-        onChange={(evt) => setInputState(evt.currentTarget.value)}
-        onBlur={() => onLoseFocusHandler()}
+        onChange={(evt) => action(evt)}
+        onBlur={(evt) => onBlurHandler(evt)}
         css={css`
           border-color: ${!formValidation &&
           !isFocused &&
           `${theme.colors.red}`};
           border-color: ${formValidation &&
           !isFocused &&
-          inputState.length !== 0 &&
+          value.length !== 0 &&
           `${theme.colors.green}`};
         `}
       />
       <p className="visually-hidden" id={descriptionId}>
         {description}
       </p>
-      {formValidation && !isFocused && inputState.length !== 0 && (
+      {formValidation && !isFocused && value.length !== 0 && (
         <CorrectIcon
           fill="currentColor"
           width="23"
@@ -107,6 +108,7 @@ MaskedFormInput.propTypes = {
   action: PropTypes.func.isRequired,
   formValidation: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default MaskedFormInput;
