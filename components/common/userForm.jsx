@@ -6,10 +6,8 @@ import { setUserFormState } from 'Redux/actions/actions';
 import { css, useTheme } from '@emotion/react';
 import { ReactComponent as CorrectIcon } from 'icons/check-circle-solid.svg';
 import { DEFAULT_USER_FORM_STATE } from 'constants/form';
-import { useRouter } from 'next/router';
 import { allTrue } from 'components/utils/common';
 import { getSpecialists } from 'api/';
-import { postTypesMap } from 'constants/constants';
 import CrossButton from './crossButton';
 import FormFirstStep from './form-first-step';
 import FormSecondStep from './form-second-step';
@@ -25,33 +23,34 @@ const Form = ({ closeHandler, specialists, userForm, setFormState }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setLoading] = useState(false);
   const theme = useTheme();
-  const router = useRouter();
   const store = useStore();
+  const stepsChecksMap = {
+    0:
+      allTrue(userForm.fields.firstField) ||
+      allTrue(userForm.fields.secondField),
+    1:
+      allTrue(userForm.fields.secondField) ||
+      allTrue(userForm.fields.firstField),
+    2:
+      allTrue(userForm.fields.thirdField) ||
+      allTrue(userForm.fields.secondField),
+  };
 
   const formSteps = (action, onClickHandler) => {
     const onFirstClickHandler = () => {
-      if (
-        allTrue(userForm.fields.firstField) ||
-        allTrue(userForm.fields.secondField)
-      ) {
+      if (stepsChecksMap[0]) {
         onClickHandler(0);
       }
     };
 
     const onSecondClickHandler = () => {
-      if (
-        allTrue(userForm.fields.secondField) ||
-        allTrue(userForm.fields.firstField)
-      ) {
+      if (stepsChecksMap[1]) {
         onClickHandler(1);
       }
     };
 
     const onThirdClickHandler = () => {
-      if (
-        allTrue(userForm.fields.thirdField) ||
-        allTrue(userForm.fields.secondField)
-      ) {
+      if (stepsChecksMap[2]) {
         onClickHandler(2);
       }
     };
@@ -189,10 +188,7 @@ const Form = ({ closeHandler, specialists, userForm, setFormState }) => {
   };
 
   useEffect(() => {
-    if (
-      allTrue(userForm.fields.firstField) &&
-      allTrue(userForm.fields.secondField)
-    ) {
+    if (stepsChecksMap[0]) {
       setCurrentStep(2);
     } else if (allTrue(userForm.fields.firstField)) {
       setCurrentStep(1);
@@ -277,7 +273,10 @@ const Form = ({ closeHandler, specialists, userForm, setFormState }) => {
                 type="button"
                 className="specialist-form__control-button button"
                 aria-label={currentStep === 2 ? 'Записаться' : 'Следующий шаг'}
-                disabled={currentStep === 2 && !isFormValid}
+                disabled={
+                  (currentStep === 2 && !isFormValid) ||
+                  !stepsChecksMap[currentStep]
+                }
                 onClick={(evt) => onButtonClickHandler(evt, true)}
               >
                 {currentStep === 2 ? 'Записаться' : 'Следующий шаг'}
