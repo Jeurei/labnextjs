@@ -36,7 +36,6 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
       width: 100%;
       height: 70px;
       align-items: center;
-      padding-left: 27px;
       font-size: 16px;
 
       &:hover {
@@ -51,6 +50,7 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
       align-items: center;
       cursor: pointer;
       white-space: normal;
+      padding-left: 27px;
     `;
 
     return (
@@ -66,7 +66,13 @@ const HeaderNavItem = ({ isTop, data, specialities }) => {
       >
         {navData.map((el) => (
           <Item key={el.text}>
-            <object type="uwu/owo">
+            <object
+              type="uwu/owo"
+              css={css`
+                width: 100%;
+                height: 100%;
+              `}
+            >
               <Link href={`${root}${el.link}`}>
                 <LinkItem>{el.text}</LinkItem>
               </Link>

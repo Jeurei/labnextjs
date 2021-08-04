@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Share from 'components/main/share';
 import SectionInner from 'components/header/section-inner';
+import { breakpointsMap } from 'constants/styles';
 
 const Shares = ({ shares }) => {
   return (
@@ -11,16 +12,22 @@ const Shares = ({ shares }) => {
         <h2 className="main__title">Акции</h2>
         <ul
           css={css`
-            display: flex;
-            flex-wrap: wrap;
-            align-items: stretch;
+            display: grid;
             padding: 0;
             list-style: none;
+            row-gap: 10px;
 
             .shares__list-item {
               min-width: 381px;
               min-height: 100%;
               margin-right: 37px;
+            }
+            ${breakpointsMap.TABLET} {
+              grid-template-columns: repeat(2, 1fr);
+            }
+
+            ${breakpointsMap.DESKTOP} {
+              grid-template-columns: repeat(3, 1fr);
             }
           `}
         >
