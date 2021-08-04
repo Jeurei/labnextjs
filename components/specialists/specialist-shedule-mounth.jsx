@@ -2,10 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-global.Element = typeof Element === 'undefined' ? function () {} : Element;
-
 const SpecialistSheduleMounth = ({
-  arr,
+  mounthes,
   nextMounth,
   prevMounth,
   swiperRef,
@@ -33,6 +31,8 @@ const SpecialistSheduleMounth = ({
     nextMounth();
   }, [swiperRef]);
 
+  const isLastSlide = () => mounthes.length - 1;
+
   useEffect(() => {
     setActiveIndex(swiperRef.current?.swiper.activeIndex);
   }, [swiperRef.current?.swiper.activeIndex]);
@@ -56,9 +56,9 @@ const SpecialistSheduleMounth = ({
           setActiveIndex(swiperRef.current?.swiper.activeIndex)
         }
       >
-        {arr.map((el, id) => getMouthSlide(el, id))}
+        {mounthes.map((el, id) => getMouthSlide(el, id))}
       </Swiper>
-      {activeIndex !== 2 && (
+      {activeIndex !== isLastSlide() && (
         <button
           className="specialist__shedule-mounth-button specialist__shedule-mounth-button--next"
           type="button"
@@ -73,7 +73,7 @@ const SpecialistSheduleMounth = ({
 };
 
 SpecialistSheduleMounth.propTypes = {
-  arr: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mounthes: PropTypes.arrayOf(PropTypes.object).isRequired,
   nextMounth: PropTypes.func.isRequired,
   swiperRef: PropTypes.oneOfType([
     PropTypes.func,

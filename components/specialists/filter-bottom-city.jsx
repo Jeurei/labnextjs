@@ -21,7 +21,7 @@ const FilterBottomCity = ({ selectData, action }) => {
 };
 
 FilterBottomCity.propTypes = {
-  selectData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectData: PropTypes.arrayOf(PropTypes.array).isRequired,
   action: PropTypes.func.isRequired,
 };
 

@@ -1,7 +1,9 @@
+/* purgecss start ignore */
 @import '../node_modules/swiper/swiper.scss';
 @import '../node_modules/swiper/components/navigation/navigation';
 @import '../node_modules/swiper/components/pagination/pagination.scss';
 @import '../node_modules/swiper/components/scrollbar/scrollbar.scss';
+/* purgecss end ignore */
 @import './blocks/slider';
 @import './variables';
 @import './mixin';

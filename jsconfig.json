@@ -6,7 +6,7 @@
     "paths": {
       "api/*": ["api/*"],
       "Redux/*": ["redux/*"],
-      "utils/*": ["utils/*"],
+      "utils/*": ["components/utils/*"],
       "public/*": ["public/*"],
       "components/*": ["components/*"],
       "constants/*": ["constants/*"],

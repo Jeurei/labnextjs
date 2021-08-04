@@ -1,59 +1,54 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { getDate, getMonth, getYear } from 'date-fns';
 import PropTypes from 'prop-types';
+import { getSpecialistShedule } from 'api/';
+import Load from 'components/common/load';
+import { isEmpty } from 'components/utils/common';
+import { getArrayOfMounthes } from 'constants/constants';
 import SpecialistSheduleMounth from './specialist-shedule-mounth';
 import SpecialistSheduleDays from './specialist-shedule-days';
-import { getMounthName } from '../utils/specialist-shedule';
 
 const getTodayDay = (currentDate) => {
   return Number(getDate(currentDate)) - 1;
 };
 
-const SpecialistShedule = ({ time, specialist, adress }) => {
-  if (time.length === 0)
-    return <span>К сожалению к этому специалисту запись пока невозможна</span>;
+const SpecialistShedule = ({ specialist, adress }) => {
+  const MOUNTHES_QUANTITY = 3;
+  const [specialistTime, setSpecialistTime] = useState(null);
+  const [isLoading, setLoading] = useState(false);
   const currentDate = new Date();
-  const [currentYear, setCurrentYear] = useState(getYear(currentDate));
+  const currentYear = useMemo(() => getYear(currentDate));
   const [currentMounth, setCurrentMounth] = useState(getMonth(currentDate));
   const [selectedMounth, setSelectedMounth] = useState(getMonth(currentDate));
   const [selectedTime, setSelectedTime] = useState(null);
   const swiperMounthRef = useRef(null);
   const [currentDay, setCurrentDay] = useState(getTodayDay(currentDate));
-  const arrayOfMounthes = new Array(12).fill().map((el, id) => {
-    const mounthName = getMounthName(id);
-    return { [id]: mounthName.charAt(0).toUpperCase() + mounthName.slice(1) };
-  });
 
-  const arrayOfMoutnhtesUntilNewYear = arrayOfMounthes.slice(
-    currentMounth,
-    currentMounth + 3,
-  );
-  const arrayOfAvailableMounthes = Object.entries(time[currentYear]).slice(
-    currentMounth,
-    currentMounth + 3,
-  );
-  if (
-    Object.values(time[currentYear][currentMounth][currentDay]).length === 0
-  ) {
-    if (currentDay === Object.values(currentMounth).length) {
-      setSelectedMounth((prev) => prev + 1);
-      setCurrentDay(0);
-    } else {
-      setCurrentDay((prev) => prev + 1);
+  useEffect(async () => {
+    setLoading(true);
+
+    try {
+      const shedule = await getSpecialistShedule(specialist.id);
+      setSpecialistTime({ ...shedule });
+    } catch (error) {
+      if (error) throw error;
+    } finally {
+      setLoading(false);
     }
-  }
+  }, []);
 
-  const arrayOfDaysFromNow = Object.entries(
-    time[currentYear][selectedMounth],
-  ).slice(currentDay);
+  useEffect(() => {
+    if (specialistTime && !isEmpty(specialistTime)) {
+      setCurrentMounth(Object.keys(specialistTime[currentYear])[0]);
+    }
+  }, [specialistTime]);
 
-  const prevMounthClickHandler = () => {
-    setSelectedMounth((prev) => prev - 1);
-  };
-
-  const nextMounthClickHandler = () => {
-    setSelectedMounth((prev) => prev + 1);
-  };
+  useEffect(() => {
+    if (specialistTime && !isEmpty(specialistTime)) {
+      setSelectedMounth(currentMounth);
+      setCurrentDay(Object.keys(specialistTime[currentYear][currentMounth])[0]);
+    }
+  }, [currentMounth]);
 
   useEffect(() => {
     if (selectedMounth === getMonth(currentDate)) {
@@ -63,28 +58,66 @@ const SpecialistShedule = ({ time, specialist, adress }) => {
     }
   }, [selectedMounth]);
 
+  const getSliceOfMounthes = (quantity) => {
+    return Object.keys(specialistTime[currentYear]).slice(0, quantity);
+  };
+
+  const arrayOfMounthes = useMemo(() => {
+    if (specialistTime && !isEmpty(specialistTime)) {
+      return getArrayOfMounthes(getSliceOfMounthes(MOUNTHES_QUANTITY));
+    }
+    return null;
+  }, [specialistTime]);
+
+  const arrayOfDaysFromNow = useMemo(() => {
+    if (specialistTime && !isEmpty(specialistTime)) {
+      return Object.entries(
+        specialistTime[currentYear][selectedMounth],
+      ).slice();
+    }
+
+    return null;
+  }, [selectedMounth]);
+
+  if (!specialistTime || isEmpty(specialistTime))
+    return <span>К сожалению к этому специалисту запись пока невозможна</span>;
+
+  const prevMounthClickHandler = () => {
+    setSelectedMounth((prev) => Number(prev) - 1);
+  };
+
+  const nextMounthClickHandler = () => {
+    setSelectedMounth((prev) => Number(prev) + 1);
+  };
+
   return (
     <div className="specialist__shedule">
-      <SpecialistSheduleMounth
-        arr={arrayOfMoutnhtesUntilNewYear}
-        nextMounth={nextMounthClickHandler}
-        prevMounth={prevMounthClickHandler}
-        swiperRef={swiperMounthRef}
-      />
-      <SpecialistSheduleDays
-        arr={arrayOfDaysFromNow}
-        currentMounth={currentMounth}
-        selectedMounth={selectedMounth}
-        prevMounth={prevMounthClickHandler}
-        nextMounth={nextMounthClickHandler}
-        swiperMounthRef={swiperMounthRef}
-        availableMounthes={arrayOfAvailableMounthes}
-        selectedTime={selectedTime}
-        setSelectedTime={setSelectedTime}
-        selectedYear={currentYear}
-        specialist={specialist}
-        adress={adress}
-      />
+      <Load state={isLoading}>
+        {arrayOfMounthes && (
+          <SpecialistSheduleMounth
+            mounthes={arrayOfMounthes}
+            nextMounth={nextMounthClickHandler}
+            prevMounth={prevMounthClickHandler}
+            swiperRef={swiperMounthRef}
+          />
+        )}
+        {arrayOfDaysFromNow && (
+          <SpecialistSheduleDays
+            days={arrayOfDaysFromNow}
+            currentMounth={currentMounth}
+            selectedMounth={selectedMounth}
+            prevMounth={prevMounthClickHandler}
+            nextMounth={nextMounthClickHandler}
+            swiperMounthRef={swiperMounthRef}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+            selectedYear={currentYear}
+            specialist={specialist}
+            specialistTime={specialistTime}
+            adress={adress}
+          />
+        )}
+      </Load>
     </div>
   );
 };
@@ -95,7 +128,6 @@ SpecialistShedule.defaultProps = {
 };
 
 SpecialistShedule.propTypes = {
-  time: PropTypes.arrayOf(PropTypes.object).isRequired,
   specialist: PropTypes.objectOf(PropTypes.any),
   adress: PropTypes.objectOf(PropTypes.object),
 };

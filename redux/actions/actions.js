@@ -73,14 +73,6 @@ export const getConfig = () => async (dispatch) => {
   await getDataFromFs(serverRoutesMap.CONFIG, Actions.GET_CONFIG, dispatch);
 };
 
-export const getData = (url) => {
-  return axios(url).then((res) => res.data);
-};
-
-export const postData = (url, data) => {
-  return axios({ method: 'post', url, data });
-};
-
 export const getRoutes = () => (dispatch) =>
   getDataFromFs(serverRoutesMap.ROUTES, Actions.GET_ROUTES, dispatch);
 

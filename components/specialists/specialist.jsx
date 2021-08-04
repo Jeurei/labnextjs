@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import { setUserFormState } from 'Redux/actions/actions';
 import SpecialistWorkTime from './specialist-work-time';
 
-const Specialist = ({ data, userForm, setFormState, specialities }) => {
+const Specialist = ({ data, userForm, setFormState }) => {
   const [specialistPopup, setSpecialistPopup] = useState(false);
 
   const closeHandler = () => {
@@ -48,12 +48,7 @@ const Specialist = ({ data, userForm, setFormState, specialities }) => {
                 font-weight: 500;
               `}
             >
-              {specialist.specializations
-                .map((el) =>
-                  Object.values(specialities).find((elem) => elem.id === el),
-                )
-                .map((el) => el.name)
-                .reduce((acc, curr) => `${acc}, ${curr}`)}
+              {specialist.specializations.map((el) => el.label)}
             </span>
           </li>
           <li className="specialist__info-item">
@@ -158,7 +153,6 @@ Specialist.propTypes = {
   }).isRequired,
   setFormState: PropTypes.func.isRequired,
   userForm: PropTypes.objectOf(PropTypes.object).isRequired,
-  specialities: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -166,9 +160,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => {
-  const { userForm, specialities } = state;
+  const { userForm } = state;
 
-  return { userForm, specialities };
+  return { userForm };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Specialist);
