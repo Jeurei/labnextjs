@@ -16,6 +16,7 @@ export const getFlatArr = (arr, depth = 1) => {
   }
 
   let result = arr;
+
   for (let i = 0; i < depth; i += 1) {
     result = result.reduce((acc, val) => acc.concat(val, []));
   }

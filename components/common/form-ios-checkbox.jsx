@@ -8,7 +8,7 @@ const FormIosCheckbox = ({ action, id, name, label, value }) => (
       id={id}
       name={name}
       aria-label={label}
-      onChange={(evt) => action(evt.currentTarget.checked)}
+      onChange={(evt) => action(evt)}
       value={value}
     />
     <span className="form__input-checkbox-span" />

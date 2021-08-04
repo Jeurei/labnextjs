@@ -1,28 +1,27 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { format, getDate, getYear } from 'date-fns';
-import { ru } from 'date-fns/locale/ru';
+import { getDate, getYear } from 'date-fns';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserFormState } from 'Redux/actions/actions';
 import { css, useTheme } from '@emotion/react';
 import { usePageContext } from 'components/MainLayout';
-import SpecialistDayInfo from './specialist-day-info';
+import { formatDate } from 'components/utils/common';
 
 const SpecialistSheduleDays = ({
-  arr,
+  days,
   selectedMounth,
   nextMounth,
   prevMounth,
   swiperMounthRef,
   currentMounth,
-  availableMounthes,
   userForm,
   setFormState,
   selectedYear,
   specialist,
   adress,
+  specialistTime,
 }) => {
   const QUANTITY_OF_SLIDES = 6;
   const currentDate = new Date();
@@ -33,16 +32,12 @@ const SpecialistSheduleDays = ({
   const theme = useTheme();
   const onTimeClickOpenPopup = usePageContext();
 
-  const getFormatedDate = (date, pattern) => {
-    return format(date, pattern, { locale: ru });
-  };
-
   const onDaySlideClickHandler = (index) => {
-    setChosenEmpty(Object.values(arr[index][1]).length === 0);
+    setChosenEmpty(Object.values(days[index][1]).length === 0);
     setSelectedDay(index);
   };
 
-  const onTimeClickHandler = (id) => {
+  const onTimeClickHandler = (data) => {
     if (specialist) {
       setFormState({
         ...userForm,
@@ -51,17 +46,29 @@ const SpecialistSheduleDays = ({
           ...userForm.fields,
           firstField: {
             ...userForm.fields.firstField,
-            city: (adress && adress.value.split(',')[0]) || null,
-            center: (adress && adress.value) || null,
-            spec: specialist.job[0],
+            city: {
+              value: specialist.centers.city.value,
+              label: specialist.centers.city.label,
+            },
+            center: {
+              value: (adress && adress.value) || specialist.centers.id || null,
+              label:
+                (adress && adress.value) ||
+                `${specialist.centers.city.label}, ${specialist.centers.address}` ||
+                null,
+            },
+            spec: {
+              value: specialist.specializations[0].value,
+              label: specialist.specializations[0].label,
+            },
             doctorsName: specialist.name,
           },
           secondField: {
             ...userForm.secondField,
             year: selectedYear,
             mounth: selectedMounth,
-            day: Number(arr[selectedDay][0]) + 2,
-            time: id + 1,
+            day: Number(days[selectedDay][0]) + 2,
+            time: data,
           },
         },
       });
@@ -74,8 +81,8 @@ const SpecialistSheduleDays = ({
             ...userForm.secondField,
             year: selectedYear,
             mounth: selectedMounth,
-            day: Number(arr[selectedDay][0]) + 2,
-            time: id + 1,
+            day: Number(days[selectedDay][0]) + 2,
+            time: data,
           },
         },
       });
@@ -84,7 +91,7 @@ const SpecialistSheduleDays = ({
   };
 
   const getDaySlide = (obj, id) => {
-    const date = getFormatedDate(
+    const [day, mounth] = formatDate(
       new Date(
         getYear(currentDate.getFullYear()),
         selectedMounth,
@@ -93,7 +100,7 @@ const SpecialistSheduleDays = ({
       'dd MMM',
     ).split(' ');
 
-    const weekDay = getFormatedDate(
+    const weekDay = formatDate(
       new Date(
         getYear(currentDate.getFullYear()),
         selectedMounth,
@@ -116,12 +123,12 @@ const SpecialistSheduleDays = ({
           }`}
         >
           <p className="specialist__shedule-week-day">
-            {getDate(currentDate) - 1 === Number(arr[id][0])
+            {getDate(currentDate) - 1 === Number(days[id][0])
               ? 'Сегодня'
               : weekDay.charAt(0).toUpperCase() + weekDay.slice(1)}
           </p>
           <p className="specialist__shedule-date">
-            {`${date[0]} ${date[1].charAt(0).toUpperCase() + date[1].slice(1)}`}
+            {`${day} ${mounth[0].toUpperCase() + mounth.slice(1)}`}
           </p>
         </li>
       </SwiperSlide>
@@ -129,14 +136,20 @@ const SpecialistSheduleDays = ({
   };
 
   const createTimeElement = (data, action, id) => {
+    const START = 0;
+    const END = 5;
     return (
-      <li className="specialist__shedule-table-time-list-item" id={data}>
+      <li
+        className="specialist__shedule-table-time-list-item"
+        id={data}
+        key={id}
+      >
         <a
           href="/"
           className="specialist__shedule-table-time"
           aria-label={`Записать на ${data}`}
           css={css`
-            ${((id + 1 === userForm.fields.secondField.time &&
+            ${((data === userForm.fields.secondField.time &&
               specialist &&
               userForm.specialist &&
               JSON.stringify(specialist) ===
@@ -146,10 +159,10 @@ const SpecialistSheduleDays = ({
           `}
           onClick={(evt) => {
             evt.preventDefault();
-            action(id);
+            action(data);
           }}
         >
-          {data}
+          {data.slice(START, END)}
         </a>
       </li>
     );
@@ -204,10 +217,6 @@ const SpecialistSheduleDays = ({
     [swiperRef],
   );
 
-  const isMounthLast = () => {
-    return Number(currentMounth) - Number(selectedMounth) === -2;
-  };
-
   useEffect(() => {
     swiperRef.current?.swiper.slideTo(0);
     setSelectedDay(0);
@@ -215,7 +224,7 @@ const SpecialistSheduleDays = ({
 
   return (
     <div className="specialist__shedule-table">
-      {(!!activeIndex || !!selectedMounth) && (
+      {!!activeIndex && (
         <button
           className="specialist__shedule-table-button specialist__shedule-table-button--before"
           type="button"
@@ -232,35 +241,27 @@ const SpecialistSheduleDays = ({
             setActiveIndex(swiperRef.current?.swiper.activeIndex)
           }
         >
-          {arr.map((el, id) => getDaySlide(el, id))}
+          {days.map((el, id) => getDaySlide(el, id))}
         </Swiper>
       </ul>
-      {(!isMounthLast() || !isLastSlide(arr)) && (
+      {isLastSlide(days) && (
         <button
           className="specialist__shedule-table-button specialist__shedule-table-button--next"
           type="button"
           aria-label="Следующая неделя"
-          onClick={() => nextSlide(arr)}
+          onClick={() => nextSlide(days)}
         />
       )}
       <ul className="specialist__shedule-table-time-list">
         {!chosenEmpty &&
-          Object.values(arr[selectedDay][1])
+          Object.values(days[selectedDay][1])
             .slice(0, 9)
             .map((el, index) =>
               createTimeElement(el, onTimeClickHandler, index),
             )}
-        {Object.values(arr[selectedDay][1]).length > 10 && createEmptyElement()}
+        {Object.values(days[selectedDay][1]).length > 10 &&
+          createEmptyElement()}
       </ul>
-      {chosenEmpty && (
-        <SpecialistDayInfo
-          selectedDay={selectedDay}
-          arr={arr}
-          selectedMounth={selectedMounth}
-          setCurrentDay={onDaySlideClickHandler}
-          availableMounthes={{ ...availableMounthes }}
-        />
-      )}
     </div>
   );
 };
@@ -271,20 +272,31 @@ SpecialistSheduleDays.defaultProps = {
 };
 
 SpecialistSheduleDays.propTypes = {
-  arr: PropTypes.arrayOf(PropTypes.array).isRequired,
-  selectedMounth: PropTypes.number.isRequired,
-  currentMounth: PropTypes.number.isRequired,
+  days: PropTypes.arrayOf(PropTypes.array).isRequired,
+  selectedMounth: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
+  currentMounth: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
   nextMounth: PropTypes.func.isRequired,
   prevMounth: PropTypes.func.isRequired,
   swiperMounthRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
-  availableMounthes: PropTypes.arrayOf(PropTypes.array).isRequired,
   userForm: PropTypes.objectOf(PropTypes.object).isRequired,
   setFormState: PropTypes.func.isRequired,
   selectedYear: PropTypes.number.isRequired,
-  specialist: PropTypes.objectOf(PropTypes.object),
+  specialist: PropTypes.shape({
+    id: PropTypes.string,
+    specializations: PropTypes.arrayOf(PropTypes.any),
+    name: PropTypes.string,
+    centers: PropTypes.shape({
+      id: PropTypes.number,
+      city: PropTypes.objectOf(PropTypes.string),
+      address: PropTypes.string,
+    }).isRequired,
+  }),
+  specialistTime: PropTypes.objectOf(PropTypes.object).isRequired,
   adress: PropTypes.objectOf(PropTypes.object),
 };
 

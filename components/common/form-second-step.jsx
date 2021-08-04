@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { getSpecialistAdress } from 'components/utils/specialists';
-import { getFlatArr } from 'components/utils/filter';
+
 import Picture from './picture';
 import SpecialistShedule from '../specialists/specialist-shedule';
 
@@ -19,14 +18,16 @@ const FormSecondStep = ({ specialist }) => {
             {specialist.name}
           </h3>
           <p className="specialist-form__specialist-info-job">
-            Должность: {specialist.job}
+            Должность: {specialist.specializations.map((el) => el.label)}
           </p>
           <p className="specialist-form__specialist-info-adress">
-            Адрес: {getFlatArr(getSpecialistAdress(specialist))[0]}
+            Адрес:{' '}
+            {specialist.centers &&
+              `${specialist.centers.city.label},${specialist.centers.address}`}
           </p>
         </div>
       </div>
-      <SpecialistShedule time={specialist.time} />
+      <SpecialistShedule specialist={specialist} />
     </div>
   );
 };

@@ -46,7 +46,7 @@
           ["fetch", "./fetch.js"],
           ["Redux", "./redux"],
           ["public", "./public"],
-          ["utils", "./utils"],
+          ["utils", "./components/utils"],
           ["components", "./components"],
           ["constants", "./constants"],
           ["common", "./components/common"],

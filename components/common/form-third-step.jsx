@@ -2,98 +2,71 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { errorMessagesMap } from 'constants/form';
 import { css, useTheme } from '@emotion/react';
+import FormFieldset from 'common/form-fieldset';
 import FormIosCheckbox from './form-ios-checkbox';
-import FormFieldset from '../footer/form-fieldset';
 import FormInput from './form-input';
 import MaskedFormInput from './masked-input';
 import Select from './select';
 
-const FormThirdStep = ({ action, userForm }) => {
+const FormThirdStep = ({ action }) => {
   const theme = useTheme();
-  const [inputsField, setInputsField] = useState({
+  const [formFields, setFormFields] = useState({
     clientName: '',
     clientEmail: '',
     clientTel: '',
     type: '',
-    isAgreed: '',
+    clientAgreement: '',
   });
 
   const [formValidation, setFormValidation] = useState({
-    isNameValid: true,
-    isTelValid: true,
-    isEmailValid: true,
-    isAgreed: false,
+    clientName: true,
+    clientEmail: true,
+    clientTel: true,
+    clientAgreement: false,
   });
-
-  const onChangeInputValueHandler = (obj) => {
-    setInputsField({ ...inputsField, ...obj });
-  };
 
   const validateEmail = (email) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   };
 
-  const isRequiredAreNotEmpty = () => {
-    if (inputsField.clientName && inputsField.clientTel) {
-      return true;
-    }
-    return false;
+  const validationsMap = {
+    clientName: () => formFields.clientName.length !== 0,
+    clientTel: () => formFields.clientTel.replace(/[^0-9]/g, '').length === 11,
+    clientEmail: () =>
+      validateEmail(formFields.clientEmail) || formFields.clientEmail === '',
+    clientAgreement: () => !formFields.clientAgreement,
   };
 
   const changeValidation = (obj) => {
     setFormValidation({ ...formValidation, ...obj });
   };
 
-  const checkNameInput = (value) => {
-    onChangeInputValueHandler(value);
-    if (value.clientName.length !== 0) {
-      changeValidation({ isNameValid: true });
-    } else {
-      changeValidation({ isNameValid: false });
-    }
-  };
+  const changeHandler = (evt) => {
+    const { target } = evt;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
 
-  const checkTelInput = (value) => {
-    onChangeInputValueHandler(value);
-    if (value.clientTel.replace(/[^0-9]/g, '').length === 11) {
-      changeValidation({ isTelValid: true });
-    } else {
-      changeValidation({ isTelValid: false });
-    }
-  };
+    setFormFields({ ...formFields, [name]: value });
 
-  const checkEmailInput = (value) => {
-    onChangeInputValueHandler(value);
-    if (validateEmail(value.clientEmail)) {
-      changeValidation({ isEmailValid: true });
-    } else if (value.clientEmail !== '') {
-      changeValidation({ isEmailValid: false });
-    } else {
-      changeValidation({ isEmailValid: true });
-    }
+    changeValidation({ [name]: validationsMap[name]() });
   };
 
   const onLastSelectHandler = (obj) => {
-    onChangeInputValueHandler({ type: obj.value });
+    setFormFields({ ...formFields, type: obj.value });
   };
 
-  const agreementCheckHandler = (bool) => {
-    onChangeInputValueHandler({ isAgreed: bool });
-    changeValidation({ isAgreed: bool });
-  };
+  const isFieldsNotEmpty = () =>
+    formValidation.clientTel &&
+    formValidation.clientName &&
+    formValidation.clientEmail &&
+    formValidation.clientAgreement;
 
   useEffect(() => {
-    if (
-      formValidation.isNameValid &&
-      formValidation.isEmailValid &&
-      formValidation.isTelValid &&
-      formValidation.isAgreed &&
-      isRequiredAreNotEmpty()
-    ) {
-      action(true, { thirdField: inputsField });
+    if (isFieldsNotEmpty()) {
+      action(true, formFields);
     } else {
-      action(false, { thirdField: inputsField });
+      action(false, formFields);
     }
   }, [formValidation]);
 
@@ -103,11 +76,11 @@ const FormThirdStep = ({ action, userForm }) => {
       css={css`
         .form__input-container {
           svg {
-            top: 19px;
+            top: 8px;
           }
         }
         .form__input {
-          height: 60px;
+          height: 38px;
           border-color: ${theme.colors.blue};
           margin-bottom: 23px;
         }
@@ -121,15 +94,16 @@ const FormThirdStep = ({ action, userForm }) => {
       <FormFieldset>
         <FormInput
           name="clientName"
-          id="spec-name"
+          id="clientName"
           inputClass="form__input"
           description="Введите ваше имя"
           placeholder="Ваше имя"
           type="text"
-          descriptionId="client-name_descr"
+          descriptionId="name_descr"
           text="Введите имя"
-          action={checkNameInput}
-          formValidation={formValidation.isNameValid}
+          value={formFields.clientName}
+          action={changeHandler}
+          formValidation={formValidation.clientName}
           errorMessage={errorMessagesMap.NAME}
         />
         <MaskedFormInput
@@ -139,10 +113,11 @@ const FormThirdStep = ({ action, userForm }) => {
           description="Введите ваш телефон"
           placeholder="Ваш телефон"
           type="tel"
-          descriptionId="client-tel_descr"
+          descriptionId="tel_descr"
           text="Введите номер телефона"
-          action={checkTelInput}
-          formValidation={formValidation.isTelValid}
+          value={formFields.clientTel}
+          action={changeHandler}
+          formValidation={formValidation.clientTel}
           errorMessage={errorMessagesMap.TEL}
         />
         <FormInput
@@ -152,16 +127,16 @@ const FormThirdStep = ({ action, userForm }) => {
           description="Введите ваш email"
           placeholder="Ваш email"
           type="email"
-          descriptionId="client-_descr"
+          descriptionId="email_descr"
           text="Введите email"
-          action={checkEmailInput}
-          formValidation={formValidation.isEmailValid}
+          action={changeHandler}
+          value={formFields.clientEmail}
+          formValidation={formValidation.clientEmail}
           errorMessage={errorMessagesMap.EMAIL}
         />
         <Select
           selectClass="form__step-select"
           placeholder="Выберите вариант оплаты"
-          cssStr="height:60px"
           action={onLastSelectHandler}
           data={[
             { value: 'online', label: 'Оплата онлайн' },
@@ -171,11 +146,12 @@ const FormThirdStep = ({ action, userForm }) => {
       </FormFieldset>
       <div className="form__input-checkbox-container">
         <FormIosCheckbox
-          action={agreementCheckHandler}
+          action={changeHandler}
           id="clientAgreement"
           name="clientAgreement"
           label="Нажимая на кнопку отправить вы соглашаетесь с нашей политикой
           конфиденциальности"
+          value={formFields.clientAgreement}
         />
         <small className="form__agreement-hint">
           Нажимая на кнопку отправить вы соглашаетесь с нашей политикой
@@ -188,7 +164,6 @@ const FormThirdStep = ({ action, userForm }) => {
 
 FormThirdStep.propTypes = {
   action: PropTypes.func.isRequired,
-  userForm: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default FormThirdStep;

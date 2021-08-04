@@ -6,12 +6,12 @@ const FormConclusion = ({ specialist }) => {
       <div className="form-step__conclusion-info-container">
         <div className="form-step__conclusion-info-container-text">
           <p className="form-step__conclusion-info-text">
-            Первичный прием к {specialist.job[0]}
+            Первичный прием к {specialist.specializations[0].label}
           </p>
           <p className="form-step__conclusion-info-text">{specialist.name}</p>
         </div>
       </div>
-      <span className="form-step__conclusion-price">1 499 ₽</span>
+      <span className="form-step__conclusion-price">{specialist.price} ₽</span>
     </div>
   );
 };

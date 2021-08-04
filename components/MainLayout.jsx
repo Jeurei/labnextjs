@@ -3,11 +3,12 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 import MainContainer from 'components/header/main-container';
 import dynamic from 'next/dynamic';
-import Form from './common/form';
 import Load from './common/load';
 
 const Header = dynamic(() => import('components/header/header'));
 const Footer = dynamic(() => import('components/footer/footer'));
+const Form = dynamic(() => import('./common/userForm'));
+
 const pageContext = React.createContext();
 
 export const usePageContext = () => {

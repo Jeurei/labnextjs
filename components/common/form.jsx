@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { postData, serverRoutesMap } from 'Redux/actions/actions';
+import { postData } from 'api';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useTheme, css } from '@emotion/react';
+import { serverRoutesMap } from 'Redux/actions/actions';
+import { postTypesMap } from 'constants/constants';
 import FormFieldset from './form-fieldset';
 import FormFirstField from './form-first-field';
 import FormThirdField from './form-third-field';
@@ -13,13 +15,18 @@ const formContext = React.createContext();
 export const useFormContext = () => useContext(formContext);
 
 const Form = ({ title = '', wFile = false }) => {
-  const [formFields, setFormFields] = useState({
+  const FORM_DEFAULT_STATE = {
     email: '',
     name: '',
     tel: '',
     message: '',
     agree: false,
-  });
+  };
+  const [formFields, setFormFields] = useState(FORM_DEFAULT_STATE);
+
+  const resetForm = () => {
+    setFormFields(FORM_DEFAULT_STATE);
+  };
 
   const router = useRouter();
 
@@ -43,7 +50,12 @@ const Form = ({ title = '', wFile = false }) => {
   };
 
   const onSubmitHandler = () => {
-    postData(serverRoutesMap.FORM, { formFields, url: router.pathname });
+    postData(
+      serverRoutesMap.FORM,
+      { formFields, url: router.pathname },
+      postTypesMap.FEEDBACK_FORM,
+    );
+    resetForm();
   };
 
   const formState = {

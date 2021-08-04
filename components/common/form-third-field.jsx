@@ -15,7 +15,7 @@ const FormThirdField = ({ action, submit }) => {
       <h3 className="form__input-chekbox-title">Задайте свой вопрос</h3>
       <div className="form__input-checkbox-container">
         <FormIosCheckbox
-          action={action}
+          action={(evt) => action(evt.target.checked)}
           value={agree}
           id="agreement"
           name="agreement"

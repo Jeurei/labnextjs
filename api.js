@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as Actions from 'Redux/actions/actions';
 import { isEmpty } from 'components/utils/common';
+import { SPECIALIST_SHEDULE_URL } from 'constants/constants';
 
 export const getInitialPropsForApp = async (store) => {
   const state = store.getState();
@@ -44,10 +45,38 @@ export const getInitialPropsForVacansies = async (store) => {
   if (!state.vacansies.length) await store.dispatch(Actions.getVacasies());
 };
 
+const parseSpecialists = async (store) => {
+  const { specialists, medcenters, specialities, cities } = store.getState();
+
+  const parsedCenters = Object.values(medcenters).map((el) => ({
+    ...el,
+    city: Object.values(cities).find((elem) => elem.value === el.city),
+  }));
+
+  const parsedSpecialists = Object.values(specialists).map((el) => ({
+    ...el,
+    centers:
+      Object.values(parsedCenters).find((elem) =>
+        el.centers.includes(elem.id),
+      ) || null,
+    specializations: el.specializations.map((elem) => ({
+      label: Object.values(specialities).find((element) =>
+        elem.includes(element.id),
+      ).name,
+      value: elem,
+    })),
+  }));
+
+  await store.dispatch(Actions.setSpecialists(parsedSpecialists));
+};
+
 export const getInitialPropsForSpecialists = async (store) => {
   const state = store.getState();
 
-  if (!state.specialists.length) await store.dispatch(Actions.getSpecialists());
+  if (!state.specialists.length) {
+    await store.dispatch(Actions.getSpecialists());
+    parseSpecialists(store);
+  }
 };
 
 export const getInitialPropsForSpecialist = async (store, query) => {
@@ -129,4 +158,28 @@ export const getInitialPropsFAQ = async () => {
   return axios(`${Actions.serverRoutesMap.FAQPAGE}`).then((res) => {
     return res.data;
   });
+};
+
+// methods for fething
+
+export const getData = (url) => {
+  return axios(url).then((res) => res.data);
+};
+
+export const postData = (url, data, type) => {
+  return axios.post(url, { ...data, type });
+};
+
+export const getSpecialistShedule = async (id) => {
+  return axios.get(`${SPECIALIST_SHEDULE_URL}${id}`).then((res) => {
+    return res.data;
+  });
+};
+
+export const getSpecialists = async (store) => {
+  const specialists = await axios
+    .get(Actions.serverRoutesMap.SPECIALISTS)
+    .then((res) => res.data);
+  store.dispatch(Actions.setSpecialists(Object.values(specialists)));
+  parseSpecialists(store);
 };

@@ -1,17 +1,9 @@
-import { getFlatArr } from 'components/utils/filter';
 import PropTypes from 'prop-types';
-import {
-  getAllSpecialistsAdressesArray,
-  getSpecialistCities,
-  getSpecialistsCitiesArr,
-  getSpecialistsJobsArray,
-  getSpecialistsNamesArray,
-  getSpecialistCenters,
-} from 'components/utils/specialists';
-import { useEffect, useRef, useState } from 'react';
+import { getSpecialistsNamesArray } from 'components/utils/specialists';
+import { useMemo, useRef, useEffect } from 'react';
 import { css } from '@emotion/react';
 import ReactSelect from 'react-select';
-import { connect } from 'react-redux';
+import { getFlatArr } from 'utils/filter';
 import Select from './select';
 
 const FormFirstStep = ({
@@ -20,11 +12,8 @@ const FormFirstStep = ({
   action,
   lastInputHandler,
   reset,
-  cities,
-  medcenters,
 }) => {
   const ONLINE_SELECT_TYPE = 'online';
-  const [currentArr, setCurrentArr] = useState(specialists);
   const ref = useRef();
 
   const firstSelectData = [
@@ -32,84 +21,90 @@ const FormFirstStep = ({
     { value: 'online', label: 'Online' },
   ];
 
-  const filterArrByCity = (arr) => {
-    return arr.filter((el) =>
-      selects.fields.firstField.city
-        ? getSpecialistCities(el).includes(selects.fields.firstField.city)
-        : el,
-    );
+  const filterHandler = (data) => {
+    const {
+      fields: {
+        firstField: { center, spec, doctorsName },
+      },
+    } = selects;
+    if (doctorsName && data.name !== doctorsName) return false;
+    if (
+      spec?.value &&
+      !data.specializations.find((el) => el.value === spec.value)
+    )
+      return false;
+    if (center?.value && data.centers && data.centers.id !== center.value)
+      return false;
+
+    return data;
   };
 
-  const filterArrBySpec = (arr) => {
-    return arr.filter((el) =>
-      selects.fields.firstField.spec
-        ? el.job.includes(selects.fields.firstField.spec)
-        : el,
+  const currentArr = useMemo(() => specialists.filter(filterHandler), [
+    selects,
+  ]);
+
+  const removeDuplicatedObjectsFromArray = (arr) =>
+    [...new Set(arr.map(JSON.stringify))].map(JSON.parse);
+
+  const getValueLabelObject = (value, label) => ({ value, label });
+
+  const getSecondSecondSelectData = () =>
+    removeDuplicatedObjectsFromArray(
+      currentArr
+        .map(
+          (el) =>
+            el.centers &&
+            getValueLabelObject(el.centers.city.value, el.centers.city.label),
+        )
+        .filter(Boolean),
     );
-  };
 
-  const filterArrByCenter = (arr) => {
-    return arr.filter((el) =>
-      selects.fields.firstField.center
-        ? getFlatArr(getSpecialistCenters(el)).includes(
-            selects.fields.firstField.center,
-          )
-        : el,
+  const getThirdSelectData = () =>
+    removeDuplicatedObjectsFromArray(
+      getFlatArr(currentArr.map((el) => el.specializations)),
     );
-  };
 
-  const filterArrByName = (arr) => {
-    return arr.filter((el) =>
-      selects.fields.firstField.doctorsName
-        ? el.name === selects.fields.firstField.doctorsName
-        : el,
+  const getFourthSelectData = () =>
+    removeDuplicatedObjectsFromArray(
+      currentArr
+        .map(
+          (el) =>
+            el.centers &&
+            getValueLabelObject(
+              el.centers.id,
+              `${el.centers.city.label}, ${el.centers.address}`,
+            ),
+        )
+        .filter(Boolean),
     );
-  };
 
-  const secondSelectData = [
-    ...new Set(
-      getSpecialistsCitiesArr(currentArr)
-        .map((el) => Object.values(medcenters).find((elem) => elem.id === el))
-        .map((el) =>
-          Object.values(cities).find((elem) => elem.value === el.city),
-        ),
-    ),
-  ].map((el) => ({
-    value: el.value,
-    label: el.label,
-  }));
+  const getFifthSelectData = () =>
+    getSpecialistsNamesArray(currentArr).map((el) =>
+      getValueLabelObject(el, el),
+    );
 
-  const thirdSelectData = getSpecialistsJobsArray(currentArr).map((el) => ({
-    value: el,
-    label: el,
-  }));
+  const secondSelectData = getSecondSecondSelectData();
 
-  const fourthSelectData = getAllSpecialistsAdressesArray(currentArr).map(
-    (el) => ({
-      value: el,
-      label: el,
-    }),
-  );
+  const thirdSelectData = getThirdSelectData();
 
-  const fifthSelectData = getSpecialistsNamesArray(currentArr).map((el) => ({
-    value: el,
-    label: el,
-  }));
+  const fourthSelectData = getFourthSelectData();
+
+  const fifthSelectData = getFifthSelectData();
+
+  const isReset = () =>
+    selects.fields.firstField.city ||
+    selects.fields.firstField.spec ||
+    selects.fields.firstField.center ||
+    selects.fields.firstField.doctorsName;
 
   useEffect(() => {
-    setCurrentArr(
-      filterArrByName(
-        filterArrByCenter(filterArrBySpec(filterArrByCity([...specialists]))),
-      ),
-    );
-  }, [selects]);
-
-  if (
-    currentArr.length === 1 &&
-    JSON.stringify(currentArr[0]) !== JSON.stringify(selects.specialist)
-  ) {
-    lastInputHandler(currentArr[0]);
-  }
+    if (
+      currentArr.length === 1 &&
+      JSON.stringify(currentArr[0]) !== JSON.stringify(selects.specialist)
+    ) {
+      lastInputHandler(currentArr[0]);
+    }
+  }, [currentArr]);
 
   const onChangeHandler = (obj) => {
     action(obj);
@@ -124,10 +119,7 @@ const FormFirstStep = ({
         `}
       >
         <h3 className="form-step__select-title">Тип записи</h3>
-        {(selects.fields.firstField.city ||
-          selects.fields.firstField.spec ||
-          selects.fields.firstField.center ||
-          selects.fields.firstField.doctorsName) && (
+        {isReset() && (
           <button
             className="form__first-step-reset cross-button"
             type="button"
@@ -183,8 +175,8 @@ const FormFirstStep = ({
             value={
               selects.fields.firstField.city
                 ? {
-                    value: selects.fields.firstField.city,
-                    label: selects.fields.firstField.city,
+                    value: selects.fields.firstField.city.value,
+                    label: selects.fields.firstField.city.label,
                   }
                 : null
             }
@@ -194,7 +186,10 @@ const FormFirstStep = ({
                   ...selects.fields,
                   firstField: {
                     ...selects.fields.firstField,
-                    city: value.value,
+                    city: {
+                      value: value.value,
+                      label: value.label,
+                    },
                   },
                 },
               })
@@ -214,8 +209,8 @@ const FormFirstStep = ({
           value={
             selects.fields.firstField.spec
               ? {
-                  value: selects.fields.firstField.spec,
-                  label: selects.fields.firstField.spec,
+                  value: selects.fields.firstField.spec.value,
+                  label: selects.fields.firstField.spec.label,
                 }
               : null
           }
@@ -223,7 +218,13 @@ const FormFirstStep = ({
             onChangeHandler({
               fields: {
                 ...selects.fields,
-                firstField: { ...selects.fields.firstField, spec: value.value },
+                firstField: {
+                  ...selects.fields.firstField,
+                  spec: {
+                    value: value.value,
+                    label: value.label,
+                  },
+                },
               },
             })
           }
@@ -242,8 +243,8 @@ const FormFirstStep = ({
             value={
               selects.fields.firstField.center
                 ? {
-                    value: selects.fields.firstField.center,
-                    label: selects.fields.firstField.center,
+                    value: selects.fields.firstField.center.value,
+                    label: selects.fields.firstField.center.label,
                   }
                 : null
             }
@@ -253,7 +254,10 @@ const FormFirstStep = ({
                   ...selects.fields,
                   firstField: {
                     ...selects.fields.firstField,
-                    center: value.value,
+                    center: {
+                      value: value.value,
+                      label: value.label,
+                    },
                   },
                 },
               })
@@ -319,14 +323,6 @@ FormFirstStep.propTypes = {
   selects: PropTypes.objectOf(PropTypes.object).isRequired,
   lastInputHandler: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
-  cities: PropTypes.objectOf(PropTypes.object).isRequired,
-  medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const { cities, medcenters } = state;
-
-  return { cities, medcenters };
-};
-
-export default connect(mapStateToProps, null)(FormFirstStep);
+export default FormFirstStep;

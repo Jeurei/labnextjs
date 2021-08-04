@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  findSpecialistCenter,
-  findSpecialistJobs,
-} from 'components/utils/specialists';
 import SectionInner from 'components/header/section-inner';
-import { filterDublicatesObjects, getFlatArr } from '../utils/filter';
 import Filter from './filter';
 import SpecialistsCatalog from './specialists-catalog';
 
@@ -47,7 +42,7 @@ const filterArrayByAges = (arr, ages) => {
   return arr.filter((el) => el.ages === 3 || el.ages === ages);
 };
 
-const Specialists = ({ specialists, medcenters, specialities }) => {
+const Specialists = ({ specialists }) => {
   const [specialistsArr, setSpecialistsArr] = useState([...specialists]);
   const [currentFilter, setCurrentFilter] = useState({
     category: '',
@@ -60,19 +55,21 @@ const Specialists = ({ specialists, medcenters, specialities }) => {
   const onChangeFiltersFieldsHanlder = (obj) => {
     setCurrentFilter({ ...currentFilter, ...obj });
   };
+
+  const specialistsArray = Object.values(specialists);
   const filter = {
-    specialistsCategrories: getFlatArr(
-      [
-        ...new Set(getFlatArr(specialists.map((el) => el.specializations))),
-      ].map((el) => findSpecialistJobs(el, Object.values(specialities))),
-    ),
-    centers: getFlatArr(
-      filterDublicatesObjects(
-        getFlatArr(specialists.map((el) => el.centers)).map((el) => {
-          return findSpecialistCenter(el, medcenters);
-        }),
+    specialistsCategrories: [
+      ...new Set(specialistsArray.map((el) => el.specializations)),
+    ],
+    centers: [
+      specialistsArray.map(
+        (el) =>
+          el.centers && {
+            value: el.centers.id,
+            label: `${el.centers.city.label},${el.centers.address}`,
+          },
       ),
-    ),
+    ].filter(Boolean),
     specialistsNames: specialists.map((el) => el.name),
   };
 
@@ -80,6 +77,7 @@ const Specialists = ({ specialists, medcenters, specialities }) => {
     setSpecialistsArr(specialists);
   }, [specialists]);
 
+  //  TODO:Переписать
   useEffect(() => {
     setSpecialistsArr(
       filterArrayByAges(
@@ -124,14 +122,12 @@ Specialists.propTypes = {
       ),
     }),
   ).isRequired,
-  medcenters: PropTypes.arrayOf(PropTypes.object).isRequired,
-  specialities: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { specialists, medcenters, specialities } = state;
+  const { specialists } = state;
 
-  return { specialists, medcenters, specialities };
+  return { specialists };
 };
 
 export default connect(mapStateToProps, null)(Specialists);
