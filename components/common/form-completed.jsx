@@ -43,7 +43,7 @@ const FormCompleted = ({ closeHandler, userForm, specialist }) => {
       <Text className="specialist-form__form-completed-text">
         {time && year && day && mounth && (
           <p className="specialist-form__form-info-text">
-            {day - 1 > 9 ? day - 1 : `0${day - 1}`}.
+            {day + 1 > 9 ? day + 1 : `0${day + 1}`}.
             {mounth > 9 ? Number(mounth) + 1 : `0${Number(mounth) + 1}`}.{year}{' '}
             в {time.slice(START, END)}
           </p>

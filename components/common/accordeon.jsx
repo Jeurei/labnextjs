@@ -77,7 +77,7 @@ const Accordeon = ({ title, children, id }) => {
             padding-left: 21px;
             font-size: 13px;
             font-weight: 400;
-            letter-spacing: 1;
+            letter-spacing: 1px;
           `}
         >
           {children}
