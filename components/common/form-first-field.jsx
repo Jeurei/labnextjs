@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { errorMessagesMap } from 'constants/form';
 import FormInput from 'common/form-input';
 import MaskedFormInput from 'common/masked-input';
+import { telValidation, validateEmail } from 'constants/constants';
 import FormFieldset from './form-fieldset';
 import { useFormContext } from './form';
 
@@ -19,14 +20,9 @@ const FormFirstField = ({ action }) => {
     setFormValidation({ ...formValidation, ...obj });
   };
 
-  const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
-
   const validationsMap = {
     name: () => formFields.name.length !== 0,
-    tel: () => formFields.tel.replace(/[^0-9]/g, '').length === 11,
+    tel: () => telValidation(formFields.tel),
     email: () => validateEmail(formFields.email) || formFields.email === '',
   };
 

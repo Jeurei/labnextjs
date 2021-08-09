@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { errorMessagesMap } from 'constants/form';
 import { css, useTheme } from '@emotion/react';
 import FormFieldset from 'common/form-fieldset';
+import { telValidation, validateEmail } from 'constants/constants';
 import FormIosCheckbox from './form-ios-checkbox';
 import FormInput from './form-input';
 import MaskedFormInput from './masked-input';
@@ -25,14 +26,9 @@ const FormThirdStep = ({ action }) => {
     clientAgreement: false,
   });
 
-  const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
-
   const validationsMap = {
     clientName: () => formFields.clientName.length !== 0,
-    clientTel: () => formFields.clientTel.replace(/[^0-9]/g, '').length === 11,
+    clientTel: () => telValidation(formFields.clientTel),
     clientEmail: () =>
       validateEmail(formFields.clientEmail) || formFields.clientEmail === '',
     clientAgreement: () => !formFields.clientAgreement,

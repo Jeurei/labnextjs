@@ -38,7 +38,7 @@ const FormCompleted = ({ closeHandler, userForm, specialist }) => {
         Вы будете записаны к {spec.label}
       </Text>
       <Text className="specialist-form__form-completed-text">
-        {specialist.name}
+        {specialist.name.label}
       </Text>
       <Text className="specialist-form__form-completed-text">
         {time && year && day && mounth && (

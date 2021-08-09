@@ -94,6 +94,10 @@ input {
   overflow-x: hidden;
 }
 
+textarea {
+  resize: none;
+}
+
 @media (min-width: $tablet-width) {
   body {
     min-width: $tablet-width;

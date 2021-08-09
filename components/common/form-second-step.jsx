@@ -15,7 +15,7 @@ const FormSecondStep = ({ specialist }) => {
         />
         <div className="specialist-form__specialist-info">
           <h3 className="specialist-form__specialist-info-name">
-            {specialist.name}
+            {specialist.name.label}
           </h3>
           <p className="specialist-form__specialist-info-job">
             Должность: {specialist.specializations.map((el) => el.label)}

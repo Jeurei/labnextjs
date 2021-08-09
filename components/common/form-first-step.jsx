@@ -27,7 +27,8 @@ const FormFirstStep = ({
         firstField: { center, spec, doctorsName },
       },
     } = selects;
-    if (doctorsName && data.name !== doctorsName) return false;
+    if (doctorsName.value && data.name.value !== doctorsName.value)
+      return false;
     if (
       spec?.value &&
       !data.specializations.find((el) => el.value === spec.value)
@@ -78,10 +79,7 @@ const FormFirstStep = ({
         .filter(Boolean),
     );
 
-  const getFifthSelectData = () =>
-    getSpecialistsNamesArray(currentArr).map((el) =>
-      getValueLabelObject(el, el),
-    );
+  const getFifthSelectData = () => getSpecialistsNamesArray(currentArr);
 
   const secondSelectData = getSecondSecondSelectData();
 
@@ -95,7 +93,7 @@ const FormFirstStep = ({
     selects.fields.firstField.city ||
     selects.fields.firstField.spec ||
     selects.fields.firstField.center ||
-    selects.fields.firstField.doctorsName;
+    selects.fields.firstField.doctorsName.name;
 
   useEffect(() => {
     if (
@@ -270,15 +268,15 @@ const FormFirstStep = ({
         <ReactSelect
           className="form__step-select"
           classNamePrefix="select"
-          isDisabled={selects.fields.firstField.doctorsName}
+          isDisabled={selects.fields.firstField.name}
           noOptionsMessage={() => 'Не найдено'}
           placeholder="Выберите врача"
           options={fifthSelectData}
           value={
             selects.fields.firstField.doctorsName
               ? {
-                  value: selects.fields.firstField.doctorsName,
-                  label: selects.fields.firstField.doctorsName,
+                  value: selects.fields.firstField.doctorsName.value,
+                  label: selects.fields.firstField.doctorsName.label,
                 }
               : null
           }
@@ -288,7 +286,10 @@ const FormFirstStep = ({
                 ...selects.fields,
                 firstField: {
                   ...selects.fields.firstField,
-                  doctorsName: value.value,
+                  doctorsName: {
+                    value: value.value,
+                    label: value.label,
+                  },
                 },
               },
             })

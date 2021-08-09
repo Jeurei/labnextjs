@@ -1,7 +1,6 @@
 import { breakpointsMap } from 'constants/styles';
 import { css, useTheme } from '@emotion/react';
 import { useState } from 'react';
-import DatePicker from 'components/common/datePicker';
 
 const Form = () => {
   const theme = useTheme();
@@ -17,6 +16,7 @@ const Form = () => {
       <fieldset
         css={css`
           border: none;
+          padding-bottom: 20px;
 
           ${breakpointsMap.DESKTOP} {
             padding-right: 38px;
@@ -269,6 +269,10 @@ const Form = () => {
                   htmlFor="dont-remember"
                   css={css`
                     display: block;
+
+                    &:before {
+                      top: -9px !important;
+                    }
                   `}
                 >
                   не помню дату получения услуги
@@ -335,8 +339,8 @@ const Form = () => {
     >
       <legend
         css={css`
-          padding-top: 43px;
-          margin-bottom: 35px;
+          padding-top: 23px;
+          margin-bottom: 15px;
           font-size: 13px;
           font-weight: 500;
 

@@ -19,7 +19,9 @@ const FormInfo = ({ specialist, userForm }) => {
         {specialist.centers &&
           `${specialist.centers.city.label},${specialist.centers.address}`}
       </p>
-      <p className="specialist-form__form-info-text">к {specialist.name}</p>
+      <p className="specialist-form__form-info-text">
+        к {specialist.name.label}
+      </p>
       {time && year && day && mounth && (
         <p className="specialist-form__form-info-text">
           {day + 1 > 9 ? day + 1 : `0${day + 1}`}.

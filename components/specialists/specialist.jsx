@@ -37,7 +37,7 @@ const Specialist = ({ data, userForm, setFormState }) => {
       <div className="specialist__info">
         <h3 className="specialist__name">
           <Link href="specialists/[id]" as={`specialists/${specialist.id}`}>
-            <a>{specialist.name}</a>
+            <a>{specialist.name.label}</a>
           </Link>
         </h3>
         <ul className="specialist__info-list">

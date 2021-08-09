@@ -145,7 +145,7 @@
   &::before {
     @include pseudo('', 31px, 31px);
     position: absolute;
-    top: -10px;
+    top: 0;
     left: 0;
     border: 1px solid $blue;
     border-radius: 5px;
@@ -164,7 +164,7 @@
 
   &:after {
     position: absolute;
-    top: -4px;
+    top: 6px;
     left: 12px;
     border: solid $white;
     border-width: 0 3px 3px 0;
@@ -229,7 +229,7 @@
     &::before {
       @include pseudo('', 31px, 31px);
       position: absolute;
-      top: -10px;
+      top: 0;
       left: 0;
       border: 1px solid $blue;
       border-radius: 5px;
@@ -248,7 +248,7 @@
 
     &:after {
       position: absolute;
-      top: -4px;
+      top: 6px;
       left: 12px;
       border: solid $white;
       border-width: 0 3px 3px 0;
