@@ -26,6 +26,7 @@ const App = ({ Component, pageProps }) => {
         hex: '#4a4a4a',
         rgb: '74,74,74',
       },
+
       altColorText: '#fff',
       labelColor: '#222',
       iconsColor: '#4a4a4a',
@@ -37,6 +38,7 @@ const App = ({ Component, pageProps }) => {
       green: '#65bc29',
       white: '#fff',
       blue: '#4faaed',
+      purple: '#8978F7',
       red: '#fc5a8d',
       hoverColor: '#f7f7f7',
       inactiveColor: '#dedede',

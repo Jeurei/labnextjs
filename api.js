@@ -55,6 +55,10 @@ const parseSpecialists = async (store) => {
 
   const parsedSpecialists = Object.values(specialists).map((el) => ({
     ...el,
+    name: {
+      label: el.name,
+      value: el.id,
+    },
     centers:
       Object.values(parsedCenters).find((elem) =>
         el.centers.includes(elem.id),

@@ -20,6 +20,7 @@ import File from './file';
 import ReferencesSlider from './references-slider';
 import WorkingWithUs from './working-with-us';
 import SimpleForm from './form';
+import CheckBoxes from './checkBox';
 
 const Img = ({ data }) => {
   return (
@@ -1084,63 +1085,6 @@ const Form = ({ data }) => {
     </fieldset>
   );
 
-  const CheckBoxes = (boxesData) => (
-    <fieldset
-      css={css`
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-        border: none;
-        margin-bottom: 31px;
-        background-color: ${theme.colors.white};
-
-        ${breakpointsMap.DESKTOP} {
-          padding-right: 38px;
-          padding-left: 43px;
-        }
-      `}
-      key={boxesData.title}
-    >
-      <div
-        css={css`
-          width: 100%;
-          margin-top: 20px;
-
-          ${breakpointsMap.DESKTOP} {
-            width: 50%;
-            margin-top: 0;
-          }
-        `}
-      >
-        <div
-          className="filter__checkbox-group"
-          css={css`
-            width: 100%;
-            margin-bottom: 23px;
-          `}
-        >
-          <input
-            type="checkbox"
-            name="order-guarantee"
-            id="order-guarantee"
-            value="order-guarantee"
-            aria-label={boxesData.title}
-            className="filter__input filter__input--checkbox"
-          />
-          <label
-            className="filter__label"
-            htmlFor="order-guarantee"
-            css={css`
-              display: block;
-            `}
-          >
-            {boxesData.title}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  );
-
   const InputsMap = {
     time: Time,
     text: Text,
@@ -1347,7 +1291,6 @@ const ComponentsMap = {
   banner: Banner,
   smallBanner: SmallBanner,
   commercialForm: CommercialForm,
-  // specialist: SpecialistComponent,
 };
 
 const PageBuilder = ({ data }) => {

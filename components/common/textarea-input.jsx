@@ -12,13 +12,14 @@ const TextareaInput = ({
 }) => (
   <textarea
     id={id}
+    name={id}
     cols={cols}
     rows={rows}
     className={inputClass}
     placeholder={placeholder}
     aria-label={label}
     value={value}
-    onChange={(evt) => action(evt.currentTarget.value)}
+    onChange={(evt) => action(evt)}
   />
 );
 

@@ -19,6 +19,7 @@ export const getArrayOfMounthes = (array) => {
 export const postTypesMap = {
   APPLICATION_FORM: 'APPLICATION_FORM',
   FEEDBACK_FORM: 'FEEDBACK_FORM',
+  REFUND_FORM: 'REFUND_FORM',
 };
 
 export const statusesCodesMap = {
@@ -26,3 +27,8 @@ export const statusesCodesMap = {
   NOT_FOUND: 404,
   SERVER_ERROR: 500,
 };
+
+const emailValidation = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const validateEmail = (str) => emailValidation.test(str);
+
+export const telValidation = (str) => str.replace(/[^0-9]/g, '').length === 11;

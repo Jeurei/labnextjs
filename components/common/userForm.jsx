@@ -157,6 +157,7 @@ const Form = ({ closeHandler, specialists, userForm, setFormState }) => {
   };
 
   const firstStepLastInputHandler = (obj) => {
+    console.log(obj);
     setFormState({ ...userForm, specialist: obj });
   };
 
@@ -293,7 +294,10 @@ Form.propTypes = {
   closeHandler: PropTypes.func.isRequired,
   specialists: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string,
+      name: PropTypes.shape({
+        value: PropTypes.number,
+        label: PropTypes.string,
+      }),
       job: PropTypes.arrayOf(PropTypes.string),
       ages: PropTypes.number,
       price: PropTypes.number,
