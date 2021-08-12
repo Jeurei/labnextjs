@@ -59,16 +59,19 @@ const parseSpecialists = async (store) => {
       label: el.name,
       value: el.id,
     },
-    centers:
-      Object.values(parsedCenters).find((elem) =>
-        el.centers.includes(elem.id),
-      ) || null,
-    specializations: el.specializations.map((elem) => ({
-      label: Object.values(specialities).find((element) =>
-        elem.includes(element.id),
-      ).name,
-      value: elem,
-    })),
+    centers: Object.values(el.centers)[0]
+      ? Object.values(parsedCenters).find((elem) =>
+          el.centers.includes(elem.id),
+        )
+      : null,
+    specializations: Object.values(el.specializations)[0]
+      ? el.specializations.map((elem) => ({
+          label: Object.values(specialities).find((element) =>
+            elem.includes(element.id),
+          ).name,
+          value: elem,
+        }))
+      : null,
   }));
 
   await store.dispatch(Actions.setSpecialists(parsedSpecialists));

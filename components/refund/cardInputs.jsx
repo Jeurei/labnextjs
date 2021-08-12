@@ -6,10 +6,8 @@ import { useFormContext } from './refundForm';
 
 const CardInputs = () => {
   const LENGTH_OF_NUMS = 3;
-  const { formState, setFormState } = useFormContext();
-  const {
-    nums: { firstNums, lastNums },
-  } = formState;
+  const { formState, setFormState, formValidation } = useFormContext();
+  const { firstNums, lastNums } = formState;
 
   const inputHandler = (evt) => {
     const { target } = evt;
@@ -21,7 +19,7 @@ const CardInputs = () => {
 
     if (checkValue()) return;
 
-    setFormState({ ...formState, nums: { ...formState.nums, [name]: value } });
+    setFormState({ ...formState, [name]: value });
   };
 
   return (
@@ -47,12 +45,14 @@ const CardInputs = () => {
           onChange={inputHandler}
           label="Первые 3 цифры номера карты"
           id="firstNums"
+          validation={firstNums}
         />
         <CardInput
           value={lastNums}
           onChange={inputHandler}
           label="Последние 3 цифры номера карты"
           id="lastNums"
+          validation={lastNums}
         />
         <div
           css={css`

@@ -3,7 +3,6 @@ import { getSpecialistsNamesArray } from 'components/utils/specialists';
 import { useMemo, useRef, useEffect } from 'react';
 import { css } from '@emotion/react';
 import ReactSelect from 'react-select';
-import { getFlatArr } from 'utils/filter';
 import Select from './select';
 
 const FormFirstStep = ({
@@ -15,6 +14,9 @@ const FormFirstStep = ({
 }) => {
   const ONLINE_SELECT_TYPE = 'online';
   const ref = useRef();
+  const specialistsArray = useMemo(() =>
+    specialists.filter((el) => Number(el.avl)),
+  );
 
   const firstSelectData = [
     { value: 'offline', label: 'В клинике' },
@@ -40,7 +42,7 @@ const FormFirstStep = ({
     return data;
   };
 
-  const currentArr = useMemo(() => specialists.filter(filterHandler), [
+  const currentArr = useMemo(() => specialistsArray.filter(filterHandler), [
     selects,
   ]);
 
@@ -62,7 +64,7 @@ const FormFirstStep = ({
 
   const getThirdSelectData = () =>
     removeDuplicatedObjectsFromArray(
-      getFlatArr(currentArr.map((el) => el.specializations)),
+      currentArr.map((el) => el.specializations).flat(),
     );
 
   const getFourthSelectData = () =>

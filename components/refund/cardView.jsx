@@ -4,9 +4,7 @@ import { useFormContext } from './refundForm';
 const CardView = () => {
   const { colors } = useTheme();
   const {
-    formState: {
-      nums: { lastNums, firstNums },
-    },
+    formState: { lastNums, firstNums },
   } = useFormContext();
   return (
     <div
