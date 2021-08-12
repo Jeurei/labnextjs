@@ -52,7 +52,7 @@ const MaskedFormInput = ({
         css={css`
           border-color: ${!formValidation &&
           !isFocused &&
-          `${theme.colors.red}`};
+          `${theme.colors.red} !important`};
           border-color: ${formValidation &&
           !isFocused &&
           value.length !== 0 &&
@@ -95,10 +95,14 @@ const MaskedFormInput = ({
   );
 };
 
+MaskedFormInput.defaultProps = {
+  inputClass: '',
+};
+
 MaskedFormInput.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  inputClass: PropTypes.string.isRequired,
+  inputClass: PropTypes.string,
   type: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

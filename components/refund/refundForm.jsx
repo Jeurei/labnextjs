@@ -1,6 +1,6 @@
 import { breakpointsMap } from 'constants/styles';
 import { css, useTheme } from '@emotion/react';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TextareaInput from 'components/common/textarea-input';
 import CheckBox from 'components/common/checkBox';
 import { postData } from 'api/';
@@ -11,20 +11,34 @@ import {
   validateEmail,
 } from 'constants/constants';
 import { useRouter } from 'next/router';
-import Input from './input';
+import MaskedFormInput from 'components/common/masked-input';
+import Input from 'common/form-input';
 import CardInputs from './cardInputs';
 import RefundDatePicker from './refundDatePicker';
+// TODO: валидация происходит  через один поэтому надо как то валидировать после того как состояние обновится
 
 const DEFAULT_FORM_STATE = {
   name: '',
   tel: '',
   email: '',
-  nums: {
-    firstNums: '',
-    lastNums: '',
-  },
+  firstNums: '',
+  lastNums: '',
   date: null,
-  msg: 'Краткое описание причины возврата:',
+  price: '',
+  msg: '',
+  personalAgreement: false,
+  guarantee: false,
+};
+
+const DEFAULT_VALIDATION_STATE = {
+  name: true,
+  tel: true,
+  email: true,
+  firstNums: true,
+  lastNums: true,
+  date: null,
+  price: true,
+  msg: true,
   personalAgreement: false,
   guarantee: false,
 };
@@ -39,6 +53,16 @@ const RefundForm = () => {
   const NUMS_LENGTH = 3;
   const { colors } = useTheme();
   const [formState, setFormState] = useState(DEFAULT_FORM_STATE);
+
+  const [formValidation, setFormValidation] = useState(
+    DEFAULT_VALIDATION_STATE,
+  );
+
+  const resetForm = () => {
+    setFormState(DEFAULT_FORM_STATE);
+    setFormValidation(DEFAULT_FORM_STATE);
+  };
+
   const [isFormValid, setFormValid] = useState(false);
 
   const router = useRouter();
@@ -49,30 +73,40 @@ const RefundForm = () => {
     name: () => !!formState.name,
     tel: () => telValidation(formState.tel),
     email: () => validateEmail(formState.email),
-    firstNums: () => validateNums(formState.nums.firstNums),
-    lastNums: () => validateNums(formState.nums.lastNums),
+    firstNums: () => validateNums(formState.firstNums),
+    lastNums: () => validateNums(formState.lastNums),
     date: () => !!formState.date,
     msg: () => !!formState.msg,
-    personalAgreement: () => formState.personalAgreement,
-    guarantee: () => formState.guarantee,
+    personalAgreement: () => !!formState.personalAgreement,
+    guarantee: () => !!formState.guarantee,
+    price: () => formState.price,
   };
 
   const formContextValues = {
     formState,
     setFormState,
+    formValidation,
   };
 
   const inputHandler = (evt) => {
     const { target } = evt;
+
     const value = target.type === 'checkbox' ? target.checked : target.value;
+
     const { name } = target;
 
     setFormState({ ...formState, [name]: value });
+
+    setFormValidation({ ...formValidation, [name]: formValidationMap[name]() });
   };
 
   const handleDateChange = (data) => {
     setFormState({ ...formState, date: data });
   };
+
+  useEffect(() => {
+    setFormValidation({ ...formValidation, date: formValidationMap.date() });
+  }, [formState.date]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -82,7 +116,13 @@ const RefundForm = () => {
       { formState, url: router.pathname },
       postTypesMap.REFUND_FORM,
     );
+
+    resetForm();
   };
+
+  useEffect(() => {
+    setFormValid(Object.values(formValidationMap).every((el) => el()));
+  }, [formValidation]);
 
   return (
     <form
@@ -144,22 +184,54 @@ const RefundForm = () => {
             border: none;
             background-color: ${colors.white};
 
+            .form__input {
+              margin-bottom: 31px;
+              border-color: ${colors.blue};
+            }
+
+            .form__invalid-input {
+              bottom: 4px;
+            }
+
             ${breakpointsMap.DESKTOP} {
               padding-right: 38px;
               padding-left: 43px;
             }
           `}
         >
-          <Input type="text" placeholder="Ваше ФИО" id="reciever-name" />
           <Input
+            type="text"
+            value={formState.name}
+            formValidation={formValidation.name}
+            action={inputHandler}
+            errorMessage="Это обязательное поле"
+            placeholder="Ваше ФИО"
+            name="name"
+            id="name"
+          />
+          <MaskedFormInput
             type="tel"
             placeholder="Контактный номер телефона:"
-            id="reciever-tel"
+            inputClass="form__input"
+            id="tel"
+            name="tel"
+            description="Введите контактный номер телефона:"
+            text="Введите контактный номер телефона:"
+            descriptionId="tel-descr"
+            action={inputHandler}
+            value={formState.tel}
+            formValidation={formValidation.tel}
+            errorMessage="Неправильный номер"
           />
           <Input
             type="email"
+            value={formState.email}
+            formValidation={formValidation.email}
+            action={inputHandler}
+            errorMessage="Неправильный формат email"
             placeholder="Адрес электронной почты"
-            id="reciever-email"
+            name="email"
+            id="email"
           />
           <CardInputs />
           <div
@@ -191,8 +263,13 @@ const RefundForm = () => {
               />
               <Input
                 type="number"
+                value={formState.price}
+                formValidation={formValidation.price}
+                action={inputHandler}
+                errorMessage="Это обязательно поле"
                 placeholder="Сумма платежа:"
-                id="reciever-price"
+                name="price"
+                id="price"
               />
               <div
                 css={css`
@@ -261,12 +338,17 @@ const RefundForm = () => {
           <button
             className="button"
             type="submit"
+            disabled={!isFormValid}
             css={css`
               width: 100%;
               padding-top: 18px;
               padding-bottom: 18px;
               border: none;
               border-radius: 6px;
+
+              &:disabled {
+                background-color: grey;
+              }
             `}
           >
             Отправить

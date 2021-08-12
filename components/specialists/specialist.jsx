@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setUserFormState } from 'Redux/actions/actions';
 import SpecialistWorkTime from './specialist-work-time';
+import specialists from './specialists';
 
 const Specialist = ({ data, userForm, setFormState }) => {
   const [specialistPopup, setSpecialistPopup] = useState(false);
@@ -41,16 +42,18 @@ const Specialist = ({ data, userForm, setFormState }) => {
           </Link>
         </h3>
         <ul className="specialist__info-list">
-          <li className="specialist__info-item">
-            Должность:{' '}
-            <span
-              css={css`
-                font-weight: 500;
-              `}
-            >
-              {specialist.specializations.map((el) => el.label)}
-            </span>
-          </li>
+          {specialist.specializations && (
+            <li className="specialist__info-item">
+              Должность:{' '}
+              <span
+                css={css`
+                  font-weight: 500;
+                `}
+              >
+                {specialist.specializations.map((el) => el.label)}
+              </span>
+            </li>
+          )}
           <li className="specialist__info-item">
             Ведёт приём:
             <span
@@ -81,30 +84,37 @@ const Specialist = ({ data, userForm, setFormState }) => {
             </a>
           </li>
         </ul>
-        <button
-          className="specialist__button button"
-          type="button"
-          aria-label="Записать на приём"
-          onClick={() => onButtonClickHandler(specialist)}
-        >
-          Запишитесь на прием
-        </button>
-        <button
-          type="button"
-          className="specialist__button button"
-          aria-label="Записать на онлайн консультацию"
-          css={css`
-            background-color: ${theme.colors.blue};
-            text-transform: uppercase;
+        {Number(specialist.avl) ? (
+          <>
+            <button
+              className="specialist__button button"
+              type="button"
+              aria-label="Записать на приём"
+              onClick={() => onButtonClickHandler(specialist)}
+            >
+              Запишитесь на прием
+            </button>
+            <button
+              type="button"
+              className="specialist__button button"
+              aria-label="Записать на онлайн консультацию"
+              css={css`
+                background-color: ${theme.colors.blue};
+                text-transform: uppercase;
 
-            &:hover,
-            &:active {
-              background-color: ${theme.colors.blue};
-            }
-          `}
-        >
-          online консультация
-        </button>
+                &:hover,
+                &:active {
+                  background-color: ${theme.colors.blue};
+                }
+              `}
+            >
+              online консультация
+            </button>
+          </>
+        ) : (
+          ''
+        )}
+
         <p className="specialist__tel">
           Телефон для записи:
           <a
@@ -125,18 +135,30 @@ const Specialist = ({ data, userForm, setFormState }) => {
       <div className="specialist__img-container">
         <Image
           className="specialist__img"
-          src="/img/doctor.png"
+          src={data.image}
           layout="fill"
           objectFit="cover"
           alt="Изображение специалиста"
         />
       </div>
       {specialistInfo(data)}
-      <SpecialistWorkTime
-        adresses={data.centers}
-        time={data.time}
-        specialist={data}
-      />
+      {Number(data.avl) ? (
+        <SpecialistWorkTime
+          adresses={data.centers}
+          time={data.time}
+          specialist={data}
+        />
+      ) : (
+        <div
+          css={css`
+            display: flex;
+            align-items: center;
+          `}
+        >
+          К сожалению запись к этому специалисту недоступна
+        </div>
+      )}
+
       {specialistPopup && <Form closeHandler={closeHandler} data={data} />}
     </div>
   );
@@ -150,6 +172,8 @@ Specialist.propTypes = {
     price: PropTypes.string,
     centers: PropTypes.arrayOf(PropTypes.any).isRequired,
     time: PropTypes.arrayOf(PropTypes.any),
+    image: PropTypes.string,
+    avl: PropTypes.string,
   }).isRequired,
   setFormState: PropTypes.func.isRequired,
   userForm: PropTypes.objectOf(PropTypes.object).isRequired,

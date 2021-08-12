@@ -91,10 +91,15 @@ const FormInput = ({
   );
 };
 
+FormInput.defaultProps = {
+  inputClass: 'form__input',
+  errorMessage: 'Неправльно заполненно поле',
+};
+
 FormInput.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  inputClass: PropTypes.string.isRequired,
+  inputClass: PropTypes.string,
   type: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
@@ -103,7 +108,7 @@ FormInput.propTypes = {
     .isRequired,
   action: PropTypes.func.isRequired,
   formValidation: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
   value: PropTypes.string.isRequired,
 };
 

@@ -20,7 +20,7 @@ export const serverRoutesMap = {
   ARTICLES: `${HOME_URL}press-centr`,
   SHARES: `${HOME_URL}api/promo`,
   FEATURES: `${HOME_URL}api/features-on-main`,
-  SPECIALISTS: `${HOME_URL}api/specialists`,
+  SPECIALISTS: `${HOME_URL}api/spisok-vseh-specialistov`,
   DISCOUNTS: `${HOME_URL}api/disconts`,
   ROUTES: `${HOME_URL}api/routes`,
   ROUTESINBURDGER: `${HOME_URL}api/routesinburger`,

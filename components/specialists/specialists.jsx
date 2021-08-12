@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SectionInner from 'components/header/section-inner';
@@ -56,20 +56,27 @@ const Specialists = ({ specialists }) => {
     setCurrentFilter({ ...currentFilter, ...obj });
   };
 
-  const specialistsArray = Object.values(specialists);
+  const specialistsArray = useMemo(() => Object.values(specialists));
+
   const filter = {
     specialistsCategrories: [
-      ...new Set(specialistsArray.map((el) => el.specializations)),
-    ],
-    centers: [
-      specialistsArray.map(
+      ...new Set(
+        specialistsArray.map((el) => el.specializations).map(JSON.stringify),
+      ),
+    ]
+      .map(JSON.parse)
+      .flat()
+      .filter(Boolean),
+    centers: specialistsArray
+      .map(
         (el) =>
           el.centers && {
             value: el.centers.id,
             label: `${el.centers.city.label},${el.centers.address}`,
           },
-      ),
-    ].filter(Boolean),
+      )
+      .filter(Boolean),
+
     specialistsNames: specialists.map((el) => el.name),
   };
 
@@ -78,6 +85,7 @@ const Specialists = ({ specialists }) => {
   }, [specialists]);
 
   //  TODO:Переписать
+
   useEffect(() => {
     setSpecialistsArr(
       filterArrayByAges(
@@ -97,7 +105,7 @@ const Specialists = ({ specialists }) => {
     <SectionInner>
       <h1 className="main__title">Специалисты</h1>
       <Filter filter={filter} action={onChangeFiltersFieldsHanlder} />
-      <SpecialistsCatalog specialists={specialistsArr} />
+      <SpecialistsCatalog specialists={specialistsArray} />
     </SectionInner>
   );
 };
@@ -120,6 +128,7 @@ Specialists.propTypes = {
           ),
         }),
       ),
+      image: PropTypes.string,
     }),
   ).isRequired,
 };
