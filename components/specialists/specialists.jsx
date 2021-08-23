@@ -1,110 +1,72 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SectionInner from 'components/header/section-inner';
 import Filter from './filter';
 import SpecialistsCatalog from './specialists-catalog';
 
-const filterArrayByCategory = (arr, category) => {
-  if (!category) {
-    return arr;
-  }
-
-  return arr.filter((el) => el.job.includes(category));
-};
-
-const filterArrayByName = (arr, name) => {
-  if (!name) {
-    return arr;
-  }
-
-  return arr.filter((el) => el.name === name);
-};
-
-const filterArrayByCity = (arr, city) => {
-  if (!city) {
-    return arr;
-  }
-
-  return arr.filter((el) => {
-    for (let i = 0; i < el.adresses.length; i += 1) {
-      if (el.adresses[i].city === city) return true;
-    }
-    return false;
-  });
-};
-
-const filterArrayByAges = (arr, ages) => {
-  if (!ages || ages === 3) {
-    return arr;
-  }
-
-  return arr.filter((el) => el.ages === 3 || el.ages === ages);
-};
+const filterContext = React.createContext();
+export const useFilterContext = () => useContext(filterContext);
 
 const Specialists = ({ specialists }) => {
-  const [specialistsArr, setSpecialistsArr] = useState([...specialists]);
+  const SPECIALISTS_CARE_OF_EVERYBODY_VALUE = 3;
   const [currentFilter, setCurrentFilter] = useState({
     category: '',
     name: '',
-    city: '',
-    adress: '',
+    address: '',
     ages: '',
   });
 
-  const onChangeFiltersFieldsHanlder = (obj) => {
-    setCurrentFilter({ ...currentFilter, ...obj });
+  const onChangeFiltersFieldsHanlder = (evt) => {
+    const { target } = evt;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
+
+    setCurrentFilter({ ...currentFilter, [name]: value });
   };
 
-  const specialistsArray = useMemo(() => Object.values(specialists));
-
-  const filter = {
-    specialistsCategrories: [
-      ...new Set(
-        specialistsArray.map((el) => el.specializations).map(JSON.stringify),
-      ),
-    ]
-      .map(JSON.parse)
-      .flat()
-      .filter(Boolean),
-    centers: specialistsArray
-      .map(
-        (el) =>
-          el.centers && {
-            value: el.centers.id,
-            label: `${el.centers.city.label},${el.centers.address}`,
-          },
+  const filterHandler = (data) => {
+    if (
+      currentFilter.name &&
+      data.name.label.toLowerCase() !== currentFilter.name.toLowerCase()
+    )
+      return false;
+    if (
+      currentFilter.category &&
+      !data.specializations.find(
+        (el) => el.value === currentFilter.category.value,
       )
-      .filter(Boolean),
-
-    specialistsNames: specialists.map((el) => el.name),
+    )
+      return false;
+    if (
+      currentFilter.ages &&
+      Number(data.ages) !== currentFilter.ages &&
+      Number(data.ages) !== SPECIALISTS_CARE_OF_EVERYBODY_VALUE
+    )
+      return false;
+    if (
+      currentFilter.address &&
+      data.centers &&
+      !data.centers.id !== currentFilter.address.value
+    )
+      return false;
+    return true;
   };
 
-  useEffect(() => {
-    setSpecialistsArr(specialists);
-  }, [specialists]);
-
-  //  TODO:Переписать
-
-  useEffect(() => {
-    setSpecialistsArr(
-      filterArrayByAges(
-        filterArrayByCity(
-          filterArrayByCategory(
-            filterArrayByName([...specialists], currentFilter.name),
-            currentFilter.category,
-          ),
-          currentFilter.city,
-        ),
-        currentFilter.ages,
-      ),
-    );
-  }, [currentFilter]);
+  const specialistsArray = useMemo(
+    () => Object.values(specialists).filter(filterHandler),
+    [currentFilter],
+  );
 
   return (
     <SectionInner>
       <h1 className="main__title">Специалисты</h1>
-      <Filter filter={filter} action={onChangeFiltersFieldsHanlder} />
+      <filterContext.Provider value={currentFilter}>
+        <Filter
+          specialistsArray={specialists}
+          action={onChangeFiltersFieldsHanlder}
+        />
+      </filterContext.Provider>
       <SpecialistsCatalog specialists={specialistsArray} />
     </SectionInner>
   );

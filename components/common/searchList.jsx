@@ -9,7 +9,7 @@ const searchListItem = (text, action = false) => {
         onClick={(evt) => evt.preventDefault()}
         href="/"
       >
-        {text}
+        {text.label}
       </a>
     </li>
   );
@@ -31,7 +31,7 @@ const SearchList = ({ classname, data, value, action }) => {
         if (!value) {
           return el;
         }
-        if (el.toLowerCase().includes(value.toLowerCase())) {
+        if (el.label.toLowerCase().includes(value.toLowerCase())) {
           return el;
         }
         return false;

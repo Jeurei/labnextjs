@@ -1,11 +1,11 @@
 import { useTheme, css } from '@emotion/react';
-import { useFormContext } from './refundForm';
+import { useFormikContext } from 'formik';
 
 const CardView = () => {
   const { colors } = useTheme();
   const {
-    formState: { lastNums, firstNums },
-  } = useFormContext();
+    values: { lastNums, firstNums },
+  } = useFormikContext();
   return (
     <div
       css={css`

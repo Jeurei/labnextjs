@@ -1,64 +1,31 @@
 import { useTheme, css } from '@emotion/react';
-import { breakpointsMap } from 'constants/styles';
 import PropTypes from 'prop-types';
+import { useFormikContext, ErrorMessage } from 'formik';
 import { ReactComponent as CorrectIcon } from 'icons/check-circle-solid.svg';
+import { ReactComponent as InCorrectIcon } from 'icons/times-solid.svg';
+import FormInvalidInput from 'components/common/form-invalid-input';
 
-const CardInput = ({ label, id, value, onChange, validation }) => {
-  const MIN_NUMS_LENGTH = 3;
+const CardInput = ({ name, children }) => {
   const theme = useTheme();
+  const { touched, errors } = useFormikContext();
 
   return (
     <div
       css={css`
-        display: flex;
-        flex-direction: column;
         position: relative;
+        width: 100%;
 
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-          margin: 0;
-          -webkit-appearance: none;
+        .form__input {
+          margin-bottom: 0;
         }
 
-        input[type='number'] {
-          -moz-appearance: textfield;
-        }
-
-        ${breakpointsMap.DESKTOP} {
-          flex-direction: row;
-          align-items: center;
+        .form__invalid-input {
+          bottom: -30px;
         }
       `}
     >
-      <label
-        htmlFor={id}
-        css={css`
-          display: flex;
-          flex-grow: 1;
-        `}
-      >
-        {label}
-      </label>
-      <input
-        type="number"
-        className="form__input"
-        value={value}
-        onChange={onChange}
-        name={id}
-        maxLength="3"
-        id={id}
-        css={css`
-          padding-left: 28px;
-          border: 1px solid ${theme.colors.blue};
-          border-radius: 4px;
-          margin-bottom: 0 !important;
-
-          ${breakpointsMap.DESKTOP} {
-            max-width: 280px;
-          }
-        `}
-      />
-      {validation && value.length === MIN_NUMS_LENGTH && (
+      {children}
+      {touched[name] && !errors[name] && (
         <CorrectIcon
           fill="currentColor"
           width="23"
@@ -71,16 +38,29 @@ const CardInput = ({ label, id, value, onChange, validation }) => {
           `}
         />
       )}
+      {touched[name] && errors[name] && (
+        <InCorrectIcon
+          fill="currentColor"
+          width="23"
+          height="23"
+          css={css`
+            position: absolute;
+            top: 14px;
+            right: 7px;
+            color: ${theme.colors.red};
+          `}
+        />
+      )}
+      <ErrorMessage name={name}>
+        {(error) => <FormInvalidInput text={error} />}
+      </ErrorMessage>
     </div>
   );
 };
 
 CardInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  validation: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  children: PropTypes.number.isRequired,
 };
 
 export default CardInput;

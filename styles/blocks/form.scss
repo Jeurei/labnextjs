@@ -122,6 +122,14 @@
   padding-top: 14px;
   padding-bottom: 14px;
   border: none;
+  background-color: $green;
+  color: $white;
+  border-radius: 4px;
+
+  &:disabled {
+    background-color: $border-color;
+    color: $alt-icons-color;
+  }
 }
 
 @media (min-width: $tablet-width) {

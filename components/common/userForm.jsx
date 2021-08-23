@@ -157,7 +157,6 @@ const Form = ({ closeHandler, specialists, userForm, setFormState }) => {
   };
 
   const firstStepLastInputHandler = (obj) => {
-    console.log(obj);
     setFormState({ ...userForm, specialist: obj });
   };
 

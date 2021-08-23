@@ -44,7 +44,7 @@ const SpecialistsCatalog = ({ specialists }) => {
           <Specialist data={el} />
         </Card>
       ))}
-      {isPagination && (
+      {isPagination && specialists.length > SPECIALISTS_PER_PAGE && (
         <button
           type="button"
           className="button"

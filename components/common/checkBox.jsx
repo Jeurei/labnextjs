@@ -1,9 +1,10 @@
 import { useTheme, css } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
+import { Field } from 'formik';
 
 import PropTypes from 'prop-types';
 
-const CheckBox = ({ boxesData, action }) => {
+const CheckBox = ({ boxesData }) => {
   const theme = useTheme();
 
   return (
@@ -35,12 +36,10 @@ const CheckBox = ({ boxesData, action }) => {
             min-height: 100%;
           `}
         >
-          <input
+          <Field
             type="checkbox"
             name={boxesData.name}
             id={boxesData.name}
-            checked={boxesData.value}
-            onChange={action}
             aria-label={boxesData.title}
             className="filter__input filter__input--checkbox"
           />
@@ -65,9 +64,7 @@ CheckBox.propTypes = {
   boxesData: PropTypes.shape({
     title: PropTypes.string,
     name: PropTypes.string,
-    value: PropTypes.bool,
   }).isRequired,
-  action: PropTypes.func.isRequired,
 };
 
 export default CheckBox;

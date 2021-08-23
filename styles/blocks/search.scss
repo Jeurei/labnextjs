@@ -208,6 +208,8 @@
   margin-top: 0;
   background-color: $white;
   list-style: none;
+  max-height: 310px;
+  overflow-y: scroll;
 }
 
 .search__list-link {

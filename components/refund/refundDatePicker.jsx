@@ -9,7 +9,11 @@ import ru from 'date-fns/locale/ru';
 
 import PropTypes from 'prop-types';
 
-const RefundDatePicker = ({ value, onChange }) => {
+const RefundDatePicker = ({
+  name,
+  form: { setFieldValue },
+  field: { value },
+}) => {
   const { colors } = useTheme();
 
   return (
@@ -42,10 +46,16 @@ const RefundDatePicker = ({ value, onChange }) => {
       <MuiPickersUtilsProvider locale={ru} utils={DateFnsUtils}>
         <KeyboardDatePicker
           value={value}
-          onChange={(data) => onChange(data)}
+          name={name}
+          keyboard
+          clearable
+          autoOk
+          onChange={(val) => {
+            setFieldValue('date', val);
+          }}
           minDate={new Date()}
           placeholder="например: 01/01/2021"
-          format="dd/mm/yyyy"
+          format="dd/MM/yyyy"
           invalidDateMessage="Неправильный формат даты"
           minDateMessage="Нельзя записаться раньше чем сегодняшнее число"
           keyboardIcon={<DateIcon />}
@@ -56,8 +66,9 @@ const RefundDatePicker = ({ value, onChange }) => {
 };
 
 RefundDatePicker.propTypes = {
-  value: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  form: PropTypes.objectOf(PropTypes.any).isRequired,
+  field: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default RefundDatePicker;

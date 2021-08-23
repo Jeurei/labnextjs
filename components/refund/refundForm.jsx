@@ -1,21 +1,21 @@
 import { breakpointsMap } from 'constants/styles';
 import { css, useTheme } from '@emotion/react';
-import React, { useState, useContext, useEffect } from 'react';
 import TextareaInput from 'components/common/textarea-input';
 import CheckBox from 'components/common/checkBox';
 import { postData } from 'api/';
 import { serverRoutesMap } from 'Redux/actions/actions';
-import {
-  postTypesMap,
-  telValidation,
-  validateEmail,
-} from 'constants/constants';
+import { inputMasksMap, postTypesMap, telRegExp } from 'constants/constants';
 import { useRouter } from 'next/router';
-import MaskedFormInput from 'components/common/masked-input';
-import Input from 'common/form-input';
-import CardInputs from './cardInputs';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+import FormInput from 'common/form-input';
+import InputMask from 'react-input-mask';
+
+import FormInvalidInput from 'components/common/form-invalid-input';
 import RefundDatePicker from './refundDatePicker';
-// TODO: валидация происходит  через один поэтому надо как то валидировать после того как состояние обновится
+import CardInputs from './cardInputs';
+
+// TODO: доделать эту форму сделать заключение
 
 const DEFAULT_FORM_STATE = {
   name: '',
@@ -30,332 +30,276 @@ const DEFAULT_FORM_STATE = {
   guarantee: false,
 };
 
-const DEFAULT_VALIDATION_STATE = {
-  name: true,
-  tel: true,
-  email: true,
-  firstNums: true,
-  lastNums: true,
-  date: null,
-  price: true,
-  msg: true,
-  personalAgreement: false,
-  guarantee: false,
-};
-
-const FormContext = React.createContext();
-
-export const useFormContext = () => {
-  return useContext(FormContext);
-};
-
 const RefundForm = () => {
   const NUMS_LENGTH = 3;
+  const MINIMUS_MESSAGE_LENGTH = 10;
   const { colors } = useTheme();
-  const [formState, setFormState] = useState(DEFAULT_FORM_STATE);
-
-  const [formValidation, setFormValidation] = useState(
-    DEFAULT_VALIDATION_STATE,
-  );
-
-  const resetForm = () => {
-    setFormState(DEFAULT_FORM_STATE);
-    setFormValidation(DEFAULT_FORM_STATE);
-  };
-
-  const [isFormValid, setFormValid] = useState(false);
 
   const router = useRouter();
 
-  const validateNums = (str) => str.length === NUMS_LENGTH;
+  const validationSchema = yup.object().shape({
+    name: yup.string().required('Обязательное поле'),
+    tel: yup
+      .string()
+      .matches(telRegExp, 'Номер телефона введен не полностью')
+      .required('Это обязательное поле'),
+    email: yup
+      .string()
+      .email('Email введен неправильно')
+      .required('Это обязательное поле'),
+    firstNums: yup
+      .string()
+      .min(NUMS_LENGTH, 'Минимум 3 символа')
+      .required('Это обязательное поле'),
+    lastNums: yup
+      .string()
+      .min(NUMS_LENGTH, 'Минимум 3 символа')
+      .required('Это обязательное поле'),
+    date: yup
+      .date()
+      .min(new Date(), 'Дата должна быть как минимум сегодняшняя')
+      .required('Это обязательное поле'),
+    price: yup.string().required('Это обязательное поле'),
+    msg: yup
+      .string()
+      .min(MINIMUS_MESSAGE_LENGTH, 'Опишите проблему, минимум 10 символов')
+      .required('Это обязательное поле'),
+    personalAgreement: yup.bool().oneOf([true]),
+    guarantee: yup.bool().oneOf([true]),
+  });
 
-  const formValidationMap = {
-    name: () => !!formState.name,
-    tel: () => telValidation(formState.tel),
-    email: () => validateEmail(formState.email),
-    firstNums: () => validateNums(formState.firstNums),
-    lastNums: () => validateNums(formState.lastNums),
-    date: () => !!formState.date,
-    msg: () => !!formState.msg,
-    personalAgreement: () => !!formState.personalAgreement,
-    guarantee: () => !!formState.guarantee,
-    price: () => formState.price,
-  };
-
-  const formContextValues = {
-    formState,
-    setFormState,
-    formValidation,
-  };
-
-  const inputHandler = (evt) => {
-    const { target } = evt;
-
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-
-    const { name } = target;
-
-    setFormState({ ...formState, [name]: value });
-
-    setFormValidation({ ...formValidation, [name]: formValidationMap[name]() });
-  };
-
-  const handleDateChange = (data) => {
-    setFormState({ ...formState, date: data });
-  };
-
-  useEffect(() => {
-    setFormValidation({ ...formValidation, date: formValidationMap.date() });
-  }, [formState.date]);
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-
+  const handleSubmit = async (values, { setSubmitting }) => {
     postData(
       serverRoutesMap.FORM,
-      { formState, url: router.pathname },
+      { values, url: router.pathname },
       postTypesMap.REFUND_FORM,
     );
-
-    resetForm();
+    setSubmitting(false);
   };
 
-  useEffect(() => {
-    setFormValid(Object.values(formValidationMap).every((el) => el()));
-  }, [formValidation]);
-
   return (
-    <form
-      action="post"
-      css={css`
-        padding-bottom: 53px;
-        margin-bottom: 29px;
-        background-color: ${colors.white};
-        box-shadow: ${colors.boxShadow};
-      `}
+    <Formik
+      initialValues={DEFAULT_FORM_STATE}
       onSubmit={handleSubmit}
+      validationSchema={validationSchema}
     >
-      <FormContext.Provider value={formContextValues}>
-        <div
+      {({ isSubmitting, handleChange, handleBlur, isValid, dirty }) => (
+        <Form
           css={css`
-            position: relative;
-            display: flex;
-            width: 100%;
-            padding: 0.35em 0.75em 0.625em;
-            padding-top: 22px;
-            padding-bottom: 20px;
-            background-color: #f7f7f7;
-
-            &:before {
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              display: block;
-              width: 100%;
-              height: 4px;
-              background-image: ${colors.linearGradient};
-              content: '';
-            }
-
-            ${breakpointsMap.DESKTOP} {
-              padding-right: 43px;
-              padding-left: 43px;
-            }
-          `}
-        >
-          <h3
-            css={css`
-              position: relative;
-
-              margin: 0;
-              margin-right: auto;
-              font-size: 16px;
-              font-weight: 500;
-            `}
-          >
-            Анекта
-          </h3>
-        </div>
-        <fieldset
-          action="post"
-          css={css`
-            padding-top: 30px;
-            padding-bottom: 30px;
-            border: none;
+            padding-bottom: 53px;
+            margin-bottom: 29px;
             background-color: ${colors.white};
-
-            .form__input {
-              margin-bottom: 31px;
-              border-color: ${colors.blue};
-            }
-
-            .form__invalid-input {
-              bottom: 4px;
-            }
-
-            ${breakpointsMap.DESKTOP} {
-              padding-right: 38px;
-              padding-left: 43px;
-            }
+            box-shadow: ${colors.boxShadow};
           `}
         >
-          <Input
-            type="text"
-            value={formState.name}
-            formValidation={formValidation.name}
-            action={inputHandler}
-            errorMessage="Это обязательное поле"
-            placeholder="Ваше ФИО"
-            name="name"
-            id="name"
-          />
-          <MaskedFormInput
-            type="tel"
-            placeholder="Контактный номер телефона:"
-            inputClass="form__input"
-            id="tel"
-            name="tel"
-            description="Введите контактный номер телефона:"
-            text="Введите контактный номер телефона:"
-            descriptionId="tel-descr"
-            action={inputHandler}
-            value={formState.tel}
-            formValidation={formValidation.tel}
-            errorMessage="Неправильный номер"
-          />
-          <Input
-            type="email"
-            value={formState.email}
-            formValidation={formValidation.email}
-            action={inputHandler}
-            errorMessage="Неправильный формат email"
-            placeholder="Адрес электронной почты"
-            name="email"
-            id="email"
-          />
-          <CardInputs />
           <div
             css={css`
+              position: relative;
               display: flex;
-              flex-direction: column;
+              width: 100%;
+              padding: 0.35em 0.75em 0.625em;
+              padding-top: 22px;
+              padding-bottom: 20px;
+              background-color: #f7f7f7;
+
+              &:before {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-image: ${colors.linearGradient};
+                content: '';
+              }
 
               ${breakpointsMap.DESKTOP} {
-                flex-direction: row;
+                padding-right: 43px;
+                padding-left: 43px;
               }
             `}
           >
+            <h3
+              css={css`
+                position: relative;
+
+                margin: 0;
+                margin-right: auto;
+                font-size: 16px;
+                font-weight: 500;
+              `}
+            >
+              Анекта
+            </h3>
+          </div>
+          <fieldset
+            css={css`
+              padding-top: 30px;
+              padding-bottom: 30px;
+              border: none;
+              background-color: ${colors.white};
+
+              .form__input {
+                margin-bottom: 31px;
+                border-color: ${colors.blue};
+              }
+
+              .form__invalid-input {
+                bottom: 4px;
+              }
+
+              ${breakpointsMap.DESKTOP} {
+                padding-right: 38px;
+                padding-left: 43px;
+              }
+            `}
+          >
+            <FormInput name="name">
+              <Field
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Ваше ФИО"
+                className="form__input"
+              />
+            </FormInput>
+            <FormInput name="tel">
+              <Field type="tel" name="tel">
+                {({ field }) => (
+                  <InputMask
+                    {...field}
+                    mask={inputMasksMap.tel}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Ваш телефон"
+                    className="form__input"
+                    id="tel"
+                  />
+                )}
+              </Field>
+            </FormInput>
+            <FormInput name="email">
+              <Field
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Ваш email"
+                className="form__input"
+              />
+            </FormInput>
+            <CardInputs />
             <div
               css={css`
                 display: flex;
                 flex-direction: column;
-                flex-grow: 1;
-                justify-content: center;
 
                 ${breakpointsMap.DESKTOP} {
-                  width: 150px;
-                  margin-right: 40px;
+                  flex-direction: row;
                 }
               `}
             >
-              <RefundDatePicker
-                value={formState.date}
-                onChange={handleDateChange}
-              />
-              <Input
-                type="number"
-                value={formState.price}
-                formValidation={formValidation.price}
-                action={inputHandler}
-                errorMessage="Это обязательно поле"
-                placeholder="Сумма платежа:"
-                name="price"
-                id="price"
-              />
               <div
                 css={css`
-                  fieldset {
-                    padding: 0;
+                  display: flex;
+                  flex-direction: column;
+                  flex-grow: 1;
+                  justify-content: center;
+
+                  ${breakpointsMap.DESKTOP} {
+                    width: 150px;
+                    margin-right: 40px;
                   }
                 `}
               >
-                <CheckBox
-                  boxesData={{
-                    name: 'personalAgreement',
-                    value: formState.personalAgreement,
-                    title:
-                      'Принимаю условия пользовательского соглашения на обработку персональных данных',
-                  }}
-                  action={inputHandler}
+                <Field name="date" component={RefundDatePicker} />
+                <FormInput name="price">
+                  <Field
+                    type="number"
+                    placeholder="Сумма платежа:"
+                    name="price"
+                    id="price"
+                    className="form__input"
+                  />
+                </FormInput>
+                <div
+                  css={css`
+                    fieldset {
+                      padding: 0;
+                    }
+                  `}
+                >
+                  <CheckBox
+                    boxesData={{
+                      name: 'personalAgreement',
+                      title:
+                        'Принимаю условия пользовательского соглашения на обработку персональных данных',
+                    }}
+                  />
+                  <CheckBox
+                    boxesData={{
+                      name: 'guarantee',
+                      title: 'Достоверность данных гарантирую',
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                css={css`
+                  flex-grow: 3;
+                  position: relative;
+
+                  textarea {
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid ${colors.blue};
+                    padding-left: 24px;
+                    padding-top: 29px;
+
+                    &:focus,
+                    &:active {
+                      outline: none;
+                    }
+                  }
+
+                  .form__invalid-input {
+                    bottom: -30px;
+                  }
+                `}
+              >
+                <TextareaInput
+                  name="msg"
+                  cols={20}
+                  rows={10}
+                  inputClass="reciver-form__textarea"
+                  placeholder="Краткое описание причины возврата:"
                 />
-                <CheckBox
-                  boxesData={{
-                    name: 'guarantee',
-                    value: formState.guarantee,
-                    title: 'Достоверность данных гарантирую',
-                  }}
-                  action={inputHandler}
-                />
+                <ErrorMessage name="msg">
+                  {(error) => <FormInvalidInput text={error} />}
+                </ErrorMessage>
               </div>
             </div>
-            <div
-              css={css`
-                flex-grow: 3;
-
-                textarea {
-                  width: 100%;
-                  height: 100%;
-                  border: 1px solid ${colors.blue};
-                  padding-left: 24px;
-                  padding-top: 29px;
-
-                  &:focus,
-                  &:active {
-                    outline: none;
-                  }
-                }
-              `}
-            >
-              <TextareaInput
-                id="msg"
-                cols={20}
-                rows={10}
-                inputClass="reciver-form__textarea"
-                placeholder="Краткое описание причины возврата:"
-                label="Краткое описание причины возврата:"
-                value={formState.msg}
-                action={inputHandler}
-              />
-            </div>
-          </div>
-        </fieldset>
-        <div
-          css={css`
-            width: 100%;
-            padding-right: 39px;
-            padding-left: 39px;
-          `}
-        >
-          <button
-            className="button"
-            type="submit"
-            disabled={!isFormValid}
+          </fieldset>
+          <div
             css={css`
               width: 100%;
-              padding-top: 18px;
-              padding-bottom: 18px;
-              border: none;
-              border-radius: 6px;
-
-              &:disabled {
-                background-color: grey;
-              }
+              padding-right: 39px;
+              padding-left: 39px;
             `}
           >
-            Отправить
-          </button>
-        </div>
-      </FormContext.Provider>
-    </form>
+            <button
+              className="form__button button"
+              type="submit"
+              disabled={!dirty || isSubmitting || !isValid}
+              css={css`
+                width: 100%;
+              `}
+            >
+              Отправить
+            </button>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

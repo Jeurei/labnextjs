@@ -1,25 +1,17 @@
 import { css } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
+import { Field, useFormikContext } from 'formik';
 import CardInput from './cardInput';
 import CardView from './cardView';
-import { useFormContext } from './refundForm';
 
 const CardInputs = () => {
-  const LENGTH_OF_NUMS = 3;
-  const { formState, setFormState, formValidation } = useFormContext();
-  const { firstNums, lastNums } = formState;
-
-  const inputHandler = (evt) => {
+  const { setFieldValue } = useFormikContext();
+  const handleChange = (evt) => {
+    const re = /^[0-9\b]+$/;
     const { target } = evt;
-    const { name, value } = target;
-
-    const checkValue = () =>
-      (value !== '' && !Number(value) && Number(value) !== 0) ||
-      value.length > LENGTH_OF_NUMS;
-
-    if (checkValue()) return;
-
-    setFormState({ ...formState, [name]: value });
+    const { value, name } = target;
+    if (value === '' || (value.length <= 3 && re.test(value)))
+      setFieldValue(name, value);
   };
 
   return (
@@ -40,20 +32,91 @@ const CardInputs = () => {
           }
         `}
       >
-        <CardInput
-          value={firstNums}
-          onChange={inputHandler}
-          label="Первые 3 цифры номера карты"
-          id="firstNums"
-          validation={firstNums}
-        />
-        <CardInput
-          value={lastNums}
-          onChange={inputHandler}
-          label="Последние 3 цифры номера карты"
-          id="lastNums"
-          validation={lastNums}
-        />
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+              margin: 0;
+              -webkit-appearance: none;
+            }
+
+            input[type='number'] {
+              -moz-appearance: textfield;
+            }
+
+            ${breakpointsMap.DESKTOP} {
+              flex-direction: row;
+              align-items: center;
+            }
+          `}
+        >
+          <label
+            htmlFor="firstNums"
+            css={css`
+              display: flex;
+              flex-grow: 1;
+              white-space: pre;
+              margin-right: 20px;
+            `}
+          >
+            Первые 3 цифры номера карты
+          </label>
+          <CardInput name="firstNums">
+            <Field
+              name="firstNums"
+              id="firstNums"
+              type="text"
+              className="form__input"
+              onChange={handleChange}
+            />
+          </CardInput>
+        </div>
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+              margin: 0;
+              -webkit-appearance: none;
+            }
+
+            input[type='number'] {
+              -moz-appearance: textfield;
+            }
+
+            ${breakpointsMap.DESKTOP} {
+              flex-direction: row;
+              align-items: center;
+            }
+          `}
+        >
+          <label
+            htmlFor="lastNums"
+            css={css`
+              display: flex;
+              flex-grow: 1;
+              white-space: pre;
+              margin-right: 20px;
+            `}
+          >
+            Последние 3 цифры номера карты
+          </label>
+          <CardInput name="lastNums">
+            <Field
+              name="lastNums"
+              id="lastNums"
+              type="number"
+              className="form__input"
+              onChange={handleChange}
+            />
+          </CardInput>
+        </div>
         <div
           css={css`
             display: none;

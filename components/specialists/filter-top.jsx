@@ -5,11 +5,14 @@ import SearchList from 'common/searchList';
 import { ReactComponent as SearchIcon } from 'icons/search-icon.svg';
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
+import { useFilterContext } from './specialists';
 
 const FilterTop = ({ categories, names, action }) => {
   const [inputValue, setInputValue] = useState('');
   const [isSearchListShown, setSearchListShown] = useState(false);
   const theme = useTheme();
+  const { category } = useFilterContext();
+
   const onSearchInputFocusHandler = () => {
     setSearchListShown(true);
   };
@@ -18,13 +21,13 @@ const FilterTop = ({ categories, names, action }) => {
     setSearchListShown(false);
   };
 
-  const onSelectChangeHandler = ({ value }) => {
-    action({ category: value });
+  const onSelectChangeHandler = (value) => {
+    action({ target: { type: 'select', name: 'category', value } });
   };
 
   const onSearchListElementClickHandler = (value) => {
     setInputValue(value);
-    action({ name: value });
+    action({ target: { type: 'input', name: 'name', value } });
   };
 
   return (
@@ -35,8 +38,10 @@ const FilterTop = ({ categories, names, action }) => {
           value: el.value,
           label: el.label,
         }))}
+        value={category}
         placeholder="Выбрать специалиста"
         action={onSelectChangeHandler}
+        name="category"
       />
       <div
         className="filter__search-container"
@@ -45,8 +50,8 @@ const FilterTop = ({ categories, names, action }) => {
         `}
       >
         <SearchIcon
-          width="13px"
-          height="13px"
+          width="20px"
+          height="20px"
           fill="none"
           stroke="currentColor"
           css={css`
@@ -56,7 +61,7 @@ const FilterTop = ({ categories, names, action }) => {
             color: #000;
 
             ${breakpointsMap.DESKTOP} {
-              top: 21px;
+              top: 20px;
             }
           `}
         />
@@ -118,7 +123,7 @@ const FilterTop = ({ categories, names, action }) => {
 FilterTop.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.any).isRequired,
   action: PropTypes.func.isRequired,
-  names: PropTypes.arrayOf(PropTypes.string).isRequired,
+  names: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default FilterTop;

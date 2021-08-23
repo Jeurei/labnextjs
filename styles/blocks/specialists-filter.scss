@@ -74,10 +74,6 @@
   flex-grow: 1;
   flex-wrap: wrap;
 
-  .search__list {
-    padding-right: 74px;
-  }
-
   .search__list-link {
     border-color: $blue;
   }
@@ -145,7 +141,8 @@
   &::before {
     @include pseudo('', 31px, 31px);
     position: absolute;
-    top: 0;
+    top: 6px;
+    transform: translateY(-50%);
     left: 0;
     border: 1px solid $blue;
     border-radius: 5px;
@@ -164,7 +161,7 @@
 
   &:after {
     position: absolute;
-    top: 6px;
+    top: -2px;
     left: 12px;
     border: solid $white;
     border-width: 0 3px 3px 0;
@@ -225,42 +222,15 @@
   .filter__input--checkbox + .filter__label {
     position: relative;
     padding-left: 40px;
-
-    &::before {
-      @include pseudo('', 31px, 31px);
-      position: absolute;
-      top: 0;
-      left: 0;
-      border: 1px solid $blue;
-      border-radius: 5px;
-    }
-
-    &:hover::before {
-      border-color: $green;
-    }
-  }
-
-  .filter__input--checkbox:checked + .filter__label {
-    &::before {
-      border-color: $green;
-      background-color: $green;
-    }
-
-    &:after {
-      position: absolute;
-      top: 6px;
-      left: 12px;
-      border: solid $white;
-      border-width: 0 3px 3px 0;
-      border-radius: 2px;
-      content: '';
-      transform: rotate(45deg);
-      @include pseudo('', 10px, 15px);
-    }
   }
 }
 
 @media (min-width: $desktop-width) {
+  .filter__search-container {
+    .search__list {
+      width: 882px;
+    }
+  }
   .filter__select {
     flex-grow: 0;
   }

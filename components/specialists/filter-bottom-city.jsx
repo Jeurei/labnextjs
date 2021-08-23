@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import Select from 'common/select';
-import { filterDublicatesObjects } from '../utils/filter';
+import { useFilterContext } from './specialists';
 
 const FilterBottomCity = ({ selectData, action }) => {
-  const onSelectChangeHandler = ({ value }) => {
-    action({ city: value });
+  const { address } = useFilterContext();
+
+  const onSelectChangeHandler = (value) => {
+    action({ target: { type: 'select', name: 'address', value } });
   };
 
   return (
@@ -12,9 +14,10 @@ const FilterBottomCity = ({ selectData, action }) => {
       <h3 className="filter__bottom-group-title">Медицинский центр</h3>
       <Select
         selectClass="filter__bottom-city-select"
-        data={filterDublicatesObjects(selectData)}
+        data={selectData}
         placeholder="Выберите город"
         action={onSelectChangeHandler}
+        defaultValue={address}
       />
     </div>
   );

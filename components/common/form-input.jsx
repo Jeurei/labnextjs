@@ -1,64 +1,19 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { css, useTheme } from '@emotion/react';
 import { ReactComponent as CorrectIcon } from 'icons/check-circle-solid.svg';
 import { ReactComponent as InCorrectIcon } from 'icons/times-solid.svg';
+import { ErrorMessage, useFormikContext } from 'formik';
+
 import FormInvalidInput from './form-invalid-input';
 
-const FormInput = ({
-  name,
-  id,
-  inputClass,
-  type,
-  placeholder,
-  description,
-  text,
-  descriptionId,
-  action,
-  formValidation,
-  errorMessage,
-  value,
-}) => {
-  const [isFocused, setIsFocused] = useState(false);
+const FormInput = ({ name, children }) => {
   const theme = useTheme();
-
-  const onBlurHandler = (evt) => {
-    action(evt);
-    setIsFocused(false);
-  };
+  const { touched, errors } = useFormikContext();
 
   return (
     <div className="form__input-container">
-      <label htmlFor={id} className="form__label visually-hidden">
-        {text}
-      </label>
-      <input
-        css={css`
-          border-color: ${!formValidation &&
-          !isFocused &&
-          `${theme.colors.red}`};
-          border-color: ${formValidation &&
-          !isFocused &&
-          value.length !== 0 &&
-          `${theme.colors.green}`};
-        `}
-        type={type}
-        className={inputClass}
-        id={id}
-        name={name}
-        placeholder={`${placeholder}*`}
-        aria-describedby={descriptionId}
-        value={value}
-        onFocus={() => setIsFocused(true)}
-        onChange={(evt) => {
-          action(evt);
-        }}
-        onBlur={(evt) => onBlurHandler(evt)}
-      />
-      <p className="visually-hidden" id={descriptionId}>
-        {description}
-      </p>
-      {formValidation && !isFocused && value.length !== 0 && (
+      {children}
+      {touched[name] && !errors[name] && (
         <CorrectIcon
           fill="currentColor"
           width="23"
@@ -71,45 +26,29 @@ const FormInput = ({
           `}
         />
       )}
-      {!formValidation && !isFocused && (
-        <>
-          <InCorrectIcon
-            fill="currentColor"
-            width="23"
-            height="23"
-            css={css`
-              position: absolute;
-              top: 14px;
-              right: 7px;
-              color: ${theme.colors.red};
-            `}
-          />
-          <FormInvalidInput text={errorMessage} />
-        </>
+      {touched[name] && errors[name] && (
+        <InCorrectIcon
+          fill="currentColor"
+          width="23"
+          height="23"
+          css={css`
+            position: absolute;
+            top: 14px;
+            right: 7px;
+            color: ${theme.colors.red};
+          `}
+        />
       )}
+      <ErrorMessage name={name}>
+        {(error) => <FormInvalidInput text={error} />}
+      </ErrorMessage>
     </div>
   );
 };
 
-FormInput.defaultProps = {
-  inputClass: 'form__input',
-  errorMessage: 'Неправльно заполненно поле',
-};
-
 FormInput.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  inputClass: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  descriptionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
-  action: PropTypes.func.isRequired,
-  formValidation: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default FormInput;

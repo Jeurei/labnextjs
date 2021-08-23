@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import Select from 'common/select';
+import { useFilterContext } from './specialists';
 
 const FilterBottomAdress = ({ selectData, action }) => {
-  const onSelectChangeHandler = ({ value }) => {
-    action({ adress: value });
+  const { address } = useFilterContext();
+
+  const onSelectChangeHandler = (value) => {
+    action({ target: { type: 'select', name: 'address', value } });
   };
 
   return (
@@ -11,8 +14,9 @@ const FilterBottomAdress = ({ selectData, action }) => {
       <Select
         selectClass="filter__bottom-adress-select"
         data={selectData}
-        placeholder="Выберете адрес (все)"
+        placeholder="Выберите адрес"
         action={onSelectChangeHandler}
+        defaultValue={address}
       />
     </div>
   );

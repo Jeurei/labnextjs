@@ -61,20 +61,22 @@ const Specialist = ({ data, userForm, setFormState }) => {
                 font-weight: 500;
               `}
             >
-              {agesMap[specialist.ages]}
+              {` ${specialist.ageText}`}
             </span>
           </li>
-          <li className="specialist__info-item">
-            Первичный прием:
-            <span
-              className="specialist__price"
-              css={css`
-                font-weight: 500;
-              `}
-            >
-              {numberWithSpaces(specialist.price)} ₽
-            </span>
-          </li>
+          {specialist.price && (
+            <li className="specialist__info-item">
+              Первичный прием:
+              <span
+                className="specialist__price"
+                css={css`
+                  font-weight: 500;
+                `}
+              >
+                {numberWithSpaces(specialist.price)} ₽
+              </span>
+            </li>
+          )}
           <li aria-label="Ссылка на услуги которые предоставляет данный специалист">
             <a
               className="specialist__info-item specialist__info-item--link"

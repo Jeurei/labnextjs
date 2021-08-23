@@ -28,7 +28,10 @@ export const statusesCodesMap = {
   SERVER_ERROR: 500,
 };
 
+export const inputMasksMap = {
+  tel: '+7 (999) 999-99-99',
+};
 const emailValidation = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export const validateEmail = (str) => emailValidation.test(str);
-
-export const telValidation = (str) => str.replace(/[^0-9]/g, '').length === 11;
+export const telRegExp = /\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}/;
+export const telValidation = (str) => str.replace(telRegExp, '').length === 11;

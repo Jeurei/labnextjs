@@ -5,15 +5,19 @@ const FilterBottomAges = ({ action }) => {
   const [firstInputState, setFirstInputState] = useState(false);
   const [secondInputState, setSecondInputState] = useState(false);
 
+  const changeHandler = (value) => {
+    action({ target: { type: 'input', value, name: 'ages' } });
+  };
+
   useEffect(() => {
     if (firstInputState && secondInputState) {
-      action({ ages: 3 });
+      changeHandler(3);
     } else if (secondInputState) {
-      action({ ages: 1 });
+      changeHandler(1);
     } else if (firstInputState) {
-      action({ ages: 2 });
+      changeHandler(2);
     } else {
-      action({ ages: 0 });
+      changeHandler(0);
     }
   }, [firstInputState, secondInputState]);
 

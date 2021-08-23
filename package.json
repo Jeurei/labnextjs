@@ -25,6 +25,7 @@
     "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
     "date-fns": "^2.18.0",
+    "formik": "^2.2.9",
     "next": "10.0.7",
     "next-redux-wrapper": "^7.0.0-rc.2",
     "nprogress": "^0.2.0",
@@ -44,7 +45,8 @@
     "redux-devtools-extension": "2.13.8",
     "redux-thunk": "2.3.0",
     "sass": "^1.32.8",
-    "swiper": "^6.4.15"
+    "swiper": "^6.4.15",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.2.0",
