@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Comment from 'components/common/comment';
 import SectionInner from 'components/header/section-inner';
 import MenuTabs from './menu-tabs';
-import CommentForm from './comment-form';
+import CommentForm from './Comment-form';
 
 const Comments = ({ children, comments }) => {
   const [isComments, setComments] = useState(false);

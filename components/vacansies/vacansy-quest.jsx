@@ -1,7 +1,7 @@
 import { css, useTheme } from '@emotion/react';
 import CrossButton from 'components/common/crossButton';
 import FormFieldset from 'components/common/form-fieldset';
-import FormInput from 'components/common/form-input';
+import FormInput from 'components/common/Form-input';
 import MaskedFormInput from 'components/common/masked-input';
 import TextareaInput from 'components/common/textarea-input';
 import styled from '@emotion/styled';

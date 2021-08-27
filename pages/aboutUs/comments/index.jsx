@@ -1,4 +1,4 @@
-import Comments from 'components/comments/comments';
+import Comments from 'components/comments/Comments';
 import InnerPageLayout from 'components/InnerPageLayout';
 import { wrapper } from 'Redux/index';
 import { getInitialPropsForApp, getInitialComments } from 'api';

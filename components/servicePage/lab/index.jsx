@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ReactComponent as SearchIcon } from 'icons/search-icon.svg';
 import { css, useTheme, keyframes } from '@emotion/react';
-import CrossButton from 'common/crossButton';
+import CrossButton from 'components/common/crossButton';
 import { breakpointsMap } from 'constants/styles';
 import Select from 'common/select';
 import BuyButton from 'components/common/buyButton';

@@ -112,60 +112,68 @@ const waysToGet = (theme, cb, state) => {
   );
 };
 
-const adressesList = (currSpecialist, theme) => (
-  <ul
-    css={css`
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      align-items: center;
-      padding: 0;
-      list-style: none;
+const AdressesList = ({ currSpecialist }) => {
+  const theme = useTheme();
 
-      ${breakpointsMap.TABLET} {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-    `}
-  >
-    {currSpecialist.adresses.map((el) =>
-      el.center.map((element) => (
-        <li
-          css={css`
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding: 0 43px;
-            margin-bottom: 5px;
-            font-size: 16px;
+  return (
+    <ul
+      css={css`
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        list-style: none;
 
-            &:last-of-type {
-              margin-bottom: 0;
-            }
-
-            ${breakpointsMap.DESKTOP} {
-              &:nth-of-type(2n) {
-                border-right: 1px solid ${theme.colors.colorText.hex};
-                border-left: 1px solid ${theme.colors.colorText.hex};
-              }
-            }
-          `}
-        >
-          <MapMark
-            width="10"
-            height="10"
+        ${breakpointsMap.TABLET} {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+      `}
+    >
+      {currSpecialist.adresses.map((el) =>
+        el.center.map((element) => (
+          <li
             css={css`
-              position: absolute;
-              top: 4px;
-              left: 20px;
+              position: relative;
+              display: flex;
+              align-items: center;
+              padding: 0 43px;
+              margin-bottom: 5px;
+              font-size: 16px;
+
+              &:last-of-type {
+                margin-bottom: 0;
+              }
+
+              ${breakpointsMap.DESKTOP} {
+                &:nth-of-type(2n) {
+                  border-right: 1px solid ${theme.colors.colorText.hex};
+                  border-left: 1px solid ${theme.colors.colorText.hex};
+                }
+              }
             `}
-          />
-          г. {el.city}, ул. {element.adress}
-        </li>
-      )),
-    )}
-  </ul>
-);
+          >
+            <MapMark
+              width="10"
+              height="10"
+              css={css`
+                position: absolute;
+                top: 4px;
+                left: 20px;
+              `}
+            />
+            г. {el.city}, ул. {element.adress}
+          </li>
+        )),
+      )}
+    </ul>
+  );
+};
+
+AdressesList.propTypes = {
+  currSpecialist: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
 
 const FullSpecialistInfo = ({ specialists }) => {
   const mockData = ['test', 'test-1'];
@@ -175,7 +183,6 @@ const FullSpecialistInfo = ({ specialists }) => {
   const [mapCenter, setMapCenter] = useState([57.982143, 56.191459]);
   const [isPanoram, setMapPanoram] = useState(false);
   const mapObjRef = useRef();
-
   const currSpecialist = specialists.find((el) => el.id === id);
 
   const onPanoramClick = () => {
@@ -210,7 +217,7 @@ const FullSpecialistInfo = ({ specialists }) => {
           }
         `}
       >
-        <p
+        {/* <p
           css={css`
             margin-right: 64px;
             font-size: 16px;
@@ -219,7 +226,9 @@ const FullSpecialistInfo = ({ specialists }) => {
         >
           Врач принимает в
         </p>
-        {adressesList(currSpecialist, theme)}
+        {currSpecialist.addresses && (
+          <AdressesList currSpecialist={currSpecialist} />
+        )}
       </div>
       <div
         css={css`
@@ -245,7 +254,7 @@ const FullSpecialistInfo = ({ specialists }) => {
               </Tabs.TabLink>
             </Tabs.Tab>
           </Tabs.TabList>
-        </Tabs.TabsContainer>
+        </Tabs.TabsContainer> */}
         <div
           css={css`
             display: flex;
@@ -382,8 +391,8 @@ const FullSpecialistInfo = ({ specialists }) => {
                 >
                   Отзывы
                 </div>
-                <Comment />
-                <Comment />
+                {/* <Comment />
+                <Comment /> */}
               </Item>
             </ul>
           </div>

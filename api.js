@@ -112,7 +112,6 @@ export const getInitialComments = async (store) => {
   if (!state.comments.length) await store.dispatch(Actions.getReviews());
 };
 
-// Страницы которые собираются модулем PageBuilder
 export const getInitialPropsForToHome = async () => {
   return axios(`${Actions.serverRoutesMap.TOHOME}`).then((res) => {
     return res.data;
@@ -166,8 +165,6 @@ export const getInitialPropsFAQ = async () => {
     return res.data;
   });
 };
-
-// methods for fething
 
 export const getData = (url) => {
   return axios(url).then((res) => res.data);

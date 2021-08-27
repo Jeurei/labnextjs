@@ -50,6 +50,11 @@ img {
   height: auto;
 }
 
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
 button {
   cursor: pointer;
   outline-color: $color-text;

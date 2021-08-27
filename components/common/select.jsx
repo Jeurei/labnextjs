@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { css } from '@emotion/react';
-// TODO: Скорее всего опции беруться из объекта поэтому сделать шаблоном
 
 const SelectComponent = ({
   selectClass,

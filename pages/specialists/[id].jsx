@@ -2,11 +2,14 @@ import FullSpeialist from 'components/specialists/fullSpecialistsInfo';
 import InnerPageLayout from 'components/InnerPageLayout';
 import { wrapper } from 'Redux/index';
 import { getInitialPropsForApp, getInitialPropsForSpecialist } from 'api';
+import SectionInner from 'components/header/section-inner';
 
 const Index = () => {
   return (
     <InnerPageLayout title="Лабдиагностка">
-      <FullSpeialist />
+      <SectionInner>
+        <FullSpeialist />
+      </SectionInner>
     </InnerPageLayout>
   );
 };

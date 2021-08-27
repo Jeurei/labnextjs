@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { errorMessagesMap } from 'constants/form';
 import { css, useTheme } from '@emotion/react';
-import FormFieldset from 'common/form-fieldset';
+import FormFieldset from 'components/common/form-fieldset';
 import { telValidation, validateEmail } from 'constants/constants';
 import FormIosCheckbox from './form-ios-checkbox';
-import FormInput from './form-input';
+import FormInput from './Form-input';
 import MaskedFormInput from './masked-input';
 import Select from './select';
 
@@ -141,6 +141,7 @@ const FormThirdStep = ({ action }) => {
         />
       </FormFieldset>
       <div className="form__input-checkbox-container">
+        <h3 className="form__input-chekbox-title">Задайте свой вопрос</h3>
         <FormIosCheckbox
           action={changeHandler}
           id="clientAgreement"

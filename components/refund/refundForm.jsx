@@ -8,14 +8,12 @@ import { inputMasksMap, postTypesMap, telRegExp } from 'constants/constants';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import FormInput from 'common/form-input';
+import FormInput from 'components/common/Form-input';
 import InputMask from 'react-input-mask';
-
 import FormInvalidInput from 'components/common/form-invalid-input';
+import InfoPopup from 'components/common/infoPopup';
 import RefundDatePicker from './refundDatePicker';
 import CardInputs from './cardInputs';
-
-// TODO: доделать эту форму сделать заключение
 
 const DEFAULT_FORM_STATE = {
   name: '',
@@ -68,22 +66,29 @@ const RefundForm = () => {
     guarantee: yup.bool().oneOf([true]),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
-    postData(
+  const handleSubmit = async (values) => {
+    const res = await postData(
       serverRoutesMap.FORM,
       { values, url: router.pathname },
       postTypesMap.REFUND_FORM,
     );
-    setSubmitting(false);
+    return res;
   };
 
   return (
     <Formik
       initialValues={DEFAULT_FORM_STATE}
-      onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {({ isSubmitting, handleChange, handleBlur, isValid, dirty }) => (
+      {({
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        isValid,
+        dirty,
+        values,
+        setSubmitting,
+      }) => (
         <Form
           css={css`
             padding-bottom: 53px;
@@ -297,6 +302,15 @@ const RefundForm = () => {
               Отправить
             </button>
           </div>
+          {isSubmitting && (
+            <InfoPopup
+              request={async () => handleSubmit(values)}
+              closeHandler={() => setSubmitting(false)}
+              errorMessage="Не удалось отправить форму"
+            >
+              <span>Ваша заявка успешно отправлена!</span>
+            </InfoPopup>
+          )}
         </Form>
       )}
     </Formik>

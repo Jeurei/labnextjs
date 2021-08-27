@@ -7,18 +7,28 @@ const SpecialistsNav = ({ specialists, isTop, isLoading }) => {
   const theme = useTheme();
   const alphabet = [
     ...new Set(Object.values(specialists).map((el) => el.name[0])),
-  ].map((el) => {
-    return {
-      word: el,
-      job: [
-        ...new Set(
-          Object.values(specialists)
-            .map((elem) => elem.name[0] === el && elem.name)
-            .filter(Boolean),
-        ),
-      ],
-    };
-  });
+  ]
+    .map((el) => {
+      return {
+        word: el,
+        job: [
+          ...new Set(
+            Object.values(specialists)
+              .map((elem) => elem.name[0] === el && elem.name)
+              .filter(Boolean),
+          ),
+        ],
+      };
+    })
+    .sort((a, b) => {
+      if (a.word < b.word) {
+        return -1;
+      }
+      if (a.word > b.word) {
+        return 1;
+      }
+      return 0;
+    });
 
   const SubNav = styled('ul')`
     position: absolute;

@@ -4,7 +4,6 @@ import { ReactComponent as DoctorIcon } from 'icons/doctor.svg';
 import { ReactComponent as SheduleIcon } from 'icons/onlineIcon.svg';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
-// TODO: Возможно это тоже тянется с серва
 
 const SearchBottom = () => {
   const router = useRouter();

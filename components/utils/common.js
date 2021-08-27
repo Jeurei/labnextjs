@@ -75,3 +75,5 @@ export const getInitialPropsForApp = async (store) => {
   if (!state.search.length) req.push(store.dispatch(getSearchCategories()));
   await Promise.all(req);
 };
+
+export const isNode = () => typeof window === 'undefined';

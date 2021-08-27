@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
-import Discounts from 'common/discounts';
+import Discounts from 'components/common/discounts';
 import Picture from 'common/picture';
 
 const Illnes = () => {

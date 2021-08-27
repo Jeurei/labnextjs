@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { numWord } from 'components/utils/common';
 import { PERM_ID } from 'constants/constants';
+import { css } from '@emotion/react';
 
 const MapLeftResults = ({ refProp, medcenters }) => {
   const arr = medcenters.map((el) => el.city === PERM_ID && el).filter(Boolean);
@@ -39,13 +40,17 @@ const MapLeftResults = ({ refProp, medcenters }) => {
   };
 
   return (
-    <>
+    <div
+      css={css`
+        width: 100%;
+      `}
+    >
       <h3 className="geo__results-title">
         Найдено <span className="geo__results-value">{arr.length}</span>{' '}
         {numWord(arr.length, ['отделение', 'отделения', 'отделений'])}
       </h3>
       <ul className="geo__results-list">{arr.map((el) => resultItem(el))}</ul>
-    </>
+    </div>
   );
 };
 

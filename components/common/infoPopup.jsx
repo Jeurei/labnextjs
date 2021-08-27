@@ -18,7 +18,6 @@ const InfoPopup = ({ children, closeHandler, request, errorMessage }) => {
       if (res.status === statusesCodesMap.OK) setSucceses(true);
       else setSucceses(false);
     } catch (e) {
-      console.log(e);
       setSucceses(false);
     } finally {
       setLoading(false);

@@ -4,7 +4,6 @@ import FormInvalidInput from './form-invalid-input';
 
 const FormIosCheckbox = ({ name, children }) => (
   <>
-    <h3 className="form__input-chekbox-title">Задайте свой вопрос</h3>
     <div className="form__input-checkbox-container">
       <label htmlFor={name} className="form__label form__label--checkbox">
         {children}

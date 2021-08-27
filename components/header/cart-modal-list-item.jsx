@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css, keyframes } from '@emotion/react';
-import CrossButton from 'common/crossButton';
+import CrossButton from 'components/common/crossButton';
 import { numberWithSpaces } from '../utils/common';
 
 const CartModalListItem = ({ itemData, action }) => {

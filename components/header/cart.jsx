@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import CrossButton from 'common/crossButton';
+import CrossButton from 'components/common/crossButton';
 import { connect } from 'react-redux';
 import { removeItemFromCart } from 'Redux/actions/actions';
 import { bindActionCreators } from 'redux';
+import Link from 'next/link';
 import { showing } from '../utils/animation';
 import CartModalGroup from './cart-modal-group';
 import { numberWithSpaces } from '../utils/common';
@@ -79,13 +80,14 @@ const Cart = ({ cartData, closeHandler, removeItem }) => {
                   {numberWithSpaces(total)} ₽
                 </span>
               </div>
-              <button
-                className="cart-modal__offer-button button"
-                aria-label="Ссылка на страницу с оформлением заказа"
-                type="button"
-              >
-                Оформить заказ
-              </button>
+              <Link href="/cart">
+                <a
+                  className="cart-modal__offer-button button"
+                  aria-label="Ссылка на страницу с оформлением заказа"
+                >
+                  Оформить заказ
+                </a>
+              </Link>
             </div>
           </div>
         </div>

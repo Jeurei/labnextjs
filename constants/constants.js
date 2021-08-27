@@ -20,6 +20,7 @@ export const postTypesMap = {
   APPLICATION_FORM: 'APPLICATION_FORM',
   FEEDBACK_FORM: 'FEEDBACK_FORM',
   REFUND_FORM: 'REFUND_FORM',
+  MEDCENTERS_FORM: 'MEDCENTERS_FORM',
 };
 
 export const statusesCodesMap = {

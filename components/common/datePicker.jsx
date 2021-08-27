@@ -1,4 +1,4 @@
-import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   DatePicker as Date,

@@ -19,7 +19,7 @@ import LinearBottomButton from './linear-bottom-button';
 import File from './file';
 import ReferencesSlider from './references-slider';
 import WorkingWithUs from './working-with-us';
-import SimpleForm from './form';
+import SimpleForm from './Form';
 import CheckBoxes from './checkBox';
 
 const Img = ({ data }) => {

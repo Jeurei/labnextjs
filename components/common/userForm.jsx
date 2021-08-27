@@ -14,7 +14,7 @@ import FormSecondStep from './form-second-step';
 import FormThirdStep from './form-third-step';
 import FormInfo from './form-info';
 import FormConclusion from './form-conclusion';
-import FormCompleted from './form-completed';
+import FormCompleted from './Form-completed';
 import Load from './load';
 
 const Form = ({ closeHandler, specialists, userForm, setFormState }) => {

@@ -45,9 +45,7 @@ const MapLeft = ({ cities, refProp }) => {
             </SectionInner>
           </div>
           <div className="geo__results">
-            <SectionInner>
-              <MapLeftResults refProp={refProp} />
-            </SectionInner>
+            <MapLeftResults refProp={refProp} />
           </div>
         </div>
       </div>

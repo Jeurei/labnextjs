@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import CrossButton from 'common/crossButton';
+import CrossButton from 'components/common/crossButton';
 import { showing } from '../utils/animation';
 import CitiesModalItem from './cities-modal-item';
 

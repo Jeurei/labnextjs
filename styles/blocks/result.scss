@@ -1,9 +1,29 @@
 .result {
   position: relative;
-  padding-top: 7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 22px;
   margin: 0;
-  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  padding-right: 20px;
+
+  a {
+    position: relative;
+  }
+
+  &:hover {
+    background-color: $blue;
+    color: $white;
+
+    .geo__result-icon {
+      color: $white;
+    }
+
+    .result__link {
+      color: $white;
+    }
+  }
 }
 
 .result__text {
@@ -14,4 +34,10 @@
 .result__options {
   margin: 0;
   margin-top: -3px;
+}
+
+@media (min-width: $tablet-width) {
+  .result {
+    justify-content: flex-end;
+  }
 }

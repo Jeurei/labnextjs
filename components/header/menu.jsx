@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Drawer from 'react-motion-drawer';
-import CrossButton from 'common/crossButton';
+import CrossButton from 'components/common/crossButton';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import NavItem from './nav-item';

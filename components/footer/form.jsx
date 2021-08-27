@@ -1,5 +1,5 @@
 import SectionInner from 'components/header/section-inner';
-import Form from 'common/form';
+import Form from 'components/common/Form';
 
 const FooterForm = () => {
   return (

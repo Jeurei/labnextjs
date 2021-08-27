@@ -1,5 +1,5 @@
 import Select from 'common/select';
-import FormIosCheckbox from 'common/form-ios-checkbox';
+import FormIosCheckbox from 'components/common/form-ios-checkbox';
 import { css, useTheme } from '@emotion/react';
 import { breakpointsMap } from 'constants/styles';
 import styled from '@emotion/styled';

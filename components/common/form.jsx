@@ -10,7 +10,7 @@ import InputMask from 'react-input-mask';
 import * as yup from 'yup';
 import FormFieldset from './form-fieldset';
 import FileInput from './file-input';
-import FormInput from './form-input';
+import FormInput from './Form-input';
 import FormIosCheckbox from './form-ios-checkbox';
 import InfoPopup from './infoPopup';
 
@@ -29,13 +29,14 @@ const FormI = ({ title = '', wFile = false }) => {
   const router = useRouter();
   const theme = useTheme();
 
-  const onSubmitHandler = async (values, { setSubmitting }) => {
-    await postData(
+  const onSubmitHandler = async (values) => {
+    const res = await postData(
       serverRoutesMap.FORM,
       { values, url: router.pathname },
       postTypesMap.FEEDBACK_FORM,
     );
-    setSubmitting(false);
+
+    return res;
   };
 
   const validationSchema = yup.object().shape({
@@ -51,7 +52,6 @@ const FormI = ({ title = '', wFile = false }) => {
   return (
     <Formik
       initialValues={FORM_DEFAULT_STATE}
-      onSubmit={onSubmitHandler}
       validationSchema={validationSchema}
     >
       {({
@@ -60,8 +60,8 @@ const FormI = ({ title = '', wFile = false }) => {
         handleBlur,
         isValid,
         dirty,
-        setSubmitting,
         values,
+        setSubmitting,
       }) => (
         <Form className="form-section__form form">
           {title && (
@@ -122,6 +122,7 @@ const FormI = ({ title = '', wFile = false }) => {
             {wFile && <FileInput />}
           </FormFieldset>
           <FormFieldset>
+            <h3 className="form__input-chekbox-title">Задайте свой вопрос</h3>
             <FormIosCheckbox name="agree">
               <Field
                 type="checkbox"
@@ -136,11 +137,20 @@ const FormI = ({ title = '', wFile = false }) => {
               className="form__button"
               type="submit"
               disabled={!dirty || isSubmitting || !isValid}
+              onClick={() => setSubmitting(true)}
             >
               Отправить
             </button>
           </FormFieldset>
-          {isSubmitting && <InfoPopup />}
+          {isSubmitting && (
+            <InfoPopup
+              request={async () => onSubmitHandler(values)}
+              closeHandler={() => setSubmitting(false)}
+              errorMessage="Не удалось отправить форму"
+            >
+              <span>Ваша заявка успешно отправлена!</span>
+            </InfoPopup>
+          )}
         </Form>
       )}
     </Formik>

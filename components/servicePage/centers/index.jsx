@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import FormIosCheckbox from 'components/common/form-ios-checkbox';
 import { breakpointsMap } from 'constants/styles';
 import PositionsCatalog from 'common/positions-catalog';
+import { Formik, Form, Field } from 'formik';
 
 const Centers = () => {
   const [isAdults, setAdults] = useState(true);
@@ -34,12 +35,18 @@ const Centers = () => {
         >
           Взрослое отделение
         </p>
-        <FormIosCheckbox
-          action={() => console.log(true)}
-          id="centers__checkbox"
-          name="centers__checkbox"
-          label="Чтобы увидеть взрослое отделение"
-        />
+
+        <label className="form__label form__label--checkbox">
+          <input
+            className="form__input"
+            type="checkbox"
+            onChange={(evt) => setAdults(evt.target.checked)}
+            css={css`
+              display: none;
+            `}
+          />
+          <span className="form__input-checkbox-span" />
+        </label>
         <p>Детское отделение</p>
       </div>
       <PositionsCatalog />

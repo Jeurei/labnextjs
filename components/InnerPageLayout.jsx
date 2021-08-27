@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import FixedCircle from 'common/fixedCircle';
+import FixedCircle from 'components/common/fixedCircle';
 import SectionInner from 'components/header/section-inner';
-import Discounts from 'common/discounts';
+import Discounts from 'components/common/discounts';
 import Section from 'components/header/section';
 import MainLayout from './MainLayout';
-import BreadCrumbs from './common/breadCrumbs';
+import BreadCrumbs from './common/BreadCrumbs';
 
 const InnerPageLayout = ({
   children,
